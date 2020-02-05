@@ -27,7 +27,6 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         appBarTheme: AppBarTheme(
           brightness: Brightness.light,
-          
           actionsIconTheme: IconThemeData(),
           color: Colors.white,
           elevation: 2,
@@ -55,7 +54,7 @@ class _LauncherState extends State<Launcher> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration(seconds: 2)).whenComplete(() => PagePush(
+    Future.delayed(Duration(seconds: 200)).whenComplete(() => PagePush(
           context,
           MainView(
             child: HomePage(),
@@ -70,12 +69,15 @@ class _LauncherState extends State<Launcher> {
       backgroundColor: Colors.white,
       body: Column(
         children: <Widget>[
-          Expanded(flex: 3, child: Image.asset('assets/trans_logo.png')),
+          Expanded(
+              flex: 3,
+              child: Image.asset(
+                'assets/trans_logo.png',
+                width: 200,
+              )),
           Expanded(
             flex: 2,
-
             child: SpinKitRotatingCircle(
-              
               color: Colors.grey.withOpacity(0.2),
               size: 50.0,
             ),

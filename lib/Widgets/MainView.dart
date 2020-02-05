@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:shopaholics/Functions/PagePush.dart';
+import 'package:shopaholics/Pages/AddProductRequest/AddProductRequest.dart';
 import 'package:shopaholics/Pages/Settings/Settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inner_drawer/inner_drawer.dart';
@@ -13,8 +14,7 @@ class MainView extends StatefulWidget {
   _MainViewState createState() => _MainViewState();
 }
 
-class _MainViewState extends State<MainView>
-    with SingleTickerProviderStateMixin {
+class _MainViewState extends State<MainView> with SingleTickerProviderStateMixin {
   Widget Drawer() {
     return Material(
         child: SafeArea(
@@ -22,8 +22,7 @@ class _MainViewState extends State<MainView>
             child: Container(
       decoration: BoxDecoration(
         border: Border(
-            left: BorderSide(width: 1, color: Colors.grey[200]),
-            right: BorderSide(width: 1, color: Colors.grey[200])),
+            left: BorderSide(width: 1, color: Colors.grey[200]), right: BorderSide(width: 1, color: Colors.grey[200])),
       ),
       child: Stack(
         textDirection: TextDirection.rtl,
@@ -41,8 +40,7 @@ class _MainViewState extends State<MainView>
                           width: 30,
                           height: 30,
                           child: CircleAvatar(
-                            child: Icon(Icons.person,
-                                color: Colors.white, size: 25),
+                            child: Icon(Icons.person, color: Colors.white, size: 25),
                             backgroundColor: Colors.grey,
                           ),
                         ),
@@ -50,8 +48,7 @@ class _MainViewState extends State<MainView>
                           padding: const EdgeInsets.only(right: 12),
                           child: Text(
                             "غير مسجل",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w600, height: 1.2),
+                            style: TextStyle(fontWeight: FontWeight.w600, height: 1.2),
                           ),
                         ),
                       ],
@@ -91,14 +88,22 @@ class _MainViewState extends State<MainView>
                     color: Colors.grey[300],
                   ))),
                   child: ListTile(
-                    title: Text("الاعدادات"),
-                    leading: Icon(Icons.settings),
+                    title: Text("اضافة طلب منتج"),
+                    leading: Icon(Icons.add_comment),
                     onTap: () {
-                      PagePush(context, SettingsPage());
+                      PagePush(context, AddProductRequest());
                       _innerDrawerKey.currentState.close();
                     },
                   ),
-                )
+                ),
+                ListTile(
+                  title: Text("الاعدادات"),
+                  leading: Icon(Icons.settings),
+                  onTap: () {
+                    PagePush(context, SettingsPage());
+                    _innerDrawerKey.currentState.close();
+                  },
+                ),
               ],
             ),
           ),
@@ -107,8 +112,7 @@ class _MainViewState extends State<MainView>
     )));
   }
 
-  final GlobalKey<InnerDrawerState> _innerDrawerKey =
-      GlobalKey<InnerDrawerState>();
+  final GlobalKey<InnerDrawerState> _innerDrawerKey = GlobalKey<InnerDrawerState>();
 
   @override
   void initState() {

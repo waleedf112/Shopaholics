@@ -153,70 +153,68 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DismissKeyboard(
-      child: SecondaryView(
-        title: 'الاعدادات',
-        child: ListView(
-          physics: BouncingScrollPhysics(),
-          children: <Widget>[
-            SizedBox(height: 25),
-            topWidget(context),
-            SizedBox(height: 25),
-            settingSection([
-              setting(
-                title: 'حسابي',
-                desc: 'لادارة حسابك وتغيير البريد الالكتروني وكلمة المرور',
-                icon: Icons.lock,
-              ),
-              setting(
-                title: 'تسجيل خروج',
-                desc: 'لتسجيل الخروج من حسابك',
-                icon: Icons.subdirectory_arrow_right,
-              ),
-            ]),
-            SizedBox(height: 25),
-            settingSection([
-              setting(
-                title: 'الطلبات',
-                desc: 'لعرض طلباتك الحاليه والسابقة',
-                icon: Icons.shopping_basket,
-              ),
-              setting(
-                title: 'عناوين التوصيل',
-                desc: 'تحديد عناوينك لتوصيل الطلبات',
-                icon: Icons.location_on,
-              ),
-              setting(
-                title: 'وسائل الدفع',
-                desc: 'اضافة وحذف أي وسيلة للدفع',
-                icon: Icons.credit_card,
-              ),
-              setting(
-                title: 'التسجيل كبائع',
-                desc: 'لتقديم طلب صلاحيه البيع في التطبيق',
-                icon: Icons.store_mall_directory,
-              ),
-            ]),
-            SizedBox(height: 25),
-            settingSection([
-              setting(
-                title: 'التنبيهات',
-                desc: 'اعدادات التنبيهات للتخفيضات والعروض وغيرها',
-                icon: Icons.notifications_active,
-              ),
-              setting(
-                title: 'اللغة',
-                desc: 'تغيير لغة عرض البرنامج',
-                icon: Icons.language,
-              ),
-              setting(
-                title: 'اتصل بنا',
-                desc: 'للتواصل مع ادارة التطبيق وللشكاوي والاقتراحات',
-                icon: Icons.message,
-              ),
-            ]),
-          ],
-        ),
+    return SecondaryView(
+      title: 'الاعدادات',
+      child: ListView(
+        physics: BouncingScrollPhysics(),
+        children: <Widget>[
+          SizedBox(height: 25),
+          topWidget(context),
+          SizedBox(height: 25),
+          settingSection([
+            setting(
+              title: 'حسابي',
+              desc: 'لادارة حسابك وتغيير البريد الالكتروني وكلمة المرور',
+              icon: Icons.lock,
+            ),
+            setting(
+              title: 'تسجيل خروج',
+              desc: 'لتسجيل الخروج من حسابك',
+              icon: Icons.subdirectory_arrow_right,
+            ),
+          ]),
+          SizedBox(height: 25),
+          settingSection([
+            setting(
+              title: 'الطلبات',
+              desc: 'لعرض طلباتك الحاليه والسابقة',
+              icon: Icons.shopping_basket,
+            ),
+            setting(
+              title: 'عناوين التوصيل',
+              desc: 'تحديد عناوينك لتوصيل الطلبات',
+              icon: Icons.location_on,
+            ),
+            setting(
+              title: 'وسائل الدفع',
+              desc: 'اضافة وحذف أي وسيلة للدفع',
+              icon: Icons.credit_card,
+            ),
+            setting(
+              title: 'التسجيل كبائع',
+              desc: 'لتقديم طلب صلاحيه البيع في التطبيق',
+              icon: Icons.store_mall_directory,
+            ),
+          ]),
+          SizedBox(height: 25),
+          settingSection([
+            setting(
+              title: 'التنبيهات',
+              desc: 'اعدادات التنبيهات للتخفيضات والعروض وغيرها',
+              icon: Icons.notifications_active,
+            ),
+            setting(
+              title: 'اللغة',
+              desc: 'تغيير لغة عرض البرنامج',
+              icon: Icons.language,
+            ),
+            setting(
+              title: 'اتصل بنا',
+              desc: 'للتواصل مع ادارة التطبيق وللشكاوي والاقتراحات',
+              icon: Icons.message,
+            ),
+          ]),
+        ],
       ),
     );
   }

@@ -54,7 +54,7 @@ class _LauncherState extends State<Launcher> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration(seconds: 200)).whenComplete(() => PagePush(
+    Future.delayed(Duration(seconds: 3)).whenComplete(() => PagePush(
           context,
           MainView(
             child: HomePage(),

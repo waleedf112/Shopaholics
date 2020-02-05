@@ -21,23 +21,26 @@ class GridProducts extends StatelessWidget {
   Widget build(BuildContext context) {
     switch (type) {
       case GridProductsType.mock:
-        return GridView.builder(
-          physics: BouncingScrollPhysics(),
-          itemCount: items.length,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            crossAxisSpacing: 4,
-            mainAxisSpacing: 12,
-            childAspectRatio: 0.8,
+        return Directionality(
+          textDirection: TextDirection.rtl,
+          child: GridView.builder(
+            physics: BouncingScrollPhysics(),
+            itemCount: items.length,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 4,
+              mainAxisSpacing: 12,
+              childAspectRatio: 0.8,
+            ),
+            itemBuilder: (BuildContext context, int index) {
+              return Card(
+                shape: Border(),
+                margin: EdgeInsets.all(0),
+                elevation: 2,
+                child: ProductWidget(items[index]),
+              );
+            },
           ),
-          itemBuilder: (BuildContext context, int index) {
-            return Card(
-              shape: Border(),
-              margin: EdgeInsets.all(0),
-              elevation: 2,
-              child: ProductWidget(items[index]),
-            );
-          },
         );
         break;
       case GridProductsType.requests:
@@ -51,24 +54,27 @@ class GridProducts extends StatelessWidget {
             return LoadingStreamBuilder(
               hasData: snapshot.hasData,
               loading: documents == null,
-              widget: GridView.builder(
-                physics: BouncingScrollPhysics(),
-                itemCount: documents == null ? 0 : documents.length,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 4,
-                  mainAxisSpacing: 12,
-                  childAspectRatio: 0.8,
+              widget: Directionality(
+                textDirection: TextDirection.rtl,
+                child: GridView.builder(
+                  physics: BouncingScrollPhysics(),
+                  itemCount: documents == null ? 0 : documents.length,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 4,
+                    mainAxisSpacing: 12,
+                    childAspectRatio: 0.8,
+                  ),
+                  itemBuilder: (BuildContext context, int index) {
+                    ProductRequest _product = new ProductRequest.retrieveFromDatabase(documents[index].data);
+                    return Card(
+                      shape: Border(),
+                      margin: EdgeInsets.all(0),
+                      elevation: 2,
+                      child: ProductWidget(_product),
+                    );
+                  },
                 ),
-                itemBuilder: (BuildContext context, int index) {
-                  ProductRequest _product = new ProductRequest.retrieveFromDatabase(documents[index].data);
-                  return Card(
-                    shape: Border(),
-                    margin: EdgeInsets.all(0),
-                    elevation: 2,
-                    child: ProductWidget(_product),
-                  );
-                },
               ),
             );
           },

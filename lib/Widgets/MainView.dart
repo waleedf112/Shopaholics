@@ -1,5 +1,7 @@
 import 'dart:ui';
 
+import 'package:hive/hive.dart';
+import 'package:shopaholics/Classes/User.dart';
 import 'package:shopaholics/Functions/PagePush.dart';
 import 'package:shopaholics/Pages/AddProductRequest/AddProductRequest.dart';
 import 'package:shopaholics/Pages/Settings/Settings.dart';
@@ -139,11 +141,22 @@ class _MainViewState extends State<MainView> with SingleTickerProviderStateMixin
       rightChild: Drawer(),
       scaffold: Scaffold(
         appBar: AppBar(
-          title: Text('مرحباً بك'),
+          title: Text(currentUser == null ? 'مرحباً بك' : 'مرحباً بك يا ${currentUser.displayName}'),
           centerTitle: true,
           leading: IconButton(
             icon: Icon(Icons.shopping_cart),
-            onPressed: () {},
+            onPressed: () {
+              if (currentUser == null) {
+                userInit();
+                Hive.box('currentUser').put(0, currentUser);
+                currentUser.save();
+                print('saved');
+
+              }else{
+                print('already signed in');
+                print(currentUser);
+              }
+            },
           ),
           actions: <Widget>[
             IconButton(

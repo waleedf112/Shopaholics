@@ -1,10 +1,15 @@
-_User currentUser = new _User();
+import 'package:hive/hive.dart';
 
-class _User {
+part 'User.g.dart';
+
+CurrentUser currentUser;
+void userInit()=>currentUser = new CurrentUser();
+
+@HiveType(typeId: 0)
+class CurrentUser extends HiveObject{
+  @HiveField(0)
   String displayName;
   
-  _User(){
-    this.displayName = 'غير مسجل';
-  }
+  CurrentUser({this.displayName = 'غير مسجل'});
 
 }

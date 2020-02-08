@@ -2,12 +2,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-
+import 'package:hive/hive.dart';
+import 'package:path_provider/path_provider.dart' as path_provider;
+import 'Classes/User.dart';
 import 'Functions/PagePush.dart';
 import 'Pages/Homepage/HomePage.dart';
 import 'Widgets/MainView.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  //TODO fix status bar for ios
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light.copyWith(
     statusBarColor: Colors.transparent,
     systemNavigationBarIconBrightness: Brightness.dark,
@@ -19,11 +23,10 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Shopaholics',
       theme: ThemeData(
         appBarTheme: AppBarTheme(
           brightness: Brightness.light,
@@ -51,10 +54,19 @@ class Launcher extends StatefulWidget {
 }
 
 class _LauncherState extends State<Launcher> {
+  _init() async {
+    final appDocumentDir = await path_provider.getApplicationDocumentsDirectory();
+    Hive.init(appDocumentDir.path);
+    Hive.registerAdapter(CurrentUserAdapter());
+    await Hive.openBox('currentUser');
+    currentUser = await Hive.box('currentUser').get(0);
+  }
+
   @override
-  void initState() {
+  Future<void> initState() {
     super.initState();
-    Future.delayed(Duration(seconds: 200)).whenComplete(() => PagePush(
+    _init();
+    Future.delayed(Duration(seconds: 2)).whenComplete(() => PagePush(
           context,
           MainView(
             child: HomePage(),

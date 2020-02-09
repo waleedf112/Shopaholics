@@ -71,6 +71,7 @@ class _LauncherState extends State<Launcher> {
   Future<void> initState() {
     super.initState();
     _init();
+    
     Future.delayed(Duration(seconds: 2)).whenComplete(() => PagePush(
           context,
           MainView(

@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import 'User.dart';
+
 class Product {
   String productName;
   double _price;
@@ -25,8 +27,8 @@ class ProductRequest {
   pushToDatabase() async {
     return await Firestore.instance.collection('ProductRequests').document().setData({
       'User': {
-        "UID": 'test_test_test_test_test_test',
-        "displayName": 'testUser',
+        "uid": currentUser.uid,
+        "displayName": currentUser.displayName,
         "Rating": 4.5,
       },
       'Time': DateTime.now().millisecondsSinceEpoch,

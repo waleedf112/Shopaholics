@@ -7,6 +7,8 @@ import 'package:shopaholics/Pages/AddProductRequest/AddProductRequest.dart';
 import 'package:shopaholics/Pages/Settings/Settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inner_drawer/inner_drawer.dart';
+import 'package:shopaholics/Pages/ShoppingCart/ShoppingCart.dart';
+import 'CustomErrorDialog.dart';
 
 class MainView extends StatefulWidget {
   Widget child;
@@ -93,7 +95,15 @@ class _MainViewState extends State<MainView> with SingleTickerProviderStateMixin
                     title: Text("اضافة طلب منتج"),
                     leading: Icon(Icons.add_comment),
                     onTap: () {
-                      PagePush(context, AddProductRequest());
+                      if (isSignedIn()) {
+                        PagePush(context, AddProductRequest());
+                      } else {
+                        CustomErrorDialog(
+                          context,
+                          text: 'الرجاء تسجيل الدخول لتتمكن من اضافة طلب جديد!',
+                        );
+                      }
+
                       _innerDrawerKey.currentState.close();
                     },
                   ),
@@ -148,9 +158,7 @@ class _MainViewState extends State<MainView> with SingleTickerProviderStateMixin
           centerTitle: true,
           leading: IconButton(
             icon: Icon(Icons.shopping_cart),
-            onPressed: () {
-              print(currentUser.displayName);
-            },
+            onPressed: () => PagePush(context, ShoppingCart()),
           ),
           actions: <Widget>[
             IconButton(

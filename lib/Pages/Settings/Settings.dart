@@ -20,31 +20,35 @@ class SettingsPage extends StatelessWidget {
 
   TextEditingController emailController = new TextEditingController(text: kDebugMode ? 'a@a.aa' : null);
   TextEditingController passwordController = new TextEditingController(text: kDebugMode ? '12345678' : null);
-  TextEditingController displayNameController = new TextEditingController(text: currentUser.displayName);
+  TextEditingController displayNameController =
+      new TextEditingController(text: currentUser == null ? null : currentUser.displayName);
 
   Widget setting({String title, String desc, IconData icon, Function onPressed}) {
-    return InkWell(
-      onTap: onPressed,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8),
-        child: Row(
-          textDirection: TextDirection.rtl,
-          children: <Widget>[
-            Icon(
-              icon,
-              color: Colors.black54,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: <Widget>[
-                  TextWidget(title),
-                  TextWidget(desc, style: TextStyle(color: Colors.grey, fontSize: 12)),
-                ],
+    return Container(
+      color: onPressed == null ? Colors.grey.withOpacity(0.3) : Colors.transparent,
+      child: InkWell(
+        onTap: onPressed,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          child: Row(
+            textDirection: TextDirection.rtl,
+            children: <Widget>[
+              Icon(
+                icon,
+                color: Colors.black54,
               ),
-            ),
-          ],
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: <Widget>[
+                    TextWidget(title),
+                    TextWidget(desc, style: TextStyle(color: Colors.grey, fontSize: 12)),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -175,7 +179,7 @@ class SettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SecondaryView(
       title: 'الاعدادات',
-      backButtomFunction: () => currentUser.saveUserChanges(),
+      backButtomFunction: () => isSignedIn() ? currentUser.saveUserChanges() : null,
       child: ListView(
         physics: BouncingScrollPhysics(),
         children: <Widget>[

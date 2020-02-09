@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hive/hive.dart';
 
@@ -23,13 +24,32 @@ class CurrentUser extends HiveObject {
   @HiveField(2)
   String uid;
 
-  registerUser(FirebaseUser user) {
-    print('displayname');
-    print(user.displayName);
-    this.displayName = user.displayName;
-    this.email = user.email;
+  registerUser(FirebaseUser user) async {
+
+    void fetchUserFromDatabase(DocumentSnapshot value) {
+      this.displayName = value.data['displayName'];
+    }
+
+    Future<void> createUserInDatabase() async {
+      await Firestore.instance.collection('Users').document(this.uid).setData({
+        'uid': this.uid,
+        'email': this.email,
+        'displayName': this.displayName,
+      });
+    }
+
     this.uid = user.uid;
-    print(this);
+    this.email = user.email;
+    this.displayName = 'بدون اسم';
+
+    await Firestore.instance.collection('Users').document(this.uid).get().then((value) async {
+      if (value.exists) {
+        fetchUserFromDatabase(value);
+      } else {
+        await createUserInDatabase();
+      }
+    });
+    
     Hive.box('currentUser').put(0, this);
     this.save();
   }

@@ -19,10 +19,10 @@ Future<void> signUpUser(context, {formKey, email, password}) async {
           )
               .catchError((onError) {
             error = onError.toString();
-          }).then((value) {
+          }).then((value) async {
             if (value is AuthResult) {
               userInit();
-              currentUser.registerUser(value.user);
+              await currentUser.registerUser(value.user);
             }
             Navigator.of(context).pop();
           });

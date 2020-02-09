@@ -6,12 +6,13 @@ class SecondaryView extends StatelessWidget {
   String title;
   Widget child;
   Widget fab;
-  SecondaryView({this.title = '', this.child,this.fab});
+  Function backButtomFunction;
+  SecondaryView({this.title = '', this.child, this.fab, this.backButtomFunction});
   @override
   Widget build(BuildContext context) {
     return DismissKeyboard(
-          child: Scaffold(
-            floatingActionButton: fab,
+      child: Scaffold(
+        floatingActionButton: fab,
         appBar: AppBar(
           title: Text(title),
           centerTitle: true,
@@ -19,7 +20,10 @@ class SecondaryView extends StatelessWidget {
           actions: <Widget>[
             IconButton(
               icon: Icon(Icons.arrow_forward_ios),
-              onPressed: () => Navigator.of(context).pop(),
+              onPressed: () {
+                if (backButtomFunction != null) backButtomFunction();
+                Navigator.of(context).pop();
+              },
             ),
           ],
         ),

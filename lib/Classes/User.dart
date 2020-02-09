@@ -24,8 +24,12 @@ class CurrentUser extends HiveObject {
   @HiveField(2)
   String uid;
 
-  registerUser(FirebaseUser user) async {
+  void setName(String name) {
+    this.displayName = name;
+    this.save();
+  }
 
+  void registerUser(FirebaseUser user) async {
     void fetchUserFromDatabase(DocumentSnapshot value) {
       this.displayName = value.data['displayName'];
     }
@@ -49,8 +53,15 @@ class CurrentUser extends HiveObject {
         await createUserInDatabase();
       }
     });
-    
+
     Hive.box('currentUser').put(0, this);
     this.save();
+  }
+
+  Future<void> saveUserChanges() async {
+    this.save();
+    await Firestore.instance.collection('Users').document(this.uid).updateData({
+      'displayName': this.displayName,
+    });
   }
 }

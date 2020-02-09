@@ -20,6 +20,8 @@ class SettingsPage extends StatelessWidget {
 
   TextEditingController emailController = new TextEditingController(text: kDebugMode ? 'a@a.aa' : null);
   TextEditingController passwordController = new TextEditingController(text: kDebugMode ? '12345678' : null);
+  TextEditingController displayNameController = new TextEditingController(text: currentUser.displayName);
+
   Widget setting({String title, String desc, IconData icon, Function onPressed}) {
     return InkWell(
       onTap: onPressed,
@@ -67,16 +69,42 @@ class SettingsPage extends StatelessWidget {
   }
 
   Widget topWidget(context) {
-    if (isSignedIn())
-      return Row(
-        children: <Widget>[
-          CircleAvatar(
-            backgroundImage: AssetImage('assets/default_avatar.png'),
-            backgroundColor: Colors.white,
-            radius: 30,
-          )
-        ],
+    if (isSignedIn()) {
+      return Padding(
+        padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+        child: Row(
+          textDirection: TextDirection.rtl,
+          children: <Widget>[
+            Opacity(
+              opacity: 0.3,
+              child: CircleAvatar(
+                backgroundImage: AssetImage('assets/default_avatar.png'),
+                backgroundColor: Colors.white,
+                radius: 30,
+              ),
+            ),
+            SizedBox(width: 8),
+            Expanded(
+              child: Directionality(
+                textDirection: TextDirection.rtl,
+                child: TextField(
+                  textDirection: TextDirection.rtl,
+                  controller: displayNameController,
+                  decoration: InputDecoration(
+                    filled: true,
+                  ),
+                  onChanged: (String name) {
+                    if (name.trim().isNotEmpty) {
+                      currentUser.setName(name.trim());
+                    }
+                  },
+                ),
+              ),
+            ),
+          ],
+        ),
       );
+    }
     return settingSection([
       Padding(
         padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
@@ -147,6 +175,7 @@ class SettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SecondaryView(
       title: 'الاعدادات',
+      backButtomFunction: () => currentUser.saveUserChanges(),
       child: ListView(
         physics: BouncingScrollPhysics(),
         children: <Widget>[

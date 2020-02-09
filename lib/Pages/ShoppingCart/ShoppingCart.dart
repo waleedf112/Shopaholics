@@ -7,7 +7,7 @@ class ShoppingCart extends StatelessWidget {
     return SecondaryView(
       title: 'عربة التسوق',
       child: ListView.builder(
-        itemCount: 7,
+        itemCount: 0,
         itemBuilder: (BuildContext context, int index) {
           return _CartItem();
         },

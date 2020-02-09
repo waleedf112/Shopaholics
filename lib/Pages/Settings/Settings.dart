@@ -1,4 +1,8 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
+import 'package:hive/hive.dart';
+import 'package:shopaholics/Classes/User.dart';
 import 'package:shopaholics/Widgets/CustomDialog.dart';
 import 'package:shopaholics/Widgets/SecondaryView.dart';
 import 'package:shopaholics/Widgets/TextWidget.dart';
@@ -7,35 +11,39 @@ import 'package:shopaholics/Widgets/loadingDialog.dart';
 import 'package:flutter/material.dart';
 import 'package:shopaholics/Widgets/Button.dart';
 
-import 'Validators.dart';
+import 'Functions/Validators.dart';
+import 'Functions/SignUp.dart';
+import 'Functions/SignIn.dart';
 
 class SettingsPage extends StatelessWidget {
   GlobalKey<FormState> formKey = new GlobalKey();
 
-  TextEditingController emailController = new TextEditingController();
-  TextEditingController passwordController = new TextEditingController();
-  Widget setting({String title, String desc, IconData icon}) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8),
-      child: Row(
-        textDirection: TextDirection.rtl,
-        children: <Widget>[
-          Icon(
-            icon,
-            color: Colors.black54,
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: <Widget>[
-                TextWidget(title),
-                TextWidget(desc,
-                    style: TextStyle(color: Colors.grey, fontSize: 12)),
-              ],
+  TextEditingController emailController = new TextEditingController(text: kDebugMode ? 'a@a.aa' : null);
+  TextEditingController passwordController = new TextEditingController(text: kDebugMode ? '12345678' : null);
+  Widget setting({String title, String desc, IconData icon, Function onPressed}) {
+    return InkWell(
+      onTap: onPressed,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8),
+        child: Row(
+          textDirection: TextDirection.rtl,
+          children: <Widget>[
+            Icon(
+              icon,
+              color: Colors.black54,
             ),
-          ),
-        ],
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: <Widget>[
+                  TextWidget(title),
+                  TextWidget(desc, style: TextStyle(color: Colors.grey, fontSize: 12)),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -59,7 +67,7 @@ class SettingsPage extends StatelessWidget {
   }
 
   Widget topWidget(context) {
-    if (false /*is signed in*/)
+    if (isSignedIn())
       return Row(
         children: <Widget>[
           CircleAvatar(
@@ -111,38 +119,22 @@ class SettingsPage extends StatelessWidget {
               ),
               SimpleButton(
                 'الدخول',
-                function: () {
-                  formKey.currentState.validate();
-                  FocusScope.of(context).unfocus();
-                },
+                function: () async => await signInUser(
+                  context,
+                  formKey: formKey,
+                  email: emailController,
+                  password: passwordController,
+                ),
               ),
               SizedBox(height: 5),
               SimpleButton(
                 'التسجيل',
-                function: () async {
-                  bool hasError = false;
-                  await loadingScreen(
-                      context: context,
-                      function: () async {
-                        await Future.delayed(Duration(seconds: 1))
-                            .whenComplete(() {
-                          if (!formKey.currentState.validate()) hasError = true;
-                          FocusScope.of(context).unfocus();
-                          Navigator.of(context).pop();
-                        });
-                      });
-                  if (hasError)
-                    CustomDialog(
-                      context: context,
-                      content: Text(
-                          'السيرفر مو جاهز حاليا, التحديث الجاي راح يشتغل ان شاء الله'),
-                      dismissible: true,
-                      title: 'خطأ',
-                      firstButtonText: 'حسناً',
-                      firstButtonColor: Colors.black45,
-                      firstButtonFunction: () => Navigator.of(context).pop(),
-                    );
-                },
+                function: () async => await signUpUser(
+                  context,
+                  formKey: formKey,
+                  email: emailController,
+                  password: passwordController,
+                ),
               ),
             ],
           ),
@@ -158,45 +150,76 @@ class SettingsPage extends StatelessWidget {
       child: ListView(
         physics: BouncingScrollPhysics(),
         children: <Widget>[
-          SizedBox(height: 25),
           topWidget(context),
           SizedBox(height: 25),
-          settingSection([
-            setting(
-              title: 'حسابي',
-              desc: 'لادارة حسابك وتغيير البريد الالكتروني وكلمة المرور',
-              icon: Icons.lock,
-            ),
-            setting(
-              title: 'تسجيل خروج',
-              desc: 'لتسجيل الخروج من حسابك',
-              icon: Icons.subdirectory_arrow_right,
-            ),
-          ]),
-          SizedBox(height: 25),
-          settingSection([
-            setting(
-              title: 'الطلبات',
-              desc: 'لعرض طلباتك الحاليه والسابقة',
-              icon: Icons.shopping_basket,
-            ),
-            setting(
-              title: 'عناوين التوصيل',
-              desc: 'تحديد عناوينك لتوصيل الطلبات',
-              icon: Icons.location_on,
-            ),
-            setting(
-              title: 'وسائل الدفع',
-              desc: 'اضافة وحذف أي وسيلة للدفع',
-              icon: Icons.credit_card,
-            ),
-            setting(
-              title: 'التسجيل كبائع',
-              desc: 'لتقديم طلب صلاحيه البيع في التطبيق',
-              icon: Icons.store_mall_directory,
-            ),
-          ]),
-          SizedBox(height: 25),
+          if (isSignedIn())
+            settingSection([
+              setting(
+                title: 'حسابي',
+                desc: 'لادارة حسابك وتغيير البريد الالكتروني وكلمة المرور',
+                icon: Icons.lock,
+              ),
+              setting(
+                  title: 'تسجيل خروج',
+                  desc: 'لتسجيل الخروج من حسابك',
+                  icon: Icons.subdirectory_arrow_right,
+                  onPressed: () async {
+                    FocusScope.of(context).unfocus();
+                    String error;
+
+                    await loadingScreen(
+                        context: context,
+                        function: () async {
+                          await FirebaseAuth.instance.signOut().catchError((onError) {
+                            error = onError.toString();
+                          });
+                          if (error == null) userDelete();
+                          Navigator.of(context).pop();
+                        });
+
+                    if (error != null) {
+                      CustomDialog(
+                        context: context,
+                        content: Text(
+                          error,
+                          textAlign: TextAlign.center,
+                        ),
+                        dismissible: true,
+                        title: 'خطأ',
+                        firstButtonText: 'حسناً',
+                        firstButtonColor: Colors.black45,
+                        firstButtonFunction: () => Navigator.of(context).pop(),
+                      );
+                    } else {
+                      Navigator.of(context).pop();
+                    }
+                  }),
+            ]),
+          if (isSignedIn()) SizedBox(height: 25),
+          if (isSignedIn())
+            settingSection([
+              setting(
+                title: 'الطلبات',
+                desc: 'لعرض طلباتك الحاليه والسابقة',
+                icon: Icons.shopping_basket,
+              ),
+              setting(
+                title: 'عناوين التوصيل',
+                desc: 'تحديد عناوينك لتوصيل الطلبات',
+                icon: Icons.location_on,
+              ),
+              setting(
+                title: 'وسائل الدفع',
+                desc: 'اضافة وحذف أي وسيلة للدفع',
+                icon: Icons.credit_card,
+              ),
+              setting(
+                title: 'التسجيل كبائع',
+                desc: 'لتقديم طلب صلاحيه البيع في التطبيق',
+                icon: Icons.store_mall_directory,
+              ),
+            ]),
+          if (isSignedIn()) SizedBox(height: 25),
           settingSection([
             setting(
               title: 'التنبيهات',

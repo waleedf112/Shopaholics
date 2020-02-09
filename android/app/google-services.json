@@ -30,6 +30,13 @@
             {
               "client_id": "227007495533-t3j31lvbe8rkvv1lho8341srsf5l06b6.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "227007495533-jvccpdviqsjrf3e9ncds1bfesksgt875.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.waleedalenazi.shopaholics"
+              }
             }
           ]
         }

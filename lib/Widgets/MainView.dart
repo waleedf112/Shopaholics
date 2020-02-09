@@ -141,21 +141,15 @@ class _MainViewState extends State<MainView> with SingleTickerProviderStateMixin
       rightChild: Drawer(),
       scaffold: Scaffold(
         appBar: AppBar(
-          title: Text(currentUser == null ? 'مرحباً بك' : 'مرحباً بك يا ${currentUser.displayName}'),
+          title: Text(
+            currentUser == null ? 'مرحباً بك' : 'مرحباً بك يا ${currentUser.displayName}',
+            textDirection: TextDirection.rtl,
+          ),
           centerTitle: true,
           leading: IconButton(
             icon: Icon(Icons.shopping_cart),
             onPressed: () {
-              if (currentUser == null) {
-                userInit();
-                Hive.box('currentUser').put(0, currentUser);
-                currentUser.save();
-                print('saved');
-
-              }else{
-                print('already signed in');
-                print(currentUser);
-              }
+              print(currentUser.displayName);
             },
           ),
           actions: <Widget>[

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -59,7 +60,11 @@ class _LauncherState extends State<Launcher> {
     Hive.init(appDocumentDir.path);
     Hive.registerAdapter(CurrentUserAdapter());
     await Hive.openBox('currentUser');
-    currentUser = await Hive.box('currentUser').get(0);
+    currentUser = Hive.box('currentUser').get(0);
+    if (await FirebaseAuth.instance.currentUser() == null) {
+      currentUser = null;
+      Hive.box('currentUser').delete(0);
+    }
   }
 
   @override

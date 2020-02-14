@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 const appLangageRTL = true;
 Widget TextWidget(
   String text, {
-  int maxFontSize,
-  int minFontSize,
+  double maxFontSize,
+  double minFontSize,
   int maxLines,
   TextOverflow overflow,
   TextStyle style,
@@ -13,8 +13,8 @@ Widget TextWidget(
 }) =>
     AutoSizeText(
       text,
-      maxFontSize: maxFontSize ?? 18,
-      minFontSize: minFontSize ?? 11,
+      maxFontSize: maxFontSize ?? 18.0,
+      minFontSize: minFontSize ?? 11.0,
       maxLines: maxLines,
       overflow: overflow,
       style: style,

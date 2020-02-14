@@ -64,34 +64,56 @@ class GridProducts extends StatelessWidget {
         );
         break;
       case GridProductsType.requests:
-        return Container(
-          height: 300,
-          child: StreamBuilder(
-            stream: Firestore.instance.collection('ProductRequests').getDocuments().asStream(),
-            builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-              List<DocumentSnapshot> documents;
-              try {
-                documents = snapshot.data.documents;
-              } catch (e) {}
-              return LoadingStreamBuilder(
-                hasData: snapshot.hasData,
-                loading: documents == null,
-                widget: Directionality(
-                  textDirection: TextDirection.rtl,
-                  child: ListView.builder(
-                    physics: BouncingScrollPhysics(),
-                    itemCount: documents == null ? 0 : documents.length,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (BuildContext context, int index) {
-                      int getIndex() => index % 7;
-                      ProductRequest _product = new ProductRequest.retrieveFromDatabase(documents[index].data);
-                      return ProductWidget(_product, 'assets/images/mock_product${getIndex()}.jpg');
-                    },
-                  ),
+        return StreamBuilder(
+          stream: Firestore.instance.collection('ProductRequests').getDocuments().asStream(),
+          builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            List<DocumentSnapshot> documents;
+            try {
+              documents = snapshot.data.documents;
+            } catch (e) {}
+            return LoadingStreamBuilder(
+              hasData: snapshot.hasData,
+              loading: documents == null,
+              widget: Directionality(
+                textDirection: TextDirection.rtl,
+                child: Column(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          TextWidget(
+                            title,
+                            style: TextStyle(
+                              fontSize: 21,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          OutlinedButton(
+                            text: 'عرض الكل',
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      height: 350,
+                      child: ListView.builder(
+                        physics: BouncingScrollPhysics(),
+                        itemCount: documents == null ? 0 : documents.length,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (BuildContext context, int index) {
+                          int getIndex() => index % 7;
+                          ProductRequest _product = new ProductRequest.retrieveFromDatabase(documents[index].data);
+                          return ProductWidget(_product, 'assets/images/mock_product${getIndex()}.jpg');
+                        },
+                      ),
+                    ),
+                  ],
                 ),
-              );
-            },
-          ),
+              ),
+            );
+          },
         );
         break;
       case GridProductsType.offers:

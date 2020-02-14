@@ -36,12 +36,19 @@ class HomePage extends StatelessWidget {
                   type: GridProductsType.mock,
                   items: mockProducts,
                 ),
+                GridProducts(
+                  title: 'اخر العروض',
+                  type: GridProductsType.mock,
+                  items: mockProducts,
+                ),
               ],
             ),
             ListView(
               shrinkWrap: true,
               children: <Widget>[
                 GridProducts(
+                  title: 'اخر العروض',
+
                   type: GridProductsType.requests,
                 ),
               ],

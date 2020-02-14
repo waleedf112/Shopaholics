@@ -16,8 +16,37 @@ class ProductWidget extends StatefulWidget {
 class _ProductWidgetState extends State<ProductWidget> {
   @override
   Widget build(BuildContext context) {
-    if (widget.item is Product) {
-      Widget getPrice() {
+    
+      Widget likeButton() {
+        if (widget.liked) {
+          return IconButton(
+              icon: Icon(
+                Icons.favorite,
+                color: Colors.red,
+              ),
+              onPressed: () => setState(() => widget.liked = false));
+        } else {
+          return IconButton(icon: Icon(Icons.favorite_border), onPressed: () => setState(() => widget.liked = true));
+        }
+      }
+
+      infoText() {
+        return Padding(
+          padding: const EdgeInsets.only(top: 3, right: 7),
+          child: Row(
+            children: <Widget>[
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  TextWidget('قبل 17 ساعة', style: TextStyle(color: Colors.grey, fontSize: 11)),
+                  TextWidget(widget.item.productName,style: TextStyle(fontWeight: FontWeight.bold)),
+                ],
+              ),
+            ],
+          ),
+        );
+      }
+            Widget getPrice() {
         if (widget.item.hasDiscount())
           return Column(
             children: <Widget>[
@@ -42,36 +71,33 @@ class _ProductWidgetState extends State<ProductWidget> {
         return TextWidget('${widget.item.getPrice()} ريال');
       }
 
-      Widget likeButton() {
-        if (widget.liked) {
-          return IconButton(icon: Icon(Icons.favorite,color: Colors.red,), onPressed: () => setState(()=>widget.liked = false));
-        } else {
-          return IconButton(icon: Icon(Icons.favorite_border), onPressed: () => setState(()=>widget.liked = true));
-        }
-      }
+    if (widget.item is Product) {
+
 
       return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 5),
         child: Container(
           width: 170,
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Image.asset(
-                widget.imagePath,
-                fit: BoxFit.cover,
-                height: 250,
-                width: 200,
+              Expanded(
+                child: Image.asset(
+                  widget.imagePath,
+                  fit: BoxFit.cover,
+                  width: 200,
+                ),
               ),
-              
-              TextWidget(widget.item.productName),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  likeButton(),
-                  getPrice(),
-                ],
+              Container(height: 50,child: infoText()),
+              Padding(
+                padding: const EdgeInsets.only(right: 7),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    getPrice(),
+                    likeButton(),
+                  ],
+                ),
               ),
             ],
           ),
@@ -80,17 +106,32 @@ class _ProductWidgetState extends State<ProductWidget> {
     } else if (widget.item is ProductRequest) {
       return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 5),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Image.asset(
-              widget.imagePath,
-              fit: BoxFit.cover,
-              height: 250,
-              width: 200,
-            ),
-            TextWidget(widget.item.productName),
-          ],
+        child: Container(
+          width: 170,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Expanded(
+                child: Image.asset(
+                  widget.imagePath,
+                  fit: BoxFit.cover,
+                  width: 200,
+                ),
+              ),
+              Container(height: 50,child: infoText()),
+              Padding(
+                padding: const EdgeInsets.only(right: 7),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    TextWidget('500 ريال'),
+
+                    likeButton(),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       );
     }

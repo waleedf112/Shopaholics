@@ -15,6 +15,7 @@ class HomePage extends StatelessWidget {
       if (i == 2 || i == 3 || i == 6 || i == 8) mockProducts.last.setDiscount(i * 10);
     }
     return DefaultTabController(
+
       length: 2,
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -25,19 +26,25 @@ class HomePage extends StatelessWidget {
           ],
         ),
         body: TabBarView(
+          physics: NeverScrollableScrollPhysics(),
           children: [
-            Container(
-              color: Colors.grey[50],
-              child: GridProducts(
-                type: GridProductsType.mock,
-                items: mockProducts,
-              ),
+            ListView(
+              shrinkWrap: true,
+              children: <Widget>[
+                GridProducts(
+                  title: 'اخر العروض',
+                  type: GridProductsType.mock,
+                  items: mockProducts,
+                ),
+              ],
             ),
-            Container(
-              color: Colors.grey[50],
-              child: GridProducts(
-                type: GridProductsType.requests,
-              ),
+            ListView(
+              shrinkWrap: true,
+              children: <Widget>[
+                GridProducts(
+                  type: GridProductsType.requests,
+                ),
+              ],
             ),
           ],
         ),

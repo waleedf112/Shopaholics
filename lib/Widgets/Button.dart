@@ -4,8 +4,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 enum CardBorders { highest, higher, high, normal, low, none }
 enum CardShadow { highest, high, normal, low, none }
 
-Widget SimpleButton(String text, {Function function, bool boldText = false}) =>
-    Row(
+Widget SimpleButton(String text, {Function function, bool boldText = false}) => Row(
       children: <Widget>[
         Expanded(
           child: CustomButton(
@@ -96,51 +95,25 @@ class CustomButton extends StatelessWidget {
     BoxShadow getCardShadows() {
       Color _color = shadowColor != null
           ? shadowColor
-          : color == Colors.white
-              ? Colors.red.withOpacity(0.1)
-              : color.withOpacity(0.4);
+          : color == Colors.white ? Colors.red.withOpacity(0.1) : color.withOpacity(0.4);
       switch (cardShadow) {
         case CardShadow.none:
-          return BoxShadow(
-              color: _color,
-              spreadRadius: 0,
-              offset: Offset(0.0, 0.0),
-              blurRadius: 0.0);
+          return BoxShadow(color: _color, spreadRadius: 0, offset: Offset(0.0, 0.0), blurRadius: 0.0);
           break;
         case CardShadow.low:
-          return BoxShadow(
-              color: _color,
-              spreadRadius: 0,
-              offset: Offset(2.0, 4.0),
-              blurRadius: 5.0);
+          return BoxShadow(color: _color, spreadRadius: 0, offset: Offset(2.0, 4.0), blurRadius: 5.0);
           break;
         case CardShadow.normal:
-          return BoxShadow(
-              color: _color,
-              spreadRadius: 2,
-              offset: Offset(2.0, 4.0),
-              blurRadius: 5.0);
+          return BoxShadow(color: _color, spreadRadius: 2, offset: Offset(2.0, 4.0), blurRadius: 5.0);
           break;
         case CardShadow.high:
-          return BoxShadow(
-              color: _color,
-              spreadRadius: 3,
-              offset: Offset(2.0, 4.0),
-              blurRadius: 8.0);
+          return BoxShadow(color: _color, spreadRadius: 3, offset: Offset(2.0, 4.0), blurRadius: 8.0);
           break;
         case CardShadow.highest:
-          return BoxShadow(
-              color: _color,
-              spreadRadius: 5,
-              offset: Offset(3.0, 8.0),
-              blurRadius: 12.0);
+          return BoxShadow(color: _color, spreadRadius: 5, offset: Offset(3.0, 8.0), blurRadius: 12.0);
           break;
         default:
-          return BoxShadow(
-              color: _color,
-              spreadRadius: 5,
-              offset: Offset(3.0, 8.0),
-              blurRadius: 12.0);
+          return BoxShadow(color: _color, spreadRadius: 5, offset: Offset(3.0, 8.0), blurRadius: 12.0);
 
           break;
       }
@@ -152,33 +125,23 @@ class CustomButton extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(
-                getCardBorders(cardBordersTopLeft ?? cardBorders)),
-            topRight: Radius.circular(
-                getCardBorders(cardBordersTopRight ?? cardBorders)),
-            bottomLeft: Radius.circular(
-                getCardBorders(cardBordersBottomLeft ?? cardBorders)),
-            bottomRight: Radius.circular(
-                getCardBorders(cardBordersBottomRight ?? cardBorders)),
+            topLeft: Radius.circular(getCardBorders(cardBordersTopLeft ?? cardBorders)),
+            topRight: Radius.circular(getCardBorders(cardBordersTopRight ?? cardBorders)),
+            bottomLeft: Radius.circular(getCardBorders(cardBordersBottomLeft ?? cardBorders)),
+            bottomRight: Radius.circular(getCardBorders(cardBordersBottomRight ?? cardBorders)),
           ),
         ),
         child: AnimatedContainer(
             duration: Duration(milliseconds: 200),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(
-                    getCardBorders(cardBordersTopLeft ?? cardBorders)),
-                topRight: Radius.circular(
-                    getCardBorders(cardBordersTopRight ?? cardBorders)),
-                bottomLeft: Radius.circular(
-                    getCardBorders(cardBordersBottomLeft ?? cardBorders)),
-                bottomRight: Radius.circular(
-                    getCardBorders(cardBordersBottomRight ?? cardBorders)),
+                topLeft: Radius.circular(getCardBorders(cardBordersTopLeft ?? cardBorders)),
+                topRight: Radius.circular(getCardBorders(cardBordersTopRight ?? cardBorders)),
+                bottomLeft: Radius.circular(getCardBorders(cardBordersBottomLeft ?? cardBorders)),
+                bottomRight: Radius.circular(getCardBorders(cardBordersBottomRight ?? cardBorders)),
               ),
               gradient: LinearGradient(
-                  begin: Alignment.bottomRight,
-                  end: new Alignment(-8.0, -2.0),
-                  colors: [color, Colors.white]),
+                  begin: Alignment.bottomRight, end: new Alignment(-8.0, -2.0), colors: [color, Colors.white]),
               boxShadow: showShadow
                   ? <BoxShadow>[
                       getCardShadows(),
@@ -201,20 +164,14 @@ class CustomButton extends StatelessWidget {
               focusColor: Colors.transparent,
               hoverColor: Colors.transparent,
               borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(
-                    getCardBorders(cardBordersTopLeft ?? cardBorders)),
-                topRight: Radius.circular(
-                    getCardBorders(cardBordersTopRight ?? cardBorders)),
-                bottomLeft: Radius.circular(
-                    getCardBorders(cardBordersBottomLeft ?? cardBorders)),
-                bottomRight: Radius.circular(
-                    getCardBorders(cardBordersBottomRight ?? cardBorders)),
+                topLeft: Radius.circular(getCardBorders(cardBordersTopLeft ?? cardBorders)),
+                topRight: Radius.circular(getCardBorders(cardBordersTopRight ?? cardBorders)),
+                bottomLeft: Radius.circular(getCardBorders(cardBordersBottomLeft ?? cardBorders)),
+                bottomRight: Radius.circular(getCardBorders(cardBordersBottomRight ?? cardBorders)),
               ),
               splashColor: splashColor != null
                   ? splashColor.withOpacity(0.4)
-                  : color == Colors.white
-                      ? Colors.grey.withOpacity(0.2)
-                      : color.withOpacity(0.4),
+                  : color == Colors.white ? Colors.grey.withOpacity(0.2) : color.withOpacity(0.4),
               onTap: function,
             ),
           ),
@@ -324,3 +281,24 @@ class CustomButtonPrimary extends StatelessWidget {
     );
   }
 }
+
+OutlinedButton({String text, Function function}) => RaisedButton(
+      splashColor: Colors.transparent,
+      focusColor: Colors.transparent,
+      highlightColor: Colors.transparent,
+      hoverColor: Colors.transparent,
+      highlightElevation: 0,
+      hoverElevation: 0,
+      child: Container(
+        child: Container(
+          decoration: BoxDecoration(border: Border.all(), borderRadius: BorderRadius.circular(5)),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 3),
+            child: Text(text),
+          ),
+        ),
+      ),
+      color: Colors.white,
+      elevation: 0,
+      onPressed: function??(){},
+    );

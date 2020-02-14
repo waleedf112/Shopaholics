@@ -40,6 +40,8 @@ class MyApp extends StatelessWidget {
           ),
         ),
         backgroundColor: Colors.white,
+        scaffoldBackgroundColor: Colors.white,
+        
         primaryColor: Colors.grey,
         cursorColor: Colors.grey, //Color(0xffd67e7e),
         primarySwatch: Colors.grey,

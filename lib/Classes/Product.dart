@@ -36,3 +36,24 @@ class ProductRequest {
     });
   }
 }
+
+class ProductOffer {
+  String productName;
+
+  ProductOffer({this.productName});
+  ProductOffer.retrieveFromDatabase(Map<String, dynamic> data) {
+    this.productName = data['productName'];
+  }
+
+  pushToDatabase() async {
+    return await Firestore.instance.collection('ProductOffer').document().setData({
+      'User': {
+        "uid": currentUser.uid,
+        "displayName": currentUser.displayName,
+        "Rating": 4.5,
+      },
+      'Time': DateTime.now().millisecondsSinceEpoch,
+      'productName': this.productName,
+    });
+  }
+}

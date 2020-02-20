@@ -4,6 +4,7 @@ import 'package:hive/hive.dart';
 import 'package:shopaholics/Classes/User.dart';
 import 'package:shopaholics/Functions/PagePush.dart';
 import 'package:shopaholics/Pages/AddProductRequest/AddProductRequest.dart';
+import 'package:shopaholics/Pages/AppNewProduct/AppNewProduct.dart';
 import 'package:shopaholics/Pages/Settings/Settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inner_drawer/inner_drawer.dart';
@@ -108,6 +109,22 @@ class _MainViewState extends State<MainView> with SingleTickerProviderStateMixin
                     },
                   ),
                 ),
+                ListTile(
+                    title: Text("اضافة منتج جديد"),
+                    leading: Icon(Icons.add_comment),
+                    onTap: () {
+                      if (isSignedIn()) {
+                        PagePush(context, AppNewProduct());
+                      } else {
+                        CustomErrorDialog(
+                          context,
+                          text: 'الرجاء تسجيل الدخول لتتمكن من اضافة منتج جديد!',
+                        );
+                      }
+
+                      _innerDrawerKey.currentState.close();
+                    },
+                  ),
                 ListTile(
                   title: Text("الاعدادات"),
                   leading: Icon(Icons.settings),

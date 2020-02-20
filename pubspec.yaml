@@ -25,11 +25,15 @@ dependencies:
   flutter_inner_drawer: ^0.5.4
   hive: ^1.3.0
   path_provider: ^1.6.0
+  image_cropper: ^1.2.1
+  image_picker: ^0.6.3+3
 
   #? firebase packages:
   firebase_auth: ^0.15.4
   firebase_core: ^0.4.3+3
   cloud_firestore: ^0.13.1
+  firebase_storage: ^3.1.1
+  
   
 dev_dependencies:
   flutter_test:

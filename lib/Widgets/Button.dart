@@ -282,7 +282,7 @@ class CustomButtonPrimary extends StatelessWidget {
   }
 }
 
-OutlinedButton({String text, Function function}) => RaisedButton(
+Widget OutlinedButton({String text, Function function, Widget child}) => RaisedButton(
       splashColor: Colors.transparent,
       focusColor: Colors.transparent,
       highlightColor: Colors.transparent,
@@ -290,15 +290,13 @@ OutlinedButton({String text, Function function}) => RaisedButton(
       highlightElevation: 0,
       hoverElevation: 0,
       child: Container(
-        child: Container(
-          decoration: BoxDecoration(border: Border.all(), borderRadius: BorderRadius.circular(5)),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 3),
-            child: Text(text),
-          ),
+        decoration: BoxDecoration(border: Border.all(), borderRadius: BorderRadius.circular(5)),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 3),
+          child: child ?? Text(text),
         ),
       ),
       color: Colors.white,
       elevation: 0,
-      onPressed: function??(){},
+      onPressed: function ?? () {},
     );

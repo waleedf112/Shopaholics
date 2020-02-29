@@ -2,26 +2,24 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'User.dart';
 
-class Product {
-  String productName;
-  double _price;
-  double _discount = 0.0;
-
-  Product({this.productName});
-
-  setDiscount(discount) => this._discount = discount.toDouble();
-  hasDiscount() => this._discount > 0.0;
-  setPrice(price) => this._price = price.toDouble();
-  getPrice() => this._price - ((this._price * this._discount) / 100);
-  getOldPrice() => this._price;
-}
-
 class ProductRequest {
   String productName;
+  String productDescription;
+  int productPrice;
+  int time;
+  String user;
+  double userRating;
+  String reference;
 
-  ProductRequest({this.productName});
-  ProductRequest.retrieveFromDatabase(Map<String, dynamic> data) {
+  ProductRequest({this.productName, this.productDescription, this.productPrice});
+  ProductRequest.retrieveFromDatabase(Map<String, dynamic> data, reference) {
     this.productName = data['productName'];
+    this.productDescription = data['productDescription'];
+    this.productPrice = data['productPrice'];
+    this.time = data['Time'];
+    this.userRating = data['User']['Rating'].toDouble();
+    this.user = data['User']['displayName'];
+    this.reference = reference;
   }
 
   pushToDatabase() async {
@@ -33,16 +31,31 @@ class ProductRequest {
       },
       'Time': DateTime.now().millisecondsSinceEpoch,
       'productName': this.productName,
+      'productDescription': this.productDescription,
+      'productPrice': this.productPrice,
     });
   }
 }
 
 class ProductOffer {
   String productName;
+  String productDescription;
+  int productPrice;
+  int time;
+  String user;
+  String reference;
+  double userRating;
 
-  ProductOffer({this.productName});
-  ProductOffer.retrieveFromDatabase(Map<String, dynamic> data) {
+  ProductOffer({this.productName, this.productDescription, this.productPrice});
+  ProductOffer.retrieveFromDatabase(Map<String, dynamic> data, reference) {
     this.productName = data['productName'];
+    this.productDescription = data['productDescription'];
+    this.productPrice = data['productPrice'];
+    this.time = data['Time'];
+    this.user = data['User']['displayName'];
+    this.userRating = data['User']['Rating'].toDouble();
+
+    this.reference = reference;
   }
 
   pushToDatabase() async {
@@ -54,6 +67,8 @@ class ProductOffer {
       },
       'Time': DateTime.now().millisecondsSinceEpoch,
       'productName': this.productName,
+      'productDescription': this.productDescription,
+      'productPrice': this.productPrice,
     });
   }
 }

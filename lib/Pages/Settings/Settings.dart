@@ -179,7 +179,7 @@ class SettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SecondaryView(
       title: 'الاعدادات',
-      backButtomFunction: () => isSignedIn() ? currentUser.saveUserChanges() : null,
+      backButtonFunction: () => isSignedIn() ? currentUser.saveUserChanges() : null,
       child: ListView(
         physics: BouncingScrollPhysics(),
         children: <Widget>[

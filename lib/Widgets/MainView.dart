@@ -4,7 +4,7 @@ import 'package:hive/hive.dart';
 import 'package:shopaholics/Classes/User.dart';
 import 'package:shopaholics/Functions/PagePush.dart';
 import 'package:shopaholics/Pages/AddProductRequest/AddProductRequest.dart';
-import 'package:shopaholics/Pages/AppNewProduct/AppNewProduct.dart';
+import 'package:shopaholics/Pages/AddNewProduct/AddNewProduct.dart';
 import 'package:shopaholics/Pages/Settings/Settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inner_drawer/inner_drawer.dart';
@@ -52,7 +52,7 @@ class _MainViewState extends State<MainView> with SingleTickerProviderStateMixin
                         Padding(
                           padding: const EdgeInsets.only(right: 12),
                           child: Text(
-                            "غير مسجل",
+                            currentUser == null ? 'غير مسجل' : currentUser.displayName,
                             style: TextStyle(fontWeight: FontWeight.w600, height: 1.2),
                           ),
                         ),

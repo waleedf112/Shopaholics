@@ -6,8 +6,8 @@ class SecondaryView extends StatelessWidget {
   String title;
   Widget child;
   Widget fab;
-  Function backButtomFunction;
-  SecondaryView({this.title = '', this.child, this.fab, this.backButtomFunction});
+  Function backButtonFunction;
+  SecondaryView({this.title = '', this.child, this.fab, this.backButtonFunction});
   @override
   Widget build(BuildContext context) {
     return DismissKeyboard(
@@ -21,7 +21,7 @@ class SecondaryView extends StatelessWidget {
             IconButton(
               icon: Icon(Icons.arrow_forward_ios),
               onPressed: () {
-                if (backButtomFunction != null) backButtomFunction();
+                if (backButtonFunction != null) backButtonFunction();
                 Navigator.of(context).pop();
               },
             ),

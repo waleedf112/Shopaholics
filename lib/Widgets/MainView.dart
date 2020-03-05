@@ -7,9 +7,9 @@ import 'package:shopaholics/Pages/AddProductRequest/AddProductRequest.dart';
 import 'package:shopaholics/Pages/AddNewProduct/AddNewProduct.dart';
 import 'package:shopaholics/Pages/Settings/Settings.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_inner_drawer/inner_drawer.dart';
 import 'package:shopaholics/Pages/ShoppingCart/ShoppingCart.dart';
 import 'CustomErrorDialog.dart';
+import 'dismissKeyboard.dart';
 
 class MainView extends StatefulWidget {
   Widget child;
@@ -20,172 +20,35 @@ class MainView extends StatefulWidget {
 }
 
 class _MainViewState extends State<MainView> with SingleTickerProviderStateMixin {
-  Widget Drawer() {
-    return Material(
-        child: SafeArea(
-            //top: false,
-            child: Container(
-      decoration: BoxDecoration(
-        border: Border(
-            left: BorderSide(width: 1, color: Colors.grey[200]), right: BorderSide(width: 1, color: Colors.grey[200])),
-      ),
-      child: Stack(
-        textDirection: TextDirection.rtl,
-        children: <Widget>[
-          Directionality(
-            textDirection: TextDirection.rtl,
-            child: ListView(
-              children: <Widget>[
-                Padding(
-                    padding: EdgeInsets.only(top: 12, bottom: 4, right: 18),
-                    child: Row(
-                      textDirection: TextDirection.rtl,
-                      children: <Widget>[
-                        SizedBox(
-                          width: 30,
-                          height: 30,
-                          child: CircleAvatar(
-                            child: Icon(Icons.person, color: Colors.white, size: 25),
-                            backgroundColor: Colors.grey,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 12),
-                          child: Text(
-                            currentUser == null ? 'غير مسجل' : currentUser.displayName,
-                            style: TextStyle(fontWeight: FontWeight.w600, height: 1.2),
-                          ),
-                        ),
-                      ],
-                    )),
-                Divider(),
-                ListTile(
-                  title: Text("القسم الاول"),
-                  leading: Icon(Icons.label_outline),
-                ),
-                ListTile(
-                  title: Text("القسم الثاني"),
-                  leading: Icon(Icons.label_outline),
-                ),
-                ListTile(
-                  title: Text("القسم الثالث"),
-                  leading: Icon(Icons.label_outline),
-                ),
-                ListTile(
-                  title: Text("القسم الرابع"),
-                  leading: Icon(Icons.label_outline),
-                ),
-                ListTile(
-                  title: Text("القسم الخامس"),
-                  leading: Icon(Icons.label_outline),
-                ),
-                ListTile(
-                  title: Text("القسم السادس"),
-                  leading: Icon(Icons.label_outline),
-                ),
-                Container(
-                  alignment: Alignment.bottomLeft,
-                  //width: double.maxFinite,
-                  decoration: BoxDecoration(
-                      //color: Colors.grey,
-                      border: Border(
-                          top: BorderSide(
-                    color: Colors.grey[300],
-                  ))),
-                  child: ListTile(
-                    title: Text("اضافة طلب منتج"),
-                    leading: Icon(Icons.add_comment),
-                    onTap: () {
-                      if (isSignedIn()) {
-                        PagePush(context, AddProductRequest());
-                      } else {
-                        CustomErrorDialog(
-                          context,
-                          text: 'الرجاء تسجيل الدخول لتتمكن من اضافة طلب جديد!',
-                        );
-                      }
 
-                      _innerDrawerKey.currentState.close();
-                    },
-                  ),
-                ),
-                ListTile(
-                    title: Text("اضافة منتج جديد"),
-                    leading: Icon(Icons.add_comment),
-                    onTap: () {
-                      if (isSignedIn()) {
-                        PagePush(context, AppNewProduct());
-                      } else {
-                        CustomErrorDialog(
-                          context,
-                          text: 'الرجاء تسجيل الدخول لتتمكن من اضافة منتج جديد!',
-                        );
-                      }
-
-                      _innerDrawerKey.currentState.close();
-                    },
-                  ),
-                ListTile(
-                  title: Text("الاعدادات"),
-                  leading: Icon(Icons.settings),
-                  onTap: () {
-                    PagePush(context, SettingsPage());
-                    _innerDrawerKey.currentState.close();
-                  },
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    )));
-  }
-
-  final GlobalKey<InnerDrawerState> _innerDrawerKey = GlobalKey<InnerDrawerState>();
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
-    return InnerDrawer(
-      key: _innerDrawerKey,
-      onTapClose: true,
-      tapScaffoldEnabled: false,
-      leftOffset: 0,
-      rightOffset: 0,
-      swipe: true,
-      boxShadow: [BoxShadow()],
-      colorTransition: Colors.transparent,
-      rightAnimationType: InnerDrawerAnimation.quadratic,
-      rightChild: Drawer(),
-      scaffold: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            currentUser == null ? 'مرحباً بك' : 'مرحباً بك يا ${currentUser.displayName}',
+    return DismissKeyboard(
+          child: Scaffold(
+          appBar: AppBar(
+              title: Directionality(
             textDirection: TextDirection.rtl,
-          ),
-          centerTitle: true,
-          leading: IconButton(
-            icon: Icon(Icons.shopping_cart),
-            onPressed: () => PagePush(context, ShoppingCart()),
-          ),
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(Icons.menu),
-              onPressed: () => _innerDrawerKey.currentState.open(),
+            child: Row(
+              children: <Widget>[
+                IconButton(icon: Icon(Icons.search), onPressed: () {}),
+                Expanded(
+                  child: TextField(
+                    textDirection: TextDirection.rtl,
+                    decoration: InputDecoration(
+                      hintText: 'البحث عن منتج',
+                      enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.transparent)),
+                      disabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.transparent)),
+                      focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.transparent)),
+                      errorBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.transparent)),
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ],
+          )),
+          body: widget.child,
         ),
-        body: widget.child,
-      ),
     );
   }
 }

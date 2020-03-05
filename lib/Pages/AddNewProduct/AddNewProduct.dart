@@ -1,5 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:image_cropper/image_cropper.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:shopaholics/Classes/Product.dart';
 import 'package:shopaholics/Widgets/CustomDialog.dart';
 import 'package:shopaholics/Widgets/SecondaryView.dart';
@@ -7,16 +9,51 @@ import 'package:shopaholics/Widgets/TextWidget.dart';
 import 'package:shopaholics/Widgets/loadingDialog.dart';
 import 'dart:io';
 
-class AppNewProduct extends StatelessWidget {
+class AppNewProduct extends StatefulWidget {
+  @override
+  _AppNewProductState createState() => _AppNewProductState();
+}
+
+class _AppNewProductState extends State<AppNewProduct> {
+  List<File> _image = new List();
+
+  Future getImage() async {
+    var image = await ImagePicker.pickImage(source: ImageSource.gallery,imageQuality: 100);
+    File croppedFile = await ImageCropper.cropImage(
+        sourcePath: image.path,
+        maxHeight: 350,
+        maxWidth: 200,
+        aspectRatio: CropAspectRatio(ratioX: 8, ratioY: 9),
+
+        androidUiSettings: AndroidUiSettings(
+            toolbarTitle: '',
+            hideBottomControls: true,
+            toolbarColor: Colors.white,
+            toolbarWidgetColor: Colors.black,
+            showCropGrid: false,
+            initAspectRatio: CropAspectRatioPreset.original,
+            lockAspectRatio: true),
+        iosUiSettings: IOSUiSettings(
+          minimumAspectRatio: 9/8,
+          aspectRatioLockEnabled: true,
+        ));
+    if (croppedFile != null)
+      setState(() {
+        _image.add(croppedFile);
+      });
+  }
+
   GlobalKey<FormState> formKey = new GlobalKey();
   TextEditingController productNameController = new TextEditingController();
   TextEditingController productDescController = new TextEditingController();
   TextEditingController productPriceController = new TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return SecondaryView(
       title: 'اضافة منتج جديد',
       fab: FloatingActionButton(
+        heroTag: 'heroProduct',
         elevation: 1,
         backgroundColor: Colors.green,
         child: Icon(
@@ -25,11 +62,12 @@ class AppNewProduct extends StatelessWidget {
         ),
         onPressed: () async {
           FocusScope.of(context).unfocus();
-          if (formKey.currentState.validate()) {
+          if (formKey.currentState.validate() && _image.length >= 3 && _image.length < 10) {
             ProductOffer _product = new ProductOffer(
               productName: productNameController.text.trim(),
               productDescription: productDescController.text.trim(),
               productPrice: int.parse(productPriceController.text),
+              productImages:_image,
             );
             await loadingScreen(
                 context: context,
@@ -48,6 +86,17 @@ class AppNewProduct extends StatelessWidget {
                           Navigator.of(context).pop();
                         });
                   });
+                });
+          } else if (formKey.currentState.validate() && _image.length < 3 || _image.length > 10) {
+            CustomDialog(
+                context: context,
+                title: 'خطأ',
+                content: AutoSizeText('الرجاء اضافة من 3 الى 10 صور للمنتج.'),
+                dismissible: false,
+                firstButtonColor: Colors.black45,
+                firstButtonText: 'حسناً',
+                firstButtonFunction: () {
+                  Navigator.of(context).pop();
                 });
           }
         },
@@ -138,7 +187,7 @@ class AppNewProduct extends StatelessWidget {
                               Icons.add_a_photo,
                               color: Colors.green,
                             ),
-                            onPressed: () {},
+                            onPressed: getImage,
                           ),
                         ],
                       ),
@@ -150,20 +199,52 @@ class AppNewProduct extends StatelessWidget {
             Directionality(
               textDirection: TextDirection.rtl,
               child: Container(
-                  height: 300,
-                child: ListView.builder(
-                  itemCount: 3,
-                  physics: BouncingScrollPhysics(),
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Placeholder(
-                        fallbackWidth: 200,
-                      ),
-                    );
-                  },
-                ),
+                height: 300,
+                child: _image.isNotEmpty
+                    ? ListView.builder(
+                        itemCount: _image.length,
+                        physics: BouncingScrollPhysics(),
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Stack(
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(15), child: Image.file(_image[index])),
+                              ),
+                              Positioned(
+                                top: -10,
+                                left: -10,
+                                child: IconButton(
+                                    icon: Container(
+                                        decoration: BoxDecoration(
+                                            color: Colors.red[700], borderRadius: BorderRadius.circular(90)),
+                                        child: Icon(Icons.remove, color: Colors.white)),
+                                    onPressed: () => setState(() => _image.removeAt(index))),
+                              ),
+                            ],
+                          );
+                        },
+                      )
+                    : Center(
+                        child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Icon(
+                              Icons.image,
+                              size: 60,
+                              color: Colors.grey[300],
+                            ),
+                          ),
+                          Text(
+                            'الرجاء اضافة صور للمنتج',
+                            style: TextStyle(color: Colors.grey, fontSize: 21),
+                          ),
+                        ],
+                      )),
               ),
             ),
           ],

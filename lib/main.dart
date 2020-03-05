@@ -29,23 +29,22 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Shopaholics',
       theme: ThemeData(
-        appBarTheme: AppBarTheme(
-          brightness: Brightness.light,
-          actionsIconTheme: IconThemeData(),
-          color: Colors.white,
-          elevation: 2,
-          iconTheme: IconThemeData(),
-          textTheme: TextTheme(
-            title: TextStyle(color: Colors.black, fontSize: 18),
+          appBarTheme: AppBarTheme(
+            brightness: Brightness.light,
+            actionsIconTheme: IconThemeData(),
+            color: Colors.white,
+            elevation: 2,
+            iconTheme: IconThemeData(),
+            textTheme: TextTheme(
+              title: TextStyle(color: Colors.black, fontSize: 18),
+            ),
           ),
-        ),
-        backgroundColor: Colors.white,
-        scaffoldBackgroundColor: Colors.white,
-        
-        primaryColor: Colors.grey,
-        cursorColor: Colors.grey, //Color(0xffd67e7e),
-        primarySwatch: Colors.grey,
-      ),
+          backgroundColor: Colors.white,
+          scaffoldBackgroundColor: Colors.white,
+          primaryColor: Colors.grey,
+          cursorColor: Colors.grey, //Color(0xffd67e7e),
+          primarySwatch: Colors.grey,
+          textTheme: TextTheme()),
       home: Launcher(),
     );
   }
@@ -73,14 +72,13 @@ class _LauncherState extends State<Launcher> {
   Future<void> initState() {
     super.initState();
     _init();
-    
-    Future.delayed(Duration(seconds: 2)).whenComplete(() => PagePush(
-          context,
-          MainView(
-            child: HomePage(),
-          ),
-          replacement: true,
-        ));
+
+    Future.delayed(Duration(seconds: 1))
+        .whenComplete(() => Navigator.of(context).pushReplacement(CupertinoPageRoute(builder: (cxt) {
+              return MainView(
+                child: HomePage(),
+              );
+            })));
   }
 
   @override

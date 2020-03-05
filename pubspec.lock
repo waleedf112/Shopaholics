@@ -106,6 +106,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "7.0.9"
+  carousel_slider:
+    dependency: "direct main"
+    description:
+      name: carousel_slider
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.4.1"
   characters:
     dependency: transitive
     description:
@@ -272,13 +279,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_inner_drawer:
-    dependency: "direct main"
+  flutter_device_type:
+    dependency: transitive
     description:
-      name: flutter_inner_drawer
+      name: flutter_device_type
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.5.4"
+    version: "0.2.0"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
@@ -310,6 +317,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.2.0"
+  google_fonts_arabic:
+    dependency: "direct main"
+    description:
+      name: google_fonts_arabic
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.7"
   graphs:
     dependency: transitive
     description:
@@ -373,6 +387,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.2.1"
+  image_fade:
+    dependency: "direct main"
+    description:
+      name: image_fade
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.1"
   image_picker:
     dependency: "direct main"
     description:
@@ -478,6 +499,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.8.0+1"
+  persistent_bottom_nav_bar:
+    dependency: "direct main"
+    description:
+      name: persistent_bottom_nav_bar
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.5"
   petitparser:
     dependency: transitive
     description:

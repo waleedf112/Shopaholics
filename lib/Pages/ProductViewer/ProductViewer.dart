@@ -1,5 +1,8 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:image_fade/image_fade.dart';
 import 'package:shopaholics/Classes/Product.dart';
 import 'package:shopaholics/Widgets/Button.dart';
 import 'package:shopaholics/Widgets/SecondaryView.dart';
@@ -45,18 +48,41 @@ class _ProductViewerState extends State<ProductViewer> {
       child: ListView(
         physics: BouncingScrollPhysics(),
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Card(
-                elevation: 5,
-                child: Padding(
-                  padding: const EdgeInsets.all(30.0),
-                  child: Placeholder(
-                    fallbackHeight: 250,
-                    color: Colors.grey.withOpacity(0.0),
-                  ),
-                )),
-          ),
+          Card(
+              margin: EdgeInsets.only(bottom: 15),
+              elevation: 5,
+              child: CarouselSlider.builder(
+                itemCount: widget.product.productImagesURLs.length,
+                autoPlay: true,
+                autoPlayAnimationDuration: Duration(seconds: 1),
+                aspectRatio: 9/8,
+                scrollPhysics: BouncingScrollPhysics(),
+                enableInfiniteScroll: true,
+                itemBuilder: (BuildContext context, int itemIndex) => Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: ImageFade(
+                        image: NetworkImage(widget.product.productImagesURLs[itemIndex]),
+                        errorBuilder: (BuildContext context, Widget child, dynamic exception) {
+                            return Container(
+                              color: Colors.grey.withOpacity(0.2),
+                              child: Center(child: Icon(Icons.broken_image, color: Colors.grey, size: 128.0)),
+                            );
+                          },
+                        loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent event) {
+                          return Container(
+                              color: Colors.grey.withOpacity(0.2),
+                            child: SpinKitDoubleBounce(
+                              color: Colors.white,
+                            ),
+                          );
+                        },
+                        fit: BoxFit.fitWidth,
+                      ),
+                    ),
+                  ],
+                ),
+              )),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12),
             child: Directionality(

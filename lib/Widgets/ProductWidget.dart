@@ -1,3 +1,5 @@
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:image_fade/image_fade.dart';
 import 'package:shopaholics/Classes/Product.dart';
 import 'package:flutter/material.dart';
 import 'package:shopaholics/Functions/PagePush.dart';
@@ -7,10 +9,9 @@ import 'package:shopaholics/Pages/ProductViewer/ProductViewer.dart';
 import 'TextWidget.dart';
 
 class ProductWidget extends StatefulWidget {
-  String imagePath;
   var item;
   bool liked = false;
-  ProductWidget(@required this.item, [this.imagePath]);
+  ProductWidget(@required this.item);
 
   @override
   _ProductWidgetState createState() => _ProductWidgetState();
@@ -51,7 +52,7 @@ class _ProductWidgetState extends State<ProductWidget> {
     }
 
     Widget getPrice() {
-      return TextWidget('${widget.item.productPrice} ريال');
+      return TextWidget('${widget.item.productPrice} ريال', style: TextStyle(fontWeight: FontWeight.bold));
     }
 
     if (widget.item is ProductRequest) {
@@ -69,10 +70,24 @@ class _ProductWidgetState extends State<ProductWidget> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Expanded(
-                  child: widget.imagePath == null
+                  child: widget.item.productImagesURLs.isEmpty
                       ? Placeholder()
-                      : Image.asset(
-                          widget.imagePath,
+                      : ImageFade(
+                          image: NetworkImage(widget.item.productImagesURLs[0]),
+                          errorBuilder: (BuildContext context, Widget child, dynamic exception) {
+                            return Container(
+                              color: Colors.grey.withOpacity(0.2),
+                              child: Center(child: Icon(Icons.broken_image, color: Colors.grey, size: 128.0)),
+                            );
+                          },
+                          loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent event) {
+                            return Container(
+                              color: Colors.grey.withOpacity(0.2),
+                              child: SpinKitDoubleBounce(
+                                color: Colors.white,
+                              ),
+                            );
+                          },
                           fit: BoxFit.cover,
                           width: 200,
                         ),
@@ -108,10 +123,24 @@ class _ProductWidgetState extends State<ProductWidget> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Expanded(
-                  child: widget.imagePath == null
+                  child: widget.item.productImagesURLs.isEmpty
                       ? Placeholder()
-                      : Image.asset(
-                          widget.imagePath,
+                      : ImageFade(
+                          image: NetworkImage(widget.item.productImagesURLs[0]),
+                          errorBuilder: (BuildContext context, Widget child, dynamic exception) {
+                            return Container(
+                              color: Colors.grey.withOpacity(0.2),
+                              child: Center(child: Icon(Icons.broken_image, color: Colors.grey, size: 128.0)),
+                            );
+                          },
+                          loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent event) {
+                            return Container(
+                              color: Colors.grey.withOpacity(0.2),
+                              child: SpinKitDoubleBounce(
+                                color: Colors.white,
+                              ),
+                            );
+                          },
                           fit: BoxFit.cover,
                           width: 200,
                         ),

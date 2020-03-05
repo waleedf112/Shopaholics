@@ -177,101 +177,98 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SecondaryView(
-      title: 'الاعدادات',
-      backButtonFunction: () => isSignedIn() ? currentUser.saveUserChanges() : null,
-      child: ListView(
-        physics: BouncingScrollPhysics(),
-        children: <Widget>[
-          topWidget(context),
-          SizedBox(height: 25),
-          if (isSignedIn())
-            settingSection([
-              setting(
-                title: 'حسابي',
-                desc: 'لادارة حسابك وتغيير البريد الالكتروني وكلمة المرور',
-                icon: Icons.lock,
-              ),
-              setting(
-                  title: 'تسجيل خروج',
-                  desc: 'لتسجيل الخروج من حسابك',
-                  icon: Icons.subdirectory_arrow_right,
-                  onPressed: () async {
-                    FocusScope.of(context).unfocus();
-                    String error;
-
-                    await loadingScreen(
-                        context: context,
-                        function: () async {
-                          await FirebaseAuth.instance.signOut().catchError((onError) {
-                            error = onError.toString();
-                          });
-                          if (error == null) userDelete();
-                          Navigator.of(context).pop();
-                        });
-
-                    if (error != null) {
-                      CustomDialog(
-                        context: context,
-                        content: Text(
-                          error,
-                          textAlign: TextAlign.center,
-                        ),
-                        dismissible: true,
-                        title: 'خطأ',
-                        firstButtonText: 'حسناً',
-                        firstButtonColor: Colors.black45,
-                        firstButtonFunction: () => Navigator.of(context).pop(),
-                      );
-                    } else {
-                      Navigator.of(context).pop();
-                    }
-                  }),
-            ]),
-          if (isSignedIn()) SizedBox(height: 25),
-          if (isSignedIn())
-            settingSection([
-              setting(
-                title: 'الطلبات',
-                desc: 'لعرض طلباتك الحاليه والسابقة',
-                icon: Icons.shopping_basket,
-              ),
-              setting(
-                title: 'عناوين التوصيل',
-                desc: 'تحديد عناوينك لتوصيل الطلبات',
-                icon: Icons.location_on,
-              ),
-              setting(
-                title: 'وسائل الدفع',
-                desc: 'اضافة وحذف أي وسيلة للدفع',
-                icon: Icons.credit_card,
-              ),
-              setting(
-                title: 'التسجيل كبائع',
-                desc: 'لتقديم طلب صلاحيه البيع في التطبيق',
-                icon: Icons.store_mall_directory,
-              ),
-            ]),
-          if (isSignedIn()) SizedBox(height: 25),
+    //TODO currentUser.saveUserChanges()
+    return ListView(
+      physics: BouncingScrollPhysics(),
+      children: <Widget>[
+        topWidget(context),
+        SizedBox(height: 25),
+        if (isSignedIn())
           settingSection([
             setting(
-              title: 'التنبيهات',
-              desc: 'اعدادات التنبيهات للتخفيضات والعروض وغيرها',
-              icon: Icons.notifications_active,
+              title: 'حسابي',
+              desc: 'لادارة حسابك وتغيير البريد الالكتروني وكلمة المرور',
+              icon: Icons.lock,
             ),
             setting(
-              title: 'اللغة',
-              desc: 'تغيير لغة عرض البرنامج',
-              icon: Icons.language,
+                title: 'تسجيل خروج',
+                desc: 'لتسجيل الخروج من حسابك',
+                icon: Icons.subdirectory_arrow_right,
+                onPressed: () async {
+                  FocusScope.of(context).unfocus();
+                  String error;
+
+                  await loadingScreen(
+                      context: context,
+                      function: () async {
+                        await FirebaseAuth.instance.signOut().catchError((onError) {
+                          error = onError.toString();
+                        });
+                        if (error == null) userDelete();
+                        Navigator.of(context).pop();
+                      });
+
+                  if (error != null) {
+                    CustomDialog(
+                      context: context,
+                      content: Text(
+                        error,
+                        textAlign: TextAlign.center,
+                      ),
+                      dismissible: true,
+                      title: 'خطأ',
+                      firstButtonText: 'حسناً',
+                      firstButtonColor: Colors.black45,
+                      firstButtonFunction: () => Navigator.of(context).pop(),
+                    );
+                  } else {
+                    Navigator.of(context).pop();
+                  }
+                }),
+          ]),
+        if (isSignedIn()) SizedBox(height: 25),
+        if (isSignedIn())
+          settingSection([
+            setting(
+              title: 'الطلبات',
+              desc: 'لعرض طلباتك الحاليه والسابقة',
+              icon: Icons.shopping_basket,
             ),
             setting(
-              title: 'اتصل بنا',
-              desc: 'للتواصل مع ادارة التطبيق وللشكاوي والاقتراحات',
-              icon: Icons.message,
+              title: 'عناوين التوصيل',
+              desc: 'تحديد عناوينك لتوصيل الطلبات',
+              icon: Icons.location_on,
+            ),
+            setting(
+              title: 'وسائل الدفع',
+              desc: 'اضافة وحذف أي وسيلة للدفع',
+              icon: Icons.credit_card,
+            ),
+            setting(
+              title: 'التسجيل كبائع',
+              desc: 'لتقديم طلب صلاحيه البيع في التطبيق',
+              icon: Icons.store_mall_directory,
             ),
           ]),
-        ],
-      ),
+        if (isSignedIn()) SizedBox(height: 25),
+        settingSection([
+          setting(
+            title: 'التنبيهات',
+            desc: 'اعدادات التنبيهات للتخفيضات والعروض وغيرها',
+            icon: Icons.notifications_active,
+          ),
+          setting(
+            title: 'اللغة',
+            desc: 'تغيير لغة عرض البرنامج',
+            icon: Icons.language,
+          ),
+          setting(
+            title: 'اتصل بنا',
+            desc: 'للتواصل مع ادارة التطبيق وللشكاوي والاقتراحات',
+            icon: Icons.message,
+          ),
+        ]),
+      ],
     );
   }
 }

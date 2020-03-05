@@ -11,16 +11,22 @@ import 'TextWidget.dart';
 
 enum GridProductsType { requests, offers }
 
-class GridProducts extends StatelessWidget {
+class GridProducts extends StatefulWidget {
   GridProductsType type;
   String title;
   GridProducts({
     this.type,
     this.title,
   });
+
+  @override
+  _GridProductsState createState() => _GridProductsState();
+}
+
+class _GridProductsState extends State<GridProducts> {
   @override
   Widget build(BuildContext context) {
-    switch (type) {
+    switch (widget.type) {
       case GridProductsType.requests:
         return StreamBuilder(
           stream: Firestore.instance.collection('ProductRequests').getDocuments().asStream(),
@@ -42,7 +48,7 @@ class GridProducts extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           TextWidget(
-                            title,
+                            widget.title,
                             style: TextStyle(
                               fontSize: 21,
                               fontWeight: FontWeight.bold,
@@ -97,7 +103,7 @@ class GridProducts extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           TextWidget(
-                            title,
+                            widget.title,
                             style: TextStyle(
                               fontSize: 21,
                               fontWeight: FontWeight.bold,

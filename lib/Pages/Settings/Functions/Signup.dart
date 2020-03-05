@@ -31,6 +31,6 @@ Future<void> signUpUser(context, {formKey, email, password}) async {
   if (error != null) {
     CustomErrorDialog(context, text: error);
   } else {
-    Navigator.of(context).pop();
+    //Navigator.of(context).pop();
   }
 }

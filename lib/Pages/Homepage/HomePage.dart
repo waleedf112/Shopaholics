@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:shopaholics/Classes/Product.dart';
+import 'package:shopaholics/Classes/User.dart';
 import 'package:shopaholics/Functions/PagePush.dart';
 import 'package:shopaholics/Pages/AddNewProduct/AddNewProduct.dart';
 import 'package:shopaholics/Pages/AddProductRequest/AddProductRequest.dart';
@@ -70,7 +71,7 @@ class _HomePageState extends State<HomePage> {
       items: _navBarsItems(),
       screens: [
         Scaffold(
-          floatingActionButton: FloatingActionButton(
+          floatingActionButton:isSignedIn()? FloatingActionButton(
             heroTag: 'heroProduct',
             onPressed: () => PagePush(context, AppNewProduct()),
             child: Icon(
@@ -83,7 +84,7 @@ class _HomePageState extends State<HomePage> {
             highlightElevation: 0,
             hoverElevation: 0,
             backgroundColor: Colors.grey.withOpacity(0.7),
-          ),
+          ):null,
           body: ListView(
             physics: BouncingScrollPhysics(),
             shrinkWrap: true,
@@ -101,7 +102,7 @@ class _HomePageState extends State<HomePage> {
         ),
         Container(color: Colors.white, child: Placeholder()),
         Scaffold(
-          floatingActionButton: FloatingActionButton(
+          floatingActionButton:isSignedIn()? FloatingActionButton(
             heroTag: 'heroRequest',
 
             onPressed: () => PagePush(context, AddProductRequest()),
@@ -115,7 +116,7 @@ class _HomePageState extends State<HomePage> {
             highlightElevation: 0,
             hoverElevation: 0,
             backgroundColor: Colors.grey.withOpacity(0.7),
-          ),
+          ):null,
           body: ListView(
             shrinkWrap: true,
             physics: BouncingScrollPhysics(),

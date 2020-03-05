@@ -222,7 +222,7 @@ class SettingsPage extends StatelessWidget {
                       firstButtonFunction: () => Navigator.of(context).pop(),
                     );
                   } else {
-                    Navigator.of(context).pop();
+                   // Navigator.of(context).pop();
                   }
                 }),
           ]),

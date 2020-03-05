@@ -1,9 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shopaholics/Classes/User.dart';
 import 'package:shopaholics/Widgets/CustomDialog.dart';
 import 'package:shopaholics/Widgets/loadingDialog.dart';
 import 'package:shopaholics/Widgets/CustomErrorDialog.dart';
+
+import '../../../main.dart';
 
 Future<void> signInUser(context, {formKey, email, password}) async {
   FocusScope.of(context).unfocus();
@@ -31,6 +34,10 @@ Future<void> signInUser(context, {formKey, email, password}) async {
   if (error != null) {
     CustomErrorDialog(context, text: error);
   } else {
-    Navigator.of(context).pop();
+    /* Navigator.of(context).pop();
+
+    Navigator.of(context).pushReplacement(CupertinoPageRoute(builder: (cxt) {
+      return Launcher();
+    })); */
   }
 }

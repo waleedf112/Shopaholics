@@ -12,25 +12,22 @@ import 'Widgets/MainView.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  //TODO fix status bar for ios
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light.copyWith(
-    statusBarColor: Colors.transparent,
-    systemNavigationBarIconBrightness: Brightness.dark,
-    systemNavigationBarColor: Colors.white,
-    statusBarIconBrightness: Brightness.dark,
-    statusBarBrightness: Brightness.light,
-  ));
+
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
+        statusBarColor: Colors.white, // Color for Android
+        statusBarBrightness: Brightness.dark // Dark == white status bar -- for IOS.
+    ));
     return MaterialApp(
       title: 'Shopaholics',
       theme: ThemeData(
           appBarTheme: AppBarTheme(
-            brightness: Brightness.light,
+            brightness: Brightness.dark,
             actionsIconTheme: IconThemeData(),
             color: Colors.white,
             elevation: 2,

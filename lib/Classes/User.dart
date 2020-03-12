@@ -27,6 +27,9 @@ class CurrentUser extends HiveObject {
   @HiveField(3)
   String phone;
 
+  @HiveField(4)
+  List<int> likedOffers;
+
   void setName(String name) {
     this.displayName = name;
     this.save();
@@ -70,4 +73,62 @@ class CurrentUser extends HiveObject {
       'displayName': this.displayName,
     });
   }
+
+  Future<void> addOfferToLikes(String reference) async {
+    try {
+      await Firestore.instance
+          .collection('Users')
+          .document(this.uid)
+          .collection('favorite')
+          .document('offers')
+          .updateData({
+        'reference': FieldValue.arrayUnion([reference]),
+      });
+    } catch (e) {
+      await Firestore.instance
+          .collection('Users')
+          .document(this.uid)
+          .collection('favorite')
+          .document('offers')
+          .setData({'reference': []});
+      await Firestore.instance
+          .collection('Users')
+          .document(this.uid)
+          .collection('favorite')
+          .document('offers')
+          .updateData({
+        'reference': FieldValue.arrayUnion([reference]),
+      });
+    }
+    if (this.likedOffers == null) this.likedOffers = new List();
+    this.likedOffers.add(int.parse(reference));
+    print(currentUser.likedOffers);
+    this.save();
+  }
+
+  Future<void> removeOfferToLikes(String reference) async {
+    try {
+      await Firestore.instance
+          .collection('Users')
+          .document(this.uid)
+          .collection('favorite')
+          .document('offers')
+          .updateData({
+        'reference': FieldValue.arrayRemove([reference]),
+      });
+    } catch (e) {
+      await Firestore.instance
+          .collection('Users')
+          .document(this.uid)
+          .collection('favorite')
+          .document('offers')
+          .setData({'reference': []});
+    }
+    if (this.likedOffers == null) this.likedOffers = new List();
+    this.likedOffers.remove(reference);
+    this.save();
+  }
+
+  Stream<QuerySnapshot> getLikedOffers() =>
+      Firestore.instance.collection('ProductOffer').where('id', whereIn: this.likedOffers).getDocuments().asStream();
 }

@@ -2,6 +2,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:image_fade/image_fade.dart';
 import 'package:shopaholics/Classes/Product.dart';
 import 'package:flutter/material.dart';
+import 'package:shopaholics/Classes/User.dart';
 import 'package:shopaholics/Functions/PagePush.dart';
 import 'package:shopaholics/Functions/time.dart';
 import 'package:shopaholics/Pages/ProductViewer/ProductViewer.dart';
@@ -10,8 +11,8 @@ import 'TextWidget.dart';
 
 class ProductWidget extends StatefulWidget {
   var item;
-  bool liked = false;
-  ProductWidget(@required this.item);
+  bool liked;
+  ProductWidget(@required this.item,this.liked);
 
   @override
   _ProductWidgetState createState() => _ProductWidgetState();
@@ -27,26 +28,46 @@ class _ProductWidgetState extends State<ProductWidget> {
               Icons.favorite,
               color: Colors.red,
             ),
-            onPressed: () => setState(() => widget.liked = false));
+            onPressed: () => setState(() {
+                  widget.liked = false;
+                  widget.item.removeFromLikes();
+                }));
       } else {
-        return IconButton(icon: Icon(Icons.favorite_border), onPressed: () => setState(() => widget.liked = true));
+        return IconButton(
+            icon: Icon(Icons.favorite_border),
+            onPressed: () => setState(() {
+                  if (isSignedIn()) {
+                    widget.liked = true;
+                    widget.item.addToLikes();
+                  } else {
+                    Scaffold.of(context).showSnackBar(SnackBar(
+                      content: Text(
+                        "الرجاء تسجيل دخولك لتتمكن من الاضافة الى المفضلة",
+                        textDirection: TextDirection.rtl,
+                      ),
+                    ));
+                  }
+                }));
       }
     }
 
     infoText() {
-      return Padding(
-        padding: const EdgeInsets.only(top: 3, right: 7),
-        child: Row(
-          children: <Widget>[
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                TextWidget(formatTime(widget.item.time), style: TextStyle(color: Colors.grey, fontSize: 11)),
-                TextWidget(widget.item.productName, style: TextStyle(fontWeight: FontWeight.bold)),
-                TextWidget(widget.item.user),
-              ],
-            ),
-          ],
+      return Container(
+        height: 70,
+        child: Padding(
+          padding: const EdgeInsets.only(top: 3, right: 7),
+          child: Row(
+            children: <Widget>[
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  TextWidget(formatTime(widget.item.time), style: TextStyle(color: Colors.grey, fontSize: 11)),
+                  TextWidget(widget.item.productName, style: TextStyle(fontWeight: FontWeight.bold)),
+                  TextWidget(widget.item.user),
+                ],
+              ),
+            ],
+          ),
         ),
       );
     }
@@ -141,7 +162,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                               ),
                             );
                           },
-                          fit: BoxFit.cover,
+                          fit: BoxFit.fitHeight,
                           width: 200,
                         ),
                 ),

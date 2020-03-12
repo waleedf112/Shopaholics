@@ -9,6 +9,7 @@ import 'package:shopaholics/Pages/AddProductRequest/AddProductRequest.dart';
 import 'package:shopaholics/Pages/Settings/Settings.dart';
 import 'package:shopaholics/Widgets/Button.dart';
 import 'package:shopaholics/Widgets/GridProducts.dart';
+import 'package:shopaholics/Widgets/ListProducts.dart';
 import 'package:shopaholics/Widgets/MainView.dart';
 import 'package:flutter/material.dart';
 
@@ -65,26 +66,27 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return PersistentTabView(
-
       controller: _controller,
       backgroundColor: Colors.white,
       items: _navBarsItems(),
       screens: [
         Scaffold(
-          floatingActionButton:isSignedIn()? FloatingActionButton(
-            heroTag: 'heroProduct',
-            onPressed: () => PagePush(context, AppNewProduct()),
-            child: Icon(
-              Icons.add,
-              color: Colors.white,
-            ),
-            elevation: 0,
-            disabledElevation: 0,
-            focusElevation: 0,
-            highlightElevation: 0,
-            hoverElevation: 0,
-            backgroundColor: Colors.grey.withOpacity(0.7),
-          ):null,
+          floatingActionButton: isSignedIn()
+              ? FloatingActionButton(
+                  heroTag: 'heroProduct',
+                  onPressed: () => PagePush(context, AppNewProduct()),
+                  child: Icon(
+                    Icons.add,
+                    color: Colors.white,
+                  ),
+                  elevation: 0,
+                  disabledElevation: 0,
+                  focusElevation: 0,
+                  highlightElevation: 0,
+                  hoverElevation: 0,
+                  backgroundColor: Colors.grey.withOpacity(0.7),
+                )
+              : null,
           body: ListView(
             physics: BouncingScrollPhysics(),
             shrinkWrap: true,
@@ -102,21 +104,22 @@ class _HomePageState extends State<HomePage> {
         ),
         Container(color: Colors.white, child: Placeholder()),
         Scaffold(
-          floatingActionButton:isSignedIn()? FloatingActionButton(
-            heroTag: 'heroRequest',
-
-            onPressed: () => PagePush(context, AddProductRequest()),
-            child: Icon(
-              Icons.add,
-              color: Colors.white,
-            ),
-            elevation: 0,
-            disabledElevation: 0,
-            focusElevation: 0,
-            highlightElevation: 0,
-            hoverElevation: 0,
-            backgroundColor: Colors.grey.withOpacity(0.7),
-          ):null,
+          floatingActionButton: isSignedIn()
+              ? FloatingActionButton(
+                  heroTag: 'heroRequest',
+                  onPressed: () => PagePush(context, AddProductRequest()),
+                  child: Icon(
+                    Icons.add,
+                    color: Colors.white,
+                  ),
+                  elevation: 0,
+                  disabledElevation: 0,
+                  focusElevation: 0,
+                  highlightElevation: 0,
+                  hoverElevation: 0,
+                  backgroundColor: Colors.grey.withOpacity(0.7),
+                )
+              : null,
           body: ListView(
             shrinkWrap: true,
             physics: BouncingScrollPhysics(),
@@ -128,15 +131,12 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         ),
-        Container(color: Colors.white, child: Placeholder()),
+        Scaffold(body: ListProducts()),
         Container(color: Colors.white, child: SettingsPage()),
       ],
-
       showElevation: true,
       iconSize: 26.0,
-
       navBarStyle: NavBarStyle.style6,
-      
     );
   }
 }

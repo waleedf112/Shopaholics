@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:shopaholics/Classes/Product.dart';
 import 'package:flutter/material.dart';
+import 'package:shopaholics/Classes/User.dart';
 
 import 'Button.dart';
 import 'CustomStreamBuilder.dart';
@@ -71,7 +72,7 @@ class _GridProductsState extends State<GridProducts> {
                             documents[index].data,
                             documents[index].reference.path,
                           );
-                          return ProductWidget(_product);
+                          return ProductWidget(_product, false);
                         },
                       ),
                     ),
@@ -126,7 +127,12 @@ class _GridProductsState extends State<GridProducts> {
                             documents[index].data,
                             documents[index].reference.path,
                           );
-                          return ProductWidget(_product);
+                          if (!isSignedIn() || currentUser.likedOffers == null || currentUser.likedOffers.isEmpty)
+                            return ProductWidget(_product, false);
+                            
+                          String ref = documents[index].reference.path.split('/')[1];
+                          int id = int.parse(ref);
+                          return ProductWidget(_product, currentUser.likedOffers.contains(id));
                         },
                       ),
                     ),

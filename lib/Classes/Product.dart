@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
 
 import 'User.dart';
 
@@ -31,7 +32,7 @@ class ProductRequest {
 
   pushToDatabase() async {
     int time = DateTime.now().millisecondsSinceEpoch;
-        StorageReference storageReference;
+    StorageReference storageReference;
 
     for (int i = 0; i < this.productImages.length; i++) {
       String path = "ProductImages/Requests/${currentUser.uid}/${this.productName}~$time/$i";
@@ -41,6 +42,14 @@ class ProductRequest {
       final String url = (await downloadUrl.ref.getDownloadURL());
       productImagesURLs.add(url);
     }
+     int counter;
+    await Firestore.instance.collection('Counters').document('requestsID').get().then((counterValue) {
+      counter = counterValue.data['id'];
+    });
+    await Firestore.instance.collection('Counters').document('requestsID').updateData({
+      'id': FieldValue.increment(1),
+    });
+
     return await Firestore.instance.collection('ProductRequests').document().setData({
       'User': {
         "uid": currentUser.uid,
@@ -48,11 +57,11 @@ class ProductRequest {
         "Rating": 4.5,
       },
       'Time': time,
+      'id': counter,
       'productName': this.productName,
       'productDescription': this.productDescription,
       'productPrice': this.productPrice,
       'productImagesURLs': this.productImagesURLs,
-
     });
   }
 }
@@ -94,17 +103,33 @@ class ProductOffer {
       productImagesURLs.add(url);
     }
 
-    return await Firestore.instance.collection('ProductOffer').document().setData({
+    int counter;
+    await Firestore.instance.collection('Counters').document('offersID').get().then((counterValue) {
+      counter = counterValue.data['id'];
+    });
+    await Firestore.instance.collection('Counters').document('offersID').updateData({
+      'id': FieldValue.increment(1),
+    });
+    return await Firestore.instance.collection('ProductOffer').document(counter.toString()).setData({
       'User': {
         "uid": currentUser.uid,
         "displayName": currentUser.displayName,
         "Rating": 4.5,
       },
       'Time': time,
+      'id': counter,
       'productName': this.productName,
       'productDescription': this.productDescription,
       'productPrice': this.productPrice,
       'productImagesURLs': this.productImagesURLs,
     });
+  }
+
+  addToLikes() {
+    currentUser.addOfferToLikes(this.reference.split('/')[1]);
+  }
+
+  removeFromLikes() {
+    currentUser.removeOfferToLikes(this.reference.split('/')[1]);
   }
 }

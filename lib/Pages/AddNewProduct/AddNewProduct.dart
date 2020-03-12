@@ -21,8 +21,7 @@ class _AppNewProductState extends State<AppNewProduct> {
     var image = await ImagePicker.pickImage(source: ImageSource.gallery,imageQuality: 100);
     File croppedFile = await ImageCropper.cropImage(
         sourcePath: image.path,
-        maxHeight: 350,
-        maxWidth: 200,
+        
         aspectRatio: CropAspectRatio(ratioX: 8, ratioY: 9),
 
         androidUiSettings: AndroidUiSettings(

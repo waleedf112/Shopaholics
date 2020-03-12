@@ -19,15 +19,14 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
-        statusBarColor: Colors.white, // Color for Android
-        statusBarBrightness: Brightness.dark // Dark == white status bar -- for IOS.
-    ));
+    SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(statusBarBrightness: Brightness.dark) // Or Brightness.dark
+    );
     return MaterialApp(
       title: 'Shopaholics',
       theme: ThemeData(
           appBarTheme: AppBarTheme(
-            brightness: Brightness.dark,
+            brightness: Brightness.light,
             actionsIconTheme: IconThemeData(),
             color: Colors.white,
             elevation: 2,

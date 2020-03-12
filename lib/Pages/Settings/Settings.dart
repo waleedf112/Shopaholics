@@ -1,7 +1,9 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
+import 'package:persistent_bottom_nav_bar/utils/utils.dart';
 import 'package:shopaholics/Classes/User.dart';
 import 'package:shopaholics/Widgets/CustomDialog.dart';
 import 'package:shopaholics/Widgets/SecondaryView.dart';
@@ -11,9 +13,11 @@ import 'package:shopaholics/Widgets/loadingDialog.dart';
 import 'package:flutter/material.dart';
 import 'package:shopaholics/Widgets/Button.dart';
 
+import '../../main.dart';
 import 'Functions/Validators.dart';
 import 'Functions/SignUp.dart';
 import 'Functions/SignIn.dart';
+import 'SigningPage.dart';
 
 class SettingsPage extends StatelessWidget {
   GlobalKey<FormState> formKey = new GlobalKey();
@@ -87,24 +91,14 @@ class SettingsPage extends StatelessWidget {
                 radius: 30,
               ),
             ),
-            SizedBox(width: 8),
-            Expanded(
-              child: Directionality(
-                textDirection: TextDirection.rtl,
-                child: TextField(
-                  textDirection: TextDirection.rtl,
-                  controller: displayNameController,
-                  decoration: InputDecoration(
-                    filled: true,
-                  ),
-                  onChanged: (String name) {
-                    if (name.trim().isNotEmpty) {
-                      currentUser.setName(name.trim());
-                    }
-                  },
-                ),
-              ),
-            ),
+            SizedBox(width: 12),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: <Widget>[
+                TextWidget(currentUser.displayName, style: TextStyle(fontSize: 18)),
+                TextWidget(currentUser.email, style: TextStyle(fontSize: 12,color: Colors.grey)),
+              ],
+            )
           ],
         ),
       );
@@ -116,56 +110,26 @@ class SettingsPage extends StatelessWidget {
           key: formKey,
           child: Column(
             children: <Widget>[
-              Container(
-                height: 90,
-                child: Directionality(
-                  textDirection: TextDirection.rtl,
-                  child: TextFormField(
-                    textDirection: TextDirection.ltr,
-                    controller: emailController,
-                    validator: (String value) => emailValidation(value),
-                    decoration: InputDecoration(
-                      labelText: 'البريد الالكتروني',
-                      labelStyle: TextStyle(fontSize: 14),
-                      filled: true,
-                    ),
-                  ),
-                ),
-              ),
-              Container(
-                height: 90,
-                child: Directionality(
-                  textDirection: TextDirection.rtl,
-                  child: TextFormField(
-                    textDirection: TextDirection.ltr,
-                    controller: passwordController,
-                    validator: (String value) => passwordValidation(value),
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      labelText: 'كلمة المرور',
-                      labelStyle: TextStyle(fontSize: 14),
-                      filled: true,
-                    ),
-                  ),
-                ),
-              ),
+              SizedBox(height: 5),
               SimpleButton(
                 'الدخول',
-                function: () async => await signInUser(
+                function: () => pushNewScreen(
                   context,
-                  formKey: formKey,
-                  email: emailController,
-                  password: passwordController,
+                  screen: SigningInPage(),
+                  platformSpecific:
+                      false, // OPTIONAL VALUE. False by default, which means the bottom nav bar will persist
+                  withNavBar: false, // OPTIONAL VALUE. True by default.
                 ),
               ),
               SizedBox(height: 5),
               SimpleButton(
                 'التسجيل',
-                function: () async => await signUpUser(
+                function: () async => pushNewScreen(
                   context,
-                  formKey: formKey,
-                  email: emailController,
-                  password: passwordController,
+                  screen: SigningUpPage(),
+                  platformSpecific:
+                      false, // OPTIONAL VALUE. False by default, which means the bottom nav bar will persist
+                  withNavBar: false, // OPTIONAL VALUE. True by default.
                 ),
               ),
             ],
@@ -196,34 +160,13 @@ class SettingsPage extends StatelessWidget {
                 icon: Icons.subdirectory_arrow_right,
                 onPressed: () async {
                   FocusScope.of(context).unfocus();
-                  String error;
-
-                  await loadingScreen(
-                      context: context,
-                      function: () async {
-                        await FirebaseAuth.instance.signOut().catchError((onError) {
-                          error = onError.toString();
-                        });
-                        if (error == null) userDelete();
-                        Navigator.of(context).pop();
-                      });
-
-                  if (error != null) {
-                    CustomDialog(
-                      context: context,
-                      content: Text(
-                        error,
-                        textAlign: TextAlign.center,
-                      ),
-                      dismissible: true,
-                      title: 'خطأ',
-                      firstButtonText: 'حسناً',
-                      firstButtonColor: Colors.black45,
-                      firstButtonFunction: () => Navigator.of(context).pop(),
-                    );
-                  } else {
-                   // Navigator.of(context).pop();
-                  }
+                  pushNewScreen(
+                    context,
+                    screen: SigningOutPage(),
+                    platformSpecific:
+                        false, // OPTIONAL VALUE. False by default, which means the bottom nav bar will persist
+                    withNavBar: false, // OPTIONAL VALUE. True by default.
+                  );
                 }),
           ]),
         if (isSignedIn()) SizedBox(height: 25),

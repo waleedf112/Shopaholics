@@ -24,14 +24,18 @@ class CurrentUser extends HiveObject {
   @HiveField(2)
   String uid;
 
+  @HiveField(3)
+  String phone;
+
   void setName(String name) {
     this.displayName = name;
     this.save();
   }
 
-  void registerUser(FirebaseUser user) async {
+  void registerUser(FirebaseUser user, [String name, String phone]) async {
     void fetchUserFromDatabase(DocumentSnapshot value) {
       this.displayName = value.data['displayName'];
+      this.phone = value.data['phone'];
     }
 
     Future<void> createUserInDatabase() async {
@@ -39,12 +43,14 @@ class CurrentUser extends HiveObject {
         'uid': this.uid,
         'email': this.email,
         'displayName': this.displayName,
+        'phone': this.phone,
       });
     }
 
     this.uid = user.uid;
     this.email = user.email;
-    this.displayName = 'بدون اسم';
+    this.displayName = name;
+    this.phone = phone;
 
     await Firestore.instance.collection('Users').document(this.uid).get().then((value) async {
       if (value.exists) {

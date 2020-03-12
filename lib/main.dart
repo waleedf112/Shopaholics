@@ -51,17 +51,22 @@ class MyApp extends StatelessWidget {
 }
 
 class Launcher extends StatefulWidget {
+  bool firstRun;
+  Launcher({this.firstRun = true});
   @override
   _LauncherState createState() => _LauncherState();
 }
 
 class _LauncherState extends State<Launcher> {
   _init() async {
-    final appDocumentDir = await path_provider.getApplicationDocumentsDirectory();
-    Hive.init(appDocumentDir.path);
-    Hive.registerAdapter(CurrentUserAdapter());
-    await Hive.openBox('currentUser');
-    currentUser = Hive.box('currentUser').get(0);
+    if (widget.firstRun) {
+      final appDocumentDir = await path_provider.getApplicationDocumentsDirectory();
+      Hive.init(appDocumentDir.path);
+      Hive.registerAdapter(CurrentUserAdapter());
+      await Hive.openBox('currentUser');
+      currentUser = Hive.box('currentUser').get(0);
+    }
+
     if (await FirebaseAuth.instance.currentUser() == null) {
       currentUser = null;
       Hive.box('currentUser').delete(0);

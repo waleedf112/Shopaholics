@@ -7,27 +7,31 @@ class SecondaryView extends StatelessWidget {
   Widget child;
   Widget fab;
   Function backButtonFunction;
-  SecondaryView({this.title = '', this.child, this.fab, this.backButtonFunction});
+  bool disableBackButton;
+  SecondaryView({this.title = '', this.child, this.fab, this.backButtonFunction, this.disableBackButton = false});
   @override
   Widget build(BuildContext context) {
     return DismissKeyboard(
-      child: Scaffold(
-        floatingActionButton: fab,
-        appBar: AppBar(
-          title: Text(title),
-          centerTitle: true,
-          leading: Container(),
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(Icons.arrow_forward_ios),
-              onPressed: () {
-                if (backButtonFunction != null) backButtonFunction();
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
+      child: WillPopScope(
+        onWillPop: disableBackButton ? () {} : null,
+        child: Scaffold(
+          floatingActionButton: fab,
+          appBar: AppBar(
+            title: Text(title),
+            centerTitle: true,
+            leading: Container(),
+            actions: <Widget>[
+              IconButton(
+                icon: Icon(Icons.arrow_forward_ios),
+                onPressed: () {
+                  if (backButtonFunction != null) backButtonFunction();
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          ),
+          body: child,
         ),
-        body: child,
       ),
     );
   }

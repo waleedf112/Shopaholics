@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shopaholics/Classes/User.dart';
+import 'package:shopaholics/Functions/passwordExceptions.dart';
 import 'package:shopaholics/Widgets/CustomDialog.dart';
 import 'package:shopaholics/Widgets/loadingDialog.dart';
 import 'package:shopaholics/Widgets/CustomErrorDialog.dart';
@@ -21,7 +22,7 @@ Future<void> signInUser(context, {formKey, email, password}) async {
             password: password.text.trim(),
           )
               .catchError((onError) {
-            error = onError.toString();
+            error = onError.code.toString();
           }).then((value) async {
             if (value is AuthResult) {
               userInit();
@@ -32,12 +33,12 @@ Future<void> signInUser(context, {formKey, email, password}) async {
         });
   }
   if (error != null) {
-    CustomErrorDialog(context, text: error);
+    CustomErrorDialog(context, text: exceptionLoginRegister(error));
   } else {
-    /* Navigator.of(context).pop();
+    Navigator.of(context).pop();
 
     Navigator.of(context).pushReplacement(CupertinoPageRoute(builder: (cxt) {
-      return Launcher();
-    })); */
+      return Launcher(firstRun: false);
+    }));
   }
 }

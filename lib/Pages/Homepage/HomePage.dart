@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:shopaholics/Classes/Product.dart';
@@ -6,12 +7,14 @@ import 'package:shopaholics/Classes/User.dart';
 import 'package:shopaholics/Functions/PagePush.dart';
 import 'package:shopaholics/Pages/AddNewProduct/AddNewProduct.dart';
 import 'package:shopaholics/Pages/AddProductRequest/AddProductRequest.dart';
+import 'package:shopaholics/Pages/FavoritePage/FavoritePage.dart';
 import 'package:shopaholics/Pages/Settings/Settings.dart';
 import 'package:shopaholics/Widgets/Button.dart';
 import 'package:shopaholics/Widgets/GridProducts.dart';
 import 'package:shopaholics/Widgets/ListProducts.dart';
 import 'package:shopaholics/Widgets/MainView.dart';
 import 'package:flutter/material.dart';
+import 'package:shopaholics/Widgets/TextWidget.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -34,7 +37,6 @@ class _HomePageState extends State<HomePage> {
         title: ("الرئيسية"),
         activeColor: Colors.black,
         inactiveColor: Colors.grey,
-        isTranslucent: false,
       ),
       PersistentBottomNavBarItem(
         icon: Icon(Icons.shopping_basket),
@@ -53,6 +55,7 @@ class _HomePageState extends State<HomePage> {
         title: ("المفضلة"),
         activeColor: Colors.black,
         inactiveColor: Colors.grey,
+
       ),
       PersistentBottomNavBarItem(
         icon: Icon(Icons.settings),
@@ -69,6 +72,11 @@ class _HomePageState extends State<HomePage> {
       controller: _controller,
       backgroundColor: Colors.white,
       items: _navBarsItems(),
+
+      onItemSelected: (int i) {
+        if (i == 3) {
+        }
+      },
       screens: [
         Scaffold(
           floatingActionButton: isSignedIn()
@@ -131,7 +139,9 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         ),
-        Scaffold(body: ListProducts()),
+        Scaffold(
+          body: FavoritePage(),
+        ),
         Container(color: Colors.white, child: SettingsPage()),
       ],
       showElevation: true,

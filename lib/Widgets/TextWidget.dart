@@ -17,6 +17,7 @@ Widget TextWidget(
       minFontSize: minFontSize ?? 11.0,
       maxLines: maxLines,
       overflow: overflow,
+      
       style: style,
       textAlign: textAlign,
       textDirection: appLangageRTL ? TextDirection.rtl : TextDirection.ltr,

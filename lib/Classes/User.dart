@@ -125,10 +125,14 @@ class CurrentUser extends HiveObject {
           .setData({'reference': []});
     }
     if (this.likedOffers == null) this.likedOffers = new List();
-    this.likedOffers.remove(reference);
+
+    this.likedOffers.remove(int.parse(reference));
+
     this.save();
   }
 
-  Stream<QuerySnapshot> getLikedOffers() =>
-      Firestore.instance.collection('ProductOffer').where('id', whereIn: this.likedOffers).getDocuments().asStream();
+  Stream<QuerySnapshot> getLikedOffers() => this.likedOffers.isEmpty || this.likedOffers == null
+      ? null
+      : Firestore.instance.collection('ProductOffer').where('id', whereIn: this.likedOffers).getDocuments().asStream();
+     
 }

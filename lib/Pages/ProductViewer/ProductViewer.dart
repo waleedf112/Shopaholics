@@ -98,7 +98,7 @@ class _ProductViewerState extends State<ProductViewer> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             TextWidget(widget.product.productName,
-                                maxFontSize: 35, minFontSize: 30, style: TextStyle(fontWeight: FontWeight.bold)),
+                                maxFontSize: 35, minFontSize: 18, style: TextStyle(fontWeight: FontWeight.bold)),
                                 TextWidget('المنتج ${widget.product.reference.split('/')[1]}#',
                                 maxFontSize: 12, minFontSize: 11, style: TextStyle(color: Colors.grey)),
                             AutoSizeText(

@@ -12,7 +12,7 @@ import 'TextWidget.dart';
 class ProductWidget extends StatefulWidget {
   var item;
   bool liked;
-  ProductWidget(@required this.item,this.liked);
+  ProductWidget(@required this.item, this.liked);
 
   @override
   _ProductWidgetState createState() => _ProductWidgetState();
@@ -58,13 +58,22 @@ class _ProductWidgetState extends State<ProductWidget> {
           padding: const EdgeInsets.only(top: 3, right: 7),
           child: Row(
             children: <Widget>[
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  TextWidget(formatTime(widget.item.time), style: TextStyle(color: Colors.grey, fontSize: 11)),
-                  TextWidget(widget.item.productName, style: TextStyle(fontWeight: FontWeight.bold)),
-                  TextWidget(widget.item.user),
-                ],
+              Expanded(
+                              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    TextWidget(formatTime(widget.item.time), style: TextStyle(color: Colors.grey, fontSize: 11)),
+                    TextWidget(
+                      widget.item.productName,
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                      maxLines: 1,
+                      maxFontSize: 14,
+                      minFontSize: 14,
+                      overflow: TextOverflow.ellipsis
+                    ),
+                    TextWidget(widget.item.user),
+                  ],
+                ),
               ),
             ],
           ),

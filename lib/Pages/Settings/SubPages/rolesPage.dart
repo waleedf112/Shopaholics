@@ -74,6 +74,8 @@ class _RolesPageState extends State<RolesPage> {
                       function: (p) {
                         setState(() {
                           widget.role = p;
+                          int roleIndex = roleNames.indexWhere((test) => test == p);
+                          currentUser.setRole(UserRole.values[roleIndex]);
                         });
                       },
                       children: roleNames,

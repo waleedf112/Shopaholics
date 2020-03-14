@@ -12,4 +12,4 @@ enum UserRole {
   customer
 }
 
-const List<String> roleNames = ['ادمن', 'بيرسونال شوبر', 'زبون'];
+const List<String> roleNames = ['مشرف', 'متسوق شخصي', 'زبون'];

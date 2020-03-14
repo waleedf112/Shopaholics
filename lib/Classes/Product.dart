@@ -42,7 +42,7 @@ class ProductRequest {
       final String url = (await downloadUrl.ref.getDownloadURL());
       productImagesURLs.add(url);
     }
-     int counter;
+    int counter;
     await Firestore.instance.collection('Counters').document('requestsID').get().then((counterValue) {
       counter = counterValue.data['id'];
     });
@@ -64,6 +64,9 @@ class ProductRequest {
       'productImagesURLs': this.productImagesURLs,
     });
   }
+
+  bool isLiked() => false;
+
 }
 
 class ProductOffer {
@@ -125,11 +128,13 @@ class ProductOffer {
     });
   }
 
-  addToLikes() {
+  void addToLikes() {
     currentUser.addOfferToLikes(this.reference.split('/')[1]);
   }
 
-  removeFromLikes() {
+  void removeFromLikes() {
     currentUser.removeOfferToLikes(this.reference.split('/')[1]);
   }
+
+  bool isLiked() => currentUser.likedOffers.contains(int.parse(reference.split('/')[1]));
 }

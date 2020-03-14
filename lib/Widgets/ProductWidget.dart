@@ -25,17 +25,20 @@ class _ProductWidgetState extends State<ProductWidget> {
       if (widget.liked) {
         return IconButton(
             icon: Icon(
-              Icons.favorite,
-              color: Colors.red,
+              widget.item is ProductRequest ? Icons.bookmark : Icons.favorite,
+            color: widget.item is ProductRequest ? Colors.green[600] : Colors.red,
             ),
-            onPressed: () => setState(() {
+            onPressed: widget.item is ProductRequest ?null:() => setState(() {
                   widget.liked = false;
                   widget.item.removeFromLikes();
                 }));
       } else {
         return IconButton(
-            icon: Icon(Icons.favorite_border),
-            onPressed: () => setState(() {
+            icon: Icon(
+                          widget.item is ProductRequest ? Icons.bookmark_border : Icons.favorite_border,
+
+            ),
+            onPressed:widget.item is ProductRequest ?null: () => setState(() {
                   if (isSignedIn()) {
                     widget.liked = true;
                     widget.item.addToLikes();
@@ -59,18 +62,16 @@ class _ProductWidgetState extends State<ProductWidget> {
           child: Row(
             children: <Widget>[
               Expanded(
-                              child: Column(
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     TextWidget(formatTime(widget.item.time), style: TextStyle(color: Colors.grey, fontSize: 11)),
-                    TextWidget(
-                      widget.item.productName,
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                      maxLines: 1,
-                      maxFontSize: 14,
-                      minFontSize: 14,
-                      overflow: TextOverflow.ellipsis
-                    ),
+                    TextWidget(widget.item.productName,
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                        maxLines: 1,
+                        maxFontSize: 14,
+                        minFontSize: 14,
+                        overflow: TextOverflow.ellipsis),
                     TextWidget(widget.item.user),
                   ],
                 ),
@@ -87,11 +88,7 @@ class _ProductWidgetState extends State<ProductWidget> {
 
     if (widget.item is ProductRequest) {
       return InkWell(
-        onTap: () => PagePush(
-            context,
-            ProductViewer(
-              product: widget.item,
-            )),
+        onTap: () => PagePush(context, ProductViewer(product: widget.item)),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 5),
           child: Container(
@@ -140,11 +137,7 @@ class _ProductWidgetState extends State<ProductWidget> {
       );
     } else if (widget.item is ProductOffer) {
       return InkWell(
-        onTap: () => PagePush(
-            context,
-            ProductViewer(
-              product: widget.item,
-            )),
+        onTap: () => PagePush(context, ProductViewer(product: widget.item)),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 5),
           child: Container(

@@ -20,24 +20,41 @@ class ProductViewer extends StatefulWidget {
 }
 
 class _ProductViewerState extends State<ProductViewer> {
-  bool liked = false;
+  @override
+  void initState() {
+    super.initState();
+    widget.liked = widget.product.isLiked();
+  }
 
   Widget likeButton() {
     if (widget.liked) {
       return IconButton(
           icon: Icon(
-            Icons.favorite,
-            color: Colors.red,
+            widget.product is ProductRequest ? Icons.bookmark : Icons.favorite,
+            color: widget.product is ProductRequest ? Colors.green[600] : Colors.red,
             size: 35,
           ),
-          onPressed: () => setState(() => widget.liked = false));
+          onPressed: widget.product is ProductRequest
+              ? null
+              : () {
+                  setState(() {
+                    widget.liked = false;
+                    widget.product.removeFromLikes();
+                  });
+                });
     } else {
       return IconButton(
           icon: Icon(
-            Icons.favorite_border,
+            widget.product is ProductRequest ? Icons.bookmark_border : Icons.favorite_border,
+            color: Colors.grey,
             size: 35,
           ),
-          onPressed: () => setState(() => widget.liked = true));
+          onPressed: widget.product is ProductRequest
+              ? null
+              : () => setState(() {
+                    widget.liked = true;
+                    widget.product.addToLikes();
+                  }));
     }
   }
 
@@ -55,7 +72,7 @@ class _ProductViewerState extends State<ProductViewer> {
                 itemCount: widget.product.productImagesURLs.length,
                 autoPlay: true,
                 autoPlayAnimationDuration: Duration(seconds: 1),
-                aspectRatio: 9/8,
+                aspectRatio: 9 / 8,
                 scrollPhysics: BouncingScrollPhysics(),
                 enableInfiniteScroll: true,
                 itemBuilder: (BuildContext context, int itemIndex) => Row(
@@ -64,14 +81,14 @@ class _ProductViewerState extends State<ProductViewer> {
                       child: ImageFade(
                         image: NetworkImage(widget.product.productImagesURLs[itemIndex]),
                         errorBuilder: (BuildContext context, Widget child, dynamic exception) {
-                            return Container(
-                              color: Colors.grey.withOpacity(0.2),
-                              child: Center(child: Icon(Icons.broken_image, color: Colors.grey, size: 128.0)),
-                            );
-                          },
+                          return Container(
+                            color: Colors.grey.withOpacity(0.2),
+                            child: Center(child: Icon(Icons.broken_image, color: Colors.grey, size: 128.0)),
+                          );
+                        },
                         loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent event) {
                           return Container(
-                              color: Colors.grey.withOpacity(0.2),
+                            color: Colors.grey.withOpacity(0.2),
                             child: SpinKitDoubleBounce(
                               color: Colors.white,
                             ),
@@ -99,7 +116,7 @@ class _ProductViewerState extends State<ProductViewer> {
                           children: <Widget>[
                             TextWidget(widget.product.productName,
                                 maxFontSize: 35, minFontSize: 18, style: TextStyle(fontWeight: FontWeight.bold)),
-                                TextWidget('المنتج ${widget.product.reference.split('/')[1]}#',
+                            TextWidget('المنتج ${widget.product.reference.split('/')[1]}#',
                                 maxFontSize: 12, minFontSize: 11, style: TextStyle(color: Colors.grey)),
                             AutoSizeText(
                               widget.product.productDescription,

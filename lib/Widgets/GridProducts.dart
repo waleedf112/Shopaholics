@@ -70,7 +70,9 @@ class _GridProductsState extends State<GridProducts> {
                                   context,
                                   SecondaryView(
                                     title: widget.title,
-                                    child: ListProducts(list: documents),
+                                    child: ListProducts(list: documents,
+                                      gridProductsType: GridProductsType.requests,
+                                    ),
                                   ),
                                 );
                               }),
@@ -150,6 +152,7 @@ class _GridProductsState extends State<GridProducts> {
                                     title: widget.title,
                                     child: ListProducts(
                                       list: documents,
+                                      gridProductsType: GridProductsType.offers,
                                     ),
                                   ),
                                 );

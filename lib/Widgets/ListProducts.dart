@@ -11,8 +11,8 @@ import 'ProductWidget.dart';
 
 class ListProducts extends StatefulWidget {
   List<DocumentSnapshot> list;
-
-  ListProducts({@required this.list});
+  GridProductsType gridProductsType;
+  ListProducts({@required this.list, @required this.gridProductsType});
 
   @override
   _ListProductsState createState() => _ListProductsState();
@@ -30,13 +30,23 @@ class _ListProductsState extends State<ListProducts> {
           itemCount: widget.list.length,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 0.5),
           itemBuilder: (BuildContext context, int index) {
-            ProductOffer _product = new ProductOffer.retrieveFromDatabase(
-              widget.list[index].data,
-              widget.list[index].reference.path.toString(),
-            );
-            String ref = widget.list[index].reference.path.split('/')[1];
-            int id = int.parse(ref);
-            return ProductWidget(_product, currentUser.likedOffers.contains(id));
+            if (widget.gridProductsType == GridProductsType.offers) {
+              ProductOffer _product = new ProductOffer.retrieveFromDatabase(
+                widget.list[index].data,
+                widget.list[index].reference.path.toString(),
+              );
+              String ref = widget.list[index].reference.path.split('/')[1];
+              int id = int.parse(ref);
+              return ProductWidget(_product, currentUser.likedOffers.contains(id));
+            } else {
+              ProductRequest _product = new ProductRequest.retrieveFromDatabase(
+                widget.list[index].data,
+                widget.list[index].reference.path.toString(),
+              );
+              String ref = widget.list[index].reference.path.split('/')[1];
+              int id = int.parse(ref);
+              return ProductWidget(_product, currentUser.likedOffers.contains(id));
+            }
           },
         ),
       ),

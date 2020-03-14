@@ -8,6 +8,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
 import 'Classes/User.dart';
+import 'Classes/UserRole.dart';
 import 'Functions/PagePush.dart';
 import 'Pages/Homepage/HomePage.dart';
 import 'Widgets/MainView.dart';
@@ -62,12 +63,15 @@ class Launcher extends StatefulWidget {
 class _LauncherState extends State<Launcher> {
   _init() async {
     if (widget.firstRun) {
-      final appDocumentDir =
-          await path_provider.getApplicationDocumentsDirectory();
+      final appDocumentDir = await path_provider.getApplicationDocumentsDirectory();
       Hive.init(appDocumentDir.path);
       Hive.registerAdapter(CurrentUserAdapter());
+      Hive.registerAdapter(UserRoleAdapter());
       await Hive.openBox('currentUser');
-      currentUser = Hive.box('currentUser').get(0);
+      currentUser = await Hive.box('currentUser').get(0);
+      try{print(currentUser.role);
+      }catch(e){}
+      try{if (currentUser.role == null) await currentUser.setRole(UserRole.customer);}catch(e){}
     }
 
     if (await FirebaseAuth.instance.currentUser() == null) {
@@ -81,13 +85,12 @@ class _LauncherState extends State<Launcher> {
     super.initState();
     _init();
 
-    Future.delayed(Duration(seconds: 1)).whenComplete(() =>
-        Navigator.of(context)
-            .pushReplacement(CupertinoPageRoute(builder: (cxt) {
-          return MainView(
-            child: HomePage(),
-          );
-        })));
+    Future.delayed(Duration(seconds: 1))
+        .whenComplete(() => Navigator.of(context).pushReplacement(CupertinoPageRoute(builder: (cxt) {
+              return MainView(
+                child: HomePage(),
+              );
+            })));
   }
 
   @override

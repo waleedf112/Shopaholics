@@ -17,9 +17,8 @@ String nameValidation(String value) {
 }
 
 String phoneValidation(String value) {
-  int phoneNumber;
   try {
-    phoneNumber = int.parse(value.trim());
+    int.parse(value.trim());
   } catch (e) {
     return 'رقم الجوال غير صحيح';
   }
@@ -40,10 +39,10 @@ String emailValidation(String value) {
   return null;
 }
 
-String passwordValidation(String value) {
-  if (value.isEmpty) {
+String passwordValidation(String value,{bool canBeEmpty = false}) {
+  if (value.isEmpty && !canBeEmpty) {
     return 'كلمة المرور فارغة';
-  } else if (value.length < 6) {
+  } else if (value.length > 0&&value.length < 6) {
     return 'كلمه المرور اقل من 6 احرف';
   }
   return null;

@@ -21,13 +21,14 @@ class CurrentUserAdapter extends TypeAdapter<CurrentUser> {
       ..email = fields[1] as String
       ..uid = fields[2] as String
       ..phone = fields[3] as String
-      ..likedOffers = (fields[4] as List)?.cast<int>();
+      ..likedOffers = (fields[4] as List)?.cast<int>()
+      ..role = fields[5] as UserRole;
   }
 
   @override
   void write(BinaryWriter writer, CurrentUser obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(6)
       ..writeByte(0)
       ..write(obj.displayName)
       ..writeByte(1)
@@ -37,6 +38,8 @@ class CurrentUserAdapter extends TypeAdapter<CurrentUser> {
       ..writeByte(3)
       ..write(obj.phone)
       ..writeByte(4)
-      ..write(obj.likedOffers);
+      ..write(obj.likedOffers)
+      ..writeByte(5)
+      ..write(obj.role);
   }
 }

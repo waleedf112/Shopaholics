@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
 import 'package:persistent_bottom_nav_bar/utils/utils.dart';
 import 'package:shopaholics/Classes/User.dart';
+import 'package:shopaholics/Functions/PagePush.dart';
 import 'package:shopaholics/Widgets/CustomDialog.dart';
 import 'package:shopaholics/Widgets/SecondaryView.dart';
 import 'package:shopaholics/Widgets/TextWidget.dart';
@@ -18,22 +19,13 @@ import 'Functions/Validators.dart';
 import 'Functions/SignUp.dart';
 import 'Functions/SignIn.dart';
 import 'SigningPage.dart';
+import 'SubPages/MyAccount.dart';
+import 'SubPages/rolesPage.dart';
 
 class SettingsPage extends StatelessWidget {
-  GlobalKey<FormState> formKey = new GlobalKey();
-
-  TextEditingController emailController =
-      new TextEditingController(text: kDebugMode ? 'a@a.aa' : null);
-  TextEditingController passwordController =
-      new TextEditingController(text: kDebugMode ? '12345678' : null);
-  TextEditingController displayNameController = new TextEditingController(
-      text: currentUser == null ? null : currentUser.displayName);
-
-  Widget setting(
-      {String title, String desc, IconData icon, Function onPressed}) {
+  Widget setting({String title, String desc, IconData icon, Function onPressed}) {
     return Container(
-      color:
-          onPressed == null ? Colors.grey.withOpacity(0.3) : Colors.transparent,
+      color: onPressed == null ? Colors.grey.withOpacity(0.3) : Colors.transparent,
       child: InkWell(
         onTap: onPressed,
         child: Padding(
@@ -51,8 +43,7 @@ class SettingsPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: <Widget>[
                     TextWidget(title),
-                    TextWidget(desc,
-                        style: TextStyle(color: Colors.grey, fontSize: 12)),
+                    TextWidget(desc, style: TextStyle(color: Colors.grey, fontSize: 12)),
                   ],
                 ),
               ),
@@ -100,10 +91,8 @@ class SettingsPage extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
-                TextWidget(currentUser.displayName,
-                    style: TextStyle(fontSize: 18)),
-                TextWidget(currentUser.email,
-                    style: TextStyle(fontSize: 12, color: Colors.grey)),
+                TextWidget(currentUser.displayName, style: TextStyle(fontSize: 18)),
+                TextWidget(currentUser.email, style: TextStyle(fontSize: 12, color: Colors.grey)),
               ],
             )
           ],
@@ -113,34 +102,29 @@ class SettingsPage extends StatelessWidget {
     return settingSection([
       Padding(
         padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
-        child: Form(
-          key: formKey,
-          child: Column(
-            children: <Widget>[
-              SizedBox(height: 5),
-              SimpleButton(
-                'الدخول',
-                function: () => pushNewScreen(
-                  context,
-                  screen: SigningInPage(),
-                  platformSpecific:
-                      false, // OPTIONAL VALUE. False by default, which means the bottom nav bar will persist
-                  withNavBar: false, // OPTIONAL VALUE. True by default.
-                ),
+        child: Column(
+          children: <Widget>[
+            SizedBox(height: 5),
+            SimpleButton(
+              'الدخول',
+              function: () => pushNewScreen(
+                context,
+                screen: SigningInPage(),
+                platformSpecific: false,
+                withNavBar: false,
               ),
-              SizedBox(height: 5),
-              SimpleButton(
-                'التسجيل',
-                function: () async => pushNewScreen(
-                  context,
-                  screen: SigningUpPage(),
-                  platformSpecific:
-                      false, // OPTIONAL VALUE. False by default, which means the bottom nav bar will persist
-                  withNavBar: false, // OPTIONAL VALUE. True by default.
-                ),
+            ),
+            SizedBox(height: 5),
+            SimpleButton(
+              'التسجيل',
+              function: () async => pushNewScreen(
+                context,
+                screen: SigningUpPage(),
+                platformSpecific: false,
+                withNavBar: false,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       )
     ]);
@@ -148,7 +132,6 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //TODO currentUser.saveUserChanges()
     return ListView(
       physics: BouncingScrollPhysics(),
       children: <Widget>[
@@ -157,10 +140,13 @@ class SettingsPage extends StatelessWidget {
         if (isSignedIn())
           settingSection([
             setting(
-              title: 'حسابي',
-              desc: 'لادارة حسابك وتغيير البريد الالكتروني وكلمة المرور',
-              icon: Icons.lock,
-            ),
+                title: 'حسابي',
+                desc: 'لادارة حسابك وتغيير البريد الالكتروني وكلمة المرور',
+                icon: Icons.lock,
+                onPressed: () {
+                  FocusScope.of(context).unfocus();
+                  PagePush(context, MyAccountPage());
+                }),
             setting(
                 title: 'تسجيل خروج',
                 desc: 'لتسجيل الخروج من حسابك',
@@ -170,9 +156,8 @@ class SettingsPage extends StatelessWidget {
                   pushNewScreen(
                     context,
                     screen: SigningOutPage(),
-                    platformSpecific:
-                        false, // OPTIONAL VALUE. False by default, which means the bottom nav bar will persist
-                    withNavBar: false, // OPTIONAL VALUE. True by default.
+                    platformSpecific: false,
+                    withNavBar: false,
                   );
                 }),
           ]),
@@ -198,6 +183,7 @@ class SettingsPage extends StatelessWidget {
               title: 'التسجيل كبائع',
               desc: 'لتقديم طلب صلاحيه البيع في التطبيق',
               icon: Icons.store_mall_directory,
+              onPressed: () => PagePush(context, RolesPage()),
             ),
           ]),
         if (isSignedIn()) SizedBox(height: 25),

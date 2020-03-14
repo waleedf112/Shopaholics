@@ -50,7 +50,7 @@ class ProductRequest {
       'id': FieldValue.increment(1),
     });
 
-    return await Firestore.instance.collection('ProductRequests').document().setData({
+    return await Firestore.instance.collection('ProductRequests').document(counter.toString()).setData({
       'User': {
         "uid": currentUser.uid,
         "displayName": currentUser.displayName,

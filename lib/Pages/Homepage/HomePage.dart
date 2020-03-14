@@ -102,10 +102,12 @@ class _HomePageState extends State<HomePage> {
               GridProducts(
                 title: 'اجدد المنتجات',
                 type: GridProductsType.offers,
+                sortingProducts: SortingProducts.byTime,
               ),
               GridProducts(
                 title: 'اخر العروض',
                 type: GridProductsType.offers,
+                sortingProducts: SortingProducts.byPrice,
               ),
             ],
           ),

@@ -18,13 +18,11 @@ class FavoritePage extends StatefulWidget {
 class _FavoritePageState extends State<FavoritePage> {
   @override
   Widget build(BuildContext context) {
-
     if (isSignedIn()) {
       return StreamBuilder(
         stream: currentUser.getLikedOffers(),
-        
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (!snapshot.hasData||snapshot.data.documents.length==0) {
+          if (!snapshot.hasData || snapshot.data.documents.length == 0) {
             return NoFavoriteProducts();
           } else {
             return ListProducts(list: snapshot.data.documents);

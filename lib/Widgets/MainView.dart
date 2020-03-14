@@ -20,41 +20,42 @@ class MainView extends StatefulWidget {
   _MainViewState createState() => _MainViewState();
 }
 
-class _MainViewState extends State<MainView> with SingleTickerProviderStateMixin {
-
-
+class _MainViewState extends State<MainView>
+    with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
-    
     return DismissKeyboard(
-          child: WillPopScope(
-            onWillPop: (){},
-                      child: Scaffold(
-              
-            appBar: AppBar(
-                title: Directionality(
-              textDirection: TextDirection.rtl,
-              child: Row(
-                children: <Widget>[
-                  IconButton(icon: Icon(Icons.search), onPressed: () {}),
-                  Expanded(
-                    child: TextField(
-                      textDirection: TextDirection.rtl,
-                      decoration: InputDecoration(
-                        hintText: 'البحث عن منتج',
-                        enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.transparent)),
-                        disabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.transparent)),
-                        focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.transparent)),
-                        errorBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.transparent)),
-                      ),
+      child: WillPopScope(
+        onWillPop: () {},
+        child: Scaffold(
+          appBar: AppBar(
+              title: Directionality(
+            textDirection: TextDirection.rtl,
+            child: Row(
+              children: <Widget>[
+                IconButton(icon: Icon(Icons.search), onPressed: () {}),
+                Expanded(
+                  child: TextField(
+                    textDirection: TextDirection.rtl,
+                    decoration: InputDecoration(
+                      hintText: 'البحث عن منتج',
+                      enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.transparent)),
+                      disabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.transparent)),
+                      focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.transparent)),
+                      errorBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.transparent)),
                     ),
                   ),
-                ],
-              ),
-            )),
-            body: widget.child,
+                ),
+              ],
+            ),
+          )),
+          body: widget.child,
         ),
-          ),
+      ),
     );
   }
 }

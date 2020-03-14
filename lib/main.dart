@@ -23,11 +23,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
-        statusBarBrightness: Brightness.dark,
-        statusBarColor: Colors.transparent,
-        systemNavigationBarColor: Colors.white,
-        systemNavigationBarIconBrightness: Brightness.dark
-      ),
+          statusBarBrightness: Brightness.dark,
+          statusBarColor: Colors.transparent,
+          systemNavigationBarColor: Colors.white,
+          systemNavigationBarIconBrightness: Brightness.dark),
     );
     return MaterialApp(
       title: 'Shopaholics',
@@ -63,7 +62,8 @@ class Launcher extends StatefulWidget {
 class _LauncherState extends State<Launcher> {
   _init() async {
     if (widget.firstRun) {
-      final appDocumentDir = await path_provider.getApplicationDocumentsDirectory();
+      final appDocumentDir =
+          await path_provider.getApplicationDocumentsDirectory();
       Hive.init(appDocumentDir.path);
       Hive.registerAdapter(CurrentUserAdapter());
       await Hive.openBox('currentUser');
@@ -81,12 +81,13 @@ class _LauncherState extends State<Launcher> {
     super.initState();
     _init();
 
-    Future.delayed(Duration(seconds: 1))
-        .whenComplete(() => Navigator.of(context).pushReplacement(CupertinoPageRoute(builder: (cxt) {
-              return MainView(
-                child: HomePage(),
-              );
-            })));
+    Future.delayed(Duration(seconds: 1)).whenComplete(() =>
+        Navigator.of(context)
+            .pushReplacement(CupertinoPageRoute(builder: (cxt) {
+          return MainView(
+            child: HomePage(),
+          );
+        })));
   }
 
   @override

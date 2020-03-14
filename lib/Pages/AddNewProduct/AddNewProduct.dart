@@ -18,12 +18,11 @@ class _AppNewProductState extends State<AppNewProduct> {
   List<File> _image = new List();
 
   Future getImage() async {
-    var image = await ImagePicker.pickImage(source: ImageSource.gallery,imageQuality: 100);
+    var image = await ImagePicker.pickImage(
+        source: ImageSource.gallery, imageQuality: 100);
     File croppedFile = await ImageCropper.cropImage(
         sourcePath: image.path,
-        
         aspectRatio: CropAspectRatio(ratioX: 8, ratioY: 9),
-
         androidUiSettings: AndroidUiSettings(
             toolbarTitle: '',
             hideBottomControls: true,
@@ -33,7 +32,7 @@ class _AppNewProductState extends State<AppNewProduct> {
             initAspectRatio: CropAspectRatioPreset.original,
             lockAspectRatio: true),
         iosUiSettings: IOSUiSettings(
-          minimumAspectRatio: 9/8,
+          minimumAspectRatio: 9 / 8,
           aspectRatioLockEnabled: true,
         ));
     if (croppedFile != null)
@@ -61,12 +60,14 @@ class _AppNewProductState extends State<AppNewProduct> {
         ),
         onPressed: () async {
           FocusScope.of(context).unfocus();
-          if (formKey.currentState.validate() && _image.length >= 3 && _image.length < 10) {
+          if (formKey.currentState.validate() &&
+              _image.length >= 3 &&
+              _image.length < 10) {
             ProductOffer _product = new ProductOffer(
               productName: productNameController.text.trim(),
               productDescription: productDescController.text.trim(),
               productPrice: int.parse(productPriceController.text),
-              productImages:_image,
+              productImages: _image,
             );
             await loadingScreen(
                 context: context,
@@ -86,7 +87,8 @@ class _AppNewProductState extends State<AppNewProduct> {
                         });
                   });
                 });
-          } else if (formKey.currentState.validate() && _image.length < 3 || _image.length > 10) {
+          } else if (formKey.currentState.validate() && _image.length < 3 ||
+              _image.length > 10) {
             CustomDialog(
                 context: context,
                 title: 'خطأ',
@@ -210,7 +212,8 @@ class _AppNewProductState extends State<AppNewProduct> {
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(15), child: Image.file(_image[index])),
+                                    borderRadius: BorderRadius.circular(15),
+                                    child: Image.file(_image[index])),
                               ),
                               Positioned(
                                 top: -10,
@@ -218,9 +221,13 @@ class _AppNewProductState extends State<AppNewProduct> {
                                 child: IconButton(
                                     icon: Container(
                                         decoration: BoxDecoration(
-                                            color: Colors.red[700], borderRadius: BorderRadius.circular(90)),
-                                        child: Icon(Icons.remove, color: Colors.white)),
-                                    onPressed: () => setState(() => _image.removeAt(index))),
+                                            color: Colors.red[700],
+                                            borderRadius:
+                                                BorderRadius.circular(90)),
+                                        child: Icon(Icons.remove,
+                                            color: Colors.white)),
+                                    onPressed: () =>
+                                        setState(() => _image.removeAt(index))),
                               ),
                             ],
                           );

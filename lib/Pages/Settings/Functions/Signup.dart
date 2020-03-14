@@ -9,7 +9,8 @@ import 'package:shopaholics/Widgets/CustomErrorDialog.dart';
 
 import '../../../main.dart';
 
-Future<void> signUpUser(context, {formKey, email, password, String name, String phone}) async {
+Future<void> signUpUser(context,
+    {formKey, email, password, String name, String phone}) async {
   FocusScope.of(context).unfocus();
   String error;
   if (formKey.currentState.validate()) {
@@ -26,7 +27,7 @@ Future<void> signUpUser(context, {formKey, email, password, String name, String 
           }).then((value) async {
             if (value is AuthResult) {
               userInit();
-              await currentUser.registerUser(value.user,name,phone);
+              await currentUser.registerUser(value.user, name, phone);
             }
             Navigator.of(context).pop();
           });
@@ -35,7 +36,7 @@ Future<void> signUpUser(context, {formKey, email, password, String name, String 
   if (error != null) {
     CustomErrorDialog(context, text: exceptionLoginRegister(error));
   } else {
-  Navigator.of(context).pop();
+    Navigator.of(context).pop();
 
     Navigator.of(context).pushReplacement(CupertinoPageRoute(builder: (cxt) {
       return Launcher(firstRun: false);

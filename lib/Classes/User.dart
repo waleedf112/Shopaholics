@@ -55,7 +55,11 @@ class CurrentUser extends HiveObject {
     this.displayName = name;
     this.phone = phone;
 
-    await Firestore.instance.collection('Users').document(this.uid).get().then((value) async {
+    await Firestore.instance
+        .collection('Users')
+        .document(this.uid)
+        .get()
+        .then((value) async {
       if (value.exists) {
         fetchUserFromDatabase(value);
       } else {
@@ -131,8 +135,12 @@ class CurrentUser extends HiveObject {
     this.save();
   }
 
-  Stream<QuerySnapshot> getLikedOffers() => this.likedOffers.isEmpty || this.likedOffers == null
-      ? null
-      : Firestore.instance.collection('ProductOffer').where('id', whereIn: this.likedOffers).getDocuments().asStream();
-     
+  Stream<QuerySnapshot> getLikedOffers() =>
+      this.likedOffers.isEmpty || this.likedOffers == null
+          ? null
+          : Firestore.instance
+              .collection('ProductOffer')
+              .where('id', whereIn: this.likedOffers)
+              .getDocuments()
+              .asStream();
 }

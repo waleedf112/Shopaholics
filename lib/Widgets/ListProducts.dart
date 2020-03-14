@@ -28,7 +28,8 @@ class _ListProductsState extends State<ListProducts> {
         child: GridView.builder(
           physics: BouncingScrollPhysics(),
           itemCount: widget.list.length,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 0.5),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2, childAspectRatio: 0.5),
           itemBuilder: (BuildContext context, int index) {
             if (widget.gridProductsType == GridProductsType.offers) {
               ProductOffer _product = new ProductOffer.retrieveFromDatabase(
@@ -37,7 +38,8 @@ class _ListProductsState extends State<ListProducts> {
               );
               String ref = widget.list[index].reference.path.split('/')[1];
               int id = int.parse(ref);
-              return ProductWidget(_product, currentUser.likedOffers.contains(id));
+              return ProductWidget(
+                  _product, currentUser.likedOffers.contains(id));
             } else {
               ProductRequest _product = new ProductRequest.retrieveFromDatabase(
                 widget.list[index].data,
@@ -45,7 +47,8 @@ class _ListProductsState extends State<ListProducts> {
               );
               String ref = widget.list[index].reference.path.split('/')[1];
               int id = int.parse(ref);
-              return ProductWidget(_product, currentUser.likedOffers.contains(id));
+              return ProductWidget(
+                  _product, currentUser.likedOffers.contains(id));
             }
           },
         ),

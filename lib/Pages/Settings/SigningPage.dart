@@ -16,8 +16,10 @@ import 'Functions/Validators.dart';
 
 class SigningInPage extends StatelessWidget {
   GlobalKey<FormState> formKey = new GlobalKey();
-  TextEditingController emailController = new TextEditingController(text: kDebugMode ? 'a@a.aa' : null);
-  TextEditingController passwordController = new TextEditingController(text: kDebugMode ? '12345678' : null);
+  TextEditingController emailController =
+      new TextEditingController(text: kDebugMode ? 'a@a.aa' : null);
+  TextEditingController passwordController =
+      new TextEditingController(text: kDebugMode ? '12345678' : null);
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +77,9 @@ class SigningInPage extends StatelessWidget {
                   SimpleButton(
                     'الدخول',
                     function: () async => await signInUser(context,
-                        email: emailController, password: passwordController, formKey: formKey),
+                        email: emailController,
+                        password: passwordController,
+                        formKey: formKey),
                   )
                 ],
               ),
@@ -89,11 +93,16 @@ class SigningInPage extends StatelessWidget {
 
 class SigningUpPage extends StatelessWidget {
   GlobalKey<FormState> formKey = new GlobalKey();
-  TextEditingController emailController = new TextEditingController(text: kDebugMode ? 'a@a.aa' : null);
-  TextEditingController nameController = new TextEditingController(text: kDebugMode ? 'وليد' : null);
-  TextEditingController phoneController = new TextEditingController(text: kDebugMode ? '0500000000' : null);
-  TextEditingController passwordController = new TextEditingController(text: kDebugMode ? '12345678' : null);
-  TextEditingController password2Controller = new TextEditingController(text: kDebugMode ? '12345678' : null);
+  TextEditingController emailController =
+      new TextEditingController(text: kDebugMode ? 'a@a.aa' : null);
+  TextEditingController nameController =
+      new TextEditingController(text: kDebugMode ? 'وليد' : null);
+  TextEditingController phoneController =
+      new TextEditingController(text: kDebugMode ? '0500000000' : null);
+  TextEditingController passwordController =
+      new TextEditingController(text: kDebugMode ? '12345678' : null);
+  TextEditingController password2Controller =
+      new TextEditingController(text: kDebugMode ? '12345678' : null);
 
   @override
   Widget build(BuildContext context) {
@@ -186,7 +195,9 @@ class SigningUpPage extends StatelessWidget {
                         textDirection: TextDirection.ltr,
                         controller: password2Controller,
                         validator: (String value) {
-                          if (password2Controller.text != passwordController.text) return 'كلمات المرور غير متطابقة';
+                          if (password2Controller.text !=
+                              passwordController.text)
+                            return 'كلمات المرور غير متطابقة';
                         },
                         obscureText: true,
                         decoration: InputDecoration(
@@ -249,10 +260,12 @@ class SigningOutPage extends StatelessWidget {
           context,
           screen: Launcher(firstRun: false),
 
-          platformSpecific: true, // OPTIONAL VALUE. False by default, which means the bottom nav bar will persist
+          platformSpecific:
+              true, // OPTIONAL VALUE. False by default, which means the bottom nav bar will persist
           withNavBar: false, // OPTIONAL VALUE. True by default.
         );
-        Navigator.of(context).pushReplacement(CupertinoPageRoute(builder: (cxt) {
+        Navigator.of(context)
+            .pushReplacement(CupertinoPageRoute(builder: (cxt) {
           return Launcher(firstRun: false);
         }));
       }

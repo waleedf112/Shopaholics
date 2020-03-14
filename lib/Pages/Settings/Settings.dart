@@ -22,14 +22,18 @@ import 'SigningPage.dart';
 class SettingsPage extends StatelessWidget {
   GlobalKey<FormState> formKey = new GlobalKey();
 
-  TextEditingController emailController = new TextEditingController(text: kDebugMode ? 'a@a.aa' : null);
-  TextEditingController passwordController = new TextEditingController(text: kDebugMode ? '12345678' : null);
-  TextEditingController displayNameController =
-      new TextEditingController(text: currentUser == null ? null : currentUser.displayName);
+  TextEditingController emailController =
+      new TextEditingController(text: kDebugMode ? 'a@a.aa' : null);
+  TextEditingController passwordController =
+      new TextEditingController(text: kDebugMode ? '12345678' : null);
+  TextEditingController displayNameController = new TextEditingController(
+      text: currentUser == null ? null : currentUser.displayName);
 
-  Widget setting({String title, String desc, IconData icon, Function onPressed}) {
+  Widget setting(
+      {String title, String desc, IconData icon, Function onPressed}) {
     return Container(
-      color: onPressed == null ? Colors.grey.withOpacity(0.3) : Colors.transparent,
+      color:
+          onPressed == null ? Colors.grey.withOpacity(0.3) : Colors.transparent,
       child: InkWell(
         onTap: onPressed,
         child: Padding(
@@ -47,7 +51,8 @@ class SettingsPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: <Widget>[
                     TextWidget(title),
-                    TextWidget(desc, style: TextStyle(color: Colors.grey, fontSize: 12)),
+                    TextWidget(desc,
+                        style: TextStyle(color: Colors.grey, fontSize: 12)),
                   ],
                 ),
               ),
@@ -95,8 +100,10 @@ class SettingsPage extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
-                TextWidget(currentUser.displayName, style: TextStyle(fontSize: 18)),
-                TextWidget(currentUser.email, style: TextStyle(fontSize: 12,color: Colors.grey)),
+                TextWidget(currentUser.displayName,
+                    style: TextStyle(fontSize: 18)),
+                TextWidget(currentUser.email,
+                    style: TextStyle(fontSize: 12, color: Colors.grey)),
               ],
             )
           ],

@@ -8,7 +8,12 @@ class SecondaryView extends StatelessWidget {
   Widget fab;
   Function backButtonFunction;
   bool disableBackButton;
-  SecondaryView({this.title = '', this.child, this.fab, this.backButtonFunction, this.disableBackButton = false});
+  SecondaryView(
+      {this.title = '',
+      this.child,
+      this.fab,
+      this.backButtonFunction,
+      this.disableBackButton = false});
   @override
   Widget build(BuildContext context) {
     return DismissKeyboard(

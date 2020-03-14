@@ -26,31 +26,38 @@ class _ProductWidgetState extends State<ProductWidget> {
         return IconButton(
             icon: Icon(
               widget.item is ProductRequest ? Icons.bookmark : Icons.favorite,
-            color: widget.item is ProductRequest ? Colors.green[600] : Colors.red,
+              color: widget.item is ProductRequest
+                  ? Colors.green[600]
+                  : Colors.red,
             ),
-            onPressed: widget.item is ProductRequest ?null:() => setState(() {
-                  widget.liked = false;
-                  widget.item.removeFromLikes();
-                }));
+            onPressed: widget.item is ProductRequest
+                ? null
+                : () => setState(() {
+                      widget.liked = false;
+                      widget.item.removeFromLikes();
+                    }));
       } else {
         return IconButton(
             icon: Icon(
-                          widget.item is ProductRequest ? Icons.bookmark_border : Icons.favorite_border,
-
+              widget.item is ProductRequest
+                  ? Icons.bookmark_border
+                  : Icons.favorite_border,
             ),
-            onPressed:widget.item is ProductRequest ?null: () => setState(() {
-                  if (isSignedIn()) {
-                    widget.liked = true;
-                    widget.item.addToLikes();
-                  } else {
-                    Scaffold.of(context).showSnackBar(SnackBar(
-                      content: Text(
-                        "الرجاء تسجيل دخولك لتتمكن من الاضافة الى المفضلة",
-                        textDirection: TextDirection.rtl,
-                      ),
-                    ));
-                  }
-                }));
+            onPressed: widget.item is ProductRequest
+                ? null
+                : () => setState(() {
+                      if (isSignedIn()) {
+                        widget.liked = true;
+                        widget.item.addToLikes();
+                      } else {
+                        Scaffold.of(context).showSnackBar(SnackBar(
+                          content: Text(
+                            "الرجاء تسجيل دخولك لتتمكن من الاضافة الى المفضلة",
+                            textDirection: TextDirection.rtl,
+                          ),
+                        ));
+                      }
+                    }));
       }
     }
 
@@ -65,7 +72,8 @@ class _ProductWidgetState extends State<ProductWidget> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    TextWidget(formatTime(widget.item.time), style: TextStyle(color: Colors.grey, fontSize: 11)),
+                    TextWidget(formatTime(widget.item.time),
+                        style: TextStyle(color: Colors.grey, fontSize: 11)),
                     TextWidget(widget.item.productName,
                         style: TextStyle(fontWeight: FontWeight.bold),
                         maxLines: 1,
@@ -83,7 +91,8 @@ class _ProductWidgetState extends State<ProductWidget> {
     }
 
     Widget getPrice() {
-      return TextWidget('${widget.item.productPrice} ريال', style: TextStyle(fontWeight: FontWeight.bold));
+      return TextWidget('${widget.item.productPrice} ريال',
+          style: TextStyle(fontWeight: FontWeight.bold));
     }
 
     if (widget.item is ProductRequest) {
@@ -101,13 +110,17 @@ class _ProductWidgetState extends State<ProductWidget> {
                       ? Placeholder()
                       : ImageFade(
                           image: NetworkImage(widget.item.productImagesURLs[0]),
-                          errorBuilder: (BuildContext context, Widget child, dynamic exception) {
+                          errorBuilder: (BuildContext context, Widget child,
+                              dynamic exception) {
                             return Container(
                               color: Colors.grey.withOpacity(0.2),
-                              child: Center(child: Icon(Icons.broken_image, color: Colors.grey, size: 128.0)),
+                              child: Center(
+                                  child: Icon(Icons.broken_image,
+                                      color: Colors.grey, size: 128.0)),
                             );
                           },
-                          loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent event) {
+                          loadingBuilder: (BuildContext context, Widget child,
+                              ImageChunkEvent event) {
                             return Container(
                               color: Colors.grey.withOpacity(0.2),
                               child: SpinKitDoubleBounce(
@@ -150,13 +163,17 @@ class _ProductWidgetState extends State<ProductWidget> {
                       ? Placeholder()
                       : ImageFade(
                           image: NetworkImage(widget.item.productImagesURLs[0]),
-                          errorBuilder: (BuildContext context, Widget child, dynamic exception) {
+                          errorBuilder: (BuildContext context, Widget child,
+                              dynamic exception) {
                             return Container(
                               color: Colors.grey.withOpacity(0.2),
-                              child: Center(child: Icon(Icons.broken_image, color: Colors.grey, size: 128.0)),
+                              child: Center(
+                                  child: Icon(Icons.broken_image,
+                                      color: Colors.grey, size: 128.0)),
                             );
                           },
-                          loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent event) {
+                          loadingBuilder: (BuildContext context, Widget child,
+                              ImageChunkEvent event) {
                             return Container(
                               color: Colors.grey.withOpacity(0.2),
                               child: SpinKitDoubleBounce(

@@ -136,8 +136,8 @@ class CurrentUser extends HiveObject {
   }
 
   Stream<QuerySnapshot> getLikedOffers() =>
-      this.likedOffers.isEmpty || this.likedOffers == null
-          ? null
+      this.likedOffers == null||this.likedOffers.isEmpty
+  ? null
           : Firestore.instance
               .collection('ProductOffer')
               .where('id', whereIn: this.likedOffers)

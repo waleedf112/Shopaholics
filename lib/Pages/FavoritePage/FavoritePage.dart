@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 import 'package:mdi/mdi.dart';
 import 'package:shopaholics/Classes/User.dart';
+import 'package:shopaholics/Widgets/GridProducts.dart';
 import 'package:shopaholics/Widgets/ListProducts.dart';
 import 'package:shopaholics/Widgets/TextWidget.dart';
 
@@ -25,7 +26,7 @@ class _FavoritePageState extends State<FavoritePage> {
           if (!snapshot.hasData || snapshot.data.documents.length == 0) {
             return NoFavoriteProducts();
           } else {
-            return ListProducts(list: snapshot.data.documents);
+            return ListProducts(list: snapshot.data.documents,gridProductsType: GridProductsType.offers,);
           }
         },
       );

@@ -55,7 +55,6 @@ class _HomePageState extends State<HomePage> {
         title: ("المفضلة"),
         activeColor: Colors.black,
         inactiveColor: Colors.grey,
-
       ),
       PersistentBottomNavBarItem(
         icon: Icon(Icons.settings),
@@ -72,10 +71,8 @@ class _HomePageState extends State<HomePage> {
       controller: _controller,
       backgroundColor: Colors.white,
       items: _navBarsItems(),
-
       onItemSelected: (int i) {
-        if (i == 3) {
-        }
+        if (i == 3) {}
       },
       screens: [
         Scaffold(

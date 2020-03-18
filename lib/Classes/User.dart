@@ -35,6 +35,9 @@ class CurrentUser extends HiveObject {
   @HiveField(5)
   UserRole role;
 
+  @HiveField(6)
+  List<int> cart;
+  
   CurrentUser() {
     this.role = UserRole.customer;
   }
@@ -71,11 +74,7 @@ class CurrentUser extends HiveObject {
     this.phone = phone;
     this.role = UserRole.customer;
 
-    await Firestore.instance
-        .collection('Users')
-        .document(this.uid)
-        .get()
-        .then((value) async {
+    await Firestore.instance.collection('Users').document(this.uid).get().then((value) async {
       if (value.exists) {
         await fetchUserFromDatabase(value);
       } else {
@@ -85,6 +84,18 @@ class CurrentUser extends HiveObject {
 
     Hive.box('currentUser').put(0, this);
     this.save();
+  }
+
+  Future<void> updateData() async {
+    await Firestore.instance.collection('Users').document(this.uid).get().then((value) async {
+      if (value.exists) {
+        if (value.data['role'] == null) {
+          await this.requestRole(UserRole.customer, true);
+        } else {
+          this.role = UserRole.values[value.data['role']['currentRole']];
+        }
+      }
+    });
   }
 
   Future<void> requestRole(UserRole role, [bool forced = false]) async {
@@ -98,19 +109,11 @@ class CurrentUser extends HiveObject {
   }
 
   Future getRequestedRole() async {
-    return await Firestore.instance
-        .collection('Users')
-        .document(this.uid)
-        .get()
-        .then((onValue) async {
+    return await Firestore.instance.collection('Users').document(this.uid).get().then((onValue) async {
       if (onValue.data['role'] == null) {
         this.requestRole(UserRole.customer, true);
 
-        return (await Firestore.instance
-                .collection('Users')
-                .document(this.uid)
-                .get())
-            .data['role'];
+        return (await Firestore.instance.collection('Users').document(this.uid).get()).data['role'];
       } else {
         return onValue.data['role'];
       }
@@ -125,10 +128,7 @@ class CurrentUser extends HiveObject {
   Future<void> updatePhoneNumber(String phoneNumber) async {
     this.phone = phoneNumber;
     this.save();
-    return await Firestore.instance
-        .collection('Users')
-        .document(this.uid)
-        .updateData({
+    return await Firestore.instance.collection('Users').document(this.uid).updateData({
       'phone': this.phone,
     });
   }
@@ -197,12 +197,7 @@ class CurrentUser extends HiveObject {
     this.save();
   }
 
-  Stream<QuerySnapshot> getLikedOffers() =>
-      this.likedOffers == null || this.likedOffers.isEmpty
-          ? null
-          : Firestore.instance
-              .collection('ProductOffer')
-              .where('id', whereIn: this.likedOffers)
-              .getDocuments()
-              .asStream();
+  Stream<QuerySnapshot> getLikedOffers() => this.likedOffers == null || this.likedOffers.isEmpty
+      ? null
+      : Firestore.instance.collection('ProductOffer').where('id', whereIn: this.likedOffers).getDocuments().asStream();
 }

@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:shopaholics/Classes/Product.dart';
 import 'package:shopaholics/Classes/User.dart';
+import 'package:shopaholics/Classes/UserRole.dart';
 import 'package:shopaholics/Functions/PagePush.dart';
 import 'package:shopaholics/Pages/AddNewProduct/AddNewProduct.dart';
 import 'package:shopaholics/Pages/AddProductRequest/AddProductRequest.dart';
@@ -44,12 +45,13 @@ class _HomePageState extends State<HomePage> {
         activeColor: Colors.black,
         inactiveColor: Colors.grey,
       ),
-      PersistentBottomNavBarItem(
-        icon: Icon(Icons.add_shopping_cart),
-        title: ("الطلبات"),
-        activeColor: Colors.black,
-        inactiveColor: Colors.grey,
-      ),
+      if (isSignedIn() && currentUser.role != UserRole.customer)
+        PersistentBottomNavBarItem(
+          icon: Icon(Icons.add_shopping_cart),
+          title: ("الطلبات"),
+          activeColor: Colors.black,
+          inactiveColor: Colors.grey,
+        ),
       PersistentBottomNavBarItem(
         icon: Icon(Icons.favorite),
         title: ("المفضلة"),
@@ -71,9 +73,6 @@ class _HomePageState extends State<HomePage> {
       controller: _controller,
       backgroundColor: Colors.white,
       items: _navBarsItems(),
-      onItemSelected: (int i) {
-        if (i == 3) {}
-      },
       screens: [
         Scaffold(
           floatingActionButton: isSignedIn()
@@ -110,7 +109,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
         Container(color: Colors.white, child: Placeholder()),
-        Scaffold(
+        if (isSignedIn() && currentUser.role != UserRole.customer) Scaffold(
           floatingActionButton: isSignedIn()
               ? FloatingActionButton(
                   heroTag: 'heroRequest',

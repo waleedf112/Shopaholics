@@ -8,7 +8,7 @@ Future<bool> CustomDialog({
   double titlePadding,
   bool dismissible,
   String firstButtonText,
-  Widget secondButtonChild,
+  String secondButtonText,
   Color firstButtonColor,
   Color secondButtonColor,
   Function firstButtonFunction,
@@ -26,8 +26,7 @@ Future<bool> CustomDialog({
           children: <Widget>[
             Card(
               margin: EdgeInsets.all(0),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(0)),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
               elevation: 20,
               child: Column(
                 children: <Widget>[
@@ -51,101 +50,69 @@ Future<bool> CustomDialog({
                     height: contentPadding == null ? null : 0,
                   ),
                   Padding(
-                      padding:
-                          contentPadding ?? EdgeInsets.fromLTRB(8, 20, 8, 16),
-                      child: Directionality(
-                          textDirection: TextDirection.rtl, child: content)),
+                      padding: contentPadding ?? EdgeInsets.fromLTRB(8, 20, 8, 16),
+                      child: Directionality(textDirection: TextDirection.rtl, child: content)),
                   SizedBox(
                     height: contentPadding == null ? 20 : 0,
                   ),
-                  Row(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        secondButtonChild == null
-                            ? Container()
-                            : Expanded(
-                                child: Stack(
-                                  children: <Widget>[
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.only(
-                                            bottomLeft: Radius.circular(20)),
-                                        gradient: customGradient(
-                                            secondButtonColor,
-                                            -12.0,
-                                            -2.0,
-                                            1.0),
-                                      ),
-                                      child: Center(child: secondButtonChild),
-                                    ),
-                                    Positioned.fill(
-                                        child: new Material(
-                                            color: Colors.transparent,
-                                            child: new InkWell(
-                                              borderRadius: BorderRadius.only(
-                                                  bottomLeft:
-                                                      Radius.circular(0),
-                                                  bottomRight:
-                                                      secondButtonChild == null
-                                                          ? Radius.circular(0)
-                                                          : Radius.circular(0)),
-                                              splashColor:
-                                                  Colors.white.withOpacity(0.2),
-                                              highlightColor:
-                                                  Colors.white.withOpacity(0.1),
-                                              onTap: secondButtonFunction,
-                                            ))),
-                                  ],
-                                ),
+                  Row(mainAxisSize: MainAxisSize.min, mainAxisAlignment: MainAxisAlignment.center, children: [
+                    Expanded(
+                      child: Stack(
+                        children: <Widget>[
+                          Container(
+                            decoration: BoxDecoration(
+                              gradient:
+                                  customGradient(secondButtonColor ?? Theme.of(context).primaryColor, -12.0, -2.0, 1.0),
+                            ),
+                            child: Center(
+                                child: Padding(
+                              padding: const EdgeInsets.all(5.0),
+                              child: Text(
+                                secondButtonText,
+                                style: TextStyle(color: Colors.white, fontSize: 16),
                               ),
-                        Expanded(
-                          child: Stack(
-                            children: <Widget>[
-                              Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.only(
-                                      bottomRight: Radius.circular(0),
-                                      bottomLeft: secondButtonChild == null
-                                          ? Radius.circular(0)
-                                          : Radius.circular(0)),
-                                  gradient: customGradient(
-                                      firstButtonColor ??
-                                          Theme.of(context).primaryColor,
-                                      -12.0,
-                                      -2.0,
-                                      1.0),
-                                ),
-                                child: Center(
-                                    child: Padding(
-                                  padding: const EdgeInsets.all(5.0),
-                                  child: Text(
-                                    firstButtonText,
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 16),
-                                  ),
-                                )),
-                              ),
-                              Positioned.fill(
-                                  child: new Material(
-                                      color: Colors.transparent,
-                                      child: new InkWell(
-                                        borderRadius: BorderRadius.only(
-                                            bottomRight: Radius.circular(0),
-                                            bottomLeft:
-                                                secondButtonChild == null
-                                                    ? Radius.circular(0)
-                                                    : Radius.circular(0)),
-                                        splashColor:
-                                            Colors.white.withOpacity(0.2),
-                                        highlightColor:
-                                            Colors.white.withOpacity(0.1),
-                                        onTap: firstButtonFunction,
-                                      ))),
-                            ],
+                            )),
                           ),
-                        )
-                      ])
+                          Positioned.fill(
+                              child: new Material(
+                                  color: Colors.transparent,
+                                  child: new InkWell(
+                                    splashColor: Colors.white.withOpacity(0.2),
+                                    highlightColor: Colors.white.withOpacity(0.1),
+                                    onTap: firstButtonFunction,
+                                  ))),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      child: Stack(
+                        children: <Widget>[
+                          Container(
+                            decoration: BoxDecoration(
+                              gradient:
+                                  customGradient(firstButtonColor ?? Theme.of(context).primaryColor, -12.0, -2.0, 1.0),
+                            ),
+                            child: Center(
+                                child: Padding(
+                              padding: const EdgeInsets.all(5.0),
+                              child: Text(
+                                firstButtonText,
+                                style: TextStyle(color: Colors.white, fontSize: 16),
+                              ),
+                            )),
+                          ),
+                          Positioned.fill(
+                              child: new Material(
+                                  color: Colors.transparent,
+                                  child: new InkWell(
+                                    splashColor: Colors.white.withOpacity(0.2),
+                                    highlightColor: Colors.white.withOpacity(0.1),
+                                    onTap: firstButtonFunction,
+                                  ))),
+                        ],
+                      ),
+                    )
+                  ])
                 ],
               ),
             ),

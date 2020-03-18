@@ -64,7 +64,11 @@ class CurrentUser extends HiveObject {
         'email': this.email,
         'displayName': this.displayName,
         'phone': this.phone,
-        'role': this.role.index,
+        'role': {
+          'currentRole': this.role.index,
+          'requestedRole': -1,
+          'pending': false,
+        }
       });
     }
 

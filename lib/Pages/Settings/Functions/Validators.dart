@@ -39,10 +39,10 @@ String emailValidation(String value) {
   return null;
 }
 
-String passwordValidation(String value,{bool canBeEmpty = false}) {
+String passwordValidation(String value, {bool canBeEmpty = false}) {
   if (value.isEmpty && !canBeEmpty) {
     return 'كلمة المرور فارغة';
-  } else if (value.length > 0&&value.length < 6) {
+  } else if (value.length > 0 && value.length < 6) {
     return 'كلمه المرور اقل من 6 احرف';
   }
   return null;

@@ -27,9 +27,10 @@ class _RolesPageState extends State<RolesPage> {
         child: ListView(
           children: <Widget>[
             AlertMessage(
-              message: 'تقديم طلب على تغيير نوع الحساب لايعني الموافقة مباشرةً.' +
-                  '\n' +
-                  'سيتم الرد على طلبك من خلال 24 ساعة الى 48 ساعة.',
+              message:
+                  'تقديم طلب على تغيير نوع الحساب لايعني الموافقة مباشرةً.' +
+                      '\n' +
+                      'سيتم الرد على طلبك من خلال 24 ساعة الى 48 ساعة.',
               centerIcon: true,
               maxLines: 3,
             ),
@@ -46,20 +47,29 @@ class _RolesPageState extends State<RolesPage> {
                     child: FutureBuilder(
                       future: currentUser.getRequestedRole(),
                       builder: (BuildContext context, AsyncSnapshot snapshot) {
-                        Widget _widget({int requestedRole, int currentRole, bool pending}) {
+                        Widget _widget(
+                            {int requestedRole,
+                            int currentRole,
+                            bool pending}) {
                           return Row(
                             textDirection: TextDirection.rtl,
                             children: <Widget>[
                               TextWidget(
-                                pending ? roleNames[requestedRole] + ' (قيد التنفيذ)' : roleNames[currentRole],
+                                pending
+                                    ? roleNames[requestedRole] +
+                                        ' (قيد التنفيذ)'
+                                    : roleNames[currentRole],
                                 minFontSize: 15,
                                 maxFontSize: 15,
                               ),
                               SizedBox(width: 5),
                               Icon(
-                                pending ? Icons.pause_circle_filled : Icons.check_circle,
+                                pending
+                                    ? Icons.pause_circle_filled
+                                    : Icons.check_circle,
                                 size: 18,
-                                color: pending ? Colors.orange : Colors.green[500],
+                                color:
+                                    pending ? Colors.orange : Colors.green[500],
                               ),
                             ],
                           );
@@ -89,7 +99,8 @@ class _RolesPageState extends State<RolesPage> {
                 children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.only(left: 80),
-                    child: TextWidget('تغيير نوع الحساب', minFontSize: 18, maxFontSize: 18),
+                    child: TextWidget('تغيير نوع الحساب',
+                        minFontSize: 18, maxFontSize: 18),
                   ),
                   Expanded(
                     child: CustomDropDownMenu(
@@ -110,11 +121,14 @@ class _RolesPageState extends State<RolesPage> {
             SimpleButton(
               'ارسال الطلب',
               function: () async {
-                int roleIndex = roleNames.indexWhere((test) => test == widget.role);
+                int roleIndex =
+                    roleNames.indexWhere((test) => test == widget.role);
                 loadingScreen(
                     context: context,
                     function: () async {
-                      await currentUser.getRequestedRole().then((onValue) async {
+                      await currentUser
+                          .getRequestedRole()
+                          .then((onValue) async {
                         if (onValue['pending']) {
                           Navigator.of(context).pop();
                           CustomDialog(
@@ -130,7 +144,9 @@ class _RolesPageState extends State<RolesPage> {
                                 Navigator.of(context).pop();
                               });
                         } else {
-                          await currentUser.requestRole(UserRole.values[roleIndex]).whenComplete(() {
+                          await currentUser
+                              .requestRole(UserRole.values[roleIndex])
+                              .whenComplete(() {
                             Navigator.of(context).pop();
                             CustomDialog(
                                 context: context,

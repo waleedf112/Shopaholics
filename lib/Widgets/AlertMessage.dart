@@ -57,11 +57,14 @@ class _HighlightText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(color: color.withOpacity(opacity), borderRadius: BorderRadius.all(Radius.circular(20))),
+      decoration: BoxDecoration(
+          color: color.withOpacity(opacity),
+          borderRadius: BorderRadius.all(Radius.circular(20))),
       child: Padding(
         padding: EdgeInsets.all(padding),
         child: Row(
-          crossAxisAlignment: centerIcon ? CrossAxisAlignment.center : CrossAxisAlignment.start,
+          crossAxisAlignment:
+              centerIcon ? CrossAxisAlignment.center : CrossAxisAlignment.start,
           children: <Widget>[
             Expanded(child: child),
             icon == null

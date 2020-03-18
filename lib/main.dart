@@ -63,15 +63,20 @@ class Launcher extends StatefulWidget {
 class _LauncherState extends State<Launcher> {
   _init() async {
     if (widget.firstRun) {
-      final appDocumentDir = await path_provider.getApplicationDocumentsDirectory();
+      final appDocumentDir =
+          await path_provider.getApplicationDocumentsDirectory();
       Hive.init(appDocumentDir.path);
       Hive.registerAdapter(CurrentUserAdapter());
       Hive.registerAdapter(UserRoleAdapter());
       await Hive.openBox('currentUser');
       currentUser = await Hive.box('currentUser').get(0);
-      try{print(currentUser.role);
-      }catch(e){}
-      try{if (currentUser.role == null) await currentUser.requestRole(UserRole.customer,true);}catch(e){}
+      try {
+        print(currentUser.role);
+      } catch (e) {}
+      try {
+        if (currentUser.role == null)
+          await currentUser.requestRole(UserRole.customer, true);
+      } catch (e) {}
     }
 
     if (await FirebaseAuth.instance.currentUser() == null) {
@@ -85,12 +90,13 @@ class _LauncherState extends State<Launcher> {
     super.initState();
     _init();
 
-    Future.delayed(Duration(seconds: 1))
-        .whenComplete(() => Navigator.of(context).pushReplacement(CupertinoPageRoute(builder: (cxt) {
-              return MainView(
-                child: HomePage(),
-              );
-            })));
+    Future.delayed(Duration(seconds: 1)).whenComplete(() =>
+        Navigator.of(context)
+            .pushReplacement(CupertinoPageRoute(builder: (cxt) {
+          return MainView(
+            child: HomePage(),
+          );
+        })));
   }
 
   @override

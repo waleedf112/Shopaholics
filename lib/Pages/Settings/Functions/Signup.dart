@@ -32,15 +32,14 @@ Future<void> signUpUser(context,
             Navigator.of(context).pop();
           });
         });
-        if (error != null) {
-    CustomErrorDialog(context, text: exceptionLoginRegister(error));
-  } else {
-    Navigator.of(context).pop();
+    if (error != null) {
+      CustomErrorDialog(context, text: exceptionLoginRegister(error));
+    } else {
+      Navigator.of(context).pop();
 
-    Navigator.of(context).pushReplacement(CupertinoPageRoute(builder: (cxt) {
-      return Launcher(firstRun: false);
-    }));
+      Navigator.of(context).pushReplacement(CupertinoPageRoute(builder: (cxt) {
+        return Launcher(firstRun: false);
+      }));
+    }
   }
-  }
-  
 }

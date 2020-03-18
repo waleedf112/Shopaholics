@@ -26,7 +26,10 @@ class _FavoritePageState extends State<FavoritePage> {
           if (!snapshot.hasData || snapshot.data.documents.length == 0) {
             return NoFavoriteProducts();
           } else {
-            return ListProducts(list: snapshot.data.documents,gridProductsType: GridProductsType.offers,);
+            return ListProducts(
+              list: snapshot.data.documents,
+              gridProductsType: GridProductsType.offers,
+            );
           }
         },
       );

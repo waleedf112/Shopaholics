@@ -16,13 +16,16 @@ class MyAccountPage extends StatelessWidget {
   Widget build(BuildContext context) {
     //TODO currentUser.saveUserChanges()
 
-    TextEditingController currentPasswordController = new TextEditingController(text: kDebugMode ? '12345678' : null);
-    TextEditingController passwordController = new TextEditingController(text: kDebugMode ? '1234567899' : null);
-    TextEditingController password2Controller = new TextEditingController(text: kDebugMode ? '1234567899' : null);
-    TextEditingController phoneController =
-        new TextEditingController(text: currentUser == null ? null : currentUser.phone);
-    TextEditingController displayNameController =
-        new TextEditingController(text: currentUser == null ? null : currentUser.displayName);
+    TextEditingController currentPasswordController =
+        new TextEditingController(text: kDebugMode ? '12345678' : null);
+    TextEditingController passwordController =
+        new TextEditingController(text: kDebugMode ? '1234567899' : null);
+    TextEditingController password2Controller =
+        new TextEditingController(text: kDebugMode ? '1234567899' : null);
+    TextEditingController phoneController = new TextEditingController(
+        text: currentUser == null ? null : currentUser.phone);
+    TextEditingController displayNameController = new TextEditingController(
+        text: currentUser == null ? null : currentUser.displayName);
     GlobalKey<FormState> formKey = new GlobalKey();
     return SecondaryView(
       title: 'حسابي',
@@ -34,8 +37,9 @@ class MyAccountPage extends StatelessWidget {
             physics: BouncingScrollPhysics(),
             children: <Widget>[
               AlertMessage(
-                message: 'عند تغيير الاسم, يجب عليك الانتظار بعض الوقت لظهور الاسم الجديد.\n' +
-                    'الرجاء كتابة كلمة المرور الحالية قبل تغيير البيانات للتحقق من هويتك وحماية حسابك.',
+                message:
+                    'عند تغيير الاسم, يجب عليك الانتظار بعض الوقت لظهور الاسم الجديد.\n' +
+                        'الرجاء كتابة كلمة المرور الحالية قبل تغيير البيانات للتحقق من هويتك وحماية حسابك.',
                 maxLines: 3,
               ),
               SizedBox(height: 12),
@@ -96,7 +100,8 @@ class MyAccountPage extends StatelessWidget {
                   child: TextFormField(
                     textDirection: TextDirection.rtl,
                     controller: passwordController,
-                    validator: (String value) => passwordValidation(value, canBeEmpty: true),
+                    validator: (String value) =>
+                        passwordValidation(value, canBeEmpty: true),
                     obscureText: true,
                     decoration: InputDecoration(
                       labelText: 'كلمة المرور الجديدة',
@@ -114,7 +119,8 @@ class MyAccountPage extends StatelessWidget {
                     textDirection: TextDirection.rtl,
                     controller: password2Controller,
                     validator: (String value) {
-                      if (password2Controller.text != passwordController.text) return 'كلمات المرور غير متطابقة';
+                      if (password2Controller.text != passwordController.text)
+                        return 'كلمات المرور غير متطابقة';
                     },
                     obscureText: true,
                     decoration: InputDecoration(
@@ -136,12 +142,15 @@ class MyAccountPage extends StatelessWidget {
                         function: () async {
                           await FirebaseAuth.instance
                               .signInWithEmailAndPassword(
-                                  email: currentUser.email, password: currentPasswordController.text)
+                                  email: currentUser.email,
+                                  password: currentPasswordController.text)
                               .then((onValue) async {
                             if (passwordController.text.isNotEmpty) {
-                              currentUser.resetPassword(passwordController.text);
+                              currentUser
+                                  .resetPassword(passwordController.text);
                             }
-                            await currentUser.updatePhoneNumber(phoneController.text);
+                            await currentUser
+                                .updatePhoneNumber(phoneController.text);
                             Navigator.of(context).pop();
                             CustomDialog(
                                 context: context,
@@ -160,7 +169,8 @@ class MyAccountPage extends StatelessWidget {
                             CustomDialog(
                                 context: context,
                                 title: 'خطأ',
-                                content: TextWidget(onError.code == 'ERROR_TOO_MANY_REQUESTS'
+                                content: TextWidget(onError.code ==
+                                        'ERROR_TOO_MANY_REQUESTS'
                                     ? 'تم تخطي عدد المحاولات المسموح بها, الرجاء المحاولة في وقت لاحق!'
                                     : 'كلمة المرور الحالية خاطئه!'),
                                 firstButtonText: 'حسناً',

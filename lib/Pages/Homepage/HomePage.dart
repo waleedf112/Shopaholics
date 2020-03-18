@@ -10,6 +10,7 @@ import 'package:shopaholics/Pages/AddNewProduct/AddNewProduct.dart';
 import 'package:shopaholics/Pages/AddProductRequest/AddProductRequest.dart';
 import 'package:shopaholics/Pages/FavoritePage/FavoritePage.dart';
 import 'package:shopaholics/Pages/Settings/Settings.dart';
+import 'package:shopaholics/Pages/ShoppingCart/ShoppingCart.dart';
 import 'package:shopaholics/Widgets/Button.dart';
 import 'package:shopaholics/Widgets/GridProducts.dart';
 import 'package:shopaholics/Widgets/ListProducts.dart';
@@ -39,12 +40,7 @@ class _HomePageState extends State<HomePage> {
         activeColor: Colors.black,
         inactiveColor: Colors.grey,
       ),
-      PersistentBottomNavBarItem(
-        icon: Icon(Icons.shopping_basket),
-        title: ("العربة"),
-        activeColor: Colors.black,
-        inactiveColor: Colors.grey,
-      ),
+      
       if (isSignedIn() && currentUser.role != UserRole.customer)
         PersistentBottomNavBarItem(
           icon: Icon(Icons.add_shopping_cart),
@@ -108,35 +104,35 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         ),
-        Container(color: Colors.white, child: Placeholder()),
-        if (isSignedIn() && currentUser.role != UserRole.customer) Scaffold(
-          floatingActionButton: isSignedIn()
-              ? FloatingActionButton(
-                  heroTag: 'heroRequest',
-                  onPressed: () => PagePush(context, AddProductRequest()),
-                  child: Icon(
-                    Icons.add,
-                    color: Colors.white,
-                  ),
-                  elevation: 0,
-                  disabledElevation: 0,
-                  focusElevation: 0,
-                  highlightElevation: 0,
-                  hoverElevation: 0,
-                  backgroundColor: Colors.grey.withOpacity(0.7),
-                )
-              : null,
-          body: ListView(
-            shrinkWrap: true,
-            physics: BouncingScrollPhysics(),
-            children: <Widget>[
-              GridProducts(
-                title: 'اجدد الطلبات',
-                type: GridProductsType.requests,
-              ),
-            ],
+        if (isSignedIn() && currentUser.role != UserRole.customer)
+          Scaffold(
+            floatingActionButton: isSignedIn()
+                ? FloatingActionButton(
+                    heroTag: 'heroRequest',
+                    onPressed: () => PagePush(context, AddProductRequest()),
+                    child: Icon(
+                      Icons.add,
+                      color: Colors.white,
+                    ),
+                    elevation: 0,
+                    disabledElevation: 0,
+                    focusElevation: 0,
+                    highlightElevation: 0,
+                    hoverElevation: 0,
+                    backgroundColor: Colors.grey.withOpacity(0.7),
+                  )
+                : null,
+            body: ListView(
+              shrinkWrap: true,
+              physics: BouncingScrollPhysics(),
+              children: <Widget>[
+                GridProducts(
+                  title: 'اجدد الطلبات',
+                  type: GridProductsType.requests,
+                ),
+              ],
+            ),
           ),
-        ),
         Scaffold(
           body: FavoritePage(),
         ),

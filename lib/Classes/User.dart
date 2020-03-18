@@ -35,9 +35,6 @@ class CurrentUser extends HiveObject {
   @HiveField(5)
   UserRole role;
 
-  @HiveField(6)
-  List<int> cart;
-
   CurrentUser() {
     this.role = UserRole.customer;
   }
@@ -205,9 +202,44 @@ class CurrentUser extends HiveObject {
       ? null
       : Firestore.instance.collection('ProductOffer').where('id', whereIn: this.likedOffers).getDocuments().asStream();
 
-  void addOfferToCart(int item) {
-    if (this.cart == null) cart = new List();
-    this.cart.add(item);
-    this.save();
+  Future<void> addOfferToCart(int item) async {
+    await Firestore.instance
+        .collection('Users')
+        .document(this.uid)
+        .collection('cart')
+        .document(item.toString())
+        .get()
+        .then((onValue) async {
+      if (onValue.exists) {
+        await Firestore.instance
+            .collection('Users')
+            .document(this.uid)
+            .collection('cart')
+            .document(item.toString())
+            .updateData({'count': FieldValue.increment(1)});
+      } else {
+        await Firestore.instance
+            .collection('Users')
+            .document(this.uid)
+            .collection('cart')
+            .document(item.toString())
+            .setData({'product': item, 'count': 1});
+      }
+    });
+  }
+
+  Future<List<Map<String, dynamic>>> getCart() async {
+    List<DocumentSnapshot> documents =
+        (await Firestore.instance.collection('Users').document(this.uid).collection('cart').getDocuments()).documents;
+    List<Map<String, dynamic>> cart = new List();
+    for (DocumentSnapshot doc in documents) {
+      Map product =
+          (await Firestore.instance.collection('ProductOffer').document(doc.data['product'].toString()).get()).data;
+
+      int count = doc.data['count'];
+      cart.add({'product': product, 'count': count});
+    }
+    print('done');
+    return Future.value(cart);
   }
 }

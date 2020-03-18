@@ -39,7 +39,7 @@ class _ListProductsState extends State<ListProducts> {
               String ref = widget.list[index].reference.path.split('/')[1];
               int id = int.parse(ref);
               return ProductWidget(
-                  _product, currentUser.likedOffers.contains(id));
+                  _product, currentUser.likedOffers==null?false:currentUser.likedOffers.contains(id));
             } else {
               ProductRequest _product = new ProductRequest.retrieveFromDatabase(
                 widget.list[index].data,
@@ -48,7 +48,7 @@ class _ListProductsState extends State<ListProducts> {
               String ref = widget.list[index].reference.path.split('/')[1];
               int id = int.parse(ref);
               return ProductWidget(
-                  _product, currentUser.likedOffers.contains(id));
+                  _product, currentUser.likedOffers==null?false:currentUser.likedOffers.contains(id));
             }
           },
         ),

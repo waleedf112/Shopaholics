@@ -162,6 +162,9 @@ class ProductOffer {
   void addToLikes() {
     currentUser.addOfferToLikes(this.reference.split('/')[1]);
   }
+  void addToCart() {
+    currentUser.addOfferToCart(int.parse(this.reference.split('/')[1]));
+  }
 
   void removeFromLikes() {
     currentUser.removeOfferToLikes(this.reference.split('/')[1]);

@@ -205,7 +205,10 @@ class _ProductViewerState extends State<ProductViewer> {
                                   : Icons.local_offer),
                             ],
                           ),
-                        )),
+                        ),
+                        function: (){
+                          if(widget.product is ProductOffer) widget.product.addToCart();
+                        }),
                         OutlinedButton(
                             child: Padding(
                           padding: const EdgeInsets.all(2.0),

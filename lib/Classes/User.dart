@@ -37,7 +37,7 @@ class CurrentUser extends HiveObject {
 
   @HiveField(6)
   List<int> cart;
-  
+
   CurrentUser() {
     this.role = UserRole.customer;
   }
@@ -200,4 +200,10 @@ class CurrentUser extends HiveObject {
   Stream<QuerySnapshot> getLikedOffers() => this.likedOffers == null || this.likedOffers.isEmpty
       ? null
       : Firestore.instance.collection('ProductOffer').where('id', whereIn: this.likedOffers).getDocuments().asStream();
+
+  void addOfferToCart(int item) {
+    if (this.cart == null) cart = new List();
+    this.cart.add(item);
+    this.save();
+  }
 }

@@ -8,7 +8,6 @@ import 'package:shopaholics/Pages/AddProductRequest/AddProductRequest.dart';
 import 'package:shopaholics/Pages/AddNewProduct/AddNewProduct.dart';
 import 'package:shopaholics/Pages/Settings/Settings.dart';
 import 'package:flutter/material.dart';
-import 'package:shopaholics/Pages/ShoppingCart/ShoppingCart.dart';
 import 'CustomErrorDialog.dart';
 import 'dismissKeyboard.dart';
 

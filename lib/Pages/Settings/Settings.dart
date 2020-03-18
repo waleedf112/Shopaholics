@@ -213,7 +213,7 @@ class SettingsPage extends StatelessWidget {
               title: 'طلبات المستخدمين',
               desc: 'عرض طلبات المستخدمين للتسجيل كبائع وغيرها',
               icon: Icons.present_to_all,
-              //onPressed: () => PagePush(context, RolesRequestsPage()),
+              onPressed: () => PagePush(context, RolesRequestsPage()),
 
             ),
             setting(

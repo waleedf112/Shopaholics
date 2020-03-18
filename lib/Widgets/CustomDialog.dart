@@ -79,7 +79,7 @@ Future<bool> CustomDialog({
                                   child: new InkWell(
                                     splashColor: Colors.white.withOpacity(0.2),
                                     highlightColor: Colors.white.withOpacity(0.1),
-                                    onTap: firstButtonFunction,
+                                    onTap: secondButtonFunction,
                                   ))),
                         ],
                       ),

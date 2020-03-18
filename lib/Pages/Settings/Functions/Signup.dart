@@ -32,8 +32,7 @@ Future<void> signUpUser(context,
             Navigator.of(context).pop();
           });
         });
-  }
-  if (error != null) {
+        if (error != null) {
     CustomErrorDialog(context, text: exceptionLoginRegister(error));
   } else {
     Navigator.of(context).pop();
@@ -42,4 +41,6 @@ Future<void> signUpUser(context,
       return Launcher(firstRun: false);
     }));
   }
+  }
+  
 }

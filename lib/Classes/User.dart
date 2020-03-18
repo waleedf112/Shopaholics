@@ -47,9 +47,9 @@ class CurrentUser extends HiveObject {
   void registerUser(FirebaseUser user, [String name, String phone]) async {
     Future<void> fetchUserFromDatabase(DocumentSnapshot value) async {
       if (value.data['role'] == null) {
-        await this.setRole(UserRole.customer);
+        await this.requestRole(UserRole.customer,true);
       } else {
-        this.role = UserRole.values[value.data['role']];
+        this.role = UserRole.values[value.data['role']['currentRole']];
       }
       this.displayName = value.data['displayName'];
       this.phone = value.data['phone'];
@@ -83,12 +83,26 @@ class CurrentUser extends HiveObject {
     this.save();
   }
 
-  Future<void> setRole(UserRole role) async {
-    this.role = role;
+  Future<void> requestRole(UserRole role, [bool forced = false]) async {
     await Firestore.instance.collection('Users').document(this.uid).updateData({
-      'role': this.role.index,
+      'role': {
+        'currentRole': this.role.index,
+        'requestedRole': forced ? -1 : role.index,
+        'pending': forced ? false : true,
+      }
     });
-    this.save();
+  }
+
+  Future getRequestedRole() async {
+    return await Firestore.instance.collection('Users').document(this.uid).get().then((onValue) async {
+      if (onValue.data['role'] == null) {
+        this.requestRole(UserRole.customer,true);
+        
+        return (await Firestore.instance.collection('Users').document(this.uid).get()).data['role'];
+      } else {
+        return onValue.data['role'];
+      }
+    });
   }
 
   int getRole() => this.role.index;

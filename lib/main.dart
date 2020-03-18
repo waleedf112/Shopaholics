@@ -71,7 +71,7 @@ class _LauncherState extends State<Launcher> {
       currentUser = await Hive.box('currentUser').get(0);
       try{print(currentUser.role);
       }catch(e){}
-      try{if (currentUser.role == null) await currentUser.setRole(UserRole.customer);}catch(e){}
+      try{if (currentUser.role == null) await currentUser.requestRole(UserRole.customer,true);}catch(e){}
     }
 
     if (await FirebaseAuth.instance.currentUser() == null) {

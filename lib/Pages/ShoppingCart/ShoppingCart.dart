@@ -268,7 +268,10 @@ class _ShoppingCartState extends State<ShoppingCart> {
                                           function: () async {
                                             Order _receipt = new Order(snapshot.data);
                                             await _receipt.placeNewOrder();
+
                                             Navigator.of(context).pop();
+                                            Navigator.of(context).pop();
+                                            
                                           });
                                     },
                                   ),

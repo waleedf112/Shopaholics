@@ -239,7 +239,19 @@ class CurrentUser extends HiveObject {
       int count = doc.data['count'];
       cart.add({'product': product, 'count': count});
     }
-    print('done');
+    
     return Future.value(cart);
+  }
+
+  Future<void> modifyItemInCart({int quantity, String ref}) async {
+    if (quantity == 0)
+       Firestore.instance.collection('Users').document(this.uid).collection('cart').document(ref).delete();
+    else
+       Firestore.instance
+          .collection('Users')
+          .document(this.uid)
+          .collection('cart')
+          .document(ref)
+          .updateData({'count': quantity});
   }
 }

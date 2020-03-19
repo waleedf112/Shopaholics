@@ -56,7 +56,7 @@ Future<bool> CustomDialog({
                     height: contentPadding == null ? 20 : 0,
                   ),
                   Row(mainAxisSize: MainAxisSize.min, mainAxisAlignment: MainAxisAlignment.center, children: [
-                    Expanded(
+                    if(secondButtonText!=null)Expanded(
                       child: Stack(
                         children: <Widget>[
                           Container(

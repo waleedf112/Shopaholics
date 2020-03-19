@@ -68,166 +68,168 @@ class _ShoppingCartState extends State<ShoppingCart> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
-                              ListView.builder(
-                                itemCount: snapshot.data.length,
-                                physics: BouncingScrollPhysics(),
-                                shrinkWrap: true,
-                                itemBuilder: (BuildContext context, int index) {
-                                  ProductOffer product = new ProductOffer.retrieveFromDatabase(
-                                    snapshot.data[index]['product'],
-                                    snapshot.data[index]['product']['id'].toString(),
-                                  );
-                                  int quantity = snapshot.data[index]['count'];
-                                  TextEditingController controller =
-                                      new TextEditingController(text: quantity.toString());
-                                  widget.productsPrice += product.productPrice * quantity;
+                              Expanded(
+                                                              child: ListView.builder(
+                                  itemCount: snapshot.data.length,
+                                  physics: BouncingScrollPhysics(),
+                                  shrinkWrap: true,
+                                  itemBuilder: (BuildContext context, int index) {
+                                    ProductOffer product = new ProductOffer.retrieveFromDatabase(
+                                      snapshot.data[index]['product'],
+                                      snapshot.data[index]['product']['id'].toString(),
+                                    );
+                                    int quantity = snapshot.data[index]['count'];
+                                    TextEditingController controller =
+                                        new TextEditingController(text: quantity.toString());
+                                   // widget.productsPrice += product.productPrice * quantity;
 
-                                  return quantity == 0
-                                      ? Container()
-                                      : Dismissible(
-                                          key: Key(product.hashCode.toString()),
-                                          confirmDismiss: (a) {
-                                            CustomDialog(
-                                                context: context,
-                                                title: 'حذف المنتج',
-                                                content: Text(
-                                                  'هل انت متأكد انك تريد حذف هذا المنتج من العربة؟',
-                                                  textAlign: TextAlign.center,
-                                                ),
-                                                firstButtonColor: Colors.red,
-                                                firstButtonText: 'حذف المنتج',
-                                                secondButtonText: 'الغاء',
-                                                secondButtonColor: Colors.black54,
-                                                firstButtonFunction: () {
-                                                  quantity = 0;
-                                                  currentUser.modifyItemInCart(
-                                                      quantity: quantity, ref: product.reference);
-
-                                                  Navigator.of(context).pop();
-                                                  updatePrice();
-                                                },
-                                                secondButtonFunction: () {
-                                                  Navigator.of(context).pop();
-                                                });
-                                          },
-                                          background: Container(
-                                            color: Colors.red,
-                                            child: Padding(
-                                              padding: const EdgeInsets.symmetric(horizontal: 20),
-                                              child: Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                children: <Widget>[
-                                                  Column(
-                                                    mainAxisAlignment: MainAxisAlignment.center,
-                                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                                    children: <Widget>[
-                                                      Padding(
-                                                        padding: const EdgeInsets.only(left: 8),
-                                                        child: Icon(
-                                                          Icons.cancel,
-                                                          color: Colors.white,
-                                                          size: 30,
-                                                        ),
-                                                      ),
-                                                      Text(
-                                                        'حذف',
-                                                        style: TextStyle(color: Colors.white, fontSize: 23),
-                                                      )
-                                                    ],
+                                    return quantity == 0
+                                        ? Container()
+                                        : Dismissible(
+                                            key: Key(product.hashCode.toString()),
+                                            confirmDismiss: (a) {
+                                              CustomDialog(
+                                                  context: context,
+                                                  title: 'حذف المنتج',
+                                                  content: Text(
+                                                    'هل انت متأكد انك تريد حذف هذا المنتج من العربة؟',
+                                                    textAlign: TextAlign.center,
                                                   ),
-                                                  Column(
-                                                    mainAxisAlignment: MainAxisAlignment.center,
-                                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                                    children: <Widget>[
-                                                      Padding(
-                                                        padding: const EdgeInsets.only(left: 8),
-                                                        child: Icon(
-                                                          Icons.cancel,
-                                                          color: Colors.white,
-                                                          size: 30,
+                                                  firstButtonColor: Colors.red,
+                                                  firstButtonText: 'حذف المنتج',
+                                                  secondButtonText: 'الغاء',
+                                                  secondButtonColor: Colors.black54,
+                                                  firstButtonFunction: () {
+                                                    quantity = 0;
+                                                    currentUser.modifyItemInCart(
+                                                        quantity: quantity, ref: product.reference);
+
+                                                    Navigator.of(context).pop();
+                                                    updatePrice();
+                                                  },
+                                                  secondButtonFunction: () {
+                                                    Navigator.of(context).pop();
+                                                  });
+                                            },
+                                            background: Container(
+                                              color: Colors.red,
+                                              child: Padding(
+                                                padding: const EdgeInsets.symmetric(horizontal: 20),
+                                                child: Row(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                  children: <Widget>[
+                                                    Column(
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                                      children: <Widget>[
+                                                        Padding(
+                                                          padding: const EdgeInsets.only(left: 8),
+                                                          child: Icon(
+                                                            Icons.cancel,
+                                                            color: Colors.white,
+                                                            size: 30,
+                                                          ),
                                                         ),
-                                                      ),
-                                                      Text(
-                                                        'حذف',
-                                                        style: TextStyle(color: Colors.white, fontSize: 23),
-                                                      )
-                                                    ],
-                                                  )
-                                                ],
+                                                        Text(
+                                                          'حذف',
+                                                          style: TextStyle(color: Colors.white, fontSize: 23),
+                                                        )
+                                                      ],
+                                                    ),
+                                                    Column(
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                                      children: <Widget>[
+                                                        Padding(
+                                                          padding: const EdgeInsets.only(left: 8),
+                                                          child: Icon(
+                                                            Icons.cancel,
+                                                            color: Colors.white,
+                                                            size: 30,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          'حذف',
+                                                          style: TextStyle(color: Colors.white, fontSize: 23),
+                                                        )
+                                                      ],
+                                                    )
+                                                  ],
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                          child: Card(
-                                            shape: Border(),
-                                            elevation: 4,
-                                            margin: EdgeInsets.symmetric(vertical: 5),
-                                            child: Directionality(
-                                              textDirection: TextDirection.rtl,
-                                              child: Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                children: <Widget>[
-                                                  Expanded(
-                                                      flex: 3,
-                                                      child: Padding(
-                                                        padding: const EdgeInsets.fromLTRB(0, 8, 20, 8),
-                                                        child: Column(
-                                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                          children: <Widget>[
-                                                            TextWidget(product.productName),
-                                                            SizedBox(height: 5),
-                                                            TextWidget('#' + product.reference,
-                                                                style: TextStyle(color: Colors.grey, fontSize: 11)),
-                                                            SizedBox(height: 3),
-                                                            TextWidget('${product.productPrice} ريال',
-                                                                style: TextStyle(color: Colors.red[700])),
-                                                          ],
-                                                        ),
-                                                      )),
-                                                  Flexible(
-                                                    child: Form(
-                                                      child: Container(
-                                                        width: 30,
-                                                        child: TextFormField(
-                                                          controller: controller,
-                                                          textAlign: TextAlign.center,
-                                                          maxLines: 1,
-                                                          keyboardType: TextInputType.numberWithOptions(),
-                                                          inputFormatters: <TextInputFormatter>[
-                                                            WhitelistingTextInputFormatter.digitsOnly
-                                                          ],
-                                                          onChanged: (q) async {
-                                                            if (q.isNotEmpty && q != '0') {
-                                                              quantity = int.parse(q);
-                                                              await updatePrice(setStateAfterFinish: false);
-                                                              currentUser.modifyItemInCart(
-                                                                  quantity: quantity, ref: product.reference);
-                                                            } else {
-                                                              quantity = 1;
-                                                              await updatePrice(setStateAfterFinish: false);
-                                                              currentUser.modifyItemInCart(
-                                                                  quantity: quantity, ref: product.reference);
-                                                            }
-                                                          },
-                                                          decoration: InputDecoration.collapsed(
-                                                              hintText: '0', border: OutlineInputBorder()),
+                                            child: Card(
+                                              shape: Border(),
+                                              elevation: 4,
+                                              margin: EdgeInsets.symmetric(vertical: 5),
+                                              child: Directionality(
+                                                textDirection: TextDirection.rtl,
+                                                child: Row(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                  children: <Widget>[
+                                                    Expanded(
+                                                        flex: 3,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.fromLTRB(0, 8, 20, 8),
+                                                          child: Column(
+                                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                            children: <Widget>[
+                                                              TextWidget(product.productName),
+                                                              SizedBox(height: 5),
+                                                              TextWidget('#' + product.reference,
+                                                                  style: TextStyle(color: Colors.grey, fontSize: 11)),
+                                                              SizedBox(height: 3),
+                                                              TextWidget('${product.productPrice} ريال',
+                                                                  style: TextStyle(color: Colors.red[700])),
+                                                            ],
+                                                          ),
+                                                        )),
+                                                    Flexible(
+                                                      child: Form(
+                                                        child: Container(
+                                                          width: 30,
+                                                          child: TextFormField(
+                                                            controller: controller,
+                                                            textAlign: TextAlign.center,
+                                                            maxLines: 1,
+                                                            keyboardType: TextInputType.numberWithOptions(),
+                                                            inputFormatters: <TextInputFormatter>[
+                                                              WhitelistingTextInputFormatter.digitsOnly
+                                                            ],
+                                                            onChanged: (q) async {
+                                                              if (q.isNotEmpty && q != '0') {
+                                                                quantity = int.parse(q);
+                                                                await updatePrice(setStateAfterFinish: false);
+                                                                currentUser.modifyItemInCart(
+                                                                    quantity: quantity, ref: product.reference);
+                                                              } else {
+                                                                quantity = 1;
+                                                                await updatePrice(setStateAfterFinish: false);
+                                                                currentUser.modifyItemInCart(
+                                                                    quantity: quantity, ref: product.reference);
+                                                              }
+                                                            },
+                                                            decoration: InputDecoration.collapsed(
+                                                                hintText: '0', border: OutlineInputBorder()),
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
-                                                  ),
-                                                  Expanded(
-                                                      flex: 1,
-                                                      child: Image.network(
-                                                        product.productImagesURLs[0],
-                                                        height: 120,
-                                                        fit: BoxFit.fitHeight,
-                                                      )),
-                                                ],
+                                                    Expanded(
+                                                        flex: 1,
+                                                        child: Image.network(
+                                                          product.productImagesURLs[0],
+                                                          height: 120,
+                                                          fit: BoxFit.fitHeight,
+                                                        )),
+                                                  ],
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                        );
-                                },
+                                          );
+                                  },
+                                ),
                               ),
                               Column(
                                 children: <Widget>[

@@ -21,6 +21,7 @@ import 'Functions/SignUp.dart';
 import 'Functions/SignIn.dart';
 import 'SigningPage.dart';
 import 'SubPages/MyAccount.dart';
+import 'SubPages/MyOrders.dart';
 import 'SubPages/RolesRequestsPage.dart';
 import 'SubPages/rolesPage.dart';
 
@@ -172,9 +173,10 @@ class SettingsPage extends StatelessWidget {
         if (isSignedIn())
           settingSection([
             setting(
-              title: 'الطلبات',
+              title: 'طلباتي',
               desc: 'لعرض طلباتك الحاليه والسابقة',
               icon: Icons.shopping_basket,
+              onPressed: () => PagePush(context, MyOrdersPage()),
             ),
             setting(
               title: 'عناوين التوصيل',

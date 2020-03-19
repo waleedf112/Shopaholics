@@ -6,7 +6,7 @@ class Order {
   String number;
   int dateTime = DateTime.now().millisecondsSinceEpoch;
   List<Map<String, dynamic>> products = new List();
-  int productsPrice=0;
+  int productsPrice = 0;
   int delivery = 25;
 
   Order(List<Map> products) {
@@ -26,8 +26,8 @@ class Order {
   }
 
   Future<void> placeNewOrder() async {
-    
-    DocumentReference documentReference = Firestore.instance.collection('Counters').document('ordersID');
+    DocumentReference documentReference =
+        Firestore.instance.collection('Counters').document('ordersID');
     await documentReference.get().then((counterValue) {
       this.number = counterValue.data['id'].toString();
     });
@@ -44,7 +44,10 @@ class Order {
       'productsPrice': this.productsPrice,
       'delivery': this.delivery,
     };
-    await Firestore.instance.collection('Orders').document(this.number).setData(data);
+    await Firestore.instance
+        .collection('Orders')
+        .document(this.number)
+        .setData(data);
     await currentUser.emptyCart();
   }
 }

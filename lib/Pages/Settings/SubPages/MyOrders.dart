@@ -13,7 +13,10 @@ class MyOrdersPage extends StatelessWidget {
     return SecondaryView(
       title: 'طلباتي',
       child: FutureBuilder(
-        future: Firestore.instance.collection('Orders').where('uid', isEqualTo: currentUser.uid).getDocuments(),
+        future: Firestore.instance
+            .collection('Orders')
+            .where('uid', isEqualTo: currentUser.uid)
+            .getDocuments(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data.documents.isEmpty)
@@ -117,7 +120,8 @@ class _Order extends StatelessWidget {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(top: 12, bottom: 12, right: 6),
+                        padding: const EdgeInsets.only(
+                            top: 12, bottom: 12, right: 6),
                         child: Text(
                           '${data['productsPrice'] + data['delivery']} ريال',
                           style: TextStyle(fontSize: 13),
@@ -126,9 +130,12 @@ class _Order extends StatelessWidget {
                     ],
                   ),
                   Expanded(child: Container()),
-                  if (data['products'].length > 0) productWidget(data['products'][0]),
-                  if (data['products'].length > 1) productWidget(data['products'][1]),
-                  if (data['products'].length > 2) productWidget(data['products'][2]),
+                  if (data['products'].length > 0)
+                    productWidget(data['products'][0]),
+                  if (data['products'].length > 1)
+                    productWidget(data['products'][1]),
+                  if (data['products'].length > 2)
+                    productWidget(data['products'][2]),
                 ],
               ),
               Row(children: <Widget>[
@@ -153,10 +160,13 @@ class _Order extends StatelessWidget {
         errorBuilder: (BuildContext context, Widget child, dynamic exception) {
           return Container(
             color: Colors.grey.withOpacity(0.2),
-            child: Center(child: Icon(Icons.broken_image, color: Colors.grey, size: 128.0)),
+            child: Center(
+                child:
+                    Icon(Icons.broken_image, color: Colors.grey, size: 128.0)),
           );
         },
-        loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent event) {
+        loadingBuilder:
+            (BuildContext context, Widget child, ImageChunkEvent event) {
           return Container(
             color: Colors.grey.withOpacity(0.2),
             child: SpinKitDoubleBounce(

@@ -113,7 +113,8 @@ class _GridProductsState extends State<GridProducts> {
       case GridProductsType.offers:
         return StreamBuilder(
           stream: Firestore.instance
-              .collection('ProductOffer').limit(10)
+              .collection('ProductOffer')
+              .limit(10)
               .getDocuments()
               .asStream(),
           builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {

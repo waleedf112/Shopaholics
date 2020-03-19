@@ -8,7 +8,7 @@ NoProductsInCart() => Center(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Icon(
-            Mdi.heartBroken,
+            Mdi.cartRemove,
             color: Colors.grey.withOpacity(0.6),
             size: 100,
           ),

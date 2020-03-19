@@ -187,14 +187,16 @@ class _ProductViewerState extends State<ProductViewer> {
                                 ),
                               ),
                               function: () {
-                                if (widget.product is ProductOffer) widget.product.addToCart();
-                                final snackBar = SnackBar(
-                                  content: Text('تم اضافة المنتج الى العربة', textAlign: TextAlign.right),
-                                  backgroundColor: Colors.black.withOpacity(0.7),
-                                  elevation: 0,
-                                  duration: Duration(seconds: 2),
-                                );
-                                Scaffold.of(context).showSnackBar(snackBar);
+                                if (widget.product is ProductOffer) {
+                                  widget.product.addToCart();
+                                  final snackBar = SnackBar(
+                                    content: Text('تم اضافة المنتج الى العربة', textAlign: TextAlign.right),
+                                    backgroundColor: Colors.black.withOpacity(0.7),
+                                    elevation: 0,
+                                    duration: Duration(seconds: 2),
+                                  );
+                                  Scaffold.of(context).showSnackBar(snackBar);
+                                }
                               }),
                           OutlinedButton(
                               child: Padding(

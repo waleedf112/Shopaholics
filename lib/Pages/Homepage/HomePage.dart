@@ -40,9 +40,7 @@ class _HomePageState extends State<HomePage> {
         activeColor: Colors.black,
         inactiveColor: Colors.grey,
       ),
-      
-      if (isSignedIn() && currentUser.role != UserRole.customer)
-        PersistentBottomNavBarItem(
+              PersistentBottomNavBarItem(
           icon: Icon(Icons.add_shopping_cart),
           title: ("الطلبات"),
           activeColor: Colors.black,
@@ -104,7 +102,6 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         ),
-        if (isSignedIn() && currentUser.role != UserRole.customer)
           Scaffold(
             floatingActionButton: isSignedIn()
                 ? FloatingActionButton(

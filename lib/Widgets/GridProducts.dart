@@ -6,6 +6,7 @@ import 'package:persistent_bottom_nav_bar/utils/utils.dart';
 import 'package:shopaholics/Classes/Product.dart';
 import 'package:flutter/material.dart';
 import 'package:shopaholics/Classes/User.dart';
+import 'package:shopaholics/Classes/UserRole.dart';
 import 'package:shopaholics/Functions/PagePush.dart';
 
 import 'Button.dart';
@@ -34,11 +35,11 @@ class _GridProductsState extends State<GridProducts> {
   Widget build(BuildContext context) {
     switch (widget.type) {
       case GridProductsType.requests:
+        CollectionReference collection = Firestore.instance.collection('ProductRequests');
+        Query query = collection;
+        if (currentUser.role == UserRole.customer) query = collection.where('uid', isEqualTo: currentUser.uid);
         return StreamBuilder(
-          stream: Firestore.instance
-              .collection('ProductRequests')
-              .getDocuments()
-              .asStream(),
+          stream: query.getDocuments().asStream(),
           builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
             List<DocumentSnapshot> documents;
             try {
@@ -75,8 +76,7 @@ class _GridProductsState extends State<GridProducts> {
                                     title: widget.title,
                                     child: ListProducts(
                                       list: documents,
-                                      gridProductsType:
-                                          GridProductsType.requests,
+                                      gridProductsType: GridProductsType.requests,
                                     ),
                                   ),
                                 );
@@ -91,8 +91,7 @@ class _GridProductsState extends State<GridProducts> {
                         itemCount: documents == null ? 0 : documents.length,
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (BuildContext context, int index) {
-                          ProductRequest _product =
-                              new ProductRequest.retrieveFromDatabase(
+                          ProductRequest _product = new ProductRequest.retrieveFromDatabase(
                             documents[index].data,
                             documents[index].reference.path,
                           );
@@ -109,10 +108,7 @@ class _GridProductsState extends State<GridProducts> {
         break;
       case GridProductsType.offers:
         return StreamBuilder(
-          stream: Firestore.instance
-              .collection('ProductOffer')
-              .getDocuments()
-              .asStream(),
+          stream: Firestore.instance.collection('ProductOffer').getDocuments().asStream(),
           builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
             List<DocumentSnapshot> documents;
             try {
@@ -127,8 +123,7 @@ class _GridProductsState extends State<GridProducts> {
                       k.data['productPrice'].compareTo(i.data['productPrice']));
                   break;
                 case SortingProducts.byTime:
-                  documents.sort((DocumentSnapshot k, DocumentSnapshot i) =>
-                      i.data['Time'].compareTo(k.data['Time']));
+                  documents.sort((DocumentSnapshot k, DocumentSnapshot i) => i.data['Time'].compareTo(k.data['Time']));
                   break;
                 default:
                   break;
@@ -177,21 +172,16 @@ class _GridProductsState extends State<GridProducts> {
                         itemCount: documents == null ? 0 : documents.length,
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (BuildContext context, int index) {
-                          ProductOffer _product =
-                              new ProductOffer.retrieveFromDatabase(
+                          ProductOffer _product = new ProductOffer.retrieveFromDatabase(
                             documents[index].data,
                             documents[index].reference.path,
                           );
-                          if (!isSignedIn() ||
-                              currentUser.likedOffers == null ||
-                              currentUser.likedOffers.isEmpty)
+                          if (!isSignedIn() || currentUser.likedOffers == null || currentUser.likedOffers.isEmpty)
                             return ProductWidget(_product, false);
 
-                          String ref =
-                              documents[index].reference.path.split('/')[1];
+                          String ref = documents[index].reference.path.split('/')[1];
                           int id = int.parse(ref);
-                          return ProductWidget(
-                              _product, currentUser.likedOffers.contains(id));
+                          return ProductWidget(_product, currentUser.likedOffers.contains(id));
                         },
                       ),
                     ),

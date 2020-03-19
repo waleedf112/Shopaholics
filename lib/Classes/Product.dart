@@ -23,8 +23,8 @@ class ProductRequest {
     this.productDescription = data['productDescription'];
     this.productPrice = data['productPrice'];
     this.time = data['Time'];
-    this.userRating = data['User']['Rating'].toDouble();
-    this.user = data['User']['displayName'];
+    this.userRating = data['Rating'].toDouble();
+    this.user = data['displayName'];
     this.productImagesURLs = data['productImagesURLs'];
 
     this.reference = reference;
@@ -51,11 +51,9 @@ class ProductRequest {
     });
 
     return await Firestore.instance.collection('ProductRequests').document(counter.toString()).setData({
-      'User': {
-        "uid": currentUser.uid,
-        "displayName": currentUser.displayName,
-        "Rating": 4.5,
-      },
+      "uid": currentUser.uid,
+      "displayName": currentUser.displayName,
+      "Rating": 4.5,
       'Time': time,
       'id': counter,
       'productName': this.productName,

@@ -94,46 +94,50 @@ class _Order extends StatelessWidget {
         textDirection: TextDirection.rtl,
         child: Padding(
           padding: const EdgeInsets.fromLTRB(5, 6, 6, 6),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          child: Column(
             children: <Widget>[
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(right: 6),
-                    child: Text(
-                      'الطلب رقم #${data['number']}',
-                      style: TextStyle(color: Colors.grey, fontSize: 11),
-                    ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(right: 6),
+                        child: Text(
+                          'الطلب رقم #${data['number']}',
+                          style: TextStyle(color: Colors.grey, fontSize: 11),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 6),
+                        child: Text(
+                          '${date.year}/${date.month}/${date.day}',
+                          style: TextStyle(color: Colors.grey, fontSize: 11),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 12, bottom: 12, right: 6),
+                        child: Text(
+                          '${data['productsPrice'] + data['delivery']} ريال',
+                          style: TextStyle(fontSize: 13),
+                        ),
+                      ),
+                    ],
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 6),
-                    child: Text(
-                      '${date.year}/${date.month}/${date.day}',
-                      style: TextStyle(color: Colors.grey, fontSize: 11),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 12, bottom: 12, right: 6),
-                    child: Text(
-                      '${data['productsPrice'] + data['delivery']} ريال',
-                      style: TextStyle(fontSize: 13),
-                    ),
-                  ),
-                  Row(children: <Widget>[
-                    status,
-                    Text(
-                      data['statusMessage'],
-                      style: TextStyle(fontSize: 14),
-                    )
-                  ])
+                  Expanded(child: Container()),
+                  if (data['products'].length > 0) productWidget(data['products'][0]),
+                  if (data['products'].length > 1) productWidget(data['products'][1]),
+                  if (data['products'].length > 2) productWidget(data['products'][2]),
                 ],
               ),
-              Expanded(child: Container()),
-              if (data['products'].length > 0) productWidget(data['products'][0]),
-              if (data['products'].length > 1) productWidget(data['products'][1]),
-              if (data['products'].length > 2) productWidget(data['products'][2]),
+              Row(children: <Widget>[
+                status,
+                Text(
+                  data['statusMessage'],
+                  style: TextStyle(fontSize: 14),
+                )
+              ])
             ],
           ),
         ),
@@ -160,8 +164,8 @@ class _Order extends StatelessWidget {
             ),
           );
         },
-        fit: BoxFit.fitHeight,
-        width: 70,
+        fit: BoxFit.contain,
+        width: 80,
       ),
     );
   }

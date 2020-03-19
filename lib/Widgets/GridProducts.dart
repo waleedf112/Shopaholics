@@ -41,7 +41,7 @@ class _GridProductsState extends State<GridProducts> {
         if (currentUser.role == UserRole.customer)
           query = collection.where('uid', isEqualTo: currentUser.uid);
         return StreamBuilder(
-          stream: query.getDocuments().asStream(),
+          stream: query.limit(10).getDocuments().asStream(),
           builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
             List<DocumentSnapshot> documents;
             try {
@@ -113,7 +113,7 @@ class _GridProductsState extends State<GridProducts> {
       case GridProductsType.offers:
         return StreamBuilder(
           stream: Firestore.instance
-              .collection('ProductOffer')
+              .collection('ProductOffer').limit(10)
               .getDocuments()
               .asStream(),
           builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {

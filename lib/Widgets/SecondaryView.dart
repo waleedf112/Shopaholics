@@ -8,15 +8,18 @@ class SecondaryView extends StatelessWidget {
   Widget fab;
   Function backButtonFunction;
   bool disableBackButton;
+  Function function;
   SecondaryView(
       {this.title = '',
       this.child,
       this.fab,
       this.backButtonFunction,
-      this.disableBackButton = false});
+      this.disableBackButton = false,
+      this.function});
   @override
   Widget build(BuildContext context) {
     return DismissKeyboard(
+      function: function,
       child: WillPopScope(
         onWillPop: disableBackButton ? () {} : null,
         child: Scaffold(

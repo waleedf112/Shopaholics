@@ -40,12 +40,12 @@ class _HomePageState extends State<HomePage> {
         activeColor: Colors.black,
         inactiveColor: Colors.grey,
       ),
-              PersistentBottomNavBarItem(
-          icon: Icon(Icons.add_shopping_cart),
-          title: ("الطلبات"),
-          activeColor: Colors.black,
-          inactiveColor: Colors.grey,
-        ),
+      PersistentBottomNavBarItem(
+        icon: Icon(Icons.add_shopping_cart),
+        title: ("الطلبات"),
+        activeColor: Colors.black,
+        inactiveColor: Colors.grey,
+      ),
       PersistentBottomNavBarItem(
         icon: Icon(Icons.favorite),
         title: ("المفضلة"),
@@ -102,34 +102,34 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         ),
-          Scaffold(
-            floatingActionButton: isSignedIn()
-                ? FloatingActionButton(
-                    heroTag: 'heroRequest',
-                    onPressed: () => PagePush(context, AddProductRequest()),
-                    child: Icon(
-                      Icons.add,
-                      color: Colors.white,
-                    ),
-                    elevation: 0,
-                    disabledElevation: 0,
-                    focusElevation: 0,
-                    highlightElevation: 0,
-                    hoverElevation: 0,
-                    backgroundColor: Colors.grey.withOpacity(0.7),
-                  )
-                : null,
-            body: ListView(
-              shrinkWrap: true,
-              physics: BouncingScrollPhysics(),
-              children: <Widget>[
-                GridProducts(
-                  title: 'اجدد الطلبات',
-                  type: GridProductsType.requests,
-                ),
-              ],
-            ),
+        Scaffold(
+          floatingActionButton: isSignedIn()
+              ? FloatingActionButton(
+                  heroTag: 'heroRequest',
+                  onPressed: () => PagePush(context, AddProductRequest()),
+                  child: Icon(
+                    Icons.add,
+                    color: Colors.white,
+                  ),
+                  elevation: 0,
+                  disabledElevation: 0,
+                  focusElevation: 0,
+                  highlightElevation: 0,
+                  hoverElevation: 0,
+                  backgroundColor: Colors.grey.withOpacity(0.7),
+                )
+              : null,
+          body: ListView(
+            shrinkWrap: true,
+            physics: BouncingScrollPhysics(),
+            children: <Widget>[
+              GridProducts(
+                title: 'اجدد الطلبات',
+                type: GridProductsType.requests,
+              ),
+            ],
           ),
+        ),
         Scaffold(
           body: FavoritePage(),
         ),

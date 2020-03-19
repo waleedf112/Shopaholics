@@ -21,7 +21,8 @@ class MainView extends StatefulWidget {
   _MainViewState createState() => _MainViewState();
 }
 
-class _MainViewState extends State<MainView> with SingleTickerProviderStateMixin {
+class _MainViewState extends State<MainView>
+    with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return DismissKeyboard(
@@ -39,10 +40,14 @@ class _MainViewState extends State<MainView> with SingleTickerProviderStateMixin
                     textDirection: TextDirection.rtl,
                     decoration: InputDecoration(
                       hintText: 'البحث عن منتج',
-                      enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.transparent)),
-                      disabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.transparent)),
-                      focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.transparent)),
-                      errorBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.transparent)),
+                      enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.transparent)),
+                      disabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.transparent)),
+                      focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.transparent)),
+                      errorBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.transparent)),
                     ),
                   ),
                 ),

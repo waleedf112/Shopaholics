@@ -25,9 +25,11 @@ import 'SubPages/RolesRequestsPage.dart';
 import 'SubPages/rolesPage.dart';
 
 class SettingsPage extends StatelessWidget {
-  Widget setting({String title, String desc, IconData icon, Function onPressed}) {
+  Widget setting(
+      {String title, String desc, IconData icon, Function onPressed}) {
     return Container(
-      color: onPressed == null ? Colors.grey.withOpacity(0.3) : Colors.transparent,
+      color:
+          onPressed == null ? Colors.grey.withOpacity(0.3) : Colors.transparent,
       child: InkWell(
         onTap: onPressed,
         child: Padding(
@@ -45,7 +47,8 @@ class SettingsPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: <Widget>[
                     TextWidget(title),
-                    TextWidget(desc, style: TextStyle(color: Colors.grey, fontSize: 12)),
+                    TextWidget(desc,
+                        style: TextStyle(color: Colors.grey, fontSize: 12)),
                   ],
                 ),
               ),
@@ -93,8 +96,10 @@ class SettingsPage extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
-                TextWidget(currentUser.displayName, style: TextStyle(fontSize: 18)),
-                TextWidget(currentUser.email, style: TextStyle(fontSize: 12, color: Colors.grey)),
+                TextWidget(currentUser.displayName,
+                    style: TextStyle(fontSize: 18)),
+                TextWidget(currentUser.email,
+                    style: TextStyle(fontSize: 12, color: Colors.grey)),
               ],
             )
           ],
@@ -214,7 +219,6 @@ class SettingsPage extends StatelessWidget {
               desc: 'عرض طلبات المستخدمين للتسجيل كبائع وغيرها',
               icon: Icons.present_to_all,
               onPressed: () => PagePush(context, RolesRequestsPage()),
-
             ),
             setting(
               title: 'البلاغات',

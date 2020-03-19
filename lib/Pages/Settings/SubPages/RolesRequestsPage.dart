@@ -18,13 +18,15 @@ class _RolesRequestsPageState extends State<RolesRequestsPage> {
     return SecondaryView(
       title: 'طلبات المستخدمين',
       child: StreamBuilder(
-        stream: Firestore.instance.collection('Users').getDocuments().asStream(),
+        stream:
+            Firestore.instance.collection('Users').getDocuments().asStream(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
             List<DocumentSnapshot> data = snapshot.data.documents;
 
-            data.removeWhere(
-                (DocumentSnapshot test) => test.data['role'] == null || test.data['role']['pending'] == false);
+            data.removeWhere((DocumentSnapshot test) =>
+                test.data['role'] == null ||
+                test.data['role']['pending'] == false);
             return ListView.builder(
               itemCount: data.length,
               itemBuilder: (BuildContext context, int index) {
@@ -64,7 +66,8 @@ class _RolesRequestsPageState extends State<RolesRequestsPage> {
                                       size: 18,
                                     ),
                                     SizedBox(width: 5),
-                                    Text(roleNames[user['role']['currentRole']]),
+                                    Text(
+                                        roleNames[user['role']['currentRole']]),
                                   ],
                                 ),
                                 Row(
@@ -75,7 +78,8 @@ class _RolesRequestsPageState extends State<RolesRequestsPage> {
                                       size: 18,
                                     ),
                                     SizedBox(width: 5),
-                                    Text(roleNames[user['role']['requestedRole']]),
+                                    Text(roleNames[user['role']
+                                        ['requestedRole']]),
                                   ],
                                 )
                               ],
@@ -90,14 +94,16 @@ class _RolesRequestsPageState extends State<RolesRequestsPage> {
                                       loadingScreen(
                                           context: context,
                                           function: () async {
-                                            if (currentUser.role == UserRole.admin)
+                                            if (currentUser.role ==
+                                                UserRole.admin)
                                               await Firestore.instance
                                                   .collection('Users')
                                                   .document(user['uid'])
                                                   .updateData({
                                                 'role': {
                                                   'requestedRole': -1,
-                                                  'currentRole': user['role']['requestedRole'],
+                                                  'currentRole': user['role']
+                                                      ['requestedRole'],
                                                   'pending': false,
                                                 }
                                               }).whenComplete(() {
@@ -112,14 +118,16 @@ class _RolesRequestsPageState extends State<RolesRequestsPage> {
                                       loadingScreen(
                                           context: context,
                                           function: () async {
-                                            if (currentUser.role == UserRole.admin)
+                                            if (currentUser.role ==
+                                                UserRole.admin)
                                               await Firestore.instance
                                                   .collection('Users')
                                                   .document(user['uid'])
                                                   .updateData({
                                                 'role': {
                                                   'requestedRole': -1,
-                                                  'currentRole': user['role']['currentRole'],
+                                                  'currentRole': user['role']
+                                                      ['currentRole'],
                                                   'pending': false,
                                                 }
                                               }).whenComplete(() {

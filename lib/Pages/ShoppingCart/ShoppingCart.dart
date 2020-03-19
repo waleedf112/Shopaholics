@@ -23,7 +23,8 @@ class _ShoppingCartState extends State<ShoppingCart> {
     widget.productsPrice = 0;
     currentUser.getCart().then((onValue) {
       for (int i = 0; i < onValue.length; i++)
-        widget.productsPrice += onValue[i]['product']['productPrice'] * onValue[i]['count'];
+        widget.productsPrice +=
+            onValue[i]['product']['productPrice'] * onValue[i]['count'];
       setState(() {
         if (widget.productsPrice > 0) widget.delivery = 25;
         print('object');
@@ -52,7 +53,8 @@ class _ShoppingCartState extends State<ShoppingCart> {
                 ))
               : FutureBuilder(
                   future: currentUser.getCart(),
-                  builder: (BuildContext context, AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
+                  builder: (BuildContext context,
+                      AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
                     if (snapshot.hasData) {
                       if (snapshot.data.isEmpty)
                         return Expanded(
@@ -65,12 +67,14 @@ class _ShoppingCartState extends State<ShoppingCart> {
                         physics: BouncingScrollPhysics(),
                         shrinkWrap: true,
                         itemBuilder: (BuildContext context, int index) {
-                          ProductOffer product = new ProductOffer.retrieveFromDatabase(
+                          ProductOffer product =
+                              new ProductOffer.retrieveFromDatabase(
                             snapshot.data[index]['product'],
                             snapshot.data[index]['product']['id'].toString(),
                           );
                           int quantity = snapshot.data[index]['count'];
-                          widget.productsPrice += product.productPrice * quantity;
+                          widget.productsPrice +=
+                              product.productPrice * quantity;
 
                           return quantity == 0
                               ? Container()
@@ -81,23 +85,36 @@ class _ShoppingCartState extends State<ShoppingCart> {
                                   child: Directionality(
                                     textDirection: TextDirection.rtl,
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: <Widget>[
                                         Expanded(
                                             flex: 2,
                                             child: Padding(
-                                              padding: const EdgeInsets.fromLTRB(0, 8, 20, 8),
+                                              padding:
+                                                  const EdgeInsets.fromLTRB(
+                                                      0, 8, 20, 8),
                                               child: Column(
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
                                                 children: <Widget>[
-                                                  TextWidget(product.productName),
+                                                  TextWidget(
+                                                      product.productName),
                                                   SizedBox(height: 5),
-                                                  TextWidget('#' + product.reference,
-                                                      style: TextStyle(color: Colors.grey, fontSize: 11)),
+                                                  TextWidget(
+                                                      '#' + product.reference,
+                                                      style: TextStyle(
+                                                          color: Colors.grey,
+                                                          fontSize: 11)),
                                                   SizedBox(height: 3),
-                                                  TextWidget('${product.productPrice} ريال',
-                                                      style: TextStyle(color: Colors.red[700])),
+                                                  TextWidget(
+                                                      '${product.productPrice} ريال',
+                                                      style: TextStyle(
+                                                          color:
+                                                              Colors.red[700])),
                                                 ],
                                               ),
                                             )),
@@ -108,13 +125,16 @@ class _ShoppingCartState extends State<ShoppingCart> {
                                               IconButton(
                                                 icon: Icon(
                                                   Icons.add_circle_outline,
-                                                  color: Colors.grey.withOpacity(0.5),
+                                                  color: Colors.grey
+                                                      .withOpacity(0.5),
                                                 ),
                                                 onPressed: () {
-                                                  if (quantity < 100) quantity++;
+                                                  if (quantity < 100)
+                                                    quantity++;
                                                   updatePrice();
                                                   currentUser.modifyItemInCart(
-                                                      quantity: quantity, ref: product.reference);
+                                                      quantity: quantity,
+                                                      ref: product.reference);
                                                 },
                                               ),
                                               Text(
@@ -124,36 +144,53 @@ class _ShoppingCartState extends State<ShoppingCart> {
                                               IconButton(
                                                 icon: Icon(
                                                   Icons.remove_circle_outline,
-                                                  color: Colors.grey.withOpacity(0.5),
+                                                  color: Colors.grey
+                                                      .withOpacity(0.5),
                                                 ),
                                                 onPressed: () {
                                                   if (quantity > 1) {
                                                     quantity--;
                                                     updatePrice();
-                                                    currentUser.modifyItemInCart(
-                                                        quantity: quantity, ref: product.reference);
+                                                    currentUser
+                                                        .modifyItemInCart(
+                                                            quantity: quantity,
+                                                            ref: product
+                                                                .reference);
                                                   } else {
                                                     CustomDialog(
                                                         context: context,
                                                         title: 'حذف المنتج',
                                                         content: Text(
                                                           'هل انت متأكد انك تريد حذف هذا المنتج من العربة؟',
-                                                          textAlign: TextAlign.center,
+                                                          textAlign:
+                                                              TextAlign.center,
                                                         ),
-                                                        firstButtonColor: Colors.red,
-                                                        firstButtonText: 'حذف المنتج',
-                                                        secondButtonText: 'الغاء',
-                                                        secondButtonColor: Colors.black54,
-                                                        firstButtonFunction: () {
+                                                        firstButtonColor:
+                                                            Colors.red,
+                                                        firstButtonText:
+                                                            'حذف المنتج',
+                                                        secondButtonText:
+                                                            'الغاء',
+                                                        secondButtonColor:
+                                                            Colors.black54,
+                                                        firstButtonFunction:
+                                                            () {
                                                           quantity--;
-                                                          currentUser.modifyItemInCart(
-                                                              quantity: quantity, ref: product.reference);
+                                                          currentUser
+                                                              .modifyItemInCart(
+                                                                  quantity:
+                                                                      quantity,
+                                                                  ref: product
+                                                                      .reference);
 
-                                                          Navigator.of(context).pop();
+                                                          Navigator.of(context)
+                                                              .pop();
                                                           updatePrice();
                                                         },
-                                                        secondButtonFunction: () {
-                                                          Navigator.of(context).pop();
+                                                        secondButtonFunction:
+                                                            () {
+                                                          Navigator.of(context)
+                                                              .pop();
                                                         });
                                                   }
                                                 },
@@ -164,18 +201,28 @@ class _ShoppingCartState extends State<ShoppingCart> {
                                         Flexible(
                                           child: ImageFade(
                                             height: 120,
-                                            image: NetworkImage(product.productImagesURLs[0]),
-                                            errorBuilder: (BuildContext context, Widget child, dynamic exception) {
+                                            image: NetworkImage(
+                                                product.productImagesURLs[0]),
+                                            errorBuilder: (BuildContext context,
+                                                Widget child,
+                                                dynamic exception) {
                                               return Container(
-                                                color: Colors.grey.withOpacity(0.2),
+                                                color: Colors.grey
+                                                    .withOpacity(0.2),
                                                 child: Center(
-                                                    child: Icon(Icons.broken_image, color: Colors.grey, size: 128.0)),
+                                                    child: Icon(
+                                                        Icons.broken_image,
+                                                        color: Colors.grey,
+                                                        size: 128.0)),
                                               );
                                             },
                                             loadingBuilder:
-                                                (BuildContext context, Widget child, ImageChunkEvent event) {
+                                                (BuildContext context,
+                                                    Widget child,
+                                                    ImageChunkEvent event) {
                                               return Container(
-                                                color: Colors.grey.withOpacity(0.2),
+                                                color: Colors.grey
+                                                    .withOpacity(0.2),
                                                 child: SpinKitDoubleBounce(
                                                   color: Colors.white,
                                                 ),
@@ -192,7 +239,8 @@ class _ShoppingCartState extends State<ShoppingCart> {
                       );
                     }
 
-                    return SpinKitHourGlass(color: Colors.grey.withOpacity(0.4));
+                    return SpinKitHourGlass(
+                        color: Colors.grey.withOpacity(0.4));
                   },
                 ),
           Column(
@@ -214,7 +262,10 @@ class _ShoppingCartState extends State<ShoppingCart> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        _infoRow(title: 'المجموع', value: widget.productsPrice + widget.delivery, isBold: true),
+                        _infoRow(
+                            title: 'المجموع',
+                            value: widget.productsPrice + widget.delivery,
+                            isBold: true),
                       ],
                     ),
                   ),
@@ -239,7 +290,9 @@ _infoRow({String title, int value, bool isBold = false}) => Padding(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            Text(title + ' :', style: TextStyle(fontSize: 15, fontWeight: isBold ? FontWeight.bold : null)),
+            Text(title + ' :',
+                style: TextStyle(
+                    fontSize: 15, fontWeight: isBold ? FontWeight.bold : null)),
             Expanded(child: Row()),
             Padding(
               padding: const EdgeInsets.only(bottom: 1),

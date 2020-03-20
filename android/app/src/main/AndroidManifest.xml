@@ -10,6 +10,8 @@
         android:label="Shopaholics"
         android:icon="@mipmap/ic_launcher"
         android:requestLegacyExternalStorage="true">
+        <meta-data android:name="com.google.android.geo.API_KEY"
+               android:value="AIzaSyBbG6iid8fXmD36E8eKIMJX9YVTE1gdyMI"/>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

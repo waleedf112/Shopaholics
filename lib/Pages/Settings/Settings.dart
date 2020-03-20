@@ -20,6 +20,7 @@ import 'Functions/Validators.dart';
 import 'Functions/SignUp.dart';
 import 'Functions/SignIn.dart';
 import 'SigningPage.dart';
+import 'SubPages/Addresses.dart';
 import 'SubPages/MyAccount.dart';
 import 'SubPages/MyOrders.dart';
 import 'SubPages/RolesRequestsPage.dart';
@@ -179,9 +180,11 @@ class SettingsPage extends StatelessWidget {
               onPressed: () => PagePush(context, MyOrdersPage()),
             ),
             setting(
-              title: 'عناوين التوصيل',
-              desc: 'تحديد عناوينك لتوصيل الطلبات',
+              title: 'عنوان التوصيل',
+              desc: 'تحديد عنوانك لتوصيل الطلبات',
               icon: Icons.location_on,
+              onPressed: () => PagePush(context, AddressesPage()),
+
             ),
             setting(
               title: 'وسائل الدفع',

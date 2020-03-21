@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:persistent_bottom_nav_bar/models/persistent-bottom-nav-bar-styles.widget.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:shopaholics/Classes/Product.dart';
 import 'package:shopaholics/Classes/User.dart';
@@ -66,8 +67,13 @@ class _HomePageState extends State<HomePage> {
     return PersistentTabView(
       controller: _controller,
       backgroundColor: Colors.white,
-      showElevation: true,
-      iconSize: 26.0,
+
+      showElevation: false,
+
+      navBarHeight: 75,
+      iconSize: 23.0,
+
+      bottomPadding: 0,
       navBarStyle: NavBarStyle.style6,
       items: _navBarsItems(),
       screens: [
@@ -88,21 +94,28 @@ class _HomePageState extends State<HomePage> {
                   backgroundColor: Colors.grey.withOpacity(0.7),
                 )
               : null,
-          body: ListView(
-            physics: BouncingScrollPhysics(),
-            shrinkWrap: true,
+          body: Column(
             children: <Widget>[
+              Expanded(
+                child: ListView(
+                  physics: BouncingScrollPhysics(),
+                  shrinkWrap: false,
+                  children: <Widget>[
 
-              GridProducts(
-                title: 'اجدد المنتجات',
-                type: GridProductsType.offers,
-                sortingProducts: SortingProducts.byTime,
+                    GridProducts(
+                      title: 'اجدد المنتجات',
+                      type: GridProductsType.offers,
+                      sortingProducts: SortingProducts.byTime,
+                    ),
+                    GridProducts(
+                      title: 'اخر العروض',
+                      type: GridProductsType.offers,
+                      sortingProducts: SortingProducts.byPrice,
+                    ),
+                  ],
+                ),
               ),
-              GridProducts(
-                title: 'اخر العروض',
-                type: GridProductsType.offers,
-                sortingProducts: SortingProducts.byPrice,
-              ),
+              Divider(height: 0,color: Colors.black38),
             ],
           ),
         ),
@@ -123,21 +136,40 @@ class _HomePageState extends State<HomePage> {
                   backgroundColor: Colors.grey.withOpacity(0.7),
                 )
               : null,
-          body: ListView(
-            shrinkWrap: true,
-            physics: BouncingScrollPhysics(),
+          body: Column(
             children: <Widget>[
-              GridProducts(
-                title: 'اجدد الطلبات',
-                type: GridProductsType.requests,
+              Expanded(
+                child: ListView(
+                  physics: BouncingScrollPhysics(),
+                  children: <Widget>[
+                    GridProducts(
+                      title: 'اجدد الطلبات',
+                      type: GridProductsType.requests,
+                    ),
+                  ],
+                ),
               ),
+              Divider(height: 0,color: Colors.black38),
+
             ],
           ),
         ),
         Scaffold(
-          body: FavoritePage(),
+          body: Column(
+            children: <Widget>[
+              Expanded(child: FavoritePage()),
+              Divider(height: 0,color: Colors.black38),
+
+            ],
+          ),
         ),
-        Container(color: Colors.white, child: SettingsPage()),
+        Column(
+          children: <Widget>[
+            Expanded(child: Container(color: Colors.white, child: SettingsPage())),
+            Divider(height: 0,color: Colors.black38),
+
+          ],
+        ),
       ],
     );
   }

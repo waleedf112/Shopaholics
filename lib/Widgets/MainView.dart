@@ -17,23 +17,16 @@ import 'ListProducts.dart';
 import 'dismissKeyboard.dart';
 import 'noSearchResult.dart';
 
-class MainView extends StatefulWidget {
+class MainView extends StatelessWidget {
   Widget child;
-  MainView({Key key, this.child = const SizedBox()}) ;
-
-  @override
-  _MainViewState createState() => _MainViewState();
-}
-
-class _MainViewState extends State<MainView>
-    with SingleTickerProviderStateMixin {
+  MainView({this.child = const SizedBox()});
   static final ValueNotifier<String> searchText = ValueNotifier<String>(null);
   static final TextEditingController searchController = new TextEditingController();
-  static final _formKey = new GlobalKey<FormState>();   /// just  define _formkey with static final
+  static final _formKey = new GlobalKey<FormState>();
+
 
   @override
   Widget build(BuildContext context) {
-
     print('hi');
     return WillPopScope(
       onWillPop: () {},
@@ -44,10 +37,9 @@ class _MainViewState extends State<MainView>
               textDirection: TextDirection.rtl,
               child: Row(
                 children: <Widget>[
-                  ValueListenableBuilder (
+                  ValueListenableBuilder(
                     valueListenable: searchText,
-                    builder:
-                        (BuildContext context, String value, Widget child) {
+                    builder: (BuildContext context, String value, Widget child) {
                       if (value != null && value.trim().isNotEmpty)
                         return IconButton(
                           icon: Icon(Icons.cancel),
@@ -66,10 +58,8 @@ class _MainViewState extends State<MainView>
                     },
                   ),
                   Expanded(
-
                     child: Form(
                       key: _formKey,
-
                       child: TextFormField(
                         textDirection: TextDirection.rtl,
                         controller: searchController,
@@ -81,18 +71,10 @@ class _MainViewState extends State<MainView>
                         },
                         decoration: InputDecoration(
                           hintText: 'البحث عن منتج',
-                          enabledBorder: UnderlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: Colors.transparent)),
-                          disabledBorder: UnderlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: Colors.transparent)),
-                          focusedBorder: UnderlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: Colors.transparent)),
-                          errorBorder: UnderlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: Colors.transparent)),
+                          enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.transparent)),
+                          disabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.transparent)),
+                          focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.transparent)),
+                          errorBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.transparent)),
                         ),
                       ),
                     ),
@@ -107,19 +89,16 @@ class _MainViewState extends State<MainView>
             )),
         body: ValueListenableBuilder(
           valueListenable: searchText,
-          builder: (BuildContext context, String value, Widget child) {
+          builder: (BuildContext context, String value, Widget childW) {
             if (value != null && value.trim().isNotEmpty) {
               return StreamBuilder(
                 stream: Firestore.instance
                     .collection('ProductOffer')
-                    .where('tags',
-                        arrayContainsAny: searchText.value.split(' '))
+                    .where('tags', arrayContainsAny: searchText.value.split(' '))
                     .getDocuments()
                     .asStream(),
-                builder: (BuildContext context,
-                    AsyncSnapshot<QuerySnapshot> snapshot) {
-                  if (snapshot.hasData &&
-                      snapshot.data.documents.isNotEmpty) {
+                builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (snapshot.hasData && snapshot.data.documents.isNotEmpty) {
                     return ListProducts(
                       list: snapshot.data.documents,
                       gridProductsType: GridProductsType.offers,
@@ -129,7 +108,7 @@ class _MainViewState extends State<MainView>
                 },
               );
             } else {
-              return widget.child;
+              return child;
             }
           },
         ),

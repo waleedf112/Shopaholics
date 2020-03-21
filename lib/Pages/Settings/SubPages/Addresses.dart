@@ -1,29 +1,30 @@
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_place_picker/google_maps_place_picker.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:shopaholics/Classes/User.dart';
 
 import 'package:shopaholics/Widgets/Button.dart';
+import 'package:shopaholics/Widgets/CustomDialog.dart';
 import 'package:shopaholics/Widgets/SecondaryView.dart';
+import 'package:shopaholics/Widgets/loadingDialog.dart';
 
-class AddressesPage extends StatefulWidget {
-  static final kInitialPosition = LatLng(24.694788, 46.730772);
-
-  @override
-  _AddressesPageState createState() => _AddressesPageState();
-}
-
-class _AddressesPageState extends State<AddressesPage> {
-  ValueNotifier<PickResult> selectedPlace = ValueNotifier<PickResult>(null);
-
+class AddressesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Widget mapsWidget() {
-      return PlacePicker(
+    return SecondaryView(
+      title: 'عنوان التوصيل',
+      child: PlacePicker(
         apiKey: 'AIzaSyBbG6iid8fXmD36E8eKIMJX9YVTE1gdyMI',
-        initialPosition: AddressesPage.kInitialPosition,
-        useCurrentLocation: true,
+        initialPosition: currentUser.location == null
+            ? LatLng(24.694788, 46.730772)
+            : LatLng(
+                currentUser.location['lat'],
+                currentUser.location['lng'],
+              ),
+        useCurrentLocation: currentUser.location == null,
         hideBackButton: true,
         autocompleteLanguage: "ar",
         region: 'sa',
@@ -42,7 +43,40 @@ class _AddressesPageState extends State<AddressesPage> {
                     child: SimpleButton(
                       state == SearchingState.Searching ? 'جاري التحميل ...' : 'تحديد الموقع',
                       function: () {
-                        selectedPlace.value = selectedPlaceT;
+                        CustomDialog(
+                          context: context,
+                          title: 'حفظ الموقع',
+                          content: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              Text(
+                                'هل انت متأكد انك تريد حفظ الموقع؟\n',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                selectedPlaceT.formattedAddress,
+                                textAlign: TextAlign.center,
+                                textDirection: TextDirection.ltr,
+                              )
+                            ],
+                          ),
+                          firstButtonColor: Colors.black54,
+                          firstButtonText: 'حفظ الموقع',
+                          secondButtonText: 'تراجع',
+                          secondButtonColor: Colors.red,
+                          firstButtonFunction: () {
+                            Navigator.of(context).pop();
+                            loadingScreen(
+                                context: context,
+                                function: () {
+                                  currentUser.setLocation(selectedPlaceT.geometry.location).whenComplete(() {
+                                    Navigator.of(context).pop();
+                                  });
+                                });
+                          },
+                          secondButtonFunction: () => Navigator.of(context).pop(),
+                        );
                       },
                     ),
                   ),
@@ -69,33 +103,23 @@ class _AddressesPageState extends State<AddressesPage> {
             );
           }
         },
-      );
-    }
-
-    return SecondaryView(
-      title: 'عنوان التوصيل',
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Expanded(flex: 2, child: mapsWidget()),
-            Expanded(
-              child: Column(
-                children: <Widget>[
-                  ValueListenableBuilder(
-                    valueListenable: selectedPlace,
-                    builder: (BuildContext context, PickResult value, Widget child) {
-                      if (value == null) return Container();
-                      return Text(value.formattedAddress.toString());
-                    },
-                  ),
-                ],
-              ),
-            )
-          ],
-        ),
       ),
+    );
+  }
+
+  Widget locationRow({String title, String value, IconData icon}) {
+    return Row(
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.only(left: 3),
+          child: Icon(
+            icon,
+            color: Colors.grey.withOpacity(0.7),
+          ),
+        ),
+        Text(title + ': '),
+        Text(value),
+      ],
     );
   }
 }

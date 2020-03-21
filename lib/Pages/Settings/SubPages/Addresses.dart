@@ -31,7 +31,8 @@ class AddressesPage extends StatelessWidget {
         autocompleteLanguage: "ar",
         region: 'sa',
         selectInitialPosition: true,
-        selectedPlaceWidgetBuilder: (_, selectedPlaceT, state, isSearchBarFocused) {
+        selectedPlaceWidgetBuilder:
+            (_, selectedPlaceT, state, isSearchBarFocused) {
           return isSearchBarFocused
               ? Container()
               : FloatingCard(
@@ -43,7 +44,9 @@ class AddressesPage extends StatelessWidget {
                   child: Directionality(
                     textDirection: TextDirection.rtl,
                     child: SimpleButton(
-                      state == SearchingState.Searching ? 'جاري التحميل ...' : 'تحديد الموقع',
+                      state == SearchingState.Searching
+                          ? 'جاري التحميل ...'
+                          : 'تحديد الموقع',
                       function: () {
                         CustomDialog(
                           context: context,
@@ -72,13 +75,17 @@ class AddressesPage extends StatelessWidget {
                             loadingScreen(
                                 context: context,
                                 function: () {
-                                  currentUser.setLocation(selectedPlaceT.geometry.location).whenComplete(() {
+                                  currentUser
+                                      .setLocation(
+                                          selectedPlaceT.geometry.location)
+                                      .whenComplete(() {
                                     Navigator.of(context).pop();
                                     Navigator.of(context).pop();
                                   });
                                 });
                           },
-                          secondButtonFunction: () => Navigator.of(context).pop(),
+                          secondButtonFunction: () =>
+                              Navigator.of(context).pop(),
                         );
                       },
                     ),

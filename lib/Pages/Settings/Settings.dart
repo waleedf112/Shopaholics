@@ -148,15 +148,16 @@ class SettingsPage extends StatelessWidget {
         SizedBox(height: 25),
         if (isSignedIn())
           settingSection([
-           if(kDebugMode) setting(
-                title: 'testing',
-                desc: '',
-                icon: Icons.lock,
-                onPressed: () {
-                  FocusScope.of(context).unfocus();
-                  PagePush(context, TestPage());
-                }),
-                setting(
+            if (kDebugMode)
+              setting(
+                  title: 'testing',
+                  desc: '',
+                  icon: Icons.lock,
+                  onPressed: () {
+                    FocusScope.of(context).unfocus();
+                    PagePush(context, TestPage());
+                  }),
+            setting(
                 title: 'حسابي',
                 desc: 'لادارة حسابك وتغيير البريد الالكتروني وكلمة المرور',
                 icon: Icons.lock,
@@ -192,7 +193,6 @@ class SettingsPage extends StatelessWidget {
               desc: 'تحديد عنوانك لتوصيل الطلبات',
               icon: Icons.location_on,
               onPressed: () => PagePush(context, AddressesPage()),
-
             ),
             setting(
               title: 'وسائل الدفع',
@@ -212,7 +212,6 @@ class SettingsPage extends StatelessWidget {
             title: 'التنبيهات',
             desc: 'اعدادات التنبيهات للتخفيضات والعروض وغيرها',
             icon: Icons.notifications_active,
-
           ),
           setting(
             title: 'اللغة',

@@ -65,7 +65,8 @@ class Launcher extends StatefulWidget {
 class _LauncherState extends State<Launcher> {
   _init() async {
     if (widget.firstRun) {
-      final appDocumentDir = await path_provider.getApplicationDocumentsDirectory();
+      final appDocumentDir =
+          await path_provider.getApplicationDocumentsDirectory();
       Hive.init(appDocumentDir.path);
       Hive.registerAdapter(CurrentUserAdapter());
       Hive.registerAdapter(UserRoleAdapter());
@@ -78,7 +79,8 @@ class _LauncherState extends State<Launcher> {
         print('====================');
       } catch (e) {}
       try {
-        if (currentUser.role == null) await currentUser.requestRole(UserRole.customer, true);
+        if (currentUser.role == null)
+          await currentUser.requestRole(UserRole.customer, true);
       } catch (e) {}
     }
 

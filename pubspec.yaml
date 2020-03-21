@@ -33,6 +33,7 @@ dependencies:
   line_awesome_icons: ^1.0.4+2
   mdi: ^1.0.1
   google_maps_place_picker: ^0.9.0
+  google_maps_webservice: ^0.0.16
 
   
   #? firebase packages:

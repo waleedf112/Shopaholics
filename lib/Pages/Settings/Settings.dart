@@ -14,7 +14,6 @@ import 'package:shopaholics/Widgets/dismissKeyboard.dart';
 import 'package:shopaholics/Widgets/loadingDialog.dart';
 import 'package:flutter/material.dart';
 import 'package:shopaholics/Widgets/Button.dart';
-
 import '../../main.dart';
 import 'Functions/Validators.dart';
 import 'Functions/SignUp.dart';
@@ -204,6 +203,7 @@ class SettingsPage extends StatelessWidget {
             title: 'التنبيهات',
             desc: 'اعدادات التنبيهات للتخفيضات والعروض وغيرها',
             icon: Icons.notifications_active,
+
           ),
           setting(
             title: 'اللغة',

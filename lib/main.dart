@@ -13,6 +13,8 @@ import 'Functions/PagePush.dart';
 import 'Pages/Homepage/HomePage.dart';
 import 'Widgets/MainView.dart';
 
+const mapApi = 'AIzaSyBbG6iid8fXmD36E8eKIMJX9YVTE1gdyMI';
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 

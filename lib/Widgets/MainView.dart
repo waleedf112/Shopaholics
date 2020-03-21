@@ -30,6 +30,7 @@ class _MainViewState extends State<MainView>
         onWillPop: () {},
         child: Scaffold(
           appBar: AppBar(
+            automaticallyImplyLeading: false,
               title: Directionality(
             textDirection: TextDirection.rtl,
             child: Row(

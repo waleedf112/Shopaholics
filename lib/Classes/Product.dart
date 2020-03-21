@@ -16,6 +16,7 @@ class ProductRequest {
   String reference;
   List<File> productImages;
   List productImagesURLs = new List();
+  String userUid;
 
   ProductRequest(
       {this.productName,
@@ -29,6 +30,7 @@ class ProductRequest {
     this.time = data['Time'];
     this.userRating = data['Rating'].toDouble();
     this.user = data['displayName'];
+    this.userUid = data['uid'];
     this.productImagesURLs = data['productImagesURLs'];
 
     this.reference = reference;
@@ -88,6 +90,7 @@ class ProductOffer {
   int productPrice;
   int time;
   String user;
+  String userUid;
   String reference;
   double userRating;
   List<File> productImages;
@@ -104,6 +107,7 @@ class ProductOffer {
     this.productPrice = data['productPrice'];
     this.time = data['Time'];
     this.user = data['User']['displayName'];
+    this.userUid = data['User']['uid'];
     this.userRating = data['User']['Rating'].toDouble();
     this.productImagesURLs = data['productImagesURLs'];
     this.reference = reference;

@@ -5,6 +5,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:image_fade/image_fade.dart';
 import 'package:shopaholics/Classes/Product.dart';
 import 'package:shopaholics/Classes/User.dart';
+import 'package:shopaholics/Functions/distanceCalculator.dart';
 import 'package:shopaholics/Widgets/Button.dart';
 import 'package:shopaholics/Widgets/SecondaryView.dart';
 import 'package:shopaholics/Widgets/TextWidget.dart';
@@ -32,9 +33,7 @@ class _ProductViewerState extends State<ProductViewer> {
       return IconButton(
           icon: Icon(
             widget.product is ProductRequest ? Icons.bookmark : Icons.favorite,
-            color: widget.product is ProductRequest
-                ? Colors.green[600]
-                : Colors.red,
+            color: widget.product is ProductRequest ? Colors.green[600] : Colors.red,
             size: 35,
           ),
           onPressed: widget.product is ProductRequest
@@ -49,9 +48,7 @@ class _ProductViewerState extends State<ProductViewer> {
       return Builder(
         builder: (context) => IconButton(
             icon: Icon(
-              widget.product is ProductRequest
-                  ? Icons.bookmark_border
-                  : Icons.favorite_border,
+              widget.product is ProductRequest ? Icons.bookmark_border : Icons.favorite_border,
               color: Colors.grey,
               size: 35,
             ),
@@ -60,9 +57,7 @@ class _ProductViewerState extends State<ProductViewer> {
                 : () {
                     if (!isSignedIn()) {
                       final snackBar = SnackBar(
-                        content: Text(
-                            'الرجاء تسجيل الدخول لاضافة المنتجات الى المفضلة',
-                            textAlign: TextAlign.right),
+                        content: Text('الرجاء تسجيل الدخول لاضافة المنتجات الى المفضلة', textAlign: TextAlign.right),
                         backgroundColor: Colors.black.withOpacity(0.7),
                         elevation: 0,
                         duration: Duration(seconds: 2),
@@ -101,19 +96,14 @@ class _ProductViewerState extends State<ProductViewer> {
                     children: <Widget>[
                       Expanded(
                         child: ImageFade(
-                          image: NetworkImage(
-                              widget.product.productImagesURLs[itemIndex]),
-                          errorBuilder: (BuildContext context, Widget child,
-                              dynamic exception) {
+                          image: NetworkImage(widget.product.productImagesURLs[itemIndex]),
+                          errorBuilder: (BuildContext context, Widget child, dynamic exception) {
                             return Container(
                               color: Colors.grey.withOpacity(0.2),
-                              child: Center(
-                                  child: Icon(Icons.broken_image,
-                                      color: Colors.grey, size: 128.0)),
+                              child: Center(child: Icon(Icons.broken_image, color: Colors.grey, size: 128.0)),
                             );
                           },
-                          loadingBuilder: (BuildContext context, Widget child,
-                              ImageChunkEvent event) {
+                          loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent event) {
                             return Container(
                               color: Colors.grey.withOpacity(0.2),
                               child: SpinKitDoubleBounce(
@@ -142,15 +132,9 @@ class _ProductViewerState extends State<ProductViewer> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               TextWidget(widget.product.productName,
-                                  maxFontSize: 35,
-                                  minFontSize: 18,
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.bold)),
-                              TextWidget(
-                                  'المنتج ${widget.product.reference.split('/')[1]}#',
-                                  maxFontSize: 12,
-                                  minFontSize: 11,
-                                  style: TextStyle(color: Colors.grey)),
+                                  maxFontSize: 35, minFontSize: 18, style: TextStyle(fontWeight: FontWeight.bold)),
+                              TextWidget('المنتج ${widget.product.reference.split('/')[1]}#',
+                                  maxFontSize: 12, minFontSize: 11, style: TextStyle(color: Colors.grey)),
                               AutoSizeText(
                                 widget.product.productDescription,
                                 maxLines: 5,
@@ -172,11 +156,8 @@ class _ProductViewerState extends State<ProductViewer> {
                           style: TextStyle(fontWeight: FontWeight.bold)),
                     ),
                     Divider(color: Colors.black.withOpacity(0.5)),
-                    TextWidget(
-                        widget.product is ProductOffer ? 'البائع' : 'الزبون',
-                        maxFontSize: 25,
-                        minFontSize: 20,
-                        style: TextStyle(fontWeight: FontWeight.bold)),
+                    TextWidget(widget.product is ProductOffer ? 'البائع' : 'الزبون',
+                        maxFontSize: 25, minFontSize: 20, style: TextStyle(fontWeight: FontWeight.bold)),
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 3),
                       child: Directionality(
@@ -189,9 +170,35 @@ class _ProductViewerState extends State<ProductViewer> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
-                                  TextWidget(widget.product.user,
-                                      minFontSize: 16, maxFontSize: 18),
-                                  Rating(widget.product.userRating),
+                                  TextWidget(widget.product.user, minFontSize: 16, maxFontSize: 18),
+                                  if (isSignedIn() && currentUser.location != null)
+                                    FutureBuilder(
+                                      future: calculateDistance(widget.product.userUid),
+                                      builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+                                        if (snapshot.hasError) {
+                                          return TextWidget(
+                                            'لم يحدد موقع البائع',
+                                            minFontSize: 11,
+                                            maxFontSize: 14,
+                                            style: TextStyle(color: Colors.grey, fontStyle: FontStyle.italic),
+                                          );
+                                        } else if (snapshot.hasData) {
+                                          return Directionality(
+                                            textDirection: TextDirection.rtl,
+                                            child: TextWidget(
+                                              'يبعد عنك ${snapshot.data}',
+                                              minFontSize: 16,
+                                              maxFontSize: 18,
+                                            ),
+                                          );
+                                        }
+                                        return TextWidget('يبعد عنك ...', minFontSize: 16, maxFontSize: 18);
+                                      },
+                                    ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 3),
+                                    child: Rating(widget.product.userRating),
+                                  ),
                                 ],
                               ),
                             ),
@@ -212,28 +219,21 @@ class _ProductViewerState extends State<ProductViewer> {
                                   children: <Widget>[
                                     Expanded(
                                         child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                      mainAxisAlignment: MainAxisAlignment.center,
                                       children: <Widget>[
-                                        Text(widget.product is ProductOffer
-                                            ? 'اضافة الى العربة'
-                                            : 'تقديم عرض للزبون'),
+                                        Text(widget.product is ProductOffer ? 'اضافة الى العربة' : 'تقديم عرض للزبون'),
                                       ],
                                     )),
-                                    Icon(widget.product is ProductOffer
-                                        ? Icons.add_shopping_cart
-                                        : Icons.local_offer),
+                                    Icon(widget.product is ProductOffer ? Icons.add_shopping_cart : Icons.local_offer),
                                   ],
                                 ),
                               ),
                               function: () {
                                 if (!isSignedIn()) {
                                   final snackBar = SnackBar(
-                                    content: Text(
-                                        'الرجاء تسجيل الدخول لاضافة المنتجات الى العربة',
+                                    content: Text('الرجاء تسجيل الدخول لاضافة المنتجات الى العربة',
                                         textAlign: TextAlign.right),
-                                    backgroundColor:
-                                        Colors.black.withOpacity(0.7),
+                                    backgroundColor: Colors.black.withOpacity(0.7),
                                     elevation: 0,
                                     duration: Duration(seconds: 2),
                                   );
@@ -241,10 +241,8 @@ class _ProductViewerState extends State<ProductViewer> {
                                 } else if (widget.product is ProductOffer) {
                                   widget.product.addToCart();
                                   final snackBar = SnackBar(
-                                    content: Text('تم اضافة المنتج الى العربة',
-                                        textAlign: TextAlign.right),
-                                    backgroundColor:
-                                        Colors.black.withOpacity(0.7),
+                                    content: Text('تم اضافة المنتج الى العربة', textAlign: TextAlign.right),
+                                    backgroundColor: Colors.black.withOpacity(0.7),
                                     elevation: 0,
                                     duration: Duration(seconds: 2),
                                   );
@@ -261,9 +259,7 @@ class _ProductViewerState extends State<ProductViewer> {
                                     child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
-                                    Text(widget.product is ProductOffer
-                                        ? 'تبليغ عن منتج مخالف'
-                                        : 'تبليغ عن طلب مخالف'),
+                                    Text(widget.product is ProductOffer ? 'تبليغ عن منتج مخالف' : 'تبليغ عن طلب مخالف'),
                                   ],
                                 )),
                                 Icon(Icons.priority_high),

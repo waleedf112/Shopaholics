@@ -11,13 +11,15 @@ import 'package:shopaholics/Widgets/CustomDialog.dart';
 import 'package:shopaholics/Widgets/SecondaryView.dart';
 import 'package:shopaholics/Widgets/loadingDialog.dart';
 
+import '../../../main.dart';
+
 class AddressesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SecondaryView(
       title: 'عنوان التوصيل',
       child: PlacePicker(
-        apiKey: 'AIzaSyBbG6iid8fXmD36E8eKIMJX9YVTE1gdyMI',
+        apiKey: mapApi,
         initialPosition: currentUser.location == null
             ? LatLng(24.694788, 46.730772)
             : LatLng(

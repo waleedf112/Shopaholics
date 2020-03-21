@@ -21,7 +21,8 @@ class MainView extends StatelessWidget {
   Widget child;
   MainView({this.child = const SizedBox()});
   static final ValueNotifier<String> searchText = ValueNotifier<String>(null);
-  static final TextEditingController searchController = new TextEditingController();
+  static final TextEditingController searchController =
+      new TextEditingController();
   static final _formKey = new GlobalKey<FormState>();
 
   @override
@@ -38,7 +39,8 @@ class MainView extends StatelessWidget {
                   children: <Widget>[
                     ValueListenableBuilder(
                       valueListenable: searchText,
-                      builder: (BuildContext context, String value, Widget child) {
+                      builder:
+                          (BuildContext context, String value, Widget child) {
                         if (value != null && value.trim().isNotEmpty)
                           return IconButton(
                             icon: Icon(Icons.cancel),
@@ -70,10 +72,18 @@ class MainView extends StatelessWidget {
                           },
                           decoration: InputDecoration(
                             hintText: 'البحث عن منتج',
-                            enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.transparent)),
-                            disabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.transparent)),
-                            focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.transparent)),
-                            errorBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.transparent)),
+                            enabledBorder: UnderlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Colors.transparent)),
+                            disabledBorder: UnderlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Colors.transparent)),
+                            focusedBorder: UnderlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Colors.transparent)),
+                            errorBorder: UnderlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Colors.transparent)),
                           ),
                         ),
                       ),
@@ -87,7 +97,6 @@ class MainView extends StatelessWidget {
                 ),
               ),
               Divider(color: Colors.black38),
-
               Expanded(
                 child: ValueListenableBuilder(
                   valueListenable: searchText,
@@ -96,11 +105,14 @@ class MainView extends StatelessWidget {
                       return StreamBuilder(
                         stream: Firestore.instance
                             .collection('ProductOffer')
-                            .where('tags', arrayContainsAny: searchText.value.split(' '))
+                            .where('tags',
+                                arrayContainsAny: searchText.value.split(' '))
                             .getDocuments()
                             .asStream(),
-                        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                          if (snapshot.hasData && snapshot.data.documents.isNotEmpty) {
+                        builder: (BuildContext context,
+                            AsyncSnapshot<QuerySnapshot> snapshot) {
+                          if (snapshot.hasData &&
+                              snapshot.data.documents.isNotEmpty) {
                             return ListProducts(
                               list: snapshot.data.documents,
                               gridProductsType: GridProductsType.offers,

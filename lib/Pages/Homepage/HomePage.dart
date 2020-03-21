@@ -67,12 +67,9 @@ class _HomePageState extends State<HomePage> {
     return PersistentTabView(
       controller: _controller,
       backgroundColor: Colors.white,
-
       showElevation: false,
-
       navBarHeight: 75,
       iconSize: 23.0,
-
       bottomPadding: 0,
       navBarStyle: NavBarStyle.style6,
       items: _navBarsItems(),
@@ -101,7 +98,6 @@ class _HomePageState extends State<HomePage> {
                   physics: BouncingScrollPhysics(),
                   shrinkWrap: false,
                   children: <Widget>[
-
                     GridProducts(
                       title: 'اجدد المنتجات',
                       type: GridProductsType.offers,
@@ -115,7 +111,7 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ),
-              Divider(height: 0,color: Colors.black38),
+              Divider(height: 0, color: Colors.black38),
             ],
           ),
         ),
@@ -149,8 +145,7 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ),
-              Divider(height: 0,color: Colors.black38),
-
+              Divider(height: 0, color: Colors.black38),
             ],
           ),
         ),
@@ -158,16 +153,15 @@ class _HomePageState extends State<HomePage> {
           body: Column(
             children: <Widget>[
               Expanded(child: FavoritePage()),
-              Divider(height: 0,color: Colors.black38),
-
+              Divider(height: 0, color: Colors.black38),
             ],
           ),
         ),
         Column(
           children: <Widget>[
-            Expanded(child: Container(color: Colors.white, child: SettingsPage())),
-            Divider(height: 0,color: Colors.black38),
-
+            Expanded(
+                child: Container(color: Colors.white, child: SettingsPage())),
+            Divider(height: 0, color: Colors.black38),
           ],
         ),
       ],

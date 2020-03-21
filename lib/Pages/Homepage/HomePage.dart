@@ -66,6 +66,9 @@ class _HomePageState extends State<HomePage> {
     return PersistentTabView(
       controller: _controller,
       backgroundColor: Colors.white,
+      showElevation: true,
+      iconSize: 26.0,
+      navBarStyle: NavBarStyle.style6,
       items: _navBarsItems(),
       screens: [
         Scaffold(
@@ -89,6 +92,7 @@ class _HomePageState extends State<HomePage> {
             physics: BouncingScrollPhysics(),
             shrinkWrap: true,
             children: <Widget>[
+
               GridProducts(
                 title: 'اجدد المنتجات',
                 type: GridProductsType.offers,
@@ -135,9 +139,6 @@ class _HomePageState extends State<HomePage> {
         ),
         Container(color: Colors.white, child: SettingsPage()),
       ],
-      showElevation: true,
-      iconSize: 26.0,
-      navBarStyle: NavBarStyle.style6,
     );
   }
 }

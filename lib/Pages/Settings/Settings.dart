@@ -14,6 +14,7 @@ import 'package:shopaholics/Widgets/dismissKeyboard.dart';
 import 'package:shopaholics/Widgets/loadingDialog.dart';
 import 'package:flutter/material.dart';
 import 'package:shopaholics/Widgets/Button.dart';
+import 'package:shopaholics/Widgets/testPage.dart';
 import '../../main.dart';
 import 'Functions/Validators.dart';
 import 'Functions/SignUp.dart';
@@ -147,7 +148,15 @@ class SettingsPage extends StatelessWidget {
         SizedBox(height: 25),
         if (isSignedIn())
           settingSection([
-            setting(
+           if(kDebugMode) setting(
+                title: 'testing',
+                desc: '',
+                icon: Icons.lock,
+                onPressed: () {
+                  FocusScope.of(context).unfocus();
+                  PagePush(context, TestPage());
+                }),
+                setting(
                 title: 'حسابي',
                 desc: 'لادارة حسابك وتغيير البريد الالكتروني وكلمة المرور',
                 icon: Icons.lock,

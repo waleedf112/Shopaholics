@@ -6,6 +6,8 @@ import 'package:image_fade/image_fade.dart';
 import 'package:shopaholics/Classes/Order.dart';
 import 'package:shopaholics/Classes/Product.dart';
 import 'package:shopaholics/Classes/User.dart';
+import 'package:shopaholics/Functions/PagePush.dart';
+import 'package:shopaholics/Pages/Settings/SubPages/Addresses.dart';
 import 'package:shopaholics/Widgets/Button.dart';
 import 'package:shopaholics/Widgets/CustomDialog.dart';
 import 'package:shopaholics/Widgets/SecondaryView.dart';
@@ -26,8 +28,7 @@ class _ShoppingCartState extends State<ShoppingCart> {
     widget.productsPrice = 0;
     currentUser.getCart().then((onValue) {
       for (int i = 0; i < onValue.length; i++)
-        widget.productsPrice +=
-            onValue[i]['product']['productPrice'] * onValue[i]['count'];
+        widget.productsPrice += onValue[i]['product']['productPrice'] * onValue[i]['count'];
 
       if (widget.productsPrice > 0) widget.delivery = 25;
       if (setStateAfterFinish) setState(() {});
@@ -57,8 +58,7 @@ class _ShoppingCartState extends State<ShoppingCart> {
                   ))
                 : FutureBuilder(
                     future: currentUser.getCart(),
-                    builder: (BuildContext context,
-                        AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
+                    builder: (BuildContext context, AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
                       if (snapshot.hasData) {
                         if (snapshot.data.isEmpty)
                           return Expanded(
@@ -75,26 +75,20 @@ class _ShoppingCartState extends State<ShoppingCart> {
                                   itemCount: snapshot.data.length,
                                   physics: BouncingScrollPhysics(),
                                   shrinkWrap: true,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    ProductOffer product =
-                                        new ProductOffer.retrieveFromDatabase(
+                                  itemBuilder: (BuildContext context, int index) {
+                                    ProductOffer product = new ProductOffer.retrieveFromDatabase(
                                       snapshot.data[index]['product'],
-                                      snapshot.data[index]['product']['id']
-                                          .toString(),
+                                      snapshot.data[index]['product']['id'].toString(),
                                     );
-                                    int quantity =
-                                        snapshot.data[index]['count'];
+                                    int quantity = snapshot.data[index]['count'];
                                     TextEditingController controller =
-                                        new TextEditingController(
-                                            text: quantity.toString());
+                                        new TextEditingController(text: quantity.toString());
                                     // widget.productsPrice += product.productPrice * quantity;
 
                                     return quantity == 0
                                         ? Container()
                                         : Dismissible(
-                                            key: Key(
-                                                product.hashCode.toString()),
+                                            key: Key(product.hashCode.toString()),
                                             confirmDismiss: (a) {
                                               CustomDialog(
                                                   context: context,
@@ -106,15 +100,11 @@ class _ShoppingCartState extends State<ShoppingCart> {
                                                   firstButtonColor: Colors.red,
                                                   firstButtonText: 'حذف المنتج',
                                                   secondButtonText: 'الغاء',
-                                                  secondButtonColor:
-                                                      Colors.black54,
+                                                  secondButtonColor: Colors.black54,
                                                   firstButtonFunction: () {
                                                     quantity = 0;
-                                                    currentUser
-                                                        .modifyItemInCart(
-                                                            quantity: quantity,
-                                                            ref: product
-                                                                .reference);
+                                                    currentUser.modifyItemInCart(
+                                                        quantity: quantity, ref: product.reference);
 
                                                     Navigator.of(context).pop();
                                                     updatePrice();
@@ -126,27 +116,16 @@ class _ShoppingCartState extends State<ShoppingCart> {
                                             background: Container(
                                               color: Colors.red,
                                               child: Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal: 20),
+                                                padding: const EdgeInsets.symmetric(horizontal: 20),
                                                 child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
+                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                   children: <Widget>[
                                                     Column(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .center,
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      crossAxisAlignment: CrossAxisAlignment.center,
                                                       children: <Widget>[
                                                         Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                      .only(
-                                                                  left: 8),
+                                                          padding: const EdgeInsets.only(left: 8),
                                                           child: Icon(
                                                             Icons.cancel,
                                                             color: Colors.white,
@@ -155,26 +134,16 @@ class _ShoppingCartState extends State<ShoppingCart> {
                                                         ),
                                                         Text(
                                                           'حذف',
-                                                          style: TextStyle(
-                                                              color:
-                                                                  Colors.white,
-                                                              fontSize: 23),
+                                                          style: TextStyle(color: Colors.white, fontSize: 23),
                                                         )
                                                       ],
                                                     ),
                                                     Column(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .center,
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      crossAxisAlignment: CrossAxisAlignment.center,
                                                       children: <Widget>[
                                                         Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                      .only(
-                                                                  left: 8),
+                                                          padding: const EdgeInsets.only(left: 8),
                                                           child: Icon(
                                                             Icons.cancel,
                                                             color: Colors.white,
@@ -183,10 +152,7 @@ class _ShoppingCartState extends State<ShoppingCart> {
                                                         ),
                                                         Text(
                                                           'حذف',
-                                                          style: TextStyle(
-                                                              color:
-                                                                  Colors.white,
-                                                              fontSize: 23),
+                                                          style: TextStyle(color: Colors.white, fontSize: 23),
                                                         )
                                                       ],
                                                     )
@@ -197,52 +163,27 @@ class _ShoppingCartState extends State<ShoppingCart> {
                                             child: Card(
                                               shape: Border(),
                                               elevation: 4,
-                                              margin: EdgeInsets.symmetric(
-                                                  vertical: 5),
+                                              margin: EdgeInsets.symmetric(vertical: 5),
                                               child: Directionality(
-                                                textDirection:
-                                                    TextDirection.rtl,
+                                                textDirection: TextDirection.rtl,
                                                 child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
+                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                   children: <Widget>[
                                                     Expanded(
                                                         flex: 3,
                                                         child: Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                      .fromLTRB(
-                                                                  0, 8, 20, 8),
+                                                          padding: const EdgeInsets.fromLTRB(0, 8, 20, 8),
                                                           child: Column(
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceBetween,
+                                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                             children: <Widget>[
-                                                              TextWidget(product
-                                                                  .productName),
-                                                              SizedBox(
-                                                                  height: 5),
-                                                              TextWidget(
-                                                                  '#' +
-                                                                      product
-                                                                          .reference,
-                                                                  style: TextStyle(
-                                                                      color: Colors
-                                                                          .grey,
-                                                                      fontSize:
-                                                                          11)),
-                                                              SizedBox(
-                                                                  height: 3),
-                                                              TextWidget(
-                                                                  '${product.productPrice} ريال',
-                                                                  style: TextStyle(
-                                                                      color: Colors
-                                                                              .red[
-                                                                          700])),
+                                                              TextWidget(product.productName),
+                                                              SizedBox(height: 5),
+                                                              TextWidget('#' + product.reference,
+                                                                  style: TextStyle(color: Colors.grey, fontSize: 11)),
+                                                              SizedBox(height: 3),
+                                                              TextWidget('${product.productPrice} ريال',
+                                                                  style: TextStyle(color: Colors.red[700])),
                                                             ],
                                                           ),
                                                         )),
@@ -251,53 +192,28 @@ class _ShoppingCartState extends State<ShoppingCart> {
                                                         child: Container(
                                                           width: 30,
                                                           child: TextFormField(
-                                                            controller:
-                                                                controller,
-                                                            textAlign: TextAlign
-                                                                .center,
+                                                            controller: controller,
+                                                            textAlign: TextAlign.center,
                                                             maxLines: 1,
-                                                            keyboardType:
-                                                                TextInputType
-                                                                    .numberWithOptions(),
-                                                            inputFormatters: <
-                                                                TextInputFormatter>[
-                                                              WhitelistingTextInputFormatter
-                                                                  .digitsOnly
+                                                            keyboardType: TextInputType.numberWithOptions(),
+                                                            inputFormatters: <TextInputFormatter>[
+                                                              WhitelistingTextInputFormatter.digitsOnly
                                                             ],
-                                                            onChanged:
-                                                                (q) async {
-                                                              if (q.isNotEmpty &&
-                                                                  q != '0') {
-                                                                quantity =
-                                                                    int.parse(
-                                                                        q);
-                                                                await updatePrice(
-                                                                    setStateAfterFinish:
-                                                                        false);
+                                                            onChanged: (q) async {
+                                                              if (q.isNotEmpty && q != '0') {
+                                                                quantity = int.parse(q);
+                                                                await updatePrice(setStateAfterFinish: false);
                                                                 currentUser.modifyItemInCart(
-                                                                    quantity:
-                                                                        quantity,
-                                                                    ref: product
-                                                                        .reference);
+                                                                    quantity: quantity, ref: product.reference);
                                                               } else {
                                                                 quantity = 1;
-                                                                await updatePrice(
-                                                                    setStateAfterFinish:
-                                                                        false);
+                                                                await updatePrice(setStateAfterFinish: false);
                                                                 currentUser.modifyItemInCart(
-                                                                    quantity:
-                                                                        quantity,
-                                                                    ref: product
-                                                                        .reference);
+                                                                    quantity: quantity, ref: product.reference);
                                                               }
                                                             },
-                                                            decoration:
-                                                                InputDecoration
-                                                                    .collapsed(
-                                                                        hintText:
-                                                                            '0',
-                                                                        border:
-                                                                            OutlineInputBorder()),
+                                                            decoration: InputDecoration.collapsed(
+                                                                hintText: '0', border: OutlineInputBorder()),
                                                           ),
                                                         ),
                                                       ),
@@ -305,8 +221,7 @@ class _ShoppingCartState extends State<ShoppingCart> {
                                                     Expanded(
                                                         flex: 1,
                                                         child: Image.network(
-                                                          product
-                                                              .productImagesURLs[0],
+                                                          product.productImagesURLs[0],
                                                           height: 120,
                                                           fit: BoxFit.fitHeight,
                                                         )),
@@ -322,34 +237,26 @@ class _ShoppingCartState extends State<ShoppingCart> {
                                 children: <Widget>[
                                   Divider(color: Colors.black54, height: 0),
                                   Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 18),
+                                    padding: const EdgeInsets.symmetric(vertical: 18),
                                     child: Row(
                                       textDirection: TextDirection.rtl,
                                       children: <Widget>[
                                         Expanded(
                                           child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
                                             children: <Widget>[
-                                              _infoRow(
-                                                  title: 'السلع',
-                                                  value: widget.productsPrice),
-                                              _infoRow(
-                                                  title: 'التوصيل',
-                                                  value: widget.delivery),
+                                              _infoRow(title: 'السلع', value: widget.productsPrice),
+                                              _infoRow(title: 'التوصيل', value: widget.delivery),
                                             ],
                                           ),
                                         ),
                                         Expanded(
                                           child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
+                                            mainAxisAlignment: MainAxisAlignment.center,
                                             children: <Widget>[
                                               _infoRow(
                                                   title: 'المجموع',
-                                                  value: widget.productsPrice +
-                                                      widget.delivery,
+                                                  value: widget.productsPrice + widget.delivery,
                                                   isBold: true),
                                             ],
                                           ),
@@ -360,16 +267,36 @@ class _ShoppingCartState extends State<ShoppingCart> {
                                   SimpleButton(
                                     'تأكيد الطلب',
                                     function: () {
-                                      loadingScreen(
-                                          context: context,
-                                          function: () async {
-                                            Order _receipt =
-                                                new Order(snapshot.data);
-                                            await _receipt.placeNewOrder();
+                                      if (currentUser.location == null) {
+                                        CustomDialog(
+                                            context: context,
+                                            title: 'تحديد العنوان',
+                                            content: Text(
+                                              'يجب عليك تحديد موقع التوصيل قبل الطلب' +
+                                                  '\n' +
+                                                  'هل تريد تحديد موقعك الآن؟',
+                                              textAlign: TextAlign.center,
+                                            ),
+                                            firstButtonColor: Colors.black54,
+                                            secondButtonColor: Colors.red,
+                                            firstButtonText: 'تحديد الموقع',
+                                            secondButtonText: 'تراجع',
+                                            firstButtonFunction: () {
+                                              Navigator.of(context).pop();
+                                              PagePush(context, AddressesPage());
+                                            },
+                                            secondButtonFunction: () => Navigator.of(context).pop());
+                                      } else {
+                                        loadingScreen(
+                                            context: context,
+                                            function: () async {
+                                              Order _receipt = new Order(snapshot.data);
+                                              await _receipt.placeNewOrder();
 
-                                            Navigator.of(context).pop();
-                                            Navigator.of(context).pop();
-                                          });
+                                              Navigator.of(context).pop();
+                                              Navigator.of(context).pop();
+                                            });
+                                      }
                                     },
                                   ),
                                 ],
@@ -383,8 +310,7 @@ class _ShoppingCartState extends State<ShoppingCart> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            SpinKitHourGlass(
-                                color: Colors.grey.withOpacity(0.4)),
+                            SpinKitHourGlass(color: Colors.grey.withOpacity(0.4)),
                           ],
                         ),
                       );
@@ -405,9 +331,7 @@ _infoRow({String title, int value, bool isBold = false}) => Padding(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            Text(title + ' :',
-                style: TextStyle(
-                    fontSize: 15, fontWeight: isBold ? FontWeight.bold : null)),
+            Text(title + ' :', style: TextStyle(fontSize: 15, fontWeight: isBold ? FontWeight.bold : null)),
             Expanded(child: Row()),
             Padding(
               padding: const EdgeInsets.only(bottom: 1),

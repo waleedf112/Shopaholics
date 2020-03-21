@@ -72,6 +72,7 @@ class AddressesPage extends StatelessWidget {
                                 function: () {
                                   currentUser.setLocation(selectedPlaceT.geometry.location).whenComplete(() {
                                     Navigator.of(context).pop();
+                                    Navigator.of(context).pop();
                                   });
                                 });
                           },

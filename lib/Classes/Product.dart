@@ -6,6 +6,34 @@ import 'package:flutter/material.dart';
 
 import 'User.dart';
 
+List<String> _generateTags(String s1, String s2) {
+  String cleanUp(String s) {
+    String tmp = s;
+    tmp = tmp.replaceAll(',', '');
+    tmp = tmp.replaceAll('.', '');
+    tmp = tmp.replaceAll('!', '');
+    tmp = tmp.replaceAll('?', '');
+    tmp = tmp.replaceAll('"', '');
+    tmp = tmp.replaceAll('-', '');
+    tmp = tmp.replaceAll('_', '');
+    tmp = tmp.replaceAll('/', '');
+    return tmp;
+  }
+
+  List<String> tags = new List();
+  String desc = s1;
+  String name = s2;
+  desc = cleanUp(desc);
+  name = cleanUp(name);
+  List<String> x = desc.split(' ');
+  List<String> y = name.split(' ');
+  x.removeWhere((test) => test.trim().isEmpty);
+  y.removeWhere((test) => test.trim().isEmpty);
+  x = x.toSet().toList();
+  y = y.toSet().toList();
+  return x + y;
+}
+
 class ProductRequest {
   String productName;
   String productDescription;
@@ -18,11 +46,7 @@ class ProductRequest {
   List productImagesURLs = new List();
   String userUid;
 
-  ProductRequest(
-      {this.productName,
-      this.productDescription,
-      this.productPrice,
-      this.productImages});
+  ProductRequest({this.productName, this.productDescription, this.productPrice, this.productImages});
   ProductRequest.retrieveFromDatabase(Map<String, dynamic> data, reference) {
     this.productName = data['productName'];
     this.productDescription = data['productDescription'];
@@ -41,34 +65,22 @@ class ProductRequest {
     StorageReference storageReference;
 
     for (int i = 0; i < this.productImages.length; i++) {
-      String path =
-          "ProductImages/Requests/${currentUser.uid}/${this.productName}~$time/$i";
+      String path = "ProductImages/Requests/${currentUser.uid}/${this.productName}~$time/$i";
       storageReference = FirebaseStorage.instance.ref().child(path);
-      final StorageUploadTask uploadTask =
-          storageReference.putFile(this.productImages[i]);
+      final StorageUploadTask uploadTask = storageReference.putFile(this.productImages[i]);
       final StorageTaskSnapshot downloadUrl = (await uploadTask.onComplete);
       final String url = (await downloadUrl.ref.getDownloadURL());
       productImagesURLs.add(url);
     }
     int counter;
-    await Firestore.instance
-        .collection('Counters')
-        .document('requestsID')
-        .get()
-        .then((counterValue) {
+    await Firestore.instance.collection('Counters').document('requestsID').get().then((counterValue) {
       counter = counterValue.data['id'];
     });
-    await Firestore.instance
-        .collection('Counters')
-        .document('requestsID')
-        .updateData({
+    await Firestore.instance.collection('Counters').document('requestsID').updateData({
       'id': FieldValue.increment(1),
     });
 
-    return await Firestore.instance
-        .collection('ProductRequests')
-        .document(counter.toString())
-        .setData({
+    return await Firestore.instance.collection('ProductRequests').document(counter.toString()).setData({
       "uid": currentUser.uid,
       "displayName": currentUser.displayName,
       "Rating": 4.5,
@@ -78,6 +90,7 @@ class ProductRequest {
       'productDescription': this.productDescription,
       'productPrice': this.productPrice,
       'productImagesURLs': this.productImagesURLs,
+      'tags': _generateTags(this.productName, this.productDescription ?? ''),
     });
   }
 
@@ -96,11 +109,7 @@ class ProductOffer {
   List<File> productImages;
   List productImagesURLs = new List();
 
-  ProductOffer(
-      {this.productName,
-      this.productDescription,
-      this.productPrice,
-      this.productImages});
+  ProductOffer({this.productName, this.productDescription, this.productPrice, this.productImages});
   ProductOffer.retrieveFromDatabase(Map<String, dynamic> data, reference) {
     this.productName = data['productName'];
     this.productDescription = data['productDescription'];
@@ -119,34 +128,22 @@ class ProductOffer {
     StorageReference storageReference;
 
     for (int i = 0; i < this.productImages.length; i++) {
-      String path =
-          "ProductImages/Offers/${currentUser.uid}/${this.productName}~$time/$i";
+      String path = "ProductImages/Offers/${currentUser.uid}/${this.productName}~$time/$i";
       storageReference = FirebaseStorage.instance.ref().child(path);
-      final StorageUploadTask uploadTask =
-          storageReference.putFile(this.productImages[i]);
+      final StorageUploadTask uploadTask = storageReference.putFile(this.productImages[i]);
       final StorageTaskSnapshot downloadUrl = (await uploadTask.onComplete);
       final String url = (await downloadUrl.ref.getDownloadURL());
       productImagesURLs.add(url);
     }
 
     int counter;
-    await Firestore.instance
-        .collection('Counters')
-        .document('offersID')
-        .get()
-        .then((counterValue) {
+    await Firestore.instance.collection('Counters').document('offersID').get().then((counterValue) {
       counter = counterValue.data['id'];
     });
-    await Firestore.instance
-        .collection('Counters')
-        .document('offersID')
-        .updateData({
+    await Firestore.instance.collection('Counters').document('offersID').updateData({
       'id': FieldValue.increment(1),
     });
-    return await Firestore.instance
-        .collection('ProductOffer')
-        .document(counter.toString())
-        .setData({
+    return await Firestore.instance.collection('ProductOffer').document(counter.toString()).setData({
       'User': {
         "uid": currentUser.uid,
         "displayName": currentUser.displayName,
@@ -158,6 +155,7 @@ class ProductOffer {
       'productDescription': this.productDescription,
       'productPrice': this.productPrice,
       'productImagesURLs': this.productImagesURLs,
+      'tags': _generateTags(this.productName, this.productDescription ?? ''),
     });
   }
 
@@ -175,8 +173,7 @@ class ProductOffer {
 
   bool isLiked() {
     try {
-      return currentUser.likedOffers
-          .contains(int.parse(reference.split('/')[1]));
+      return currentUser.likedOffers.contains(int.parse(reference.split('/')[1]));
     } catch (e) {
       return false;
     }

@@ -8,6 +8,7 @@ import 'package:shopaholics/Classes/Product.dart';
 import 'package:shopaholics/Classes/User.dart';
 import 'package:shopaholics/Functions/PagePush.dart';
 import 'package:shopaholics/Pages/Settings/SubPages/Addresses.dart';
+import 'package:shopaholics/Pages/Settings/SubPages/MyOrders.dart';
 import 'package:shopaholics/Widgets/Button.dart';
 import 'package:shopaholics/Widgets/CustomDialog.dart';
 import 'package:shopaholics/Widgets/SecondaryView.dart';
@@ -295,7 +296,9 @@ class _ShoppingCartState extends State<ShoppingCart> {
 
                                               Navigator.of(context).pop();
                                               Navigator.of(context).pop();
-                                            });
+                                            }).whenComplete(() {
+                                          PagePush(context, MyOrdersPage());
+                                        });
                                       }
                                     },
                                   ),

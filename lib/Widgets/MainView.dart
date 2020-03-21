@@ -27,7 +27,6 @@ class MainView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('hi');
     return DismissKeyboard(
       child: Scaffold(
         body: SafeArea(

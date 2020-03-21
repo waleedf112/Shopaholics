@@ -68,7 +68,7 @@ class _HomePageState extends State<HomePage> {
       controller: _controller,
       backgroundColor: Colors.white,
       showElevation: false,
-      navBarHeight: 75,
+      navBarHeight: Platform.isIOS ? 75 : 55,
       iconSize: 23.0,
       bottomPadding: 0,
       navBarStyle: NavBarStyle.style6,
@@ -159,8 +159,7 @@ class _HomePageState extends State<HomePage> {
         ),
         Column(
           children: <Widget>[
-            Expanded(
-                child: Container(color: Colors.white, child: SettingsPage())),
+            Expanded(child: Container(color: Colors.white, child: SettingsPage())),
             Divider(height: 0, color: Colors.black38),
           ],
         ),

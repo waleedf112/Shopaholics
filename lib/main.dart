@@ -17,7 +17,6 @@ const mapApi = 'AIzaSyBbG6iid8fXmD36E8eKIMJX9YVTE1gdyMI';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   runApp(MyApp());
 }
 
@@ -34,22 +33,23 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Shopaholics',
       theme: ThemeData(
-          appBarTheme: AppBarTheme(
-            brightness: Brightness.light,
-            actionsIconTheme: IconThemeData(),
-            color: Colors.white,
-            elevation: 2,
-            iconTheme: IconThemeData(),
-            textTheme: TextTheme(
-              title: TextStyle(color: Colors.black, fontSize: 18),
-            ),
+        appBarTheme: AppBarTheme(
+          brightness: Brightness.light,
+          actionsIconTheme: IconThemeData(),
+          color: Colors.white,
+          elevation: 2,
+          iconTheme: IconThemeData(),
+          textTheme: TextTheme(
+            title: TextStyle(color: Colors.black, fontSize: 18),
           ),
-          backgroundColor: Colors.white,
-          scaffoldBackgroundColor: Colors.white,
-          primaryColor: Colors.grey,
-          cursorColor: Colors.grey, //Color(0xffd67e7e),
-          primarySwatch: Colors.grey,
-          textTheme: TextTheme()),
+        ),
+        backgroundColor: Colors.white,
+        scaffoldBackgroundColor: Colors.white,
+        primaryColor: Colors.grey,
+        cursorColor: Colors.grey, //Color(0xffd67e7e),
+        primarySwatch: Colors.grey,
+        textTheme: TextTheme(),
+      ),
       home: Launcher(),
     );
   }
@@ -65,8 +65,7 @@ class Launcher extends StatefulWidget {
 class _LauncherState extends State<Launcher> {
   _init() async {
     if (widget.firstRun) {
-      final appDocumentDir =
-          await path_provider.getApplicationDocumentsDirectory();
+      final appDocumentDir = await path_provider.getApplicationDocumentsDirectory();
       Hive.init(appDocumentDir.path);
       Hive.registerAdapter(CurrentUserAdapter());
       Hive.registerAdapter(UserRoleAdapter());
@@ -79,8 +78,7 @@ class _LauncherState extends State<Launcher> {
         print('====================');
       } catch (e) {}
       try {
-        if (currentUser.role == null)
-          await currentUser.requestRole(UserRole.customer, true);
+        if (currentUser.role == null) await currentUser.requestRole(UserRole.customer, true);
       } catch (e) {}
     }
 
@@ -95,13 +93,17 @@ class _LauncherState extends State<Launcher> {
     super.initState();
     _init();
 
-    Future.delayed(Duration(seconds: 1)).whenComplete(() =>
-        Navigator.of(context)
-            .pushReplacement(CupertinoPageRoute(builder: (cxt) {
-          return MainView(
-            child: HomePage(),
-          );
-        })));
+    Future.delayed(Duration(seconds: 1)).whenComplete(
+      () => Navigator.of(context).pushReplacement(
+        CupertinoPageRoute(
+          builder: (cxt) {
+            return MainView(
+              child: HomePage(),
+            );
+          },
+        ),
+      ),
+    );
   }
 
   @override

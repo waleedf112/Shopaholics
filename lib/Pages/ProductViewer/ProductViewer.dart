@@ -145,7 +145,7 @@ class _ProductViewerState extends State<ProductViewer> {
                             ],
                           ),
                         ),
-                        likeButton(),
+                        if(widget.product is ProductOffer)likeButton(),
                       ],
                     ),
                     Padding(

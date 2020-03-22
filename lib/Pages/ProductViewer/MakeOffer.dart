@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:shopaholics/Classes/TradeOffer.dart';
+import 'package:shopaholics/Pages/RequestsPage/RequestsPage.dart';
 import 'package:shopaholics/Widgets/Button.dart';
 import 'package:shopaholics/Widgets/CustomDialog.dart';
 import 'package:shopaholics/Widgets/SecondaryView.dart';
@@ -87,6 +88,7 @@ class MakeOffer extends StatelessWidget {
                             requestId: int.parse(id.split('/')[1]),
                           );
                           await tradeOffer.makeOffer().whenComplete(() {
+                            updatedRequestsPage.value = TimeOfDay.now();
                             Navigator.of(context).pop();
                             CustomDialog(
                                 context: context,

@@ -45,6 +45,8 @@ class ProductRequest {
   List<File> productImages;
   List productImagesURLs = new List();
   String userUid;
+  Map acceptedTrade;
+  String acceptedTrader;
   bool available;
 
   ProductRequest({this.productName, this.productDescription, this.productPrice, this.productImages});
@@ -58,6 +60,8 @@ class ProductRequest {
     this.userUid = data['uid'];
     this.productImagesURLs = data['productImagesURLs'];
     this.available = data['available'];
+    this.acceptedTrade = data['acceptedTrade'];
+    this.acceptedTrader = data['acceptedTrader'];
     this.reference = reference;
   }
 
@@ -93,6 +97,8 @@ class ProductRequest {
       'productImagesURLs': this.productImagesURLs,
       'tags': _generateTags(this.productName, this.productDescription ?? ''),
       'available': true,
+      'acceptedTrade': null,
+      'acceptedTrader': null,
     });
   }
 

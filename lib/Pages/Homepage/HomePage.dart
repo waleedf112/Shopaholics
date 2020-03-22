@@ -10,6 +10,7 @@ import 'package:shopaholics/Functions/PagePush.dart';
 import 'package:shopaholics/Pages/AddNewProduct/AddNewProduct.dart';
 import 'package:shopaholics/Pages/AddProductRequest/AddProductRequest.dart';
 import 'package:shopaholics/Pages/FavoritePage/FavoritePage.dart';
+import 'package:shopaholics/Pages/RequestsPage/RequestsPage.dart';
 import 'package:shopaholics/Pages/Settings/Settings.dart';
 import 'package:shopaholics/Pages/ShoppingCart/ShoppingCart.dart';
 import 'package:shopaholics/Widgets/Button.dart';
@@ -68,9 +69,9 @@ class _HomePageState extends State<HomePage> {
       controller: _controller,
       backgroundColor: Colors.white,
       showElevation: false,
-      navBarHeight: Platform.isIOS ? 75 : 55,
+      navBarHeight: Platform.isIOS ? 75 : 60,
       iconSize: 23.0,
-      bottomPadding: 0,
+      bottomPadding: 5,
       navBarStyle: NavBarStyle.style6,
       items: _navBarsItems(),
       screens: [
@@ -134,17 +135,7 @@ class _HomePageState extends State<HomePage> {
               : null,
           body: Column(
             children: <Widget>[
-              Expanded(
-                child: ListView(
-                  physics: BouncingScrollPhysics(),
-                  children: <Widget>[
-                    GridProducts(
-                      title: 'اجدد الطلبات',
-                      type: GridProductsType.requests,
-                    ),
-                  ],
-                ),
-              ),
+              Expanded(child: RequestsPage()),
               Divider(height: 0, color: Colors.black38),
             ],
           ),

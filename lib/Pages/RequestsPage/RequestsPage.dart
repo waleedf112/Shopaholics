@@ -176,7 +176,12 @@ class RequestsPage extends StatelessWidget {
                       ),
                     );
                   } else {
-                    return Container();
+                    return Padding(
+                      padding: const EdgeInsets.only(top: 200),
+                      child: Center(
+                        child: NoRequestsPage(),
+                      ),
+                    );
                   }
                 },
               ),

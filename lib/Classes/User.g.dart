@@ -23,13 +23,14 @@ class CurrentUserAdapter extends TypeAdapter<CurrentUser> {
       ..phone = fields[3] as String
       ..likedOffers = (fields[4] as List)?.cast<int>()
       ..role = fields[5] as UserRole
-      ..location = (fields[6] as Map)?.cast<String, double>();
+      ..location = (fields[6] as Map)?.cast<dynamic, dynamic>()
+      ..rating = fields[7] as double;
   }
 
   @override
   void write(BinaryWriter writer, CurrentUser obj) {
     writer
-      ..writeByte(7)
+      ..writeByte(8)
       ..writeByte(0)
       ..write(obj.displayName)
       ..writeByte(1)
@@ -43,6 +44,8 @@ class CurrentUserAdapter extends TypeAdapter<CurrentUser> {
       ..writeByte(5)
       ..write(obj.role)
       ..writeByte(6)
-      ..write(obj.location);
+      ..write(obj.location)
+      ..writeByte(7)
+      ..write(obj.rating);
   }
 }

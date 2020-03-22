@@ -40,7 +40,6 @@ class ProductRequest {
   int productPrice;
   int time;
   String user;
-  double userRating;
   String reference;
   List<File> productImages;
   List productImagesURLs = new List();
@@ -55,7 +54,6 @@ class ProductRequest {
     this.productDescription = data['productDescription'];
     this.productPrice = data['productPrice'];
     this.time = data['Time'];
-    this.userRating = data['Rating'].toDouble();
     this.user = data['displayName'];
     this.userUid = data['uid'];
     this.productImagesURLs = data['productImagesURLs'];
@@ -88,7 +86,6 @@ class ProductRequest {
     return await Firestore.instance.collection('ProductRequests').document(counter.toString()).setData({
       "uid": currentUser.uid,
       "displayName": currentUser.displayName,
-      "Rating": 4.5,
       'Time': time,
       'id': counter,
       'productName': this.productName,
@@ -113,7 +110,6 @@ class ProductOffer {
   String user;
   String userUid;
   String reference;
-  double userRating;
   List<File> productImages;
   List productImagesURLs = new List();
 
@@ -125,7 +121,6 @@ class ProductOffer {
     this.time = data['Time'];
     this.user = data['User']['displayName'];
     this.userUid = data['User']['uid'];
-    this.userRating = data['User']['Rating'].toDouble();
     this.productImagesURLs = data['productImagesURLs'];
     this.reference = reference;
   }
@@ -155,7 +150,6 @@ class ProductOffer {
       'User': {
         "uid": currentUser.uid,
         "displayName": currentUser.displayName,
-        "Rating": 4.5,
       },
       'Time': time,
       'id': counter,

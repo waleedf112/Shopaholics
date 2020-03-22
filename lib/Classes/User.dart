@@ -38,6 +38,9 @@ class CurrentUser extends HiveObject {
   @HiveField(6)
   Map location;
 
+  @HiveField(7)
+  double rating;
+
   CurrentUser() {
     this.role = UserRole.customer;
   }
@@ -57,6 +60,7 @@ class CurrentUser extends HiveObject {
       this.displayName = value.data['displayName'];
       this.phone = value.data['phone'];
       this.location = value.data['location'];
+      this.rating = value.data['rating'];
     }
 
     Future<void> createUserInDatabase() async {
@@ -66,6 +70,7 @@ class CurrentUser extends HiveObject {
         'displayName': this.displayName,
         'phone': this.phone,
         'location': this.location,
+        'rating': 0.0,
         'role': {
           'currentRole': this.role.index,
           'requestedRole': -1,

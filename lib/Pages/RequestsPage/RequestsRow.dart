@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:shopaholics/Classes/Product.dart';
+import 'package:shopaholics/Classes/User.dart';
 import 'package:shopaholics/Functions/PagePush.dart';
 import 'package:shopaholics/Widgets/Button.dart';
 import 'package:shopaholics/Widgets/CustomStreamBuilder.dart';
@@ -14,7 +15,8 @@ class RequestsRow extends StatelessWidget {
   Query query;
   String title;
   List<int> remove;
-  RequestsRow({@required this.query, @required this.title, this.remove});
+  bool removeOwnRequests;
+  RequestsRow({@required this.query, @required this.title, this.remove, this.removeOwnRequests = false});
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -23,6 +25,7 @@ class RequestsRow extends StatelessWidget {
         if (snapshot.hasData && snapshot.data.documents.isNotEmpty) {
           List<DocumentSnapshot> documents = snapshot.data.documents;
           if (remove != null) documents.removeWhere((test) => remove.contains(test.data['id']));
+          if(removeOwnRequests)documents.removeWhere((test) => currentUser.uid==test.data['uid']);
           return LoadingStreamBuilder(
             hasData: snapshot.hasData,
             loading: documents == null,

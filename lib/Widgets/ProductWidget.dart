@@ -14,7 +14,9 @@ import 'TextWidget.dart';
 class ProductWidget extends StatefulWidget {
   var item;
   bool liked;
-  ProductWidget(@required this.item, [this.liked]);
+  bool isMyRequest;
+
+  ProductWidget(@required this.item, [this.liked,this.isMyRequest = false]);
 
   @override
   _ProductWidgetState createState() => _ProductWidgetState();
@@ -93,7 +95,7 @@ class _ProductWidgetState extends State<ProductWidget> {
 
     if (widget.item is ProductRequest) {
       return InkWell(
-        onTap: () => PagePush(context, ProductViewer(product: widget.item)),
+        onTap: () => PagePush(context, ProductViewer(product: widget.item,isMyRequest:widget.isMyRequest)),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 5),
           child: Container(

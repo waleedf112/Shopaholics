@@ -7,12 +7,13 @@ class Rating extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     double tmp = rating;
     getIcon() {
-      if (rating >= 1) {
+      if (rating!=null&&rating >= 1) {
         rating -= 1;
         return Icons.star;
-      } else if (rating > 0 && rating < 1) {
+      } else if (rating!=null&& rating > 0 && rating < 1) {
         rating = 0;
 
         return Icons.star_half;
@@ -27,6 +28,16 @@ class Rating extends StatelessWidget {
         color: Colors.green[800],
       ));
     }
+    if (rating == null)
+      return Directionality(
+        textDirection: TextDirection.rtl,
+        child: Row(
+          children: <Widget>[
+            Row(children: stars),
+            Text('  (N/A)'),
+          ],
+        ),
+      );
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Row(

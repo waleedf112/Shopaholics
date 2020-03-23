@@ -106,13 +106,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "7.0.9"
-  call_number:
-    dependency: "direct main"
-    description:
-      name: call_number
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.0.1"
   carousel_slider:
     dependency: "direct main"
     description:

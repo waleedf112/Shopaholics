@@ -19,15 +19,29 @@ class Order {
         'productDescription': data['product']['productDescription'],
         'productName': data['product']['productName'],
         'productPrice': data['product']['productPrice'],
-        'quantity': data['count'],
+        if (data['count'] != null) 'quantity': data['count'],
+        if (data['info'] != null) 'info': data['info'],
       });
       this.productsPrice += data['product']['productPrice'] * data['count'];
     });
   }
 
+  Order.fromRequest(Map<String, dynamic> data, String sellerName, Map trade) {
+    this.products.add({
+      'sellerUid': trade['traderUid'],
+      'sellerDisplayName': sellerName,
+      'image': data['productImagesURLs'][0],
+      'productId': data['id'],
+      'productDescription': data['productDescription'],
+      'productName': data['productName'],
+      'productPrice': trade['price'],
+      'info': trade['info'],
+    });
+    this.productsPrice = trade['price'];
+  }
+
   Future<void> placeNewOrder() async {
-    DocumentReference documentReference =
-        Firestore.instance.collection('Counters').document('ordersID');
+    DocumentReference documentReference = Firestore.instance.collection('Counters').document('ordersID');
     await documentReference.get().then((counterValue) {
       this.number = counterValue.data['id'].toString();
     });
@@ -45,10 +59,7 @@ class Order {
       'productsPrice': this.productsPrice,
       'delivery': this.delivery,
     };
-    await Firestore.instance
-        .collection('Orders')
-        .document(this.number)
-        .setData(data);
+    await Firestore.instance.collection('Orders').document(this.number).setData(data);
     await currentUser.emptyCart();
   }
 }

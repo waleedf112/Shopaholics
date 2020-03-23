@@ -138,6 +138,28 @@ class _Order extends StatelessWidget {
                     productWidget(data['products'][2]),
                 ],
               ),
+              if (data['products'][0]['info'] != null)
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 12, top: 8),
+                  child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.only(left: 5, right: 3),
+                          child: Icon(
+                            Icons.info_outline,
+                            color: Colors.blue,
+                            size: 15,
+                          ),
+                        ),
+                        Expanded(
+                          child: TextWidget(
+                            data['products'][0]['info'],
+                            style: TextStyle(fontSize: 14),
+                          ),
+                        )
+                      ]),
+                ),
               Row(children: <Widget>[
                 status,
                 Text(

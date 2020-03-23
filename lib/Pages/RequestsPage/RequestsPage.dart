@@ -76,6 +76,7 @@ class RequestsPage extends StatelessWidget {
                     .collection('ProductRequests')
                     .where('uid', isEqualTo: currentUser.uid)
                     .orderBy('Time', descending: true)
+                    .where('acceptedTrade', isNull: true)
                     .getDocuments(),
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   if (snapshot.hasData && snapshot.data.documents.isNotEmpty) {

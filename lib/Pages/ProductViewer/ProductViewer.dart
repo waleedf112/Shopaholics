@@ -1,18 +1,23 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:call_number/call_number.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:google_maps_webservice/places.dart';
 import 'package:image_fade/image_fade.dart';
+import 'package:mdi/mdi.dart';
 import 'package:shopaholics/Classes/Product.dart';
 import 'package:shopaholics/Classes/User.dart';
 import 'package:shopaholics/Functions/PagePush.dart';
 import 'package:shopaholics/Functions/distanceCalculator.dart';
+import 'package:shopaholics/Functions/openMap.dart';
 import 'package:shopaholics/Pages/RequestsPage/OfferRow.dart';
 import 'package:shopaholics/Pages/RequestsPage/RequestsPage.dart';
 import 'package:shopaholics/Widgets/Button.dart';
 import 'package:shopaholics/Widgets/SecondaryView.dart';
 import 'package:shopaholics/Widgets/TextWidget.dart';
+import 'package:shopaholics/Widgets/loadingDialog.dart';
 import 'package:shopaholics/Widgets/rating.dart';
 
 import 'MakeOffer.dart';
@@ -228,13 +233,59 @@ class _ProductViewerState extends State<ProductViewer> {
                               ),
                             ),
                           ),
-                          widget.requestType != RequestType.acceptedRequest?
-                            Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 3),
-                              child: Column(
-                                children: <Widget>[
-                                  OutlinedButton(
-                                      child: Padding(
+                          widget.requestType != RequestType.acceptedRequest
+                              ? Padding(
+                                  padding: const EdgeInsets.symmetric(vertical: 3),
+                                  child: Column(
+                                    children: <Widget>[
+                                      OutlinedButton(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(2.0),
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: <Widget>[
+                                                Expanded(
+                                                    child: Row(
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  children: <Widget>[
+                                                    Text(
+                                                      widget.product is ProductOffer
+                                                          ? 'اضافة الى العربة'
+                                                          : 'تقديم عرض للزبون',
+                                                    ),
+                                                  ],
+                                                )),
+                                                Icon(widget.product is ProductOffer
+                                                    ? Icons.add_shopping_cart
+                                                    : Icons.local_offer),
+                                              ],
+                                            ),
+                                          ),
+                                          function: () {
+                                            if (!isSignedIn()) {
+                                              final snackBar = SnackBar(
+                                                content: Text('الرجاء تسجيل الدخول لاضافة المنتجات الى العربة',
+                                                    textAlign: TextAlign.right),
+                                                backgroundColor: Colors.black.withOpacity(0.7),
+                                                elevation: 0,
+                                                duration: Duration(seconds: 2),
+                                              );
+                                              Scaffold.of(context).showSnackBar(snackBar);
+                                            } else if (widget.product is ProductOffer) {
+                                              widget.product.addToCart();
+                                              final snackBar = SnackBar(
+                                                content: Text('تم اضافة المنتج الى العربة', textAlign: TextAlign.right),
+                                                backgroundColor: Colors.black.withOpacity(0.7),
+                                                elevation: 0,
+                                                duration: Duration(seconds: 2),
+                                              );
+                                              Scaffold.of(context).showSnackBar(snackBar);
+                                            } else if (widget.product is ProductRequest) {
+                                              PagePush(context, MakeOffer(widget.product.reference));
+                                            }
+                                          }),
+                                      OutlinedButton(
+                                          child: Padding(
                                         padding: const EdgeInsets.all(2.0),
                                         child: Row(
                                           mainAxisAlignment: MainAxisAlignment.center,
@@ -243,64 +294,86 @@ class _ProductViewerState extends State<ProductViewer> {
                                                 child: Row(
                                               mainAxisAlignment: MainAxisAlignment.center,
                                               children: <Widget>[
-                                                Text(
-                                                  widget.product is ProductOffer
-                                                      ? 'اضافة الى العربة'
-                                                      : 'تقديم عرض للزبون',
-                                                ),
+                                                Text(widget.product is ProductOffer
+                                                    ? 'تبليغ عن منتج مخالف'
+                                                    : 'تبليغ عن طلب مخالف'),
                                               ],
                                             )),
-                                            Icon(widget.product is ProductOffer
-                                                ? Icons.add_shopping_cart
-                                                : Icons.local_offer),
+                                            Icon(Icons.priority_high),
                                           ],
                                         ),
-                                      ),
-                                      function: () {
-                                        if (!isSignedIn()) {
-                                          final snackBar = SnackBar(
-                                            content: Text('الرجاء تسجيل الدخول لاضافة المنتجات الى العربة',
-                                                textAlign: TextAlign.right),
-                                            backgroundColor: Colors.black.withOpacity(0.7),
-                                            elevation: 0,
-                                            duration: Duration(seconds: 2),
-                                          );
-                                          Scaffold.of(context).showSnackBar(snackBar);
-                                        } else if (widget.product is ProductOffer) {
-                                          widget.product.addToCart();
-                                          final snackBar = SnackBar(
-                                            content: Text('تم اضافة المنتج الى العربة', textAlign: TextAlign.right),
-                                            backgroundColor: Colors.black.withOpacity(0.7),
-                                            elevation: 0,
-                                            duration: Duration(seconds: 2),
-                                          );
-                                          Scaffold.of(context).showSnackBar(snackBar);
-                                        } else if (widget.product is ProductRequest) {
-                                          PagePush(context, MakeOffer(widget.product.reference));
-                                        }
-                                      }),
-                                  OutlinedButton(
-                                      child: Padding(
-                                    padding: const EdgeInsets.all(2.0),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        Expanded(
+                                      )),
+                                    ],
+                                  ),
+                                )
+                              : Padding(
+                                  padding: const EdgeInsets.symmetric(vertical: 3),
+                                  child: Column(
+                                    children: <Widget>[
+                                      OutlinedButton(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(2.0),
                                             child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: <Widget>[
-                                            Text(widget.product is ProductOffer
-                                                ? 'تبليغ عن منتج مخالف'
-                                                : 'تبليغ عن طلب مخالف'),
-                                          ],
-                                        )),
-                                        Icon(Icons.priority_high),
-                                      ],
-                                    ),
-                                  )),
-                                ],
-                              ),
-                            ):Container(),
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: <Widget>[
+                                                Expanded(
+                                                    child: Row(
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  children: <Widget>[
+                                                    Text('الاتصال بالزبون'),
+                                                  ],
+                                                )),
+                                                Icon(Mdi.phoneOutline),
+                                              ],
+                                            ),
+                                          ),
+                                          function: () {
+                                            loadingScreen(
+                                                context: context,
+                                                function: () async {
+                                                  await Firestore.instance
+                                                      .collection('Users')
+                                                      .document(widget.product.userUid)
+                                                      .get()
+                                                      .then((onValue) async {
+                                                    Navigator.of(context).pop();
+
+                                                    await CallNumber().callNumber(onValue.data['phone']);
+
+                                                  });
+                                                });
+                                          }),
+                                      OutlinedButton(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(2.0),
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: <Widget>[
+                                                Expanded(
+                                                    child: Row(
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  children: <Widget>[
+                                                    Text('عنوان الزبون'),
+                                                  ],
+                                                )),
+                                                Icon(Mdi.mapMarkerRadiusOutline),
+                                              ],
+                                            ),
+                                          ),
+                                          function: () async {
+                                            loadingScreen(
+                                                context: context,
+                                                function: () async {
+                                                  await getUserLocation(widget.product.userUid)
+                                                      .then((Location onValue) {
+                                                    Navigator.of(context).pop();
+                                                    MapUtils.openMap(onValue.lat, onValue.lng);
+                                                  });
+                                                });
+                                          }),
+                                    ],
+                                  ),
+                                ),
                         ],
                       ),
                     if (widget.isMyRequest)

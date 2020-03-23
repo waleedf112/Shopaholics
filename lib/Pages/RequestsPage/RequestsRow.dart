@@ -31,6 +31,7 @@ class RequestsRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: query.getDocuments(),
+
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.hasData && snapshot.data.documents.isNotEmpty) {
           List<DocumentSnapshot> documents = snapshot.data.documents;
@@ -44,6 +45,7 @@ class RequestsRow extends StatelessWidget {
           return LoadingStreamBuilder(
             hasData: snapshot.hasData,
             loading: documents == null,
+            
             widget: Directionality(
               textDirection: TextDirection.rtl,
               child: Column(

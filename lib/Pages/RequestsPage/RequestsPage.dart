@@ -34,6 +34,7 @@ class RequestsPage extends StatelessWidget {
 
     return ValueListenableBuilder(
         valueListenable: updatedRequestsPage,
+        
         builder: (BuildContext context, TimeOfDay value, Widget child) {
           return ListView(
             physics: BouncingScrollPhysics(),

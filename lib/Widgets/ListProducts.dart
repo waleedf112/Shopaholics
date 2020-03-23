@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:shopaholics/Classes/Product.dart';
 import 'package:shopaholics/Classes/User.dart';
 import 'package:shopaholics/Pages/FavoritePage/noFavoriteProducts.dart';
+import 'package:shopaholics/Pages/RequestsPage/RequestsPage.dart';
 
 import 'GridProducts.dart';
 import 'ProductWidget.dart';
@@ -12,7 +13,8 @@ import 'ProductWidget.dart';
 class ListProducts extends StatefulWidget {
   List<DocumentSnapshot> list;
   GridProductsType gridProductsType;
-  ListProducts({@required this.list, @required this.gridProductsType});
+  RequestType requestType;
+  ListProducts({@required this.list, @required this.gridProductsType, this.requestType});
 
   @override
   _ListProductsState createState() => _ListProductsState();
@@ -38,11 +40,16 @@ class _ListProductsState extends State<ListProducts> {
               String ref = widget.list[index].reference.path.split('/')[1];
               int id = int.parse(ref);
               try {
-                return ProductWidget(item: _product, liked: currentUser.likedOffers.contains(id));
+                return ProductWidget(
+                  item: _product,
+                  liked: currentUser.likedOffers.contains(id),
+                  requestType: widget.requestType,
+                );
               } catch (e) {
                 return ProductWidget(
                   item: _product,
                   liked: false,
+                  requestType: widget.requestType,
                 );
               }
             } else {
@@ -50,7 +57,7 @@ class _ListProductsState extends State<ListProducts> {
                 widget.list[index].data,
                 widget.list[index].reference.path.toString(),
               );
-              return ProductWidget(item: _product);
+              return ProductWidget(item: _product,requestType:widget.requestType,);
             }
           },
         ),

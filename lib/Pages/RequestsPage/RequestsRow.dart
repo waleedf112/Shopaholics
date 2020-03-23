@@ -70,6 +70,7 @@ class RequestsRow extends StatelessWidget {
                                   child: ListProducts(
                                     list: documents,
                                     gridProductsType: GridProductsType.requests,
+                                    requestType: requestType,
                                   ),
                                 ),
                               );
@@ -88,11 +89,7 @@ class RequestsRow extends StatelessWidget {
                           documents[index].data,
                           documents[index].reference.path,
                         );
-                        return ProductWidget(
-                          item: _product,
-                          liked: false,
-                          requestType: requestType
-                        );
+                        return ProductWidget(item: _product, liked: false, requestType: requestType);
                       },
                     ),
                   ),

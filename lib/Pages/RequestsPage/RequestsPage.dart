@@ -18,6 +18,7 @@ import 'noRequestsPage.dart';
 enum RequestType {
   myRequest,
   acceptedRequest,
+  normal,
 }
 ValueNotifier<TimeOfDay> updatedRequestsPage = new ValueNotifier<TimeOfDay>(TimeOfDay.now());
 
@@ -54,6 +55,7 @@ class RequestsPage extends StatelessWidget {
                       .collection('ProductRequests')
                       .where('pendingTraders', arrayContains: currentUser.uid),
                   title: 'العروض المقدمة',
+                  requestType: RequestType.normal
                 ),
               ),
               _buildRequestRow(
@@ -66,6 +68,7 @@ class RequestsPage extends StatelessWidget {
                   removeOwnRequests: true,
                   removeOfferdRequests: true,
                   title: 'اجدد الطلبات',
+                  requestType: RequestType.normal
                 ),
               ),
               FutureBuilder(
@@ -106,6 +109,7 @@ class RequestsPage extends StatelessWidget {
                                             child: ListProducts(
                                               list: documents,
                                               gridProductsType: GridProductsType.requests,
+                                              requestType: RequestType.myRequest,
                                             ),
                                           ),
                                         );
@@ -132,6 +136,7 @@ class RequestsPage extends StatelessWidget {
                                           item: _product,
                                           liked: false,
                                           isMyRequest: true,
+                                          requestType: RequestType.myRequest
                                         ),
                                       ),
                                       FutureBuilder(

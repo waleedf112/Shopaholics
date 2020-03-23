@@ -9,6 +9,7 @@ import 'package:shopaholics/Classes/User.dart';
 import 'package:shopaholics/Functions/PagePush.dart';
 import 'package:shopaholics/Functions/distanceCalculator.dart';
 import 'package:shopaholics/Pages/RequestsPage/OfferRow.dart';
+import 'package:shopaholics/Pages/RequestsPage/RequestsPage.dart';
 import 'package:shopaholics/Widgets/Button.dart';
 import 'package:shopaholics/Widgets/SecondaryView.dart';
 import 'package:shopaholics/Widgets/TextWidget.dart';
@@ -20,8 +21,8 @@ class ProductViewer extends StatefulWidget {
   var product;
   bool liked = false;
   bool isMyRequest;
-
-  ProductViewer({@required this.product, this.isMyRequest = false});
+  RequestType requestType;
+  ProductViewer({@required this.product, this.isMyRequest = false, this.requestType});
 
   @override
   _ProductViewerState createState() => _ProductViewerState();
@@ -82,6 +83,7 @@ class _ProductViewerState extends State<ProductViewer> {
 
   @override
   Widget build(BuildContext context) {
+    print(widget.requestType);
     return SecondaryView(
       title: widget.product.productName,
       child: Builder(
@@ -162,7 +164,7 @@ class _ProductViewerState extends State<ProductViewer> {
                           style: TextStyle(fontWeight: FontWeight.bold)),
                     ),
                     Divider(color: Colors.black.withOpacity(0.5)),
-                    if (!widget.isMyRequest)
+                    if (widget.requestType != RequestType.myRequest)
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
@@ -226,78 +228,79 @@ class _ProductViewerState extends State<ProductViewer> {
                               ),
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 3),
-                            child: Column(
-                              children: <Widget>[
-                                OutlinedButton(
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(2.0),
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: <Widget>[
-                                          Expanded(
-                                              child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.center,
-                                            children: <Widget>[
-                                              Text(
-                                                widget.product is ProductOffer
-                                                    ? 'اضافة الى العربة'
-                                                    : 'تقديم عرض للزبون',
-                                              ),
-                                            ],
-                                          )),
-                                          Icon(widget.product is ProductOffer
-                                              ? Icons.add_shopping_cart
-                                              : Icons.local_offer),
-                                        ],
+                          widget.requestType != RequestType.acceptedRequest?
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 3),
+                              child: Column(
+                                children: <Widget>[
+                                  OutlinedButton(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(2.0),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: <Widget>[
+                                            Expanded(
+                                                child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: <Widget>[
+                                                Text(
+                                                  widget.product is ProductOffer
+                                                      ? 'اضافة الى العربة'
+                                                      : 'تقديم عرض للزبون',
+                                                ),
+                                              ],
+                                            )),
+                                            Icon(widget.product is ProductOffer
+                                                ? Icons.add_shopping_cart
+                                                : Icons.local_offer),
+                                          ],
+                                        ),
                                       ),
+                                      function: () {
+                                        if (!isSignedIn()) {
+                                          final snackBar = SnackBar(
+                                            content: Text('الرجاء تسجيل الدخول لاضافة المنتجات الى العربة',
+                                                textAlign: TextAlign.right),
+                                            backgroundColor: Colors.black.withOpacity(0.7),
+                                            elevation: 0,
+                                            duration: Duration(seconds: 2),
+                                          );
+                                          Scaffold.of(context).showSnackBar(snackBar);
+                                        } else if (widget.product is ProductOffer) {
+                                          widget.product.addToCart();
+                                          final snackBar = SnackBar(
+                                            content: Text('تم اضافة المنتج الى العربة', textAlign: TextAlign.right),
+                                            backgroundColor: Colors.black.withOpacity(0.7),
+                                            elevation: 0,
+                                            duration: Duration(seconds: 2),
+                                          );
+                                          Scaffold.of(context).showSnackBar(snackBar);
+                                        } else if (widget.product is ProductRequest) {
+                                          PagePush(context, MakeOffer(widget.product.reference));
+                                        }
+                                      }),
+                                  OutlinedButton(
+                                      child: Padding(
+                                    padding: const EdgeInsets.all(2.0),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        Expanded(
+                                            child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: <Widget>[
+                                            Text(widget.product is ProductOffer
+                                                ? 'تبليغ عن منتج مخالف'
+                                                : 'تبليغ عن طلب مخالف'),
+                                          ],
+                                        )),
+                                        Icon(Icons.priority_high),
+                                      ],
                                     ),
-                                    function: () {
-                                      if (!isSignedIn()) {
-                                        final snackBar = SnackBar(
-                                          content: Text('الرجاء تسجيل الدخول لاضافة المنتجات الى العربة',
-                                              textAlign: TextAlign.right),
-                                          backgroundColor: Colors.black.withOpacity(0.7),
-                                          elevation: 0,
-                                          duration: Duration(seconds: 2),
-                                        );
-                                        Scaffold.of(context).showSnackBar(snackBar);
-                                      } else if (widget.product is ProductOffer) {
-                                        widget.product.addToCart();
-                                        final snackBar = SnackBar(
-                                          content: Text('تم اضافة المنتج الى العربة', textAlign: TextAlign.right),
-                                          backgroundColor: Colors.black.withOpacity(0.7),
-                                          elevation: 0,
-                                          duration: Duration(seconds: 2),
-                                        );
-                                        Scaffold.of(context).showSnackBar(snackBar);
-                                      } else if (widget.product is ProductRequest) {
-                                        PagePush(context, MakeOffer(widget.product.reference));
-                                      }
-                                    }),
-                                OutlinedButton(
-                                    child: Padding(
-                                  padding: const EdgeInsets.all(2.0),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      Expanded(
-                                          child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: <Widget>[
-                                          Text(widget.product is ProductOffer
-                                              ? 'تبليغ عن منتج مخالف'
-                                              : 'تبليغ عن طلب مخالف'),
-                                        ],
-                                      )),
-                                      Icon(Icons.priority_high),
-                                    ],
-                                  ),
-                                )),
-                              ],
-                            ),
-                          ),
+                                  )),
+                                ],
+                              ),
+                            ):Container(),
                         ],
                       ),
                     if (widget.isMyRequest)

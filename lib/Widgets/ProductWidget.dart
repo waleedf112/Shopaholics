@@ -101,7 +101,7 @@ class _ProductWidgetState extends State<ProductWidget> {
 
     if (widget.item is ProductRequest) {
       return InkWell(
-        onTap: () => PagePush(context, ProductViewer(product: widget.item, isMyRequest: widget.isMyRequest)),
+        onTap: () => PagePush(context, ProductViewer(product: widget.item, isMyRequest: widget.isMyRequest,requestType:widget.requestType,)),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 5),
           child: Container(
@@ -177,7 +177,7 @@ class _ProductWidgetState extends State<ProductWidget> {
       );
     } else if (widget.item is ProductOffer) {
       return InkWell(
-        onTap: () => PagePush(context, ProductViewer(product: widget.item)),
+        onTap: () => PagePush(context, ProductViewer(product: widget.item,requestType:widget.requestType)),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 5),
           child: Container(

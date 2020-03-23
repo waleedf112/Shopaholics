@@ -95,8 +95,9 @@ class MakeOffer extends StatelessWidget {
                             CustomDialog(
                                 context: context,
                                 title: hasError ? 'خطأ' : 'تم تقديم العرض',
-                                content: AutoSizeText(
-                                    hasError ? 'عذراً, فقد تم حجز الطلب مسبقاً' : 'تم تقديم عرضك للزبون بنجاح!'),
+                                content: AutoSizeText(hasError
+                                    ? 'عذراً, فقد تم حجز الطلب مسبقاً'
+                                    : 'تم تقديم عرضك للزبون بنجاح!'),
                                 dismissible: false,
                                 firstButtonColor: Colors.black45,
                                 firstButtonText: 'حسناً',

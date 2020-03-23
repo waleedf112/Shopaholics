@@ -20,7 +20,8 @@ enum RequestType {
   acceptedRequest,
   normal,
 }
-ValueNotifier<TimeOfDay> updatedRequestsPage = new ValueNotifier<TimeOfDay>(TimeOfDay.now());
+ValueNotifier<TimeOfDay> updatedRequestsPage =
+    new ValueNotifier<TimeOfDay>(TimeOfDay.now());
 
 class RequestsPage extends StatelessWidget {
   Widget _buildRequestRow({Widget child, UserRole blockedRoles}) {
@@ -34,7 +35,6 @@ class RequestsPage extends StatelessWidget {
 
     return ValueListenableBuilder(
         valueListenable: updatedRequestsPage,
-        
         builder: (BuildContext context, TimeOfDay value, Widget child) {
           return ListView(
             physics: BouncingScrollPhysics(),
@@ -52,25 +52,24 @@ class RequestsPage extends StatelessWidget {
               _buildRequestRow(
                 blockedRoles: UserRole.customer,
                 child: RequestsRow(
-                  query: Firestore.instance
-                      .collection('ProductRequests')
-                      .where('pendingTraders', arrayContains: currentUser.uid),
-                  title: 'العروض المقدمة',
-                  requestType: RequestType.normal
-                ),
+                    query: Firestore.instance
+                        .collection('ProductRequests')
+                        .where('pendingTraders',
+                            arrayContains: currentUser.uid),
+                    title: 'العروض المقدمة',
+                    requestType: RequestType.normal),
               ),
               _buildRequestRow(
                 blockedRoles: UserRole.customer,
                 child: RequestsRow(
-                  query: Firestore.instance
-                      .collection('ProductRequests')
-                      .where('acceptedTrader', isNull: true)
-                      .orderBy('Time', descending: true),
-                  removeOwnRequests: true,
-                  removeOfferdRequests: true,
-                  title: 'اجدد الطلبات',
-                  requestType: RequestType.normal
-                ),
+                    query: Firestore.instance
+                        .collection('ProductRequests')
+                        .where('acceptedTrader', isNull: true)
+                        .orderBy('Time', descending: true),
+                    removeOwnRequests: true,
+                    removeOfferdRequests: true,
+                    title: 'اجدد الطلبات',
+                    requestType: RequestType.normal),
               ),
               FutureBuilder(
                 future: Firestore.instance
@@ -91,7 +90,8 @@ class RequestsPage extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
                                   TextWidget(
                                     'طلباتي',
@@ -109,8 +109,10 @@ class RequestsPage extends StatelessWidget {
                                             title: 'طلباتي',
                                             child: ListProducts(
                                               list: documents,
-                                              gridProductsType: GridProductsType.requests,
-                                              requestType: RequestType.myRequest,
+                                              gridProductsType:
+                                                  GridProductsType.requests,
+                                              requestType:
+                                                  RequestType.myRequest,
                                             ),
                                           ),
                                         );
@@ -122,10 +124,12 @@ class RequestsPage extends StatelessWidget {
                               height: 350,
                               child: ListView.builder(
                                 physics: BouncingScrollPhysics(),
-                                itemCount: documents == null ? 0 : documents.length,
+                                itemCount:
+                                    documents == null ? 0 : documents.length,
                                 scrollDirection: Axis.horizontal,
                                 itemBuilder: (BuildContext context, int index) {
-                                  ProductRequest _product = new ProductRequest.retrieveFromDatabase(
+                                  ProductRequest _product =
+                                      new ProductRequest.retrieveFromDatabase(
                                     documents[index].data,
                                     documents[index].reference.path,
                                   );
@@ -134,27 +138,33 @@ class RequestsPage extends StatelessWidget {
                                       Padding(
                                         padding: const EdgeInsets.only(top: 5),
                                         child: ProductWidget(
-                                          item: _product,
-                                          liked: false,
-                                          isMyRequest: true,
-                                          requestType: RequestType.myRequest
-                                        ),
+                                            item: _product,
+                                            liked: false,
+                                            isMyRequest: true,
+                                            requestType: RequestType.myRequest),
                                       ),
                                       FutureBuilder(
                                         future: Firestore.instance
                                             .collection('ProductRequests')
-                                            .document(_product.reference.split('/')[1])
+                                            .document(_product.reference
+                                                .split('/')[1])
                                             .collection('offers')
                                             .getDocuments(),
-                                        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                                          if (snapshot.hasData && snapshot.data.documents.isNotEmpty)
+                                        builder: (BuildContext context,
+                                            AsyncSnapshot<QuerySnapshot>
+                                                snapshot) {
+                                          if (snapshot.hasData &&
+                                              snapshot
+                                                  .data.documents.isNotEmpty)
                                             return Positioned(
                                               left: 0,
                                               child: CircleAvatar(
-                                                backgroundColor: Colors.red[500],
+                                                backgroundColor:
+                                                    Colors.red[500],
                                                 radius: 12,
                                                 child: Text(
-                                                  snapshot.data.documents.length.toString(),
+                                                  snapshot.data.documents.length
+                                                      .toString(),
                                                   style: TextStyle(
                                                     color: Colors.white,
                                                     fontSize: 12,

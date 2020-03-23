@@ -76,22 +76,23 @@ class _HomePageState extends State<HomePage> {
       items: _navBarsItems(),
       screens: [
         Scaffold(
-          floatingActionButton: isSignedIn() && currentUser.role != UserRole.customer
-              ? FloatingActionButton(
-                  heroTag: 'heroProduct',
-                  onPressed: () => PagePush(context, AppNewProduct()),
-                  child: Icon(
-                    Icons.add,
-                    color: Colors.white,
-                  ),
-                  elevation: 0,
-                  disabledElevation: 0,
-                  focusElevation: 0,
-                  highlightElevation: 0,
-                  hoverElevation: 0,
-                  backgroundColor: Colors.grey.withOpacity(0.7),
-                )
-              : null,
+          floatingActionButton:
+              isSignedIn() && currentUser.role != UserRole.customer
+                  ? FloatingActionButton(
+                      heroTag: 'heroProduct',
+                      onPressed: () => PagePush(context, AppNewProduct()),
+                      child: Icon(
+                        Icons.add,
+                        color: Colors.white,
+                      ),
+                      elevation: 0,
+                      disabledElevation: 0,
+                      focusElevation: 0,
+                      highlightElevation: 0,
+                      hoverElevation: 0,
+                      backgroundColor: Colors.grey.withOpacity(0.7),
+                    )
+                  : null,
           body: Column(
             children: <Widget>[
               Expanded(
@@ -150,7 +151,8 @@ class _HomePageState extends State<HomePage> {
         ),
         Column(
           children: <Widget>[
-            Expanded(child: Container(color: Colors.white, child: SettingsPage())),
+            Expanded(
+                child: Container(color: Colors.white, child: SettingsPage())),
             Divider(height: 0, color: Colors.black38),
           ],
         ),

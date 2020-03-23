@@ -12,7 +12,9 @@ class TradeOffer {
   TradeOffer({this.price, this.info, this.requestId});
 
   Future makeOffer() async {
-    DocumentReference doc = Firestore.instance.collection('ProductRequests').document(this.requestId.toString());
+    DocumentReference doc = Firestore.instance
+        .collection('ProductRequests')
+        .document(this.requestId.toString());
     return await doc.get().then((onValue) async {
       if (onValue['available']) {
         await doc.updateData({

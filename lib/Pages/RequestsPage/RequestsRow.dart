@@ -31,21 +31,23 @@ class RequestsRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: query.getDocuments(),
-
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.hasData && snapshot.data.documents.isNotEmpty) {
           List<DocumentSnapshot> documents = snapshot.data.documents;
-          if (remove != null) documents.removeWhere((test) => remove.contains(test.data['id']));
-          if (removeOwnRequests) documents.removeWhere((test) => currentUser.uid == test.data['uid']);
+          if (remove != null)
+            documents.removeWhere((test) => remove.contains(test.data['id']));
+          if (removeOwnRequests)
+            documents
+                .removeWhere((test) => currentUser.uid == test.data['uid']);
           if (removeOfferdRequests)
             documents.removeWhere((test) {
-              if (test.data['pendingTraders'] != null) return test.data['pendingTraders'].contains(currentUser.uid);
+              if (test.data['pendingTraders'] != null)
+                return test.data['pendingTraders'].contains(currentUser.uid);
               return false;
             });
           return LoadingStreamBuilder(
             hasData: snapshot.hasData,
             loading: documents == null,
-            
             widget: Directionality(
               textDirection: TextDirection.rtl,
               child: Column(
@@ -87,11 +89,15 @@ class RequestsRow extends StatelessWidget {
                       itemCount: documents == null ? 0 : documents.length,
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (BuildContext context, int index) {
-                        ProductRequest _product = new ProductRequest.retrieveFromDatabase(
+                        ProductRequest _product =
+                            new ProductRequest.retrieveFromDatabase(
                           documents[index].data,
                           documents[index].reference.path,
                         );
-                        return ProductWidget(item: _product, liked: false, requestType: requestType);
+                        return ProductWidget(
+                            item: _product,
+                            liked: false,
+                            requestType: requestType);
                       },
                     ),
                   ),

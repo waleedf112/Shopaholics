@@ -7,13 +7,12 @@ class Rating extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     double tmp = rating;
     getIcon() {
-      if (rating!=null&&rating >= 1) {
+      if (rating != null && rating >= 1) {
         rating -= 1;
         return Icons.star;
-      } else if (rating!=null&& rating > 0 && rating < 1) {
+      } else if (rating != null && rating > 0 && rating < 1) {
         rating = 0;
 
         return Icons.star_half;

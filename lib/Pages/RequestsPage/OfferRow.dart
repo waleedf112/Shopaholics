@@ -1,10 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:shopaholics/Classes/TradeOffer.dart';
 import 'package:shopaholics/Functions/distanceCalculator.dart';
 import 'package:shopaholics/Widgets/Button.dart';
+import 'package:shopaholics/Widgets/CustomDialog.dart';
 import 'package:shopaholics/Widgets/TextWidget.dart';
+import 'package:shopaholics/Widgets/loadingDialog.dart';
 import 'package:shopaholics/Widgets/rating.dart';
+
+import 'RequestsPage.dart';
 
 class OfferRow extends StatelessWidget {
   Map<String, dynamic> trade;
@@ -132,7 +137,37 @@ class OfferRow extends StatelessWidget {
                         ),
                         OutlinedButton(
                           child: Text('قبول العرض'),
-                          function: () {},
+                          function: () {
+                            CustomDialog(
+                                context: context,
+                                title: 'قبول العرض',
+                                content: Text(
+                                  'هل انت متأكد انك تريد قبول العرض من ' +
+                                      '${trader['displayName']}' +
+                                      ' بسعر ' +
+                                      '${trade['price']} ريال؟' +
+                                      '\n' +
+                                      'سيتم رفض جميع الطلبات الاخرى!',
+                                  textAlign: TextAlign.center,
+                                ),
+                                firstButtonColor: Colors.green,
+                                firstButtonText: 'قبول العرض',
+                                secondButtonText: 'تراجع',
+                                secondButtonColor: Colors.black54,
+                                secondButtonFunction: () => Navigator.of(context).pop(),
+                                firstButtonFunction: () {
+                                  Navigator.of(context).pop();
+                                  loadingScreen(
+                                      context: context,
+                                      function: () async {
+                                        await tradeOfferAccept(trade).whenComplete(() {
+                                          updatedRequestsPage.value = TimeOfDay.now();
+                                          Navigator.of(context).pop();
+                                          Navigator.of(context).pop();
+                                        });
+                                      });
+                                });
+                          },
                         ),
                       ],
                     ),

@@ -76,7 +76,7 @@ class _HomePageState extends State<HomePage> {
       items: _navBarsItems(),
       screens: [
         Scaffold(
-          floatingActionButton: isSignedIn()
+          floatingActionButton: isSignedIn() && currentUser.role != UserRole.customer
               ? FloatingActionButton(
                   heroTag: 'heroProduct',
                   onPressed: () => PagePush(context, AppNewProduct()),

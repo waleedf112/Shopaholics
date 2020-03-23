@@ -100,7 +100,10 @@ class _GridProductsState extends State<GridProducts> {
                             documents[index].data,
                             documents[index].reference.path,
                           );
-                          return ProductWidget(_product, false);
+                          return ProductWidget(
+                            item: _product,
+                            liked: false,
+                          );
                         },
                       ),
                     ),
@@ -182,11 +185,17 @@ class _GridProductsState extends State<GridProducts> {
                             documents[index].reference.path,
                           );
                           if (!isSignedIn() || currentUser.likedOffers == null || currentUser.likedOffers.isEmpty)
-                            return ProductWidget(_product, false);
+                            return ProductWidget(
+                              item: _product,
+                              liked: false,
+                            );
 
                           String ref = documents[index].reference.path.split('/')[1];
                           int id = int.parse(ref);
-                          return ProductWidget(_product, currentUser.likedOffers.contains(id));
+                          return ProductWidget(
+                            item: _product,
+                            liked: currentUser.likedOffers.contains(id),
+                          );
                         },
                       ),
                     ),

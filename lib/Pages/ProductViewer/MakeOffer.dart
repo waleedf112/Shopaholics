@@ -82,18 +82,21 @@ class MakeOffer extends StatelessWidget {
                     loadingScreen(
                         context: context,
                         function: () async {
+                          //updatedRequestsPage.value = TimeOfDay.now();
                           TradeOffer tradeOffer = new TradeOffer(
                             price: int.parse(productPriceController.text),
                             info: otherController.text.trim(),
                             requestId: int.parse(id.split('/')[1]),
                           );
-                          await tradeOffer.makeOffer().whenComplete(() {
+
+                          await tradeOffer.makeOffer().then((hasError) {
                             updatedRequestsPage.value = TimeOfDay.now();
                             Navigator.of(context).pop();
                             CustomDialog(
                                 context: context,
-                                title: 'تم تقديم العرض',
-                                content: AutoSizeText('تم تقديم عرضك للزبون بنجاح!'),
+                                title: hasError ? 'خطأ' : 'تم تقديم العرض',
+                                content: AutoSizeText(
+                                    hasError ? 'عذراً, فقد تم حجز الطلب مسبقاً' : 'تم تقديم عرضك للزبون بنجاح!'),
                                 dismissible: false,
                                 firstButtonColor: Colors.black45,
                                 firstButtonText: 'حسناً',

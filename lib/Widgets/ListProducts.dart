@@ -38,16 +38,19 @@ class _ListProductsState extends State<ListProducts> {
               String ref = widget.list[index].reference.path.split('/')[1];
               int id = int.parse(ref);
               try {
-                return ProductWidget(_product, currentUser.likedOffers.contains(id));
+                return ProductWidget(item: _product, liked: currentUser.likedOffers.contains(id));
               } catch (e) {
-                return ProductWidget(_product, false);
+                return ProductWidget(
+                  item: _product,
+                  liked: false,
+                );
               }
             } else {
               ProductRequest _product = new ProductRequest.retrieveFromDatabase(
                 widget.list[index].data,
                 widget.list[index].reference.path.toString(),
               );
-              return ProductWidget(_product);
+              return ProductWidget(item: _product);
             }
           },
         ),

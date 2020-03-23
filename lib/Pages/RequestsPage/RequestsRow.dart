@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:shopaholics/Classes/Product.dart';
 import 'package:shopaholics/Classes/User.dart';
 import 'package:shopaholics/Functions/PagePush.dart';
+import 'package:shopaholics/Pages/RequestsPage/RequestsPage.dart';
 import 'package:shopaholics/Widgets/Button.dart';
 import 'package:shopaholics/Widgets/CustomStreamBuilder.dart';
 import 'package:shopaholics/Widgets/GridProducts.dart';
@@ -16,7 +17,16 @@ class RequestsRow extends StatelessWidget {
   String title;
   List<int> remove;
   bool removeOwnRequests;
-  RequestsRow({@required this.query, @required this.title, this.remove, this.removeOwnRequests = false});
+  bool removeOfferdRequests;
+  RequestType requestType;
+  RequestsRow({
+    @required this.query,
+    @required this.title,
+    this.remove,
+    this.removeOwnRequests = false,
+    this.removeOfferdRequests = false,
+    this.requestType,
+  });
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -25,7 +35,12 @@ class RequestsRow extends StatelessWidget {
         if (snapshot.hasData && snapshot.data.documents.isNotEmpty) {
           List<DocumentSnapshot> documents = snapshot.data.documents;
           if (remove != null) documents.removeWhere((test) => remove.contains(test.data['id']));
-          if(removeOwnRequests)documents.removeWhere((test) => currentUser.uid==test.data['uid']);
+          if (removeOwnRequests) documents.removeWhere((test) => currentUser.uid == test.data['uid']);
+          if (removeOfferdRequests)
+            documents.removeWhere((test) {
+              if (test.data['pendingTraders'] != null) return test.data['pendingTraders'].contains(currentUser.uid);
+              return false;
+            });
           return LoadingStreamBuilder(
             hasData: snapshot.hasData,
             loading: documents == null,
@@ -73,7 +88,11 @@ class RequestsRow extends StatelessWidget {
                           documents[index].data,
                           documents[index].reference.path,
                         );
-                        return ProductWidget(_product, false);
+                        return ProductWidget(
+                          item: _product,
+                          liked: false,
+                          requestType: requestType
+                        );
                       },
                     ),
                   ),

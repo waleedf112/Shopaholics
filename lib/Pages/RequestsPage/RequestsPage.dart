@@ -15,6 +15,10 @@ import 'package:shopaholics/Widgets/TextWidget.dart';
 import 'RequestsRow.dart';
 import 'noRequestsPage.dart';
 
+enum RequestType {
+  myRequest,
+  acceptedRequest,
+}
 ValueNotifier<TimeOfDay> updatedRequestsPage = new ValueNotifier<TimeOfDay>(TimeOfDay.now());
 
 class RequestsPage extends StatelessWidget {
@@ -26,7 +30,6 @@ class RequestsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (!isSignedIn()) return NoRequestsPage();
-    List<int> madeAnOfferList = new List();
 
     return ValueListenableBuilder(
         valueListenable: updatedRequestsPage,
@@ -41,28 +44,16 @@ class RequestsPage extends StatelessWidget {
                       .collection('ProductRequests')
                       .where('acceptedTrader', isEqualTo: currentUser.uid),
                   title: 'العروض المقبولة',
+                  requestType: RequestType.acceptedRequest,
                 ),
               ),
               _buildRequestRow(
                 blockedRoles: UserRole.customer,
-                child: FutureBuilder(
-                  future: Firestore.instance.collectionGroup('offers').getDocuments(),
-                  builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                    if (snapshot.hasData && snapshot.data.documents.isNotEmpty) {
-                      snapshot.data.documents.forEach((f) {
-                        madeAnOfferList.add(f.data['requestId']);
-                      });
-                      return RequestsRow(
-                        query: Firestore.instance
-                            .collection('ProductRequests')
-                            .where('acceptedTrader', isNull: true)
-                            .where('id', whereIn: madeAnOfferList),
-                        title: 'العروض المقدمة',
-                      );
-                    } else {
-                      return Container();
-                    }
-                  },
+                child: RequestsRow(
+                  query: Firestore.instance
+                      .collection('ProductRequests')
+                      .where('pendingTraders', arrayContains: currentUser.uid),
+                  title: 'العروض المقدمة',
                 ),
               ),
               _buildRequestRow(
@@ -72,9 +63,9 @@ class RequestsPage extends StatelessWidget {
                       .collection('ProductRequests')
                       .where('acceptedTrader', isNull: true)
                       .orderBy('Time', descending: true),
-                  remove: madeAnOfferList,
                   removeOwnRequests: true,
-                  title: 'اجدد العروض',
+                  removeOfferdRequests: true,
+                  title: 'اجدد الطلبات',
                 ),
               ),
               FutureBuilder(
@@ -137,7 +128,11 @@ class RequestsPage extends StatelessWidget {
                                     children: <Widget>[
                                       Padding(
                                         padding: const EdgeInsets.only(top: 5),
-                                        child: ProductWidget(_product, false, true),
+                                        child: ProductWidget(
+                                          item: _product,
+                                          liked: false,
+                                          isMyRequest: true,
+                                        ),
                                       ),
                                       FutureBuilder(
                                         future: Firestore.instance
@@ -177,10 +172,8 @@ class RequestsPage extends StatelessWidget {
                     );
                   } else {
                     return Padding(
-                      padding: const EdgeInsets.only(top: 200),
-                      child: Center(
-                        child: NoRequestsPage(),
-                      ),
+                      padding: const EdgeInsets.only(top: 100),
+                      child: Container(),
                     );
                   }
                 },

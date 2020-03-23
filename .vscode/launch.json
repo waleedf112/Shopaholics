@@ -16,13 +16,13 @@
             "type": "dart",
         },
         {
-            "name": "Q",
+            "name": "Nexus 5",
             "request": "launch",
             "type": "dart",
             "deviceId": "emulator-5554"
         },
         {
-            "name": "R",
+            "name": "Pixel 3XL",
             "request": "launch",
             "type": "dart",
             "deviceId": "emulator-5556"
@@ -31,7 +31,7 @@
     "compounds": [
         {
             "name": "All Devices",
-            "configurations": ["Q", "R"],
+            "configurations": ["Nexus 5", "Pixel 3XL"],
         }
     ]
 }

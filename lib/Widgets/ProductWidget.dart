@@ -8,6 +8,7 @@ import 'package:shopaholics/Functions/PagePush.dart';
 import 'package:shopaholics/Functions/distanceCalculator.dart';
 import 'package:shopaholics/Functions/time.dart';
 import 'package:shopaholics/Pages/ProductViewer/ProductViewer.dart';
+import 'package:shopaholics/Pages/RequestsPage/RequestsPage.dart';
 
 import 'TextWidget.dart';
 
@@ -15,8 +16,13 @@ class ProductWidget extends StatefulWidget {
   var item;
   bool liked;
   bool isMyRequest;
-
-  ProductWidget(@required this.item, [this.liked,this.isMyRequest = false]);
+  RequestType requestType;
+  ProductWidget({
+    @required this.item,
+    this.liked,
+    this.isMyRequest = false,
+    this.requestType,
+  });
 
   @override
   _ProductWidgetState createState() => _ProductWidgetState();
@@ -95,7 +101,7 @@ class _ProductWidgetState extends State<ProductWidget> {
 
     if (widget.item is ProductRequest) {
       return InkWell(
-        onTap: () => PagePush(context, ProductViewer(product: widget.item,isMyRequest:widget.isMyRequest)),
+        onTap: () => PagePush(context, ProductViewer(product: widget.item, isMyRequest: widget.isMyRequest)),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 5),
           child: Container(
@@ -138,21 +144,26 @@ class _ProductWidgetState extends State<ProductWidget> {
                         future: calculateDistance(widget.item.userUid),
                         builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
                           if (snapshot.hasError) {
-                            return Icon(Mdi.mapMarkerRemoveOutline,color: Colors.grey,size: 18,);
+                            return Icon(
+                              Mdi.mapMarkerRemoveOutline,
+                              color: Colors.grey,
+                              size: 18,
+                            );
                           } else if (snapshot.hasData) {
                             return Directionality(
                               textDirection: TextDirection.rtl,
-                              child: TextWidget(
-                                snapshot.data,
-                                minFontSize: 11,
-                                maxFontSize: 14,
-                                style: TextStyle(color: Colors.grey,fontStyle: FontStyle.italic)
-                              ),
+                              child: TextWidget(snapshot.data,
+                                  minFontSize: 11,
+                                  maxFontSize: 14,
+                                  style: TextStyle(color: Colors.grey, fontStyle: FontStyle.italic)),
                             );
                           }
                           return Padding(
                             padding: const EdgeInsets.only(bottom: 5),
-                            child: SpinKitHourGlass(color: Colors.grey.withOpacity(0.5),size: 18,),
+                            child: SpinKitHourGlass(
+                              color: Colors.grey.withOpacity(0.5),
+                              size: 18,
+                            ),
                           );
                         },
                       ),

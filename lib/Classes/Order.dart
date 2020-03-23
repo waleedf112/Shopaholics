@@ -41,7 +41,8 @@ class Order {
   }
 
   Future<void> placeNewOrder() async {
-    DocumentReference documentReference = Firestore.instance.collection('Counters').document('ordersID');
+    DocumentReference documentReference =
+        Firestore.instance.collection('Counters').document('ordersID');
     await documentReference.get().then((counterValue) {
       this.number = counterValue.data['id'].toString();
     });
@@ -59,7 +60,10 @@ class Order {
       'productsPrice': this.productsPrice,
       'delivery': this.delivery,
     };
-    await Firestore.instance.collection('Orders').document(this.number).setData(data);
+    await Firestore.instance
+        .collection('Orders')
+        .document(this.number)
+        .setData(data);
     await currentUser.emptyCart();
   }
 }

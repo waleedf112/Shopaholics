@@ -10,7 +10,8 @@ import 'package:shopaholics/Widgets/CustomErrorDialog.dart';
 
 import '../../../main.dart';
 
-Future<void> signInUser(context, {formKey, email, password}) async {
+Future<void> signInUser(context,
+    {@required GlobalKey<FormState> formKey, email, password}) async {
   FocusScope.of(context).unfocus();
   String error;
   if (formKey.currentState.validate()) {
@@ -38,7 +39,6 @@ Future<void> signInUser(context, {formKey, email, password}) async {
   } else {
     Hive.box('isFirstLaunch').putAt(0, false);
     Navigator.of(context).pop();
-
     Navigator.of(context).pushReplacement(CupertinoPageRoute(builder: (cxt) {
       return Launcher(firstRun: false);
     }));

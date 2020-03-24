@@ -7,6 +7,7 @@ import 'package:shopaholics/Classes/Order.dart';
 import 'package:shopaholics/Classes/Product.dart';
 import 'package:shopaholics/Classes/User.dart';
 import 'package:shopaholics/Functions/PagePush.dart';
+import 'package:shopaholics/Functions/isEmailVerified.dart';
 import 'package:shopaholics/Pages/Settings/SubPages/Addresses.dart';
 import 'package:shopaholics/Pages/Settings/SubPages/MyOrders.dart';
 import 'package:shopaholics/Widgets/Button.dart';
@@ -361,8 +362,8 @@ class _ShoppingCartState extends State<ShoppingCart> {
                                     ),
                                   ),
                                   SimpleButton(
-                                    'تأكيد الطلب',
-                                    function: () {
+                                    'تأكيد الشراء',
+                                    function: () async {
                                       if (currentUser.location == null) {
                                         CustomDialog(
                                             context: context,
@@ -385,18 +386,22 @@ class _ShoppingCartState extends State<ShoppingCart> {
                                             secondButtonFunction: () =>
                                                 Navigator.of(context).pop());
                                       } else {
-                                        loadingScreen(
-                                            context: context,
-                                            function: () async {
-                                              Order _receipt =
-                                                  new Order(snapshot.data);
-                                              await _receipt.placeNewOrder();
-
-                                              Navigator.of(context).pop();
-                                              Navigator.of(context).pop();
-                                            }).whenComplete(() {
-                                          PagePush(context, MyOrdersPage());
-                                        });
+                                        bool isVerified =
+                                            (await isEmailVerified(
+                                                context, false));
+                                        if (isVerified) {
+                                          loadingScreen(
+                                              context: context,
+                                              function: () async {
+                                                Order _receipt =
+                                                    new Order(snapshot.data);
+                                                await _receipt.placeNewOrder();
+                                                Navigator.of(context).pop();
+                                                Navigator.of(context).pop();
+                                              }).whenComplete(() {
+                                            PagePush(context, MyOrdersPage());
+                                          });
+                                        }
                                       }
                                     },
                                   ),

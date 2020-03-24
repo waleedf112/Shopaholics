@@ -1,9 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:shopaholics/Pages/FavoritePage/FavoritePage.dart';
+import 'package:shopaholics/Pages/Homepage/HomePage.dart';
 import 'UserRole.dart';
 import 'package:google_maps_webservice/src/core.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:shopaholics/main.dart';
 part 'User.g.dart';
 
 CurrentUser currentUser;
@@ -151,6 +155,18 @@ class CurrentUser extends HiveObject {
     return this.role.index;
   }
 
+  Future<bool> isEmailVerified() async {
+    if (!isSignedIn()) {
+      return false;
+    } else {
+      bool isEmailVerified =
+          (await FirebaseAuth.instance.currentUser()).isEmailVerified;
+      if (isEmailVerified) return true;
+      (await FirebaseAuth.instance.currentUser()).sendEmailVerification();
+      return false;
+    }
+  }
+
   Future<void> resetPassword(String password) async {
     (await FirebaseAuth.instance.currentUser()).updatePassword(password);
   }
@@ -212,7 +228,7 @@ class CurrentUser extends HiveObject {
     }
     if (this.likedOffers == null) this.likedOffers = new List();
     this.likedOffers.add(int.parse(reference));
-    print(currentUser.likedOffers);
+    updatedHomePage.value = DateTime.now();
     this.save();
   }
 
@@ -235,9 +251,8 @@ class CurrentUser extends HiveObject {
           .setData({'reference': []});
     }
     if (this.likedOffers == null) this.likedOffers = new List();
-
     this.likedOffers.remove(int.parse(reference));
-
+    updatedHomePage.value = DateTime.now();
     this.save();
   }
 

@@ -7,6 +7,7 @@ import 'package:shopaholics/Classes/Product.dart';
 import 'package:shopaholics/Classes/User.dart';
 import 'package:shopaholics/Classes/UserRole.dart';
 import 'package:shopaholics/Functions/PagePush.dart';
+import 'package:shopaholics/Functions/isEmailVerified.dart';
 import 'package:shopaholics/Pages/AddNewProduct/AddNewProduct.dart';
 import 'package:shopaholics/Pages/AddProductRequest/AddProductRequest.dart';
 import 'package:shopaholics/Pages/FavoritePage/FavoritePage.dart';
@@ -19,6 +20,9 @@ import 'package:shopaholics/Widgets/ListProducts.dart';
 import 'package:shopaholics/Widgets/MainView.dart';
 import 'package:flutter/material.dart';
 import 'package:shopaholics/Widgets/TextWidget.dart';
+
+ValueNotifier<DateTime> updatedHomePage =
+    new ValueNotifier<DateTime>(DateTime.now());
 
 class HomePage extends StatefulWidget {
   @override
@@ -73,14 +77,76 @@ class _HomePageState extends State<HomePage> {
       iconSize: 23.0,
       bottomPadding: 5,
       navBarStyle: NavBarStyle.style6,
+      onItemSelected: (i) => updatedHomePage.value = DateTime.now(),
       items: _navBarsItems(),
       screens: [
-        Scaffold(
-          floatingActionButton:
-              isSignedIn() && currentUser.role != UserRole.customer
+        ValueListenableBuilder(
+          valueListenable: updatedHomePage,
+          builder: (BuildContext context, dynamic value, Widget child) {
+            return Scaffold(
+              floatingActionButton:
+                  isSignedIn() && currentUser.role != UserRole.customer
+                      ? FloatingActionButton(
+                          heroTag: 'heroProduct',
+                          onPressed: () async {
+                            bool isVerified =
+                                (await isEmailVerified(context, false));
+                            if (isVerified) {
+                              PagePush(context, AppNewProduct());
+                            }
+                          },
+                          child: Icon(
+                            Icons.add,
+                            color: Colors.white,
+                          ),
+                          elevation: 0,
+                          disabledElevation: 0,
+                          focusElevation: 0,
+                          highlightElevation: 0,
+                          hoverElevation: 0,
+                          backgroundColor: Colors.grey.withOpacity(0.7),
+                        )
+                      : null,
+              body: Column(
+                children: <Widget>[
+                  Expanded(
+                    child: ListView(
+                      physics: BouncingScrollPhysics(),
+                      shrinkWrap: false,
+                      children: <Widget>[
+                        GridProducts(
+                          title: 'اجدد المنتجات',
+                          type: GridProductsType.offers,
+                          sortingProducts: SortingProducts.byTime,
+                        ),
+                        GridProducts(
+                          title: 'اخر العروض',
+                          type: GridProductsType.offers,
+                          sortingProducts: SortingProducts.byPrice,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Divider(height: 0, color: Colors.black38),
+                ],
+              ),
+            );
+          },
+        ),
+        ValueListenableBuilder(
+          valueListenable: updatedHomePage,
+          builder: (BuildContext context, dynamic value, Widget child) {
+            return Scaffold(
+              floatingActionButton: isSignedIn()
                   ? FloatingActionButton(
-                      heroTag: 'heroProduct',
-                      onPressed: () => PagePush(context, AppNewProduct()),
+                      heroTag: 'heroRequest',
+                      onPressed: () async {
+                        bool isVerified =
+                            (await isEmailVerified(context, false));
+                        if (isVerified) {
+                          PagePush(context, AddProductRequest());
+                        }
+                      },
                       child: Icon(
                         Icons.add,
                         color: Colors.white,
@@ -93,61 +159,27 @@ class _HomePageState extends State<HomePage> {
                       backgroundColor: Colors.grey.withOpacity(0.7),
                     )
                   : null,
-          body: Column(
-            children: <Widget>[
-              Expanded(
-                child: ListView(
-                  physics: BouncingScrollPhysics(),
-                  shrinkWrap: false,
-                  children: <Widget>[
-                    GridProducts(
-                      title: 'اجدد المنتجات',
-                      type: GridProductsType.offers,
-                      sortingProducts: SortingProducts.byTime,
-                    ),
-                    GridProducts(
-                      title: 'اخر العروض',
-                      type: GridProductsType.offers,
-                      sortingProducts: SortingProducts.byPrice,
-                    ),
-                  ],
-                ),
+              body: Column(
+                children: <Widget>[
+                  Expanded(child: RequestsPage()),
+                  Divider(height: 0, color: Colors.black38),
+                ],
               ),
-              Divider(height: 0, color: Colors.black38),
-            ],
-          ),
+            );
+          },
         ),
-        Scaffold(
-          floatingActionButton: isSignedIn()
-              ? FloatingActionButton(
-                  heroTag: 'heroRequest',
-                  onPressed: () => PagePush(context, AddProductRequest()),
-                  child: Icon(
-                    Icons.add,
-                    color: Colors.white,
-                  ),
-                  elevation: 0,
-                  disabledElevation: 0,
-                  focusElevation: 0,
-                  highlightElevation: 0,
-                  hoverElevation: 0,
-                  backgroundColor: Colors.grey.withOpacity(0.7),
-                )
-              : null,
-          body: Column(
-            children: <Widget>[
-              Expanded(child: RequestsPage()),
-              Divider(height: 0, color: Colors.black38),
-            ],
-          ),
-        ),
-        Scaffold(
-          body: Column(
-            children: <Widget>[
-              Expanded(child: FavoritePage()),
-              Divider(height: 0, color: Colors.black38),
-            ],
-          ),
+        ValueListenableBuilder(
+          valueListenable: updatedHomePage,
+          builder: (BuildContext context, dynamic value, Widget child) {
+            return Scaffold(
+              body: Column(
+                children: <Widget>[
+                  Expanded(child: FavoritePage()),
+                  Divider(height: 0, color: Colors.black38),
+                ],
+              ),
+            );
+          },
         ),
         Column(
           children: <Widget>[

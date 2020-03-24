@@ -61,7 +61,6 @@ class SigningInPage extends StatelessWidget {
                       child: TextFormField(
                         textDirection: TextDirection.ltr,
                         controller: passwordController,
-                        validator: (String value) => passwordValidation(value),
                         obscureText: true,
                         decoration: InputDecoration(
                           labelText: 'كلمة المرور',

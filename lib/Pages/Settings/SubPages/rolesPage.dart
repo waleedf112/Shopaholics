@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:shopaholics/Classes/User.dart';
 import 'package:shopaholics/Classes/UserRole.dart';
+import 'package:shopaholics/Functions/isEmailVerified.dart';
 import 'package:shopaholics/Widgets/AlertMessage.dart';
 import 'package:shopaholics/Widgets/Button.dart';
 import 'package:shopaholics/Widgets/CustomDialog.dart';
@@ -123,48 +124,51 @@ class _RolesPageState extends State<RolesPage> {
               function: () async {
                 int roleIndex =
                     roleNames.indexWhere((test) => test == widget.role);
-                loadingScreen(
-                    context: context,
-                    function: () async {
-                      await currentUser
-                          .getRequestedRole()
-                          .then((onValue) async {
-                        if (onValue['pending']) {
-                          Navigator.of(context).pop();
-                          CustomDialog(
-                              context: context,
-                              title: 'خطأ',
-                              content: Text(
-                                'يوجد طلب سابق, لايمكنك تقديم طلب حالياُ',
-                                textAlign: TextAlign.center,
-                              ),
-                              firstButtonText: 'حسناً',
-                              firstButtonColor: Colors.black54,
-                              firstButtonFunction: () {
-                                Navigator.of(context).pop();
-                              });
-                        } else {
+                if (currentUser.role.index != roleIndex)
+                  loadingScreen(
+                      context: context,
+                      function: () async {
+                        bool isVerified = (await isEmailVerified(context));
+                        if (isVerified) {
                           await currentUser
-                              .requestRole(UserRole.values[roleIndex])
-                              .whenComplete(() {
-                            Navigator.of(context).pop();
-                            CustomDialog(
-                                context: context,
-                                title: 'تم ارسال الطلب',
-                                content: Text(
-                                  'تم ارسال طلبك, الرجاء الانتظار من 24 ساعه الى 48 ساعه للرد على طلبك',
-                                  textAlign: TextAlign.center,
-                                ),
-                                firstButtonText: 'حسناً',
-                                firstButtonColor: Colors.black54,
-                                firstButtonFunction: () {
-                                  Navigator.of(context).pop();
-                                });
+                              .getRequestedRole()
+                              .then((onValue) async {
+                            if (onValue['pending']) {
+                              Navigator.of(context).pop();
+                              CustomDialog(
+                                  context: context,
+                                  title: 'خطأ',
+                                  content: Text(
+                                    'يوجد طلب سابق, لايمكنك تقديم طلب حالياُ',
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  firstButtonText: 'حسناً',
+                                  firstButtonColor: Colors.black54,
+                                  firstButtonFunction: () {
+                                    Navigator.of(context).pop();
+                                  });
+                            } else {
+                              await currentUser
+                                  .requestRole(UserRole.values[roleIndex])
+                                  .whenComplete(() {
+                                Navigator.of(context).pop();
+                                CustomDialog(
+                                    context: context,
+                                    title: 'تم ارسال الطلب',
+                                    content: Text(
+                                      'تم ارسال طلبك, الرجاء الانتظار من 24 ساعه الى 48 ساعه للرد على طلبك',
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    firstButtonText: 'حسناً',
+                                    firstButtonColor: Colors.black54,
+                                    firstButtonFunction: () {
+                                      Navigator.of(context).pop();
+                                    });
+                              });
+                            }
                           });
                         }
                       });
-                      /*   */
-                    });
               },
             ),
           ],

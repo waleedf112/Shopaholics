@@ -11,12 +11,7 @@ import 'package:shopaholics/Widgets/TextWidget.dart';
 
 import 'noFavoriteProducts.dart';
 
-class FavoritePage extends StatefulWidget {
-  @override
-  _FavoritePageState createState() => _FavoritePageState();
-}
-
-class _FavoritePageState extends State<FavoritePage> {
+class FavoritePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (isSignedIn()) {

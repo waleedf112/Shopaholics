@@ -40,10 +40,13 @@ String emailValidation(String value) {
 }
 
 String passwordValidation(String value, {bool canBeEmpty = false}) {
+  RegExp regExp = RegExp(r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$');
   if (value.isEmpty && !canBeEmpty) {
     return 'كلمة المرور فارغة';
   } else if (value.length > 0 && value.length < 6) {
     return 'كلمه المرور اقل من 6 احرف';
+  } else if (!regExp.hasMatch(value)) {
+    return 'كلمه المرور يجب ان تحتوي على حروف وارقام!';
   }
   return null;
 }

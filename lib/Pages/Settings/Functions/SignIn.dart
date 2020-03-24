@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:shopaholics/Classes/User.dart';
 import 'package:shopaholics/Functions/passwordExceptions.dart';
 import 'package:shopaholics/Widgets/CustomDialog.dart';
@@ -35,6 +36,7 @@ Future<void> signInUser(context, {formKey, email, password}) async {
   if (error != null) {
     CustomErrorDialog(context, text: exceptionLoginRegister(error));
   } else {
+    Hive.box('isFirstLaunch').putAt(0, false);
     Navigator.of(context).pop();
 
     Navigator.of(context).pushReplacement(CupertinoPageRoute(builder: (cxt) {

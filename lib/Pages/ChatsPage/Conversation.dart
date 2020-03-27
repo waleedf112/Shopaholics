@@ -37,7 +37,7 @@ class _ConversationState extends State<Conversation> {
         );
       }
     });
-    Future.delayed(Duration(milliseconds: 250)).whenComplete(() {
+    Future.delayed(Duration(milliseconds: 300)).whenComplete(() {
       _controller.animateTo(
         _controller.position.maxScrollExtent,
         duration: Duration(milliseconds: 150),
@@ -64,7 +64,6 @@ class _ConversationState extends State<Conversation> {
         'messages': FieldValue.arrayUnion([
           {
             'sender': currentUser.uid,
-            'time': DateTime.now().millisecondsSinceEpoch,
             'message': tmp,
           }
         ]),

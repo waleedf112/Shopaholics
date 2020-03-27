@@ -41,20 +41,26 @@ Future<void> sendPrivateMessage(BuildContext context, String otherUser) async {
     await loadingScreen(
         context: context,
         function: () async {
-          querySnapshot = await collectionReference.where('participants', whereIn: [
+          querySnapshot = await collectionReference.where('participantsUids', whereIn: [
             [currentUser.uid, otherUser],
             [otherUser, currentUser.uid]
           ]).getDocuments();
           otherUserDisplayName =
               (await Firestore.instance.collection('Users').document(otherUser).get()).data['displayName'];
-          if (querySnapshot.documents.isEmpty)
+          if (querySnapshot.documents.isEmpty) {
             await collectionReference.document().setData({
               'participantsUids': [currentUser.uid, otherUser],
               'participantsNames': [currentUser.displayName, otherUserDisplayName],
+              'messages': [],
+              'latestMessage': null,
             });
+            querySnapshot = await collectionReference.where('participantsUids', whereIn: [
+              [currentUser.uid, otherUser],
+              [otherUser, currentUser.uid]
+            ]).getDocuments();
+          }
           Navigator.of(context).pop();
         });
-
     PagePush(context, Conversation(querySnapshot.documents[0].documentID, otherUserDisplayName));
   }
 }
@@ -77,14 +83,15 @@ class _ChatPageState extends State<ChatPage> {
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (!snapshot.hasData) return SpinKitRotatingCircle(color: Colors.grey.withOpacity(0.3));
         if (snapshot.data.documents.isEmpty) return NoChatRooms();
+        List<DocumentSnapshot> documents = snapshot.data.documents;
+        documents.removeWhere((test) => test.data['latestMessage'] == null);
         return ListView.builder(
-          itemCount: snapshot.data.documents.length,
+          itemCount: documents.length,
           itemBuilder: (BuildContext context, int index) {
-            String otherUser = snapshot.data.documents[index].data['participantsNames'][0];
-            if (currentUser.displayName == otherUser)
-              otherUser = snapshot.data.documents[index].data['participantsNames'][1];
+            String otherUser = documents[index].data['participantsNames'][0];
+            if (currentUser.displayName == otherUser) otherUser = documents[index].data['participantsNames'][1];
             return InkWell(
-              onTap: () => PagePush(context, Conversation(snapshot.data.documents[index].documentID, otherUser)),
+              onTap: () => PagePush(context, Conversation(documents[index].documentID, otherUser)),
               child: Container(
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -119,7 +126,7 @@ class _ChatPageState extends State<ChatPage> {
                                 Directionality(
                                   textDirection: TextDirection.rtl,
                                   child: TextWidget(
-                                    snapshot.data.documents[index].data['latestMessage'],
+                                    documents[index].data['latestMessage'],
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                     maxFontSize: 12,

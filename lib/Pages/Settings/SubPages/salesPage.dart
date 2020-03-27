@@ -4,6 +4,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:image_fade/image_fade.dart';
 import 'package:shopaholics/Classes/Order.dart';
 import 'package:shopaholics/Classes/User.dart';
+import 'package:shopaholics/Pages/ChatsPage/ChatPage.dart';
 import 'package:shopaholics/Widgets/Button.dart';
 import 'package:shopaholics/Widgets/SecondaryView.dart';
 
@@ -139,7 +140,11 @@ class SalesPage extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(right: 10, top: 8),
                         child: Row(mainAxisAlignment: MainAxisAlignment.end, children: <Widget>[
-                          OutlinedButton(text: 'ارسال رسالة للزبون'),
+                          OutlinedButton(
+                              text: 'ارسال رسالة للزبون',
+                              function: () async {
+                                await sendPrivateMessage(context, list[index]['customerUid']);
+                              }),
                           Expanded(child: Container()),
                           status,
                           Text(

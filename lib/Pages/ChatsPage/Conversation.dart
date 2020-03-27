@@ -26,7 +26,7 @@ class _ConversationState extends State<Conversation> {
   @override
   void initState() {
     _timer = new Timer.periodic(Duration(seconds: 1), (Timer timer) {
-        setState(() {});
+      setState(() {});
 
       if (_oldMessagesCount != _messagesCount.value) {
         _oldMessagesCount = _messagesCount.value;
@@ -81,70 +81,66 @@ class _ConversationState extends State<Conversation> {
   @override
   Widget build(BuildContext context) {
     return SecondaryView(
-     //ToDo title: widget.otherUserDisplayName,
+      //ToDo title: widget.otherUserDisplayName,
       backButtonFunction: () {
         _messagesCount.value = null;
         _oldMessagesCount = null;
       },
+      fab: Padding(
+        padding: const EdgeInsets.only(left: 30),
+        child: Container(
+          decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(50)),
+          child: Padding(
+            padding: const EdgeInsets.only(right: 20),
+            child: Directionality(
+              textDirection: TextDirection.rtl,
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                    child: TextField(
+                      controller: controller,
+                      onSubmitted: (s) => sendMessage(),
+                      decoration: InputDecoration(
+                          hintText: 'اكتب رسالتك هنا',
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.transparent),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.transparent),
+                          )),
+                    ),
+                  ),
+                  IconButton(
+                    icon: Icon(
+                      Icons.send,
+                      color: Colors.grey,
+                    ),
+                    onPressed: () => sendMessage(),
+                  )
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
       child: Container(
         color: Color.fromRGBO(235, 239, 242, 1),
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
+          padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
           child: StreamBuilder(
             stream: Firestore.instance.collection('Chats').document(widget.chatRoom).get().asStream(),
             builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
               if (!snapshot.hasData) return Container();
               _messagesCount.value = snapshot.data.data['messages'].length;
 
-              return Stack(
-                children: <Widget>[
-                  ListView.builder(
-                    controller: _controller,
-                    physics: BouncingScrollPhysics(),
-                    itemCount: snapshot.data.data['messages'].length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return _SentBubble(ChatMessage(snapshot.data.data['messages'][index]));
-                    },
-                  ),
-                  Positioned(
-                    top: 0,
-                    bottom: 0,
-                    child: Container(
-                      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(50)),
-                      child: Padding(
-                        padding: const EdgeInsets.only(right: 20),
-                        child: Directionality(
-                          textDirection: TextDirection.rtl,
-                          child: Row(
-                            children: <Widget>[
-                              Expanded(
-                                child: TextField(
-                                  controller: controller,
-                                  onSubmitted: (s) => sendMessage(),
-                                  decoration: InputDecoration(
-                                      hintText: 'اكتب رسالتك هنا',
-                                      enabledBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(color: Colors.transparent),
-                                      ),
-                                      focusedBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(color: Colors.transparent),
-                                      )),
-                                ),
-                              ),
-                              IconButton(
-                                icon: Icon(
-                                  Icons.send,
-                                  color: Colors.grey,
-                                ),
-                                onPressed: () => sendMessage(),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  )
-                ],
+              return ListView.builder(
+                controller: _controller,
+                shrinkWrap: false,
+                physics: BouncingScrollPhysics(),
+                itemCount: snapshot.data.data['messages'].length,
+                itemBuilder: (BuildContext context, int index) {
+                  return _SentBubble(ChatMessage(snapshot.data.data['messages'][index]),snapshot.data.data['messages'].length-1==index,);
+                },
               );
             },
           ),
@@ -156,37 +152,41 @@ class _ConversationState extends State<Conversation> {
 
 class _SentBubble extends StatelessWidget {
   ChatMessage chat;
-  _SentBubble(this.chat);
+  bool isLast;
+  _SentBubble(this.chat,this.isLast);
 
   bool isSent() => chat.sender == currentUser.uid;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Directionality(
-        textDirection: TextDirection.rtl,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 1),
-          child: Row(
-            mainAxisAlignment: isSent() ? MainAxisAlignment.start : MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: <Widget>[
-              Container(
-                constraints: BoxConstraints(maxWidth: 200),
-                decoration: BoxDecoration(
-                    color: isSent() ? Colors.white : Color.fromRGBO(80, 143, 250, 1),
-                    borderRadius: BorderRadius.circular(15)),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                  child: Text(
-                    chat.message,
-                    style: TextStyle(
-                      color: isSent() ? Colors.black : Colors.white,
+    return Padding(
+      padding: isLast?const EdgeInsets.only(bottom:100):EdgeInsets.all(0),
+      child: Container(
+        child: Directionality(
+          textDirection: TextDirection.rtl,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 1),
+            child: Row(
+              mainAxisAlignment: isSent() ? MainAxisAlignment.start : MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: <Widget>[
+                Container(
+                  constraints: BoxConstraints(maxWidth: 200),
+                  decoration: BoxDecoration(
+                      color: isSent() ? Colors.white : Color.fromRGBO(80, 143, 250, 1),
+                      borderRadius: BorderRadius.circular(15)),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                    child: Text(
+                      chat.message,
+                      style: TextStyle(
+                        color: isSent() ? Colors.black : Colors.white,
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

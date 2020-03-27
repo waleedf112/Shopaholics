@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:mdi/mdi.dart';
 import 'package:persistent_bottom_nav_bar/models/persistent-bottom-nav-bar-styles.widget.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:shopaholics/Classes/Product.dart';
@@ -59,7 +60,7 @@ class _HomePageState extends State<HomePage> {
         inactiveColor: Colors.grey,
       ),
       PersistentBottomNavBarItem(
-        icon: Icon(Icons.chat),
+        icon: Icon(Mdi.chatOutline),
         title: ("المحادثات"),
         activeColor: Colors.black,
         inactiveColor: Colors.grey,

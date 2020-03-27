@@ -10,7 +10,13 @@ class Conversation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SecondaryView(
-      title: otherUserDisplayName,
+      //ToDo //title: otherUserDisplayName,
+      child: StreamBuilder(
+        stream: Firestore.instance.collection('Chats').document(chatRoom.documentID).get().asStream(),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          return FlutterLogo();
+        },
+      ),
     );
   }
 }

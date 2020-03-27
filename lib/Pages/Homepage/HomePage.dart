@@ -21,8 +21,7 @@ import 'package:shopaholics/Widgets/MainView.dart';
 import 'package:flutter/material.dart';
 import 'package:shopaholics/Widgets/TextWidget.dart';
 
-ValueNotifier<DateTime> updatedHomePage =
-    new ValueNotifier<DateTime>(DateTime.now());
+ValueNotifier<DateTime> updatedHomePage = new ValueNotifier<DateTime>(DateTime.now());
 
 class HomePage extends StatefulWidget {
   @override
@@ -84,29 +83,24 @@ class _HomePageState extends State<HomePage> {
           valueListenable: updatedHomePage,
           builder: (BuildContext context, dynamic value, Widget child) {
             return Scaffold(
-              floatingActionButton:
-                  isSignedIn() && currentUser.role != UserRole.customer
-                      ? FloatingActionButton(
-                          heroTag: 'heroProduct',
-                          onPressed: () async {
-                            bool isVerified =
-                                (await isEmailVerified(context, false));
-                            if (isVerified) {
-                              PagePush(context, AppNewProduct());
-                            }
-                          },
-                          child: Icon(
-                            Icons.add,
-                            color: Colors.white,
-                          ),
-                          elevation: 0,
-                          disabledElevation: 0,
-                          focusElevation: 0,
-                          highlightElevation: 0,
-                          hoverElevation: 0,
-                          backgroundColor: Colors.grey.withOpacity(0.7),
-                        )
-                      : null,
+              floatingActionButton: isSignedIn() && currentUser.role != UserRole.customer
+                  ? FloatingActionButton(
+                      heroTag: 'heroProduct',
+                      onPressed: () async {
+                        PagePush(context, AppNewProduct());
+                      },
+                      child: Icon(
+                        Icons.add,
+                        color: Colors.white,
+                      ),
+                      elevation: 0,
+                      disabledElevation: 0,
+                      focusElevation: 0,
+                      highlightElevation: 0,
+                      hoverElevation: 0,
+                      backgroundColor: Colors.grey.withOpacity(0.7),
+                    )
+                  : null,
               body: Column(
                 children: <Widget>[
                   Expanded(
@@ -141,11 +135,7 @@ class _HomePageState extends State<HomePage> {
                   ? FloatingActionButton(
                       heroTag: 'heroRequest',
                       onPressed: () async {
-                        bool isVerified =
-                            (await isEmailVerified(context, false));
-                        if (isVerified) {
-                          PagePush(context, AddProductRequest());
-                        }
+                        PagePush(context, AddProductRequest());
                       },
                       child: Icon(
                         Icons.add,
@@ -183,8 +173,7 @@ class _HomePageState extends State<HomePage> {
         ),
         Column(
           children: <Widget>[
-            Expanded(
-                child: Container(color: Colors.white, child: SettingsPage())),
+            Expanded(child: Container(color: Colors.white, child: SettingsPage())),
             Divider(height: 0, color: Colors.black38),
           ],
         ),

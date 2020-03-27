@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shopaholics/Classes/Product.dart';
+import 'package:shopaholics/Functions/isEmailVerified.dart';
 import 'package:shopaholics/Widgets/CustomDialog.dart';
 import 'package:shopaholics/Widgets/SecondaryView.dart';
 import 'package:shopaholics/Widgets/TextWidget.dart';
@@ -19,8 +20,7 @@ class _AddProductRequestState extends State<AddProductRequest> {
   List<File> _image = new List();
 
   Future getImage() async {
-    var image = await ImagePicker.pickImage(
-        source: ImageSource.gallery, imageQuality: 100);
+    var image = await ImagePicker.pickImage(source: ImageSource.gallery, imageQuality: 100);
     File croppedFile = await ImageCropper.cropImage(
         sourcePath: image.path,
         aspectRatio: CropAspectRatio(ratioX: 8, ratioY: 9),
@@ -65,9 +65,8 @@ class _AddProductRequestState extends State<AddProductRequest> {
         ),
         onPressed: () async {
           FocusScope.of(context).unfocus();
-          if (formKey.currentState.validate() &&
-              _image.length >= 3 &&
-              _image.length < 10) {
+          bool isVerified = (await isEmailVerified(context, false));
+          if (formKey.currentState.validate() && isVerified && _image.length >= 3 && _image.length < 10) {
             ProductRequest _product = new ProductRequest(
               productName: productNameController.text.trim(),
               productDescription: productDescController.text.trim(),
@@ -92,8 +91,7 @@ class _AddProductRequestState extends State<AddProductRequest> {
                         });
                   });
                 });
-          } else if (formKey.currentState.validate() && _image.length < 3 ||
-              _image.length > 10) {
+          } else if (formKey.currentState.validate() && _image.length < 3 || _image.length > 10) {
             CustomDialog(
                 context: context,
                 title: 'خطأ',
@@ -217,8 +215,7 @@ class _AddProductRequestState extends State<AddProductRequest> {
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(15),
-                                    child: Image.file(_image[index])),
+                                    borderRadius: BorderRadius.circular(15), child: Image.file(_image[index])),
                               ),
                               Positioned(
                                 top: -10,
@@ -226,13 +223,9 @@ class _AddProductRequestState extends State<AddProductRequest> {
                                 child: IconButton(
                                     icon: Container(
                                         decoration: BoxDecoration(
-                                            color: Colors.red[700],
-                                            borderRadius:
-                                                BorderRadius.circular(90)),
-                                        child: Icon(Icons.remove,
-                                            color: Colors.white)),
-                                    onPressed: () =>
-                                        setState(() => _image.removeAt(index))),
+                                            color: Colors.red[700], borderRadius: BorderRadius.circular(90)),
+                                        child: Icon(Icons.remove, color: Colors.white)),
+                                    onPressed: () => setState(() => _image.removeAt(index))),
                               ),
                             ],
                           );

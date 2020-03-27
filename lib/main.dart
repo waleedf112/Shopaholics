@@ -97,7 +97,6 @@ class _LauncherState extends State<Launcher> {
 
   @override
   Future<void> initState() {
-    super.initState();
     _init();
 
     Future.delayed(Duration(seconds: 1)).whenComplete(() async {
@@ -109,6 +108,8 @@ class _LauncherState extends State<Launcher> {
         widget.isFirstLaunch.value = await Hive.box('isFirstLaunch').get(0);
       }
     });
+    super.initState();
+
   }
 
   @override

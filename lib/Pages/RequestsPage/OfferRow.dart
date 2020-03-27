@@ -177,7 +177,7 @@ class OfferRow extends StatelessWidget {
                                         await tradeOfferAccept(trade)
                                             .whenComplete(() {
                                           updatedRequestsPage.value =
-                                              TimeOfDay.now();
+                                              DateTime.now().millisecondsSinceEpoch;
                                           Navigator.of(context).pop();
                                           Navigator.of(context).pop();
                                           PagePush(context, MyOrdersPage());

@@ -9,7 +9,5 @@ class ChatMessage {
     this.message = data['message'];
   }
 
-  sendMessage({String message,String receiver}){
-    
-  }
+  
 }

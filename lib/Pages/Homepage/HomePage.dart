@@ -23,7 +23,7 @@ import 'package:shopaholics/Widgets/MainView.dart';
 import 'package:flutter/material.dart';
 import 'package:shopaholics/Widgets/TextWidget.dart';
 
-ValueNotifier<TimeOfDay> updatedHomePage = new ValueNotifier<TimeOfDay>(TimeOfDay.now());
+ValueNotifier<int> updatedHomePage = new ValueNotifier<int>(DateTime.now().millisecondsSinceEpoch);
 
 class HomePage extends StatefulWidget {
   @override
@@ -85,8 +85,8 @@ class _HomePageState extends State<HomePage> {
       bottomPadding: 5,
       navBarStyle: NavBarStyle.style6,
       onItemSelected: (i) {
-        updatedHomePage.value = TimeOfDay.now();
-        updatedChatPage.value = TimeOfDay.now();
+        updatedHomePage.value = DateTime.now().millisecondsSinceEpoch;
+        updatedChatPage.value = DateTime.now().millisecondsSinceEpoch;
       },
       items: _navBarsItems(),
       screens: [

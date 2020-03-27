@@ -11,7 +11,7 @@ import 'package:shopaholics/Widgets/loadingDialog.dart';
 import 'Conversation.dart';
 import 'noChatRooms.dart';
 
-ValueNotifier updatedChatPage = new ValueNotifier(TimeOfDay.now());
+ValueNotifier updatedChatPage = new ValueNotifier(DateTime.now().millisecondsSinceEpoch);
 
 Future<void> sendPrivateMessage(BuildContext context, String otherUser) async {
   if (!isSignedIn()) {

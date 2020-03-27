@@ -90,7 +90,7 @@ class MakeOffer extends StatelessWidget {
                           );
 
                           await tradeOffer.makeOffer().then((hasError) {
-                            updatedRequestsPage.value = TimeOfDay.now();
+                            updatedRequestsPage.value = DateTime.now().millisecondsSinceEpoch;
                             Navigator.of(context).pop();
                             CustomDialog(
                                 context: context,

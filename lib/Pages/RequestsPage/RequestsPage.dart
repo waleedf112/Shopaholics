@@ -20,8 +20,8 @@ enum RequestType {
   acceptedRequest,
   normal,
 }
-ValueNotifier<TimeOfDay> updatedRequestsPage =
-    new ValueNotifier<TimeOfDay>(TimeOfDay.now());
+ValueNotifier<int> updatedRequestsPage =
+    new ValueNotifier<int>(DateTime.now().millisecondsSinceEpoch);
 
 class RequestsPage extends StatelessWidget {
   Widget _buildRequestRow({Widget child, UserRole blockedRoles}) {
@@ -35,7 +35,7 @@ class RequestsPage extends StatelessWidget {
 
     return ValueListenableBuilder(
         valueListenable: updatedRequestsPage,
-        builder: (BuildContext context, TimeOfDay value, Widget child) {
+        builder: (BuildContext context, int value, Widget child) {
           return ListView(
             physics: BouncingScrollPhysics(),
             children: <Widget>[

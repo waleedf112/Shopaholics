@@ -8,6 +8,9 @@ import 'package:shopaholics/Classes/User.dart';
 import 'package:shopaholics/Widgets/SecondaryView.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+ValueNotifier<int> _messagesCount = ValueNotifier<int>(null);
+int _oldMessagesCount = null;
+
 class Conversation extends StatefulWidget {
   final String chatRoom;
   final String otherUserDisplayName;
@@ -18,13 +21,28 @@ class Conversation extends StatefulWidget {
 }
 
 class _ConversationState extends State<Conversation> {
+  TextEditingController controller = new TextEditingController();
   Timer _timer;
   @override
   void initState() {
-    _timer = new Timer.periodic(Duration(seconds: 3), (Timer timer) {
-      setState(() {
-        print(DateTime.now().millisecondsSinceEpoch);
-      });
+    _timer = new Timer.periodic(Duration(seconds: 1), (Timer timer) {
+        setState(() {});
+
+      if (_oldMessagesCount != _messagesCount.value) {
+        _oldMessagesCount = _messagesCount.value;
+        _controller.animateTo(
+          _controller.position.maxScrollExtent,
+          duration: Duration(milliseconds: 200),
+          curve: Interval(0.0, 1.0),
+        );
+      }
+    });
+    Future.delayed(Duration(milliseconds: 250)).whenComplete(() {
+      _controller.animateTo(
+        _controller.position.maxScrollExtent,
+        duration: Duration(milliseconds: 150),
+        curve: Interval(0, 1),
+      );
     });
     super.initState();
   }
@@ -35,36 +53,61 @@ class _ConversationState extends State<Conversation> {
     super.dispose();
   }
 
+  ScrollController _controller = ScrollController();
+
+  sendMessage({String message, String receiver}) async {
+    if (controller.text.trim().isNotEmpty) {
+      String tmp = controller.text.trim();
+      controller.text = '';
+      FocusScope.of(context).unfocus();
+      await Firestore.instance.collection('Chats').document(widget.chatRoom).updateData({
+        'messages': FieldValue.arrayUnion([
+          {
+            'sender': currentUser.uid,
+            'time': DateTime.now().millisecondsSinceEpoch,
+            'message': tmp,
+          }
+        ]),
+        'latestMessage': tmp,
+      }).whenComplete(() {
+        setState(() {});
+        Future.delayed(Duration(seconds: 1)).whenComplete(() {
+          _controller.jumpTo(_controller.position.maxScrollExtent);
+        });
+        print('done');
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SecondaryView(
       title: widget.otherUserDisplayName,
+      backButtonFunction: () {
+        _messagesCount.value = null;
+        _oldMessagesCount = null;
+      },
       child: Container(
         color: Color.fromRGBO(235, 239, 242, 1),
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
           child: StreamBuilder(
             stream: Firestore.instance.collection('Chats').document(widget.chatRoom).get().asStream(),
             builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
               if (!snapshot.hasData) return Container();
+              _messagesCount.value = snapshot.data.data['messages'].length;
+
               return Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  LiveList(
-                    shrinkWrap: true,
-                    itemCount: snapshot.data.data['messages'].length,
-                    itemBuilder: (BuildContext context, int index, Animation<double> animation) => FadeTransition(
-                      opacity: Tween<double>(
-                        begin: 0,
-                        end: 1,
-                      ).animate(animation),
-                      child: SlideTransition(
-                        position: Tween<Offset>(
-                          begin: Offset(0, -0.1),
-                          end: Offset.zero,
-                        ).animate(animation),
-                        child: _SentBubble(new ChatMessage(snapshot.data.data['messages'][index])),
-                      ),
+                  Expanded(
+                    child: ListView.builder(
+                      controller: _controller,
+                      physics: BouncingScrollPhysics(),
+                      itemCount: snapshot.data.data['messages'].length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return _SentBubble(ChatMessage(snapshot.data.data['messages'][index]));
+                      },
                     ),
                   ),
                   Container(
@@ -77,15 +120,25 @@ class _ConversationState extends State<Conversation> {
                           children: <Widget>[
                             Expanded(
                               child: TextField(
+                                controller: controller,
+                                onSubmitted: (s) => sendMessage(),
                                 decoration: InputDecoration(
-                                  hintText: 'اكتب رسالتك هنا',
-                                  enabledBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.transparent),
-                                  ),
-                                ),
+                                    hintText: 'اكتب رسالتك هنا',
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.transparent),
+                                    ),
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.transparent),
+                                    )),
                               ),
                             ),
-                            IconButton(icon: Icon(Icons.send,color: Colors.grey,), onPressed: (){})
+                            IconButton(
+                              icon: Icon(
+                                Icons.send,
+                                color: Colors.grey,
+                              ),
+                              onPressed: () => sendMessage(),
+                            )
                           ],
                         ),
                       ),
@@ -109,28 +162,32 @@ class _SentBubble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {},
+    return Container(
       child: Directionality(
         textDirection: TextDirection.rtl,
-        child: Row(
-          mainAxisAlignment: isSent() ? MainAxisAlignment.start : MainAxisAlignment.end,
-          children: <Widget>[
-            Container(
-              decoration: BoxDecoration(
-                  color: isSent() ? Colors.white : Color.fromRGBO(80, 143, 250, 1),
-                  borderRadius: BorderRadius.circular(50)),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                child: Text(
-                  chat.message,
-                  style: TextStyle(
-                    color: isSent() ? Colors.black : Colors.white,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 1),
+          child: Row(
+            mainAxisAlignment: isSent() ? MainAxisAlignment.start : MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: <Widget>[
+              Container(
+                constraints: BoxConstraints(maxWidth: 200),
+                decoration: BoxDecoration(
+                    color: isSent() ? Colors.white : Color.fromRGBO(80, 143, 250, 1),
+                    borderRadius: BorderRadius.circular(15)),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                  child: Text(
+                    chat.message,
+                    style: TextStyle(
+                      color: isSent() ? Colors.black : Colors.white,
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

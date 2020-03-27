@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -7,6 +8,8 @@ import 'package:persistent_bottom_nav_bar/utils/utils.dart';
 import 'package:shopaholics/Classes/User.dart';
 import 'package:shopaholics/Classes/UserRole.dart';
 import 'package:shopaholics/Functions/PagePush.dart';
+import 'package:shopaholics/Pages/ChatsPage/ChatPage.dart';
+import 'package:shopaholics/Pages/ChatsPage/Conversation.dart';
 import 'package:shopaholics/Widgets/CustomDialog.dart';
 import 'package:shopaholics/Widgets/SecondaryView.dart';
 import 'package:shopaholics/Widgets/TextWidget.dart';
@@ -28,11 +31,9 @@ import 'SubPages/rolesPage.dart';
 import 'SubPages/salesPage.dart';
 
 class SettingsPage extends StatelessWidget {
-  Widget setting(
-      {String title, String desc, IconData icon, Function onPressed}) {
+  Widget setting({String title, String desc, IconData icon, Function onPressed}) {
     return Container(
-      color:
-          onPressed == null ? Colors.grey.withOpacity(0.3) : Colors.transparent,
+      color: onPressed == null ? Colors.grey.withOpacity(0.3) : Colors.transparent,
       child: InkWell(
         onTap: onPressed,
         child: Padding(
@@ -50,8 +51,7 @@ class SettingsPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: <Widget>[
                     TextWidget(title),
-                    TextWidget(desc,
-                        style: TextStyle(color: Colors.grey, fontSize: 12)),
+                    TextWidget(desc, style: TextStyle(color: Colors.grey, fontSize: 12)),
                   ],
                 ),
               ),
@@ -99,10 +99,8 @@ class SettingsPage extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
-                TextWidget(currentUser.displayName,
-                    style: TextStyle(fontSize: 18)),
-                TextWidget(currentUser.email,
-                    style: TextStyle(fontSize: 12, color: Colors.grey)),
+                TextWidget(currentUser.displayName, style: TextStyle(fontSize: 18)),
+                TextWidget(currentUser.email, style: TextStyle(fontSize: 12, color: Colors.grey)),
               ],
             )
           ],
@@ -154,9 +152,17 @@ class SettingsPage extends StatelessWidget {
                   title: 'testing',
                   desc: '',
                   icon: Icons.lock,
-                  onPressed: () {
+                  onPressed: () async {
                     FocusScope.of(context).unfocus();
-                    PagePush(context, TestPage());
+                    PagePush(
+                        context,
+                        SecondaryView(
+                            child: RaisedButton(onPressed: (){
+                              PagePush(context, Conversation(
+                          'mCKOtUZ4UMxx3zRltbuN',
+                          '',
+                        ));
+                            })));
                   }),
             setting(
                 title: 'حسابي',
@@ -183,12 +189,13 @@ class SettingsPage extends StatelessWidget {
         if (isSignedIn()) SizedBox(height: 25),
         if (isSignedIn())
           settingSection([
-            if (currentUser.role != UserRole.customer) setting(
-              title: 'المبيعات',
-              desc: 'لعرض المبيعات وتحديث حاله كل شحنة',
-              icon: Icons.monetization_on,
-              onPressed: () => PagePush(context, SalesPage()),
-            ),
+            if (currentUser.role != UserRole.customer)
+              setting(
+                title: 'المبيعات',
+                desc: 'لعرض المبيعات وتحديث حاله كل شحنة',
+                icon: Icons.monetization_on,
+                onPressed: () => PagePush(context, SalesPage()),
+              ),
             setting(
               title: 'طلباتي',
               desc: 'لعرض طلباتك الحاليه والسابقة',

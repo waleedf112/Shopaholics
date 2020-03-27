@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:shopaholics/Classes/User.dart';
 import 'package:shopaholics/Functions/PagePush.dart';
 import 'package:shopaholics/Widgets/SecondaryView.dart';
@@ -54,11 +55,16 @@ Future<void> sendPrivateMessage(BuildContext context, String otherUser) async {
           Navigator.of(context).pop();
         });
 
-    PagePush(context, Conversation(querySnapshot.documents[0], otherUserDisplayName));
+    PagePush(context, Conversation(querySnapshot.documents[0].documentID, otherUserDisplayName));
   }
 }
 
-class ChatPage extends StatelessWidget {
+class ChatPage extends StatefulWidget {
+  @override
+  _ChatPageState createState() => _ChatPageState();
+}
+
+class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     if (!isSignedIn()) return NoChatRooms();
@@ -78,7 +84,7 @@ class ChatPage extends StatelessWidget {
             if (currentUser.displayName == otherUser)
               otherUser = snapshot.data.documents[index].data['participantsNames'][1];
             return InkWell(
-              onTap: () => PagePush(context, Conversation(snapshot.data.documents[index], otherUser)),
+              onTap: () => PagePush(context, Conversation(snapshot.data.documents[index].documentID, otherUser)),
               child: Container(
                 decoration: BoxDecoration(
                   color: Colors.white,

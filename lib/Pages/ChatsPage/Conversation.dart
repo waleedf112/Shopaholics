@@ -96,49 +96,50 @@ class _ConversationState extends State<Conversation> {
               if (!snapshot.hasData) return Container();
               _messagesCount.value = snapshot.data.data['messages'].length;
 
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              return Stack(
                 children: <Widget>[
-                  Expanded(
-                    child: ListView.builder(
-                      controller: _controller,
-                      physics: BouncingScrollPhysics(),
-                      itemCount: snapshot.data.data['messages'].length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return _SentBubble(ChatMessage(snapshot.data.data['messages'][index]));
-                      },
-                    ),
+                  ListView.builder(
+                    controller: _controller,
+                    physics: BouncingScrollPhysics(),
+                    itemCount: snapshot.data.data['messages'].length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return _SentBubble(ChatMessage(snapshot.data.data['messages'][index]));
+                    },
                   ),
-                  Container(
-                    decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(50)),
-                    child: Padding(
-                      padding: const EdgeInsets.only(right: 20),
-                      child: Directionality(
-                        textDirection: TextDirection.rtl,
-                        child: Row(
-                          children: <Widget>[
-                            Expanded(
-                              child: TextField(
-                                controller: controller,
-                                onSubmitted: (s) => sendMessage(),
-                                decoration: InputDecoration(
-                                    hintText: 'اكتب رسالتك هنا',
-                                    enabledBorder: UnderlineInputBorder(
-                                      borderSide: BorderSide(color: Colors.transparent),
-                                    ),
-                                    focusedBorder: UnderlineInputBorder(
-                                      borderSide: BorderSide(color: Colors.transparent),
-                                    )),
+                  Positioned(
+                    top: 0,
+                    bottom: 0,
+                    child: Container(
+                      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(50)),
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 20),
+                        child: Directionality(
+                          textDirection: TextDirection.rtl,
+                          child: Row(
+                            children: <Widget>[
+                              Expanded(
+                                child: TextField(
+                                  controller: controller,
+                                  onSubmitted: (s) => sendMessage(),
+                                  decoration: InputDecoration(
+                                      hintText: 'اكتب رسالتك هنا',
+                                      enabledBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(color: Colors.transparent),
+                                      ),
+                                      focusedBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(color: Colors.transparent),
+                                      )),
+                                ),
                               ),
-                            ),
-                            IconButton(
-                              icon: Icon(
-                                Icons.send,
-                                color: Colors.grey,
-                              ),
-                              onPressed: () => sendMessage(),
-                            )
-                          ],
+                              IconButton(
+                                icon: Icon(
+                                  Icons.send,
+                                  color: Colors.grey,
+                                ),
+                                onPressed: () => sendMessage(),
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ),

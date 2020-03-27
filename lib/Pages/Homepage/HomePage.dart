@@ -10,6 +10,7 @@ import 'package:shopaholics/Functions/PagePush.dart';
 import 'package:shopaholics/Functions/isEmailVerified.dart';
 import 'package:shopaholics/Pages/AddNewProduct/AddNewProduct.dart';
 import 'package:shopaholics/Pages/AddProductRequest/AddProductRequest.dart';
+import 'package:shopaholics/Pages/ChatsPage/ChatPage.dart';
 import 'package:shopaholics/Pages/FavoritePage/FavoritePage.dart';
 import 'package:shopaholics/Pages/RequestsPage/RequestsPage.dart';
 import 'package:shopaholics/Pages/Settings/Settings.dart';
@@ -21,7 +22,7 @@ import 'package:shopaholics/Widgets/MainView.dart';
 import 'package:flutter/material.dart';
 import 'package:shopaholics/Widgets/TextWidget.dart';
 
-ValueNotifier<DateTime> updatedHomePage = new ValueNotifier<DateTime>(DateTime.now());
+ValueNotifier<TimeOfDay> updatedHomePage = new ValueNotifier<TimeOfDay>(TimeOfDay.now());
 
 class HomePage extends StatefulWidget {
   @override
@@ -58,6 +59,12 @@ class _HomePageState extends State<HomePage> {
         inactiveColor: Colors.grey,
       ),
       PersistentBottomNavBarItem(
+        icon: Icon(Icons.chat),
+        title: ("المحادثات"),
+        activeColor: Colors.black,
+        inactiveColor: Colors.grey,
+      ),
+      PersistentBottomNavBarItem(
         icon: Icon(Icons.settings),
         title: ("الاعدادات"),
         activeColor: Colors.black,
@@ -76,7 +83,10 @@ class _HomePageState extends State<HomePage> {
       iconSize: 23.0,
       bottomPadding: 5,
       navBarStyle: NavBarStyle.style6,
-      onItemSelected: (i) => updatedHomePage.value = DateTime.now(),
+      onItemSelected: (i) {
+        updatedHomePage.value = TimeOfDay.now();
+        updatedChatPage.value = TimeOfDay.now();
+      },
       items: _navBarsItems(),
       screens: [
         ValueListenableBuilder(
@@ -169,6 +179,12 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             );
+          },
+        ),
+        ValueListenableBuilder(
+          valueListenable: updatedChatPage,
+          builder: (BuildContext context, dynamic value, Widget child) {
+            return ChatPage();
           },
         ),
         Column(

@@ -11,6 +11,7 @@ import 'package:shopaholics/Classes/User.dart';
 import 'package:shopaholics/Functions/PagePush.dart';
 import 'package:shopaholics/Functions/distanceCalculator.dart';
 import 'package:shopaholics/Functions/openMap.dart';
+import 'package:shopaholics/Pages/ChatsPage/ChatPage.dart';
 import 'package:shopaholics/Pages/RequestsPage/OfferRow.dart';
 import 'package:shopaholics/Pages/RequestsPage/RequestsPage.dart';
 import 'package:shopaholics/Widgets/Button.dart';
@@ -88,7 +89,6 @@ class _ProductViewerState extends State<ProductViewer> {
 
   @override
   Widget build(BuildContext context) {
-    print(widget.requestType);
     return SecondaryView(
       title: widget.product.productName,
       child: Builder(
@@ -228,7 +228,11 @@ class _ProductViewerState extends State<ProductViewer> {
                                       ],
                                     ),
                                   ),
-                                  OutlinedButton(text: 'ارسال رسالة'),
+                                  OutlinedButton(
+                                      text: 'ارسال رسالة',
+                                      function: () async {
+                                        await sendPrivateMessage(context,widget.product.userUid);
+                                      }),
                                 ],
                               ),
                             ),

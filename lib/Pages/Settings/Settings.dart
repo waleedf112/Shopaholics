@@ -183,7 +183,7 @@ class SettingsPage extends StatelessWidget {
         if (isSignedIn()) SizedBox(height: 25),
         if (isSignedIn())
           settingSection([
-            setting(
+            if (currentUser.role != UserRole.customer) setting(
               title: 'المبيعات',
               desc: 'لعرض المبيعات وتحديث حاله كل شحنة',
               icon: Icons.monetization_on,

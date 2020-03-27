@@ -228,7 +228,7 @@ class CurrentUser extends HiveObject {
     }
     if (this.likedOffers == null) this.likedOffers = new List();
     this.likedOffers.add(int.parse(reference));
-    updatedHomePage.value = DateTime.now();
+    updatedHomePage.value = TimeOfDay.now();
     this.save();
   }
 
@@ -252,7 +252,7 @@ class CurrentUser extends HiveObject {
     }
     if (this.likedOffers == null) this.likedOffers = new List();
     this.likedOffers.remove(int.parse(reference));
-    updatedHomePage.value = DateTime.now();
+    updatedHomePage.value = TimeOfDay.now();
     this.save();
   }
 

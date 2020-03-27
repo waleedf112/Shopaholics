@@ -24,6 +24,8 @@ import 'package:shopaholics/Widgets/MainView.dart';
 import 'package:flutter/material.dart';
 import 'package:shopaholics/Widgets/TextWidget.dart';
 
+import '../../main.dart';
+
 ValueNotifier<int> updatedHomePage = new ValueNotifier<int>(DateTime.now().millisecondsSinceEpoch);
 
 class HomePage extends StatefulWidget {
@@ -37,7 +39,6 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    PushNotificationsManager pushNotificationsManager = new PushNotificationsManager();
     pushNotificationsManager.init();
     _controller = PersistentTabController(initialIndex: 0);
   }
@@ -79,6 +80,11 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    if (isSignedIn()) {
+      currentUser.setToken();
+      print('currentUser.setToken()');
+    }
+
     return PersistentTabView(
       controller: _controller,
       backgroundColor: Colors.white,

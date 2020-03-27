@@ -9,6 +9,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
 import 'package:persistent_bottom_nav_bar/utils/utils.dart';
+import 'Classes/Notification.dart';
 import 'Classes/User.dart';
 import 'Classes/UserRole.dart';
 import 'Functions/PagePush.dart';
@@ -19,6 +20,7 @@ import 'Widgets/MainView.dart';
 
 const mapApi = 'AIzaSyBbG6iid8fXmD36E8eKIMJX9YVTE1gdyMI';
 
+PushNotificationsManager pushNotificationsManager = new PushNotificationsManager();
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,13 +28,11 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-  
   @override
   Widget build(BuildContext context) {
-  
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
-          statusBarBrightness: Platform.isIOS?Brightness.light:Brightness.dark,
+          statusBarBrightness: Platform.isIOS ? Brightness.light : Brightness.dark,
           statusBarColor: Colors.transparent,
           statusBarIconBrightness: Brightness.dark,
           systemNavigationBarColor: Colors.white,
@@ -74,8 +74,7 @@ class Launcher extends StatefulWidget {
 class _LauncherState extends State<Launcher> {
   _init() async {
     if (widget.firstRun) {
-      final appDocumentDir =
-          await path_provider.getApplicationDocumentsDirectory();
+      final appDocumentDir = await path_provider.getApplicationDocumentsDirectory();
       Hive.init(appDocumentDir.path);
       Hive.registerAdapter(CurrentUserAdapter());
       Hive.registerAdapter(UserRoleAdapter());
@@ -88,8 +87,7 @@ class _LauncherState extends State<Launcher> {
         print('====================');
       } catch (e) {}
       try {
-        if (currentUser.role == null)
-          await currentUser.requestRole(UserRole.customer, true);
+        if (currentUser.role == null) await currentUser.requestRole(UserRole.customer, true);
       } catch (e) {}
     }
 
@@ -113,7 +111,6 @@ class _LauncherState extends State<Launcher> {
       }
     });
     super.initState();
-
   }
 
   @override
@@ -133,12 +130,8 @@ class _LauncherState extends State<Launcher> {
             flex: 2,
             child: ValueListenableBuilder(
               valueListenable: widget.isFirstLaunch,
-              builder:
-                  (BuildContext context, bool isFirstLaunch, Widget child) {
-                if (isFirstLaunch != null &&
-                    widget.firstRun &&
-                    widget.isFirstLaunch.value &&
-                    !isSignedIn()) {
+              builder: (BuildContext context, bool isFirstLaunch, Widget child) {
+                if (isFirstLaunch != null && widget.firstRun && widget.isFirstLaunch.value && !isSignedIn()) {
                   return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Column(

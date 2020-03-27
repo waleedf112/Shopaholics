@@ -49,6 +49,11 @@ class CurrentUser extends HiveObject {
     this.role = UserRole.customer;
   }
 
+  Future<void> setToken() async => await Firestore.instance
+      .collection('Users')
+      .document(this.uid)
+      .updateData({'notfificationToken': await pushNotificationsManager.getToken()});
+
   void setName(String name) {
     this.displayName = name;
     this.save();
@@ -89,11 +94,7 @@ class CurrentUser extends HiveObject {
     this.phone = phone;
     this.role = UserRole.customer;
 
-    await Firestore.instance
-        .collection('Users')
-        .document(this.uid)
-        .get()
-        .then((value) async {
+    await Firestore.instance.collection('Users').document(this.uid).get().then((value) async {
       if (value.exists) {
         await fetchUserFromDatabase(value);
       } else {
@@ -106,11 +107,7 @@ class CurrentUser extends HiveObject {
   }
 
   Future<void> updateData() async {
-    await Firestore.instance
-        .collection('Users')
-        .document(this.uid)
-        .get()
-        .then((value) async {
+    await Firestore.instance.collection('Users').document(this.uid).get().then((value) async {
       if (value.exists) {
         if (value.data['role'] == null) {
           await this.requestRole(UserRole.customer, true);
@@ -132,19 +129,11 @@ class CurrentUser extends HiveObject {
   }
 
   Future getRequestedRole() async {
-    return await Firestore.instance
-        .collection('Users')
-        .document(this.uid)
-        .get()
-        .then((onValue) async {
+    return await Firestore.instance.collection('Users').document(this.uid).get().then((onValue) async {
       if (onValue.data['role'] == null) {
         this.requestRole(UserRole.customer, true);
 
-        return (await Firestore.instance
-                .collection('Users')
-                .document(this.uid)
-                .get())
-            .data['role'];
+        return (await Firestore.instance.collection('Users').document(this.uid).get()).data['role'];
       } else {
         return onValue.data['role'];
       }
@@ -159,8 +148,7 @@ class CurrentUser extends HiveObject {
     if (!isSignedIn()) {
       return false;
     } else {
-      bool isEmailVerified =
-          (await FirebaseAuth.instance.currentUser()).isEmailVerified;
+      bool isEmailVerified = (await FirebaseAuth.instance.currentUser()).isEmailVerified;
       if (isEmailVerified) return true;
       (await FirebaseAuth.instance.currentUser()).sendEmailVerification();
       return false;
@@ -185,10 +173,7 @@ class CurrentUser extends HiveObject {
   Future<void> updatePhoneNumber(String phoneNumber) async {
     this.phone = phoneNumber;
     this.save();
-    return await Firestore.instance
-        .collection('Users')
-        .document(this.uid)
-        .updateData({
+    return await Firestore.instance.collection('Users').document(this.uid).updateData({
       'phone': this.phone,
     });
   }
@@ -293,19 +278,12 @@ class CurrentUser extends HiveObject {
   }
 
   Future<List<Map<String, dynamic>>> getCart() async {
-    List<DocumentSnapshot> documents = (await Firestore.instance
-            .collection('Users')
-            .document(this.uid)
-            .collection('cart')
-            .getDocuments())
-        .documents;
+    List<DocumentSnapshot> documents =
+        (await Firestore.instance.collection('Users').document(this.uid).collection('cart').getDocuments()).documents;
     List<Map<String, dynamic>> cart = new List();
     for (DocumentSnapshot doc in documents) {
-      Map product = (await Firestore.instance
-              .collection('ProductOffer')
-              .document(doc.data['product'].toString())
-              .get())
-          .data;
+      Map product =
+          (await Firestore.instance.collection('ProductOffer').document(doc.data['product'].toString()).get()).data;
 
       int count = doc.data['count'];
       cart.add({'product': product, 'count': count});
@@ -316,12 +294,7 @@ class CurrentUser extends HiveObject {
 
   Future<void> modifyItemInCart({int quantity, String ref}) async {
     if (quantity == 0)
-      Firestore.instance
-          .collection('Users')
-          .document(this.uid)
-          .collection('cart')
-          .document(ref)
-          .delete();
+      Firestore.instance.collection('Users').document(this.uid).collection('cart').document(ref).delete();
     else
       Firestore.instance
           .collection('Users')
@@ -332,12 +305,7 @@ class CurrentUser extends HiveObject {
   }
 
   Future<void> emptyCart() {
-    Firestore.instance
-        .collection('Users')
-        .document(this.uid)
-        .collection('cart')
-        .getDocuments()
-        .then((onValue) {
+    Firestore.instance.collection('Users').document(this.uid).collection('cart').getDocuments().then((onValue) {
       onValue.documents.forEach((doc) async {
         await Firestore.instance
             .collection('Users')

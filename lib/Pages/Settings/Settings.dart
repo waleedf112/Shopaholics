@@ -25,6 +25,7 @@ import 'SubPages/MyAccount.dart';
 import 'SubPages/MyOrders.dart';
 import 'SubPages/RolesRequestsPage.dart';
 import 'SubPages/rolesPage.dart';
+import 'SubPages/salesPage.dart';
 
 class SettingsPage extends StatelessWidget {
   Widget setting(
@@ -182,6 +183,12 @@ class SettingsPage extends StatelessWidget {
         if (isSignedIn()) SizedBox(height: 25),
         if (isSignedIn())
           settingSection([
+            setting(
+              title: 'المبيعات',
+              desc: 'لعرض المبيعات وتحديث حاله كل شحنة',
+              icon: Icons.monetization_on,
+              onPressed: () => PagePush(context, SalesPage()),
+            ),
             setting(
               title: 'طلباتي',
               desc: 'لعرض طلباتك الحاليه والسابقة',

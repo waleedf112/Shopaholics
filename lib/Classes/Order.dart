@@ -26,6 +26,29 @@ class Order {
     });
   }
 
+  Order.fromDatabase(DocumentSnapshot data) {
+      this.number = data['number'];
+      this.delivery = data['delivery'];
+      //this.productsPrice = data['productsPrice'];
+      this.delivery = data['delivery'];
+
+    data['products'].forEach((data) {
+      //if(data)
+      this.products.add({
+        'sellerUid': data['sellerUid'],
+        'sellerDisplayName': data['sellerDisplayName'],
+        'image': data['image'],
+        'productId': data['productId'],
+        'productDescription': data['productDescription'],
+        'productName': data['productName'],
+        'productPrice': data['productPrice'],
+        if (data['quantity'] != null) 'quantity': data['quantity'],
+        if (data['info'] != null) 'info': data['info'],
+      });
+      this.productsPrice += data['productPrice'] * data['quantity'];
+    });
+  }
+
   Order.fromRequest(Map<String, dynamic> data, String sellerName, Map trade) {
     this.products.add({
       'sellerUid': trade['traderUid'],
@@ -41,8 +64,7 @@ class Order {
   }
 
   Future<void> placeNewOrder() async {
-    DocumentReference documentReference =
-        Firestore.instance.collection('Counters').document('ordersID');
+    DocumentReference documentReference = Firestore.instance.collection('Counters').document('ordersID');
     await documentReference.get().then((counterValue) {
       this.number = counterValue.data['id'].toString();
     });
@@ -60,10 +82,7 @@ class Order {
       'productsPrice': this.productsPrice,
       'delivery': this.delivery,
     };
-    await Firestore.instance
-        .collection('Orders')
-        .document(this.number)
-        .setData(data);
+    await Firestore.instance.collection('Orders').document(this.number).setData(data);
     await currentUser.emptyCart();
   }
 }

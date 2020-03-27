@@ -62,7 +62,7 @@ class CurrentUser extends HiveObject {
   void registerUser(FirebaseUser user, [String name, String phone]) async {
     Future<void> fetchUserFromDatabase(DocumentSnapshot value) async {
       if (value.data['role'] == null) {
-        await this.requestRole(UserRole.customer, true);
+        await this.requestRole(role: UserRole.customer, forced: true);
       } else {
         this.role = UserRole.values[value.data['role']['currentRole']];
       }
@@ -110,7 +110,7 @@ class CurrentUser extends HiveObject {
     await Firestore.instance.collection('Users').document(this.uid).get().then((value) async {
       if (value.exists) {
         if (value.data['role'] == null) {
-          await this.requestRole(UserRole.customer, true);
+          await this.requestRole(role: UserRole.customer, forced: true);
         } else {
           this.role = UserRole.values[value.data['role']['currentRole']];
         }
@@ -118,20 +118,31 @@ class CurrentUser extends HiveObject {
     });
   }
 
-  Future<void> requestRole(UserRole role, [bool forced = false]) async {
-    await Firestore.instance.collection('Users').document(this.uid).updateData({
+  Future<void> requestRole({UserRole role, bool forced = false, bool inSaudi, String idNumber, String bankInfo}) async {
+    var forcedMap = {
       'role': {
         'currentRole': this.role.index,
-        'requestedRole': forced ? -1 : role.index,
-        'pending': forced ? false : true,
+        'requestedRole': -1,
+        'pending': false,
       }
-    });
+    };
+    var normalMap = {
+      'role': {
+        'currentRole': this.role.index,
+        'requestedRole': role.index,
+        'pending': true,
+        'inSaudi': inSaudi,
+        'idNumber': idNumber,
+        'bankInfo': bankInfo,
+      }
+    };
+    await Firestore.instance.collection('Users').document(this.uid).updateData(forced ? forcedMap : normalMap);
   }
 
   Future getRequestedRole() async {
     return await Firestore.instance.collection('Users').document(this.uid).get().then((onValue) async {
       if (onValue.data['role'] == null) {
-        this.requestRole(UserRole.customer, true);
+        this.requestRole(role: UserRole.customer, forced: true);
 
         return (await Firestore.instance.collection('Users').document(this.uid).get()).data['role'];
       } else {

@@ -25,11 +25,15 @@ ValueNotifier<bool> _accepted = ValueNotifier<bool>(false);
 
 class RolesPage extends StatefulWidget {
   String role = roleNames[currentUser.getRole()];
+  String location;
+  GlobalKey<FormState> formKey = new GlobalKey();
   @override
   _RolesPageState createState() => _RolesPageState();
 }
 
 class _RolesPageState extends State<RolesPage> {
+  TextEditingController controller1 = new TextEditingController();
+  TextEditingController controller2 = new TextEditingController();
   Future<File> copyAsset() async {
     Directory tempDir = await getTemporaryDirectory();
     String tempPath = tempDir.path;
@@ -127,6 +131,71 @@ class _RolesPageState extends State<RolesPage> {
                 ],
               ),
             ),
+            Directionality(
+              textDirection: TextDirection.rtl,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(left: 80),
+                    child: TextWidget('موقع متجرك', minFontSize: 18, maxFontSize: 18),
+                  ),
+                  Expanded(
+                    child: CustomDropDownMenu(
+                      hint: 'اختر موقعك',
+                      value: widget.location,
+                      function: (p) {
+                        setState(() {
+                          widget.location = p;
+                          controller1.text = '';
+                        });
+                      },
+                      children: ['داخل السعودية', 'خارج السعودية'],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 10),
+            Form(
+              key: widget.formKey,
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    height: 80,
+                    child: Directionality(
+                      textDirection: TextDirection.rtl,
+                      child: TextFormField(
+                        enabled: widget.location != null,
+                        controller: controller1,
+                        validator: (String value) => value.trim().isEmpty ? 'الحقل فارغ!' : null,
+                        decoration: InputDecoration(
+                          filled: true,
+                          hintText: widget.location == null
+                              ? 'الرجاء اختيار موقع متجرك من الاعلى'
+                              : widget.location == 'داخل السعودية' ? 'ادخل حسابك في (معروف)' : 'ادخل رقم الهوية',
+                        ),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    height: 80,
+                    child: Directionality(
+                      textDirection: TextDirection.rtl,
+                      child: TextFormField(
+                        controller: controller2,
+                        validator: (String value) => value.trim().isEmpty ? 'الحقل فارغ!' : null,
+                        decoration: InputDecoration(
+                          filled: true,
+                          hintText: 'ادخل رقم حسابك البنكي',
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
             ValueListenableBuilder(
               valueListenable: _accepted,
               builder: (BuildContext context, bool accepted, Widget child) {
@@ -170,7 +239,7 @@ class _RolesPageState extends State<RolesPage> {
               'ارسال الطلب',
               function: () async {
                 int roleIndex = roleNames.indexWhere((test) => test == widget.role);
-                if (currentUser.role.index != roleIndex && _accepted.value)
+                if (currentUser.role.index != roleIndex && widget.formKey.currentState.validate() && _accepted.value)
                   loadingScreen(
                       context: context,
                       function: () async {
@@ -192,7 +261,14 @@ class _RolesPageState extends State<RolesPage> {
                                     Navigator.of(context).pop();
                                   });
                             } else {
-                              await currentUser.requestRole(UserRole.values[roleIndex]).whenComplete(() {
+                              await currentUser
+                                  .requestRole(
+                                role: UserRole.values[roleIndex],
+                                inSaudi: widget.location == 'داخل السعودية',
+                                idNumber: controller1.text.trim(),
+                                bankInfo: controller2.text.trim(),
+                              )
+                                  .whenComplete(() {
                                 Navigator.of(context).pop();
                                 CustomDialog(
                                     context: context,

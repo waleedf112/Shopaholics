@@ -18,15 +18,13 @@ class _RolesRequestsPageState extends State<RolesRequestsPage> {
     return SecondaryView(
       title: 'طلبات المستخدمين',
       child: StreamBuilder(
-        stream:
-            Firestore.instance.collection('Users').getDocuments().asStream(),
+        stream: Firestore.instance.collection('Users').getDocuments().asStream(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
             List<DocumentSnapshot> data = snapshot.data.documents;
 
-            data.removeWhere((DocumentSnapshot test) =>
-                test.data['role'] == null ||
-                test.data['role']['pending'] == false);
+            data.removeWhere(
+                (DocumentSnapshot test) => test.data['role'] == null || test.data['role']['pending'] == false);
             return ListView.builder(
               itemCount: data.length,
               itemBuilder: (BuildContext context, int index) {
@@ -37,108 +35,137 @@ class _RolesRequestsPageState extends State<RolesRequestsPage> {
                     textDirection: TextDirection.rtl,
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(0, 8, 20, 8),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      child: Column(
                         children: <Widget>[
-                          Expanded(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Text(user['displayName']),
-                                Text(
-                                  user['email'],
-                                  style: TextStyle(color: Colors.grey),
-                                )
-                              ],
-                            ),
-                          ),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Row(
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Expanded(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
-                                    Icon(
-                                      Icons.sync,
-                                      color: Colors.black54,
-                                      size: 18,
-                                    ),
-                                    SizedBox(width: 5),
+                                    Text(user['displayName']),
                                     Text(
-                                        roleNames[user['role']['currentRole']]),
+                                      user['email'],
+                                      style: TextStyle(color: Colors.grey),
+                                    )
                                   ],
                                 ),
-                                Row(
+                              ),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
-                                    Icon(
-                                      Icons.new_releases,
-                                      color: Colors.orange[400],
-                                      size: 18,
+                                    Row(
+                                      children: <Widget>[
+                                        Icon(
+                                          Icons.sync,
+                                          color: Colors.black54,
+                                          size: 18,
+                                        ),
+                                        SizedBox(width: 5),
+                                        Text(roleNames[user['role']['currentRole']]),
+                                      ],
                                     ),
-                                    SizedBox(width: 5),
-                                    Text(roleNames[user['role']
-                                        ['requestedRole']]),
+                                    Row(
+                                      children: <Widget>[
+                                        Icon(
+                                          Icons.new_releases,
+                                          color: Colors.orange[400],
+                                          size: 18,
+                                        ),
+                                        SizedBox(width: 5),
+                                        Text(roleNames[user['role']['requestedRole']]),
+                                      ],
+                                    )
                                   ],
-                                )
-                              ],
-                            ),
-                          ),
-                          Expanded(
-                            child: Column(
-                              children: <Widget>[
-                                OutlinedButton(
-                                    text: 'قبول الطلب',
-                                    function: () {
-                                      loadingScreen(
-                                          context: context,
-                                          function: () async {
-                                            if (currentUser.role ==
-                                                UserRole.admin)
-                                              await Firestore.instance
-                                                  .collection('Users')
-                                                  .document(user['uid'])
-                                                  .updateData({
-                                                'role': {
-                                                  'requestedRole': -1,
-                                                  'currentRole': user['role']
-                                                      ['requestedRole'],
-                                                  'pending': false,
-                                                }
-                                              }).whenComplete(() {
-                                                Navigator.of(context).pop();
-                                                setState(() {});
+                                ),
+                              ),
+                              Expanded(
+                                child: Column(
+                                  children: <Widget>[
+                                    OutlinedButton(
+                                        text: 'قبول الطلب',
+                                        function: () {
+                                          loadingScreen(
+                                              context: context,
+                                              function: () async {
+                                                if (currentUser.role == UserRole.admin)
+                                                  await Firestore.instance
+                                                      .collection('Users')
+                                                      .document(user['uid'])
+                                                      .updateData({
+                                                    'role': {
+                                                      'requestedRole': -1,
+                                                      'currentRole': user['role']['requestedRole'],
+                                                      'pending': false,
+                                                    }
+                                                  }).whenComplete(() {
+                                                    Navigator.of(context).pop();
+                                                    setState(() {});
+                                                  });
                                               });
-                                          });
-                                    }),
-                                OutlinedButton(
-                                    text: 'رفض الطلب',
-                                    function: () {
-                                      loadingScreen(
-                                          context: context,
-                                          function: () async {
-                                            if (currentUser.role ==
-                                                UserRole.admin)
-                                              await Firestore.instance
-                                                  .collection('Users')
-                                                  .document(user['uid'])
-                                                  .updateData({
-                                                'role': {
-                                                  'requestedRole': -1,
-                                                  'currentRole': user['role']
-                                                      ['currentRole'],
-                                                  'pending': false,
-                                                }
-                                              }).whenComplete(() {
-                                                Navigator.of(context).pop();
-                                                setState(() {});
+                                        }),
+                                    OutlinedButton(
+                                        text: 'رفض الطلب',
+                                        function: () {
+                                          loadingScreen(
+                                              context: context,
+                                              function: () async {
+                                                if (currentUser.role == UserRole.admin)
+                                                  await Firestore.instance
+                                                      .collection('Users')
+                                                      .document(user['uid'])
+                                                      .updateData({
+                                                    'role': {
+                                                      'bankInfo': null,
+                                                      'idNumber': null,
+                                                      'inSaudi': null,
+                                                      'requestedRole': -1,
+                                                      'currentRole': user['role']['currentRole'],
+                                                      'pending': false,
+                                                    }
+                                                  }).whenComplete(() {
+                                                    Navigator.of(context).pop();
+                                                    setState(() {});
+                                                  });
                                               });
-                                          });
-                                    })
-                              ],
-                            ),
+                                        })
+                                  ],
+                                ),
+                              ),
+                            ],
                           ),
+                          if(user['role']['inSaudi']!=null)Column(
+                            children: <Widget>[
+                              if(user['role']['inSaudi'])Row(
+                                children: <Widget>[
+                                  Text('حساب معروف:'),
+                                  SizedBox(width: 3),
+
+                                  Text(user['role']['idNumber']),
+                                ],
+                              ),
+                              if(!user['role']['inSaudi'])Row(
+                                children: <Widget>[
+                                  Text('رقم الهوية:'),
+                                  SizedBox(width: 3),
+                                  Text(user['role']['idNumber']),
+
+                                ],
+                              ),
+                              Row(
+                                children: <Widget>[
+                                  Text('الرقم البنكي:'),
+                                  SizedBox(width: 3),
+                                  Text(user['role']['bankInfo']),
+
+                                ],
+                              )
+                            ],
+                          )
                         ],
                       ),
                     ),

@@ -87,7 +87,7 @@ class _LauncherState extends State<Launcher> {
         print('====================');
       } catch (e) {}
       try {
-        if (currentUser.role == null) await currentUser.requestRole(UserRole.customer, true);
+        if (currentUser.role == null) await currentUser.requestRole(role:UserRole.customer, forced:true);
       } catch (e) {}
     }
 

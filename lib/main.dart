@@ -18,14 +18,17 @@ import 'Widgets/MainView.dart';
 
 const mapApi = 'AIzaSyBbG6iid8fXmD36E8eKIMJX9YVTE1gdyMI';
 
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  
   @override
   Widget build(BuildContext context) {
+  
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
           statusBarBrightness: Brightness.dark,

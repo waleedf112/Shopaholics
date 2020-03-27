@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:mdi/mdi.dart';
 import 'package:persistent_bottom_nav_bar/models/persistent-bottom-nav-bar-styles.widget.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import 'package:shopaholics/Classes/Notification.dart';
 import 'package:shopaholics/Classes/Product.dart';
 import 'package:shopaholics/Classes/User.dart';
 import 'package:shopaholics/Classes/UserRole.dart';
@@ -36,6 +37,8 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+    PushNotificationsManager pushNotificationsManager = new PushNotificationsManager();
+    pushNotificationsManager.init();
     _controller = PersistentTabController(initialIndex: 0);
   }
 

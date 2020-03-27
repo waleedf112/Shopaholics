@@ -81,7 +81,7 @@ class _ConversationState extends State<Conversation> {
   @override
   Widget build(BuildContext context) {
     return SecondaryView(
-      //ToDo title: widget.otherUserDisplayName,
+      title: widget.otherUserDisplayName,
       backButtonFunction: () {
         _messagesCount.value = null;
         _oldMessagesCount = null;

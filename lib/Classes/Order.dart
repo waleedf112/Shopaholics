@@ -28,24 +28,12 @@ class Order {
 
   Order.fromDatabase(DocumentSnapshot data) {
       this.number = data['number'];
-      this.delivery = data['delivery'];
-      //this.productsPrice = data['productsPrice'];
-      this.delivery = data['delivery'];
-
+this.dateTime = data['dateTime'];
     data['products'].forEach((data) {
-      //if(data)
       this.products.add({
         'sellerUid': data['sellerUid'],
-        'sellerDisplayName': data['sellerDisplayName'],
         'image': data['image'],
-        'productId': data['productId'],
-        'productDescription': data['productDescription'],
-        'productName': data['productName'],
-        'productPrice': data['productPrice'],
-        if (data['quantity'] != null) 'quantity': data['quantity'],
-        if (data['info'] != null) 'info': data['info'],
       });
-      this.productsPrice += data['productPrice'] * data['quantity'];
     });
   }
 

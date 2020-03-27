@@ -4,6 +4,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:image_fade/image_fade.dart';
 import 'package:shopaholics/Classes/Order.dart';
 import 'package:shopaholics/Classes/User.dart';
+import 'package:shopaholics/Widgets/Button.dart';
 import 'package:shopaholics/Widgets/SecondaryView.dart';
 
 class SalesPage extends StatelessWidget {
@@ -32,6 +33,7 @@ class SalesPage extends StatelessWidget {
                   'products': list2,
                   'statusIconIndex': doc['statusIconIndex'],
                   'statusMessage': doc['statusMessage'],
+                  'customerUid': doc['uid'],
                 });
             });
             Widget productWidget(data) {
@@ -104,11 +106,11 @@ class SalesPage extends StatelessWidget {
                 return Card(
                   margin: EdgeInsets.symmetric(horizontal: 0, vertical: 5),
                   elevation: 3,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
-                    child: Column(
-                      children: <Widget>[
-                        Row(
+                  child: Column(
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(right: 20, top: 8),
+                        child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: <Widget>[
                             Column(
@@ -126,19 +128,27 @@ class SalesPage extends StatelessWidget {
                             )
                           ],
                         ),
-                        Row(children: <Widget>[
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 20),
+                        child: Row(children: <Widget>[
                           for (int i = 0; i <= 3 && i < list[index]['products'].length; i++)
                             productWidget(list[index]['products'][i])
                         ]),
-                        Row(mainAxisAlignment: MainAxisAlignment.end, children: <Widget>[
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 10, top: 8),
+                        child: Row(mainAxisAlignment: MainAxisAlignment.end, children: <Widget>[
+                          OutlinedButton(text: 'ارسال رسالة للزبون'),
+                          Expanded(child: Container()),
                           status,
                           Text(
                             list[index]['statusMessage'],
                             style: TextStyle(fontSize: 14),
-                          )
-                        ])
-                      ],
-                    ),
+                          ),
+                        ]),
+                      )
+                    ],
                   ),
                 );
               },

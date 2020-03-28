@@ -138,7 +138,7 @@ class _Order extends StatelessWidget {
                     productWidget(data['products'][2]),
                 ],
               ),
-              if (data['products'][0]['info'] != null)
+              if (data['products'][0]['info'] != null && data['products'][0]['info']!='')
                 Padding(
                   padding: const EdgeInsets.only(bottom: 12, top: 8),
                   child: Row(

@@ -88,6 +88,7 @@ class CurrentUser extends HiveObject {
       });
     }
 
+
     this.uid = user.uid;
     this.email = user.email;
     this.displayName = name;

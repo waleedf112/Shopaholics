@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
+import 'package:mdi/mdi.dart';
 import 'package:persistent_bottom_nav_bar/utils/utils.dart';
 import 'package:shopaholics/Classes/User.dart';
 import 'package:shopaholics/Classes/UserRole.dart';
@@ -26,6 +27,7 @@ import 'SigningPage.dart';
 import 'SubPages/Addresses.dart';
 import 'SubPages/MyAccount.dart';
 import 'SubPages/MyOrders.dart';
+import 'SubPages/MyProducts.dart';
 import 'SubPages/RolesRequestsPage.dart';
 import 'SubPages/rolesPage.dart';
 import 'SubPages/salesPage.dart';
@@ -190,6 +192,13 @@ class SettingsPage extends StatelessWidget {
         if (isSignedIn())
           settingSection([
             if (currentUser.role != UserRole.customer)
+              setting(
+                title: 'منتجاتي',
+                desc: 'عرض جميع منتجاتك وادارتها',
+                icon: Mdi.packageVariantClosed,
+                onPressed: () => PagePush(context, MyProductsPage()),
+              ),
+              if (currentUser.role != UserRole.customer)
               setting(
                 title: 'المبيعات',
                 desc: 'لعرض المبيعات وتحديث حاله كل شحنة',

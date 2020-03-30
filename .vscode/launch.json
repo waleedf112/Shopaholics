@@ -4,6 +4,7 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+        
         {
             "name": "Release",
             "request": "launch",
@@ -19,13 +20,13 @@
             "name": "Nexus 5",
             "request": "launch",
             "type": "dart",
-            "deviceId": "emulator-5556"
+            "deviceId": "emulator-5554"
         },
         {
             "name": "Pixel 3XL",
             "request": "launch",
             "type": "dart",
-            "deviceId": "emulator-5554"
+            "deviceId": "emulator-5556"
         }
     ],
     "compounds": [

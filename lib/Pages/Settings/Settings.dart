@@ -156,15 +156,14 @@ class SettingsPage extends StatelessWidget {
                   icon: Icons.lock,
                   onPressed: () async {
                     FocusScope.of(context).unfocus();
-                    PagePush(
-                        context,
-                        SecondaryView(
-                            child: RaisedButton(onPressed: (){
-                              PagePush(context, Conversation(
-                          'mCKOtUZ4UMxx3zRltbuN',
-                          '',
-                        ));
-                            })));
+                    PagePush(context, SecondaryView(child: RaisedButton(onPressed: () {
+                      PagePush(
+                          context,
+                          Conversation(
+                            'mCKOtUZ4UMxx3zRltbuN',
+                            '',
+                          ));
+                    })));
                   }),
             setting(
                 title: 'حسابي',
@@ -198,7 +197,7 @@ class SettingsPage extends StatelessWidget {
                 icon: Mdi.packageVariantClosed,
                 onPressed: () => PagePush(context, MyProductsPage()),
               ),
-              if (currentUser.role != UserRole.customer)
+            if (currentUser.role != UserRole.customer)
               setting(
                 title: 'المبيعات',
                 desc: 'لعرض المبيعات وتحديث حاله كل شحنة',

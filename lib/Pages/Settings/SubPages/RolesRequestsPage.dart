@@ -138,34 +138,34 @@ class _RolesRequestsPageState extends State<RolesRequestsPage> {
                               ),
                             ],
                           ),
-                          if(user['role']['inSaudi']!=null)Column(
-                            children: <Widget>[
-                              if(user['role']['inSaudi'])Row(
-                                children: <Widget>[
-                                  Text('حساب معروف:'),
-                                  SizedBox(width: 3),
-
-                                  Text(user['role']['idNumber']),
-                                ],
-                              ),
-                              if(!user['role']['inSaudi'])Row(
-                                children: <Widget>[
-                                  Text('رقم الهوية:'),
-                                  SizedBox(width: 3),
-                                  Text(user['role']['idNumber']),
-
-                                ],
-                              ),
-                              Row(
-                                children: <Widget>[
-                                  Text('الرقم البنكي:'),
-                                  SizedBox(width: 3),
-                                  Text(user['role']['bankInfo']),
-
-                                ],
-                              )
-                            ],
-                          )
+                          if (user['role']['inSaudi'] != null)
+                            Column(
+                              children: <Widget>[
+                                if (user['role']['inSaudi'])
+                                  Row(
+                                    children: <Widget>[
+                                      Text('حساب معروف:'),
+                                      SizedBox(width: 3),
+                                      Text(user['role']['idNumber']),
+                                    ],
+                                  ),
+                                if (!user['role']['inSaudi'])
+                                  Row(
+                                    children: <Widget>[
+                                      Text('رقم الهوية:'),
+                                      SizedBox(width: 3),
+                                      Text(user['role']['idNumber']),
+                                    ],
+                                  ),
+                                Row(
+                                  children: <Widget>[
+                                    Text('الرقم البنكي:'),
+                                    SizedBox(width: 3),
+                                    Text(user['role']['bankInfo']),
+                                  ],
+                                )
+                              ],
+                            )
                         ],
                       ),
                     ),

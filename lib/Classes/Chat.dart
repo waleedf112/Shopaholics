@@ -6,6 +6,4 @@ class ChatMessage {
     this.sender = data['sender'];
     this.message = data['message'];
   }
-
-  
 }

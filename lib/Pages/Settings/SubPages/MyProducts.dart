@@ -8,10 +8,9 @@ class MyProductsPage extends StatelessWidget {
     return SecondaryView(
       title: 'منتجاتي',
       child: StreamBuilder(
-        stream: Firestore.instance.collection('ProductOffer').getDocuments().asStream() ,
-        builder: (BuildContext context, AsyncSnapshot snapshot){
-          return Container(
-          );
+        stream: Firestore.instance.collection('ProductOffer').getDocuments().asStream(),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          return Container();
         },
       ),
     );

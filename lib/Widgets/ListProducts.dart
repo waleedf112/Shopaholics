@@ -14,8 +14,7 @@ class ListProducts extends StatefulWidget {
   List<DocumentSnapshot> list;
   GridProductsType gridProductsType;
   RequestType requestType;
-  ListProducts(
-      {@required this.list, @required this.gridProductsType, this.requestType});
+  ListProducts({@required this.list, @required this.gridProductsType, this.requestType});
 
   @override
   _ListProductsState createState() => _ListProductsState();
@@ -31,8 +30,7 @@ class _ListProductsState extends State<ListProducts> {
         child: GridView.builder(
           physics: BouncingScrollPhysics(),
           itemCount: widget.list.length,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2, childAspectRatio: 0.5),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 0.5),
           itemBuilder: (BuildContext context, int index) {
             if (widget.gridProductsType == GridProductsType.offers) {
               ProductOffer _product = new ProductOffer.retrieveFromDatabase(

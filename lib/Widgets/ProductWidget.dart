@@ -36,9 +36,7 @@ class _ProductWidgetState extends State<ProductWidget> {
         return IconButton(
             icon: Icon(
               widget.item is ProductRequest ? Icons.bookmark : Icons.favorite,
-              color: widget.item is ProductRequest
-                  ? Colors.green[600]
-                  : Colors.red,
+              color: widget.item is ProductRequest ? Colors.green[600] : Colors.red,
             ),
             onPressed: widget.item is ProductRequest
                 ? null
@@ -49,9 +47,7 @@ class _ProductWidgetState extends State<ProductWidget> {
       } else {
         return IconButton(
             icon: Icon(
-              widget.item is ProductRequest
-                  ? Icons.bookmark_border
-                  : Icons.favorite_border,
+              widget.item is ProductRequest ? Icons.bookmark_border : Icons.favorite_border,
             ),
             onPressed: widget.item is ProductRequest
                 ? null
@@ -82,8 +78,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    TextWidget(formatTime(widget.item.time),
-                        style: TextStyle(color: Colors.grey, fontSize: 11)),
+                    TextWidget(formatTime(widget.item.time), style: TextStyle(color: Colors.grey, fontSize: 11)),
                     TextWidget(widget.item.productName,
                         style: TextStyle(fontWeight: FontWeight.bold),
                         maxLines: 1,
@@ -101,8 +96,7 @@ class _ProductWidgetState extends State<ProductWidget> {
     }
 
     Widget getPrice() {
-      return TextWidget('${widget.item.productPrice} ريال',
-          style: TextStyle(fontWeight: FontWeight.bold));
+      return TextWidget('${widget.item.productPrice} ريال', style: TextStyle(fontWeight: FontWeight.bold));
     }
 
     if (widget.item is ProductRequest) {
@@ -126,17 +120,13 @@ class _ProductWidgetState extends State<ProductWidget> {
                       ? Placeholder()
                       : ImageFade(
                           image: NetworkImage(widget.item.productImagesURLs[0]),
-                          errorBuilder: (BuildContext context, Widget child,
-                              dynamic exception) {
+                          errorBuilder: (BuildContext context, Widget child, dynamic exception) {
                             return Container(
                               color: Colors.grey.withOpacity(0.2),
-                              child: Center(
-                                  child: Icon(Icons.broken_image,
-                                      color: Colors.grey, size: 128.0)),
+                              child: Center(child: Icon(Icons.broken_image, color: Colors.grey, size: 128.0)),
                             );
                           },
-                          loadingBuilder: (BuildContext context, Widget child,
-                              ImageChunkEvent event) {
+                          loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent event) {
                             return Container(
                               color: Colors.grey.withOpacity(0.2),
                               child: SpinKitDoubleBounce(
@@ -158,8 +148,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                       getPrice(),
                       FutureBuilder(
                         future: calculateDistance(widget.item.userUid),
-                        builder: (BuildContext context,
-                            AsyncSnapshot<String> snapshot) {
+                        builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
                           if (snapshot.hasError) {
                             return Icon(
                               Mdi.mapMarkerRemoveOutline,
@@ -172,9 +161,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                               child: TextWidget(snapshot.data,
                                   minFontSize: 11,
                                   maxFontSize: 14,
-                                  style: TextStyle(
-                                      color: Colors.grey,
-                                      fontStyle: FontStyle.italic)),
+                                  style: TextStyle(color: Colors.grey, fontStyle: FontStyle.italic)),
                             );
                           }
                           return Padding(
@@ -196,10 +183,7 @@ class _ProductWidgetState extends State<ProductWidget> {
       );
     } else if (widget.item is ProductOffer) {
       return InkWell(
-        onTap: () => PagePush(
-            context,
-            ProductViewer(
-                product: widget.item, requestType: widget.requestType)),
+        onTap: () => PagePush(context, ProductViewer(product: widget.item, requestType: widget.requestType)),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 5),
           child: Container(
@@ -212,17 +196,13 @@ class _ProductWidgetState extends State<ProductWidget> {
                       ? Placeholder()
                       : ImageFade(
                           image: NetworkImage(widget.item.productImagesURLs[0]),
-                          errorBuilder: (BuildContext context, Widget child,
-                              dynamic exception) {
+                          errorBuilder: (BuildContext context, Widget child, dynamic exception) {
                             return Container(
                               color: Colors.grey.withOpacity(0.2),
-                              child: Center(
-                                  child: Icon(Icons.broken_image,
-                                      color: Colors.grey, size: 128.0)),
+                              child: Center(child: Icon(Icons.broken_image, color: Colors.grey, size: 128.0)),
                             );
                           },
-                          loadingBuilder: (BuildContext context, Widget child,
-                              ImageChunkEvent event) {
+                          loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent event) {
                             return Container(
                               color: Colors.grey.withOpacity(0.2),
                               child: SpinKitDoubleBounce(

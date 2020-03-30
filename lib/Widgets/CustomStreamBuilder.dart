@@ -21,8 +21,7 @@ class LoadingStreamBuilder extends StatelessWidget {
           ),
         ),
         secondChild: loading ? Container() : widget,
-        crossFadeState:
-            hasData ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+        crossFadeState: hasData ? CrossFadeState.showSecond : CrossFadeState.showFirst,
         duration: Duration(milliseconds: 200));
   }
 }

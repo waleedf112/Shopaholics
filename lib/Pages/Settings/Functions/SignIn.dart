@@ -10,8 +10,7 @@ import 'package:shopaholics/Widgets/CustomErrorDialog.dart';
 
 import '../../../main.dart';
 
-Future<void> signInUser(context,
-    {@required GlobalKey<FormState> formKey, email, password}) async {
+Future<void> signInUser(context, {@required GlobalKey<FormState> formKey, email, password}) async {
   FocusScope.of(context).unfocus();
   String error;
   if (formKey.currentState.validate()) {

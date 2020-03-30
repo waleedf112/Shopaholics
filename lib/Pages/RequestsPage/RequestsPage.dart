@@ -20,8 +20,7 @@ enum RequestType {
   acceptedRequest,
   normal,
 }
-ValueNotifier<int> updatedRequestsPage =
-    new ValueNotifier<int>(DateTime.now().millisecondsSinceEpoch);
+ValueNotifier<int> updatedRequestsPage = new ValueNotifier<int>(DateTime.now().millisecondsSinceEpoch);
 
 class RequestsPage extends StatelessWidget {
   Widget _buildRequestRow({Widget child, UserRole blockedRoles}) {
@@ -54,8 +53,7 @@ class RequestsPage extends StatelessWidget {
                 child: RequestsRow(
                     query: Firestore.instance
                         .collection('ProductRequests')
-                        .where('pendingTraders',
-                            arrayContains: currentUser.uid),
+                        .where('pendingTraders', arrayContains: currentUser.uid),
                     title: 'العروض المقدمة',
                     requestType: RequestType.normal),
               ),
@@ -91,8 +89,7 @@ class RequestsPage extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
                                   TextWidget(
                                     'طلباتي',
@@ -110,10 +107,8 @@ class RequestsPage extends StatelessWidget {
                                             title: 'طلباتي',
                                             child: ListProducts(
                                               list: documents,
-                                              gridProductsType:
-                                                  GridProductsType.requests,
-                                              requestType:
-                                                  RequestType.myRequest,
+                                              gridProductsType: GridProductsType.requests,
+                                              requestType: RequestType.myRequest,
                                             ),
                                           ),
                                         );
@@ -125,12 +120,10 @@ class RequestsPage extends StatelessWidget {
                               height: 350,
                               child: ListView.builder(
                                 physics: BouncingScrollPhysics(),
-                                itemCount:
-                                    documents == null ? 0 : documents.length,
+                                itemCount: documents == null ? 0 : documents.length,
                                 scrollDirection: Axis.horizontal,
                                 itemBuilder: (BuildContext context, int index) {
-                                  ProductRequest _product =
-                                      new ProductRequest.retrieveFromDatabase(
+                                  ProductRequest _product = new ProductRequest.retrieveFromDatabase(
                                     documents[index].data,
                                     documents[index].reference.path,
                                   );
@@ -147,25 +140,18 @@ class RequestsPage extends StatelessWidget {
                                       FutureBuilder(
                                         future: Firestore.instance
                                             .collection('ProductRequests')
-                                            .document(_product.reference
-                                                .split('/')[1])
+                                            .document(_product.reference.split('/')[1])
                                             .collection('offers')
                                             .getDocuments(),
-                                        builder: (BuildContext context,
-                                            AsyncSnapshot<QuerySnapshot>
-                                                snapshot) {
-                                          if (snapshot.hasData &&
-                                              snapshot
-                                                  .data.documents.isNotEmpty)
+                                        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                                          if (snapshot.hasData && snapshot.data.documents.isNotEmpty)
                                             return Positioned(
                                               left: 0,
                                               child: CircleAvatar(
-                                                backgroundColor:
-                                                    Colors.red[500],
+                                                backgroundColor: Colors.red[500],
                                                 radius: 12,
                                                 child: Text(
-                                                  snapshot.data.documents.length
-                                                      .toString(),
+                                                  snapshot.data.documents.length.toString(),
                                                   style: TextStyle(
                                                     color: Colors.white,
                                                     fontSize: 12,

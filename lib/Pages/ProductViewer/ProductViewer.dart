@@ -231,7 +231,7 @@ class _ProductViewerState extends State<ProductViewer> {
                                   OutlinedButton(
                                       text: 'ارسال رسالة',
                                       function: () async {
-                                        await sendPrivateMessage(context,widget.product.userUid);
+                                        await sendPrivateMessage(context, widget.product.userUid);
                                       }),
                                 ],
                               ),

@@ -20,12 +20,8 @@ class OfferRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: Firestore.instance
-          .collection('Users')
-          .document(trade['traderUid'])
-          .get(),
-      builder:
-          (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+      future: Firestore.instance.collection('Users').document(trade['traderUid']).get(),
+      builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
         if (!snapshot.hasData)
           return Stack(
             children: <Widget>[
@@ -42,10 +38,8 @@ class OfferRow extends StatelessWidget {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              TextWidget('....',
-                                  minFontSize: 16, maxFontSize: 18),
-                              TextWidget('يبعد عنك ...',
-                                  minFontSize: 11, maxFontSize: 13),
+                              TextWidget('....', minFontSize: 16, maxFontSize: 18),
+                              TextWidget('يبعد عنك ...', minFontSize: 11, maxFontSize: 13),
                               Rating(null),
                             ],
                           ),
@@ -103,20 +97,16 @@ class OfferRow extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        TextWidget(trader['displayName'],
-                            minFontSize: 16, maxFontSize: 18),
+                        TextWidget(trader['displayName'], minFontSize: 16, maxFontSize: 18),
                         FutureBuilder(
                           future: calculateDistance(trade['traderUid']),
-                          builder: (BuildContext context,
-                              AsyncSnapshot<String> snapshot) {
+                          builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
                             if (snapshot.hasError) {
                               return TextWidget(
                                 'لم يحدد موقع البائع',
                                 minFontSize: 11,
                                 maxFontSize: 13,
-                                style: TextStyle(
-                                    color: Colors.grey,
-                                    fontStyle: FontStyle.italic),
+                                style: TextStyle(color: Colors.grey, fontStyle: FontStyle.italic),
                               );
                             } else if (snapshot.hasData) {
                               return Directionality(
@@ -128,8 +118,7 @@ class OfferRow extends StatelessWidget {
                                 ),
                               );
                             }
-                            return TextWidget('يبعد عنك ...',
-                                minFontSize: 18, maxFontSize: 20);
+                            return TextWidget('يبعد عنك ...', minFontSize: 18, maxFontSize: 20);
                           },
                         ),
                         Rating(trader['rating']),
@@ -167,17 +156,14 @@ class OfferRow extends StatelessWidget {
                                 firstButtonText: 'قبول العرض',
                                 secondButtonText: 'تراجع',
                                 secondButtonColor: Colors.black54,
-                                secondButtonFunction: () =>
-                                    Navigator.of(context).pop(),
+                                secondButtonFunction: () => Navigator.of(context).pop(),
                                 firstButtonFunction: () {
                                   Navigator.of(context).pop();
                                   loadingScreen(
                                       context: context,
                                       function: () async {
-                                        await tradeOfferAccept(trade)
-                                            .whenComplete(() {
-                                          updatedRequestsPage.value =
-                                              DateTime.now().millisecondsSinceEpoch;
+                                        await tradeOfferAccept(trade).whenComplete(() {
+                                          updatedRequestsPage.value = DateTime.now().millisecondsSinceEpoch;
                                           Navigator.of(context).pop();
                                           Navigator.of(context).pop();
                                           PagePush(context, MyOrdersPage());

@@ -21,11 +21,7 @@ class TestPage extends StatelessWidget {
 
     return SecondaryView(
       child: StreamBuilder(
-        stream: Firestore.instance
-            .collection('ProductOffer')
-            .where('tags', isEqualTo: null)
-            .getDocuments()
-            .asStream(),
+        stream: Firestore.instance.collection('ProductOffer').where('tags', isEqualTo: null).getDocuments().asStream(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           return ListView.builder(
             itemCount: snapshot.data.documents.length,
@@ -35,10 +31,8 @@ class TestPage extends StatelessWidget {
                   Text(snapshot.data.documents[index].data['id'].toString()),
                   RaisedButton(onPressed: () async {
                     List<String> tags = new List();
-                    String desc = snapshot
-                        .data.documents[index].data['productDescription'];
-                    String name =
-                        snapshot.data.documents[index].data['productName'];
+                    String desc = snapshot.data.documents[index].data['productDescription'];
+                    String name = snapshot.data.documents[index].data['productName'];
                     desc = cleanUp(desc);
                     name = cleanUp(name);
                     List<String> x = desc.split(' ');
@@ -49,8 +43,7 @@ class TestPage extends StatelessWidget {
                     y = y.toSet().toList();
                     await Firestore.instance
                         .collection('ProductOffer')
-                        .document(snapshot.data.documents[index].data['id']
-                            .toString())
+                        .document(snapshot.data.documents[index].data['id'].toString())
                         .updateData({'tags': x + y});
                   }),
                 ],

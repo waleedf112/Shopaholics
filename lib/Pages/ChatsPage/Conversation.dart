@@ -139,7 +139,10 @@ class _ConversationState extends State<Conversation> {
                 physics: BouncingScrollPhysics(),
                 itemCount: snapshot.data.data['messages'].length,
                 itemBuilder: (BuildContext context, int index) {
-                  return _SentBubble(ChatMessage(snapshot.data.data['messages'][index]),snapshot.data.data['messages'].length-1==index,);
+                  return _SentBubble(
+                    ChatMessage(snapshot.data.data['messages'][index]),
+                    snapshot.data.data['messages'].length - 1 == index,
+                  );
                 },
               );
             },
@@ -153,14 +156,14 @@ class _ConversationState extends State<Conversation> {
 class _SentBubble extends StatelessWidget {
   ChatMessage chat;
   bool isLast;
-  _SentBubble(this.chat,this.isLast);
+  _SentBubble(this.chat, this.isLast);
 
   bool isSent() => chat.sender == currentUser.uid;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: isLast?const EdgeInsets.only(bottom:100):EdgeInsets.all(0),
+      padding: isLast ? const EdgeInsets.only(bottom: 100) : EdgeInsets.all(0),
       child: Container(
         child: Directionality(
           textDirection: TextDirection.rtl,

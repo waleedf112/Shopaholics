@@ -27,8 +27,8 @@ class Order {
   }
 
   Order.fromDatabase(DocumentSnapshot data) {
-      this.number = data['number'];
-this.dateTime = data['dateTime'];
+    this.number = data['number'];
+    this.dateTime = data['dateTime'];
     data['products'].forEach((data) {
       this.products.add({
         'sellerUid': data['sellerUid'],

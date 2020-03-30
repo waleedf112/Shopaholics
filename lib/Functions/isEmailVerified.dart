@@ -10,9 +10,7 @@ Future<bool> isEmailVerified(context, [bool pop = true]) async {
       context: context,
       title: 'خطأ',
       content: Text(
-        'لم يتم تفعيل بريدك الالكتروني!' +
-            '\n' +
-            'تم ارسال رساله جديدة لتأكيد صحة بريدك.',
+        'لم يتم تفعيل بريدك الالكتروني!' + '\n' + 'تم ارسال رساله جديدة لتأكيد صحة بريدك.',
         textAlign: TextAlign.center,
       ),
       firstButtonText: 'حسناً',

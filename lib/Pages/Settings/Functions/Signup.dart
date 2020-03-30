@@ -10,8 +10,7 @@ import 'package:shopaholics/Widgets/CustomErrorDialog.dart';
 
 import '../../../main.dart';
 
-Future<void> signUpUser(context,
-    {formKey, email, password, String name, String phone}) async {
+Future<void> signUpUser(context, {formKey, email, password, String name, String phone}) async {
   FocusScope.of(context).unfocus();
   String error;
   if (formKey.currentState.validate()) {

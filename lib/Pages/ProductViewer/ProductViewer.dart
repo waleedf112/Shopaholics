@@ -14,7 +14,9 @@ import 'package:shopaholics/Functions/openMap.dart';
 import 'package:shopaholics/Pages/ChatsPage/ChatPage.dart';
 import 'package:shopaholics/Pages/RequestsPage/OfferRow.dart';
 import 'package:shopaholics/Pages/RequestsPage/RequestsPage.dart';
+import 'package:shopaholics/Pages/Settings/SubPages/MyProducts.dart';
 import 'package:shopaholics/Widgets/Button.dart';
+import 'package:shopaholics/Widgets/CustomDialog.dart';
 import 'package:shopaholics/Widgets/SecondaryView.dart';
 import 'package:shopaholics/Widgets/TextWidget.dart';
 import 'package:shopaholics/Widgets/loadingDialog.dart';
@@ -42,6 +44,48 @@ class _ProductViewerState extends State<ProductViewer> {
   }
 
   Widget likeButton() {
+    if (widget.liked != null && widget.product.userUid == currentUser.uid)
+      return Row(
+        children: <Widget>[
+          IconButton(
+            icon: Icon(
+              Mdi.fileDocumentEdit,
+              color: Colors.grey.withOpacity(0.7),
+            ),
+            onPressed: () {},
+          ),
+          IconButton(
+            icon: Icon(
+              Mdi.delete,
+              color: Colors.red[800].withOpacity(0.7),
+            ),
+            onPressed: () {
+              CustomDialog(
+                context: context,
+                title: 'حذف المنتج',
+                content: TextWidget('هل انت متأكد انك تريد حذف هذا المنتج؟\nلن يمكنك التراجع عن هذا الاختيار بعد الحذف!',),
+                firstButtonColor: Colors.red,
+                secondButtonColor: Colors.black54,
+                firstButtonFunction: (){
+                  Navigator.of(context).pop();
+                  loadingScreen(
+                    context: context,
+                    function: () async {
+                      await Firestore.instance.collection(widget.product.reference.split('/')[0]).document(widget.product.reference.split('/')[1]).updateData({'deleted':true,});
+                      updatedMyProductsPage.value = DateTime.now().millisecondsSinceEpoch;
+                      Navigator.of(context).pop();
+                      Navigator.of(context).pop();
+                    }
+                  );
+                },
+                secondButtonFunction: ()=>Navigator.of(context).pop(),
+                firstButtonText: 'حذف المنتج',
+                secondButtonText: 'تراجع',
+              );
+            },
+          ),
+        ],
+      );
     if (widget.liked) {
       return IconButton(
           icon: Icon(

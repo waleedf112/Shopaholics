@@ -258,6 +258,7 @@ class CurrentUser extends HiveObject {
         : Firestore.instance
             .collection('ProductOffer')
             .where('id', whereIn: this.likedOffers)
+            .where('deleted', isEqualTo: false)
             .getDocuments()
             .asStream();
   }
@@ -291,11 +292,11 @@ class CurrentUser extends HiveObject {
   Future<List<Map<String, dynamic>>> getCart() async {
     List<DocumentSnapshot> documents =
         (await Firestore.instance.collection('Users').document(this.uid).collection('cart').getDocuments()).documents;
+    documents.removeWhere((test) => test.data['deleted']);
     List<Map<String, dynamic>> cart = new List();
     for (DocumentSnapshot doc in documents) {
       Map product =
           (await Firestore.instance.collection('ProductOffer').document(doc.data['product'].toString()).get()).data;
-
       int count = doc.data['count'];
       cart.add({'product': product, 'count': count});
     }

@@ -32,6 +32,13 @@ class _ProductWidgetState extends State<ProductWidget> {
   @override
   Widget build(BuildContext context) {
     Widget likeButton() {
+      if (widget.liked != null && widget.item.userUid == currentUser.uid)
+        return IconButton(
+          icon: Icon(
+            Icons.favorite,
+            color: Colors.transparent,
+          ),
+        );
       if (widget.liked) {
         return IconButton(
             icon: Icon(
@@ -68,28 +75,31 @@ class _ProductWidgetState extends State<ProductWidget> {
     }
 
     infoText() {
-      return Container(
-        height: 70,
-        child: Padding(
-          padding: const EdgeInsets.only(top: 3, right: 7),
-          child: Row(
-            children: <Widget>[
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    TextWidget(formatTime(widget.item.time), style: TextStyle(color: Colors.grey, fontSize: 11)),
-                    TextWidget(widget.item.productName,
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                        maxLines: 1,
-                        maxFontSize: 14,
-                        minFontSize: 14,
-                        overflow: TextOverflow.ellipsis),
-                    TextWidget(widget.item.user),
-                  ],
+      return Directionality(
+        textDirection: TextDirection.rtl,
+        child: Container(
+          height: 70,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 3, right: 7),
+            child: Row(
+              children: <Widget>[
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      TextWidget(formatTime(widget.item.time), style: TextStyle(color: Colors.grey, fontSize: 11)),
+                      TextWidget(widget.item.productName,
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                          maxLines: 1,
+                          maxFontSize: 14,
+                          minFontSize: 14,
+                          overflow: TextOverflow.ellipsis),
+                      TextWidget(widget.item.user),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       );
@@ -219,6 +229,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                   padding: const EdgeInsets.only(right: 7),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    textDirection: TextDirection.rtl,
                     children: <Widget>[
                       getPrice(),
                       likeButton(),

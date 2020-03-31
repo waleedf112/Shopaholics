@@ -149,6 +149,7 @@ class ProductOffer {
       "displayName": currentUser.displayName,
       'Time': time,
       'id': counter,
+      'deleted': false,
       'productName': this.productName,
       'productDescription': this.productDescription,
       'productPrice': this.productPrice,

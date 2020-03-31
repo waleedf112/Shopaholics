@@ -93,7 +93,7 @@ class MainView extends StatelessWidget {
                     if (value != null && value.trim().isNotEmpty) {
                       return StreamBuilder(
                         stream: Firestore.instance
-                            .collection('ProductOffer')
+                            .collection('ProductOffer').where('deleted', isEqualTo: false)
                             .where('tags', arrayContainsAny: searchText.value.split(' '))
                             .getDocuments()
                             .asStream(),

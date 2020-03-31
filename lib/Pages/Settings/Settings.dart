@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:hive/hive.dart';
 import 'package:mdi/mdi.dart';
 import 'package:persistent_bottom_nav_bar/utils/utils.dart';
@@ -88,23 +89,53 @@ class SettingsPage extends StatelessWidget {
         padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
         child: Row(
           textDirection: TextDirection.rtl,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Opacity(
-              opacity: 0.3,
-              child: CircleAvatar(
-                backgroundImage: AssetImage('assets/default_avatar.png'),
-                backgroundColor: Colors.white,
-                radius: 30,
-              ),
-            ),
-            SizedBox(width: 12),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
+            Row(
+              textDirection: TextDirection.rtl,
               children: <Widget>[
-                TextWidget(currentUser.displayName, style: TextStyle(fontSize: 18)),
-                TextWidget(currentUser.email, style: TextStyle(fontSize: 12, color: Colors.grey)),
+                Opacity(
+                  opacity: 0.3,
+                  child: CircleAvatar(
+                    backgroundImage: AssetImage('assets/default_avatar.png'),
+                    backgroundColor: Colors.white,
+                    radius: 30,
+                  ),
+                ),
+                SizedBox(width: 12),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: <Widget>[
+                    TextWidget(currentUser.displayName, style: TextStyle(fontSize: 18)),
+                    TextWidget(currentUser.email, style: TextStyle(fontSize: 12, color: Colors.grey)),
+                  ],
+                ),
               ],
-            )
+            ),
+            if (currentUser.role != UserRole.customer)
+              FutureBuilder(
+                future: Firestore.instance.collection('Users').document(currentUser.uid).get(),
+                builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+                  if (!snapshot.hasData)
+                    return SpinKitRotatingCircle(
+                      color: Colors.grey.withOpacity(0.2),
+                      size: 30,
+                    );
+                  return Column(
+                    children: <Widget>[
+                      Icon(
+                        Icons.star_border,
+                        size: 30,
+                        color: Colors.green[700].withOpacity(0.7),
+                      ),
+                      Text(
+                        snapshot.data.data['rating'].toDouble().toStringAsFixed(2),
+                        style: TextStyle(color: Colors.black54),
+                      ),
+                    ],
+                  );
+                },
+              ),
           ],
         ),
       );

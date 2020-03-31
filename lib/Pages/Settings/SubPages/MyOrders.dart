@@ -6,6 +6,7 @@ import 'package:mdi/mdi.dart';
 import 'package:shopaholics/Classes/User.dart';
 import 'package:shopaholics/Widgets/SecondaryView.dart';
 import 'package:shopaholics/Widgets/TextWidget.dart';
+import 'package:shopaholics/Widgets/rating.dart';
 
 class MyOrdersPage extends StatelessWidget {
   @override
@@ -13,7 +14,11 @@ class MyOrdersPage extends StatelessWidget {
     return SecondaryView(
       title: 'طلباتي',
       child: FutureBuilder(
-        future: Firestore.instance.collection('Orders').where('uid', isEqualTo: currentUser.uid).getDocuments(),
+        future: Firestore.instance
+            .collection('Orders')
+            .where('uid', isEqualTo: currentUser.uid)
+            .orderBy('dateTime', descending: true)
+            .getDocuments(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data.documents.isEmpty)
@@ -157,7 +162,20 @@ class _Order extends StatelessWidget {
                   data['statusMessage'],
                   style: TextStyle(fontSize: 14),
                 )
-              ])
+              ]),
+              if (data['statusMessage'] == 'تم توصيل الطلب' && !data['hasBeenRated'])
+                ListView.builder(
+                  itemCount: data['products'].length,
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemBuilder: (BuildContext context, int index) {
+                    return GiveRating(
+                      uid: data['products'][index]['sellerUid'],
+                      displayName: data['products'][index]['sellerDisplayName'],
+                      orderId: data['number'],
+                    );
+                  },
+                ),
             ],
           ),
         ),

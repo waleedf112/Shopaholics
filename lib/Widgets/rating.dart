@@ -1,4 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+
+import 'TextWidget.dart';
 
 class Rating extends StatelessWidget {
   double rating;
@@ -44,9 +47,78 @@ class Rating extends StatelessWidget {
           Row(
             children: stars,
           ),
-          Text('  ($tmp)'),
+          Text('  (${tmp.toStringAsFixed(2)})'),
         ],
       ),
+    );
+  }
+}
+
+class GiveRating extends StatefulWidget {
+  String uid;
+  String displayName;
+  int rating = 0;
+  Color color = Colors.green[700];
+  String orderId;
+  GiveRating({this.uid, this.displayName, this.orderId});
+
+  @override
+  _GiveRatingState createState() => _GiveRatingState();
+}
+
+class _GiveRatingState extends State<GiveRating> {
+  Widget _buildStarWidget(int index) {
+    Widget _getIcon() => widget.rating > index - 1 ? Icon(Icons.star) : Icon(Icons.star_border);
+    void _setRating() {
+      if (widget.rating == 0) {
+        Scaffold.of(context).showSnackBar(SnackBar(
+          content: Text(
+            'تم تقييم ${widget.displayName} بنجاح!',
+            textAlign: TextAlign.right,
+            textDirection: TextDirection.rtl,
+          ),
+          backgroundColor: Colors.black.withOpacity(0.7),
+          elevation: 0,
+          duration: Duration(milliseconds: 1500),
+        ));
+        Firestore.instance.collection('Users').document(widget.uid).get().then((onValue) {
+          int ratingCount = 0;
+          if (onValue['ratingCount'] != null) ratingCount = onValue['ratingCount'];
+          double rating = ((onValue['rating'] * ratingCount) + index) / (ratingCount + 1);
+          ratingCount++;
+
+          Firestore.instance.collection('Users').document(widget.uid).updateData({
+            'rating': rating,
+            'ratingCount': ratingCount,
+          });
+          Firestore.instance.collection('Orders').document(widget.orderId).updateData({'hasBeenRated': true});
+        });
+        setState(() => widget.rating = index);
+      }
+    }
+
+    return IconButton(
+      icon: _getIcon(),
+      color: widget.color,
+      onPressed: () => _setRating(),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        Divider(color: Colors.grey),
+        Padding(
+          padding: const EdgeInsets.only(right: 10),
+          child: Row(
+            children: <Widget>[
+              Expanded(child: TextWidget(widget.displayName + ':')),
+              Row(children: List.generate(5, (i) => _buildStarWidget(i + 1))),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

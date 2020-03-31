@@ -20,7 +20,6 @@ List<String> _generateTags(String s1, String s2) {
     return tmp;
   }
 
-  List<String> tags = new List();
   String desc = s1;
   String name = s2;
   desc = cleanUp(desc);
@@ -119,15 +118,14 @@ class ProductOffer {
     this.productDescription = data['productDescription'];
     this.productPrice = data['productPrice'];
     this.time = data['Time'];
-    this.user = data['User']['displayName'];
-    this.userUid = data['User']['uid'];
+    this.user = data['displayName'];
+    this.userUid = data['uid'];
     this.productImagesURLs = data['productImagesURLs'];
     this.reference = reference;
   }
 
   pushToDatabase() async {
     int time = DateTime.now().millisecondsSinceEpoch;
-
     StorageReference storageReference;
 
     for (int i = 0; i < this.productImages.length; i++) {
@@ -147,10 +145,8 @@ class ProductOffer {
       'id': FieldValue.increment(1),
     });
     return await Firestore.instance.collection('ProductOffer').document(counter.toString()).setData({
-      'User': {
-        "uid": currentUser.uid,
-        "displayName": currentUser.displayName,
-      },
+      "uid": currentUser.uid,
+      "displayName": currentUser.displayName,
       'Time': time,
       'id': counter,
       'productName': this.productName,

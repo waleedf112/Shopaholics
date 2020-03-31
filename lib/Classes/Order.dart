@@ -12,8 +12,8 @@ class Order {
   Order(List<Map> products) {
     products.forEach((data) {
       this.products.add({
-        'sellerUid': data['product']['User']['uid'],
-        'sellerDisplayName': data['product']['User']['displayName'],
+        'sellerUid': data['product']['uid'],
+        'sellerDisplayName': data['product']['displayName'],
         'image': data['product']['productImagesURLs'][0],
         'productId': data['product']['id'],
         'productDescription': data['product']['productDescription'],
@@ -69,6 +69,7 @@ class Order {
       'products': this.products,
       'productsPrice': this.productsPrice,
       'delivery': this.delivery,
+      'hasBeenRated': false,
     };
     await Firestore.instance.collection('Orders').document(this.number).setData(data);
     await currentUser.emptyCart();

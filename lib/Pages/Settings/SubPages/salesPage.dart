@@ -14,7 +14,7 @@ class SalesPage extends StatelessWidget {
     return SecondaryView(
       title: 'المبيعات',
       child: FutureBuilder(
-        future: Firestore.instance.collection('Orders').getDocuments(),
+        future: Firestore.instance.collection('Orders').orderBy('dateTime',descending: true).getDocuments(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasData) {
             List<Map> list = new List();

@@ -221,7 +221,7 @@ class _ProductViewerState extends State<ProductViewer> {
                                                 .get(),
                                             builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
                                               if (!snapshot.hasData) return Rating(null);
-                                              return Rating(snapshot.data.data['rating']);
+                                              return Rating(snapshot.data.data['rating'].toDouble());
                                             },
                                           ),
                                         ),

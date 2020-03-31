@@ -70,8 +70,7 @@ class _EditProductState extends State<EditProduct> {
                         firstButtonFunction: () {
                           Navigator.of(context).pop();
                           Navigator.of(context).pop();
-                    Navigator.of(context).pop();
-
+                          Navigator.of(context).pop();
                         });
                   });
                 });

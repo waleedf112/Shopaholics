@@ -181,20 +181,21 @@ class _PaymentPageState extends State<PaymentPage> {
                               'cardCVV': cardCVVController.text,
                               'cardHolderName': cardHolderNameController.text,
                             }
-                          }).whenComplete((){
+                          }).whenComplete(() {
                             Navigator.of(context).pop();
                             CustomDialog(
-                              context: context,
-                              title: 'تم حفظ البطاقة',
-                              content: Text('تم حفظ البطاقة بنجاح!',textDirection: TextDirection.rtl,),
-                              firstButtonColor: Colors.black54,
-                              firstButtonText: 'حسناً',
-                              firstButtonFunction: (){
-                            Navigator.of(context).pop();
-                            Navigator.of(context).pop();
-
-                              }
-                            );
+                                context: context,
+                                title: 'تم حفظ البطاقة',
+                                content: Text(
+                                  'تم حفظ البطاقة بنجاح!',
+                                  textDirection: TextDirection.rtl,
+                                ),
+                                firstButtonColor: Colors.black54,
+                                firstButtonText: 'حسناً',
+                                firstButtonFunction: () {
+                                  Navigator.of(context).pop();
+                                  Navigator.of(context).pop();
+                                });
                           });
                         });
                   }),

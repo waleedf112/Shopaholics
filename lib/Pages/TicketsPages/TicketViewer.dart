@@ -120,7 +120,7 @@ class _TicketsViewerState extends State<TicketsViewer> {
                                                 "mailto:${snapshot.data.data['email']}?subject=بخصوص الشكوى عن ${getEmailSubject(getType(data['type']), data['ref'])}");
                                           } catch (e) {}
                                         }),
-                                        OutlinedButton(
+                                    OutlinedButton(
                                         child: Padding(
                                           padding: const EdgeInsets.all(2.0),
                                           child: Row(
@@ -142,9 +142,7 @@ class _TicketsViewerState extends State<TicketsViewer> {
                                           ticketRef.reference.updateData({
                                             'resolved': true,
                                           });
-                                          setState(() {
-                                            
-                                          });
+                                          setState(() {});
                                         }),
                                   ],
                                 );

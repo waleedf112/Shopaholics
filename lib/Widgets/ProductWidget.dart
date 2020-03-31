@@ -38,6 +38,7 @@ class _ProductWidgetState extends State<ProductWidget> {
             Icons.favorite,
             color: Colors.transparent,
           ),
+          onPressed: null,
         );
       if (widget.liked) {
         return IconButton(

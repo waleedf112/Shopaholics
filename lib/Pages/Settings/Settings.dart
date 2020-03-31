@@ -29,6 +29,7 @@ import 'SubPages/Addresses.dart';
 import 'SubPages/MyAccount.dart';
 import 'SubPages/MyOrders.dart';
 import 'SubPages/MyProducts.dart';
+import 'SubPages/PaymentPage.dart';
 import 'SubPages/RolesRequestsPage.dart';
 import 'SubPages/rolesPage.dart';
 import 'SubPages/salesPage.dart';
@@ -248,9 +249,10 @@ class SettingsPage extends StatelessWidget {
               onPressed: () => PagePush(context, AddressesPage()),
             ),
             setting(
-              title: 'وسائل الدفع',
-              desc: 'اضافة وحذف أي وسيلة للدفع',
+              title: 'وسيلة الدفع',
+              desc: 'اضافة او تعديل بيانات وسيلة الدفع',
               icon: Icons.credit_card,
+              onPressed: () => PagePush(context, PaymentPage()),
             ),
             setting(
               title: 'التسجيل كبائع',

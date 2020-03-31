@@ -10,12 +10,12 @@ import 'package:shopaholics/Functions/PagePush.dart';
 import 'package:shopaholics/Functions/isEmailVerified.dart';
 import 'package:shopaholics/Pages/Settings/SubPages/Addresses.dart';
 import 'package:shopaholics/Pages/Settings/SubPages/MyOrders.dart';
+import 'package:shopaholics/Pages/Settings/SubPages/PaymentPage.dart';
 import 'package:shopaholics/Widgets/Button.dart';
 import 'package:shopaholics/Widgets/CustomDialog.dart';
 import 'package:shopaholics/Widgets/SecondaryView.dart';
 import 'package:shopaholics/Widgets/TextWidget.dart';
 import 'package:shopaholics/Widgets/loadingDialog.dart';
-
 import 'noProductsInCart.dart';
 
 class ShoppingCart extends StatefulWidget {
@@ -290,7 +290,14 @@ class _ShoppingCartState extends State<ShoppingCart> {
                                             secondButtonFunction: () => Navigator.of(context).pop());
                                       } else {
                                         bool isVerified = (await isEmailVerified(context, false));
-                                        if (isVerified) {
+                                        bool hasCard = (await Firestore.instance
+                                                    .collection('Users')
+                                                    .document(currentUser.uid)
+                                                    .get())
+                                                .data['Card'] !=
+                                            null;
+
+                                        if (isVerified && hasCard) {
                                           loadingScreen(
                                               context: context,
                                               function: () async {
@@ -301,6 +308,8 @@ class _ShoppingCartState extends State<ShoppingCart> {
                                               }).whenComplete(() {
                                             PagePush(context, MyOrdersPage());
                                           });
+                                        } else {
+                                          PagePush(context, PaymentPage());
                                         }
                                       }
                                     },

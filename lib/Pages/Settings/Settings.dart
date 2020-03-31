@@ -12,6 +12,7 @@ import 'package:shopaholics/Classes/UserRole.dart';
 import 'package:shopaholics/Functions/PagePush.dart';
 import 'package:shopaholics/Pages/ChatsPage/ChatPage.dart';
 import 'package:shopaholics/Pages/ChatsPage/Conversation.dart';
+import 'package:shopaholics/Pages/TicketsPages/TicketViewer.dart';
 import 'package:shopaholics/Widgets/CustomDialog.dart';
 import 'package:shopaholics/Widgets/SecondaryView.dart';
 import 'package:shopaholics/Widgets/TextWidget.dart';
@@ -292,6 +293,7 @@ class SettingsPage extends StatelessWidget {
               title: 'البلاغات',
               desc: 'البلاغات عن المنتجات والطلبات والمستخدمين والشكاوى',
               icon: Icons.warning,
+              onPressed: () => PagePush(context, TicketsViewer()),
             ),
             setting(
               title: 'التصانيف والاقسام',

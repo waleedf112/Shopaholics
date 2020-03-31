@@ -4,6 +4,9 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:image_fade/image_fade.dart';
 import 'package:mdi/mdi.dart';
 import 'package:shopaholics/Classes/User.dart';
+import 'package:shopaholics/Functions/PagePush.dart';
+import 'package:shopaholics/Pages/TicketsPages/TicketPage.dart';
+import 'package:shopaholics/Widgets/Button.dart';
 import 'package:shopaholics/Widgets/SecondaryView.dart';
 import 'package:shopaholics/Widgets/TextWidget.dart';
 import 'package:shopaholics/Widgets/rating.dart';
@@ -156,13 +159,42 @@ class _Order extends StatelessWidget {
                     )
                   ]),
                 ),
-              Row(children: <Widget>[
-                status,
-                Text(
-                  data['statusMessage'],
-                  style: TextStyle(fontSize: 14),
-                )
-              ]),
+              Padding(
+                padding: const EdgeInsets.only(top: 3),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Row(
+                      children: <Widget>[
+                        status,
+                        Text(
+                          data['statusMessage'],
+                          style: TextStyle(fontSize: 14),
+                        ),
+                      ],
+                    ),
+                    OutlinedButton(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.only(left: 3),
+                            child: Text('تقديم شكوى'),
+                          ),
+                          Icon(Icons.priority_high),
+                        ],
+                      ),
+                      function: () => PagePush(
+                        context,
+                        TicketPage(
+                          ticketType: TicketType.orderComplaint,
+                          data: 'Orders/${data['number']}',
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
               if (data['statusMessage'] == 'تم توصيل الطلب' && !data['hasBeenRated'])
                 ListView.builder(
                   itemCount: data['products'].length,

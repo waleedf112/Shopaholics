@@ -15,6 +15,7 @@ import 'package:shopaholics/Pages/ChatsPage/ChatPage.dart';
 import 'package:shopaholics/Pages/RequestsPage/OfferRow.dart';
 import 'package:shopaholics/Pages/RequestsPage/RequestsPage.dart';
 import 'package:shopaholics/Pages/Settings/SubPages/MyProducts.dart';
+import 'package:shopaholics/Pages/TicketsPages/TicketPage.dart';
 import 'package:shopaholics/Widgets/Button.dart';
 import 'package:shopaholics/Widgets/CustomDialog.dart';
 import 'package:shopaholics/Widgets/SecondaryView.dart';
@@ -339,24 +340,34 @@ class _ProductViewerState extends State<ProductViewer> {
                                             }
                                           }),
                                       OutlinedButton(
-                                          child: Padding(
-                                        padding: const EdgeInsets.all(2.0),
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: <Widget>[
-                                            Expanded(
-                                                child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              children: <Widget>[
-                                                Text(widget.product is ProductOffer
-                                                    ? 'تبليغ عن منتج مخالف'
-                                                    : 'تبليغ عن طلب مخالف'),
-                                              ],
-                                            )),
-                                            Icon(Icons.priority_high),
-                                          ],
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(2.0),
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: <Widget>[
+                                              Expanded(
+                                                  child: Row(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: <Widget>[
+                                                  Text(widget.product is ProductOffer
+                                                      ? 'تبليغ عن منتج مخالف'
+                                                      : 'تبليغ عن طلب مخالف'),
+                                                ],
+                                              )),
+                                              Icon(Icons.priority_high),
+                                            ],
+                                          ),
                                         ),
-                                      )),
+                                        function: () => PagePush(
+                                          context,
+                                          TicketPage(
+                                            ticketType: widget.product is ProductOffer
+                                                ? TicketType.productComplaint
+                                                : TicketType.requestComplaint,
+                                            data: widget.product.reference,
+                                          ),
+                                        ),
+                                      ),
                                     ],
                                   ),
                                 )

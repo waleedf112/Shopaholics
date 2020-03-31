@@ -37,6 +37,7 @@ dependencies:
   url_launcher: ^5.4.2
   flutter_full_pdf_viewer: ^1.0.6
   auto_animated: ^2.0.2
+  awesome_card: ^1.1.0
 
   #? firebase packages:
   cloud_firestore: ^0.13.4+2

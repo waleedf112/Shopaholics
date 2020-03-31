@@ -23,6 +23,7 @@ import 'package:shopaholics/Widgets/loadingDialog.dart';
 import 'package:shopaholics/Widgets/rating.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'EditProduct.dart';
 import 'MakeOffer.dart';
 
 class ProductViewer extends StatefulWidget {
@@ -52,7 +53,7 @@ class _ProductViewerState extends State<ProductViewer> {
               Mdi.fileDocumentEdit,
               color: Colors.grey.withOpacity(0.7),
             ),
-            onPressed: () {},
+            onPressed: () => PagePush(context, EditProduct(widget.product)),
           ),
           IconButton(
             icon: Icon(

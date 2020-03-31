@@ -63,22 +63,27 @@ class _ProductViewerState extends State<ProductViewer> {
               CustomDialog(
                 context: context,
                 title: 'حذف المنتج',
-                content: TextWidget('هل انت متأكد انك تريد حذف هذا المنتج؟\nلن يمكنك التراجع عن هذا الاختيار بعد الحذف!',),
+                content: TextWidget(
+                    'هل انت متأكد انك تريد حذف هذا المنتج؟' + '\n' + 'لن يمكنك التراجع عن هذا الاختيار بعد الحذف!'),
                 firstButtonColor: Colors.red,
                 secondButtonColor: Colors.black54,
-                firstButtonFunction: (){
+                firstButtonFunction: () {
                   Navigator.of(context).pop();
                   loadingScreen(
-                    context: context,
-                    function: () async {
-                      await Firestore.instance.collection(widget.product.reference.split('/')[0]).document(widget.product.reference.split('/')[1]).updateData({'deleted':true,});
-                      updatedMyProductsPage.value = DateTime.now().millisecondsSinceEpoch;
-                      Navigator.of(context).pop();
-                      Navigator.of(context).pop();
-                    }
-                  );
+                      context: context,
+                      function: () async {
+                        await Firestore.instance
+                            .collection(widget.product.reference.split('/')[0])
+                            .document(widget.product.reference.split('/')[1])
+                            .updateData({
+                          'deleted': true,
+                        });
+                        updatedMyProductsPage.value = DateTime.now().millisecondsSinceEpoch;
+                        Navigator.of(context).pop();
+                        Navigator.of(context).pop();
+                      });
                 },
-                secondButtonFunction: ()=>Navigator.of(context).pop(),
+                secondButtonFunction: () => Navigator.of(context).pop(),
                 firstButtonText: 'حذف المنتج',
                 secondButtonText: 'تراجع',
               );

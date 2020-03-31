@@ -116,7 +116,11 @@ class _GridProductsState extends State<GridProducts> {
         break;
       case GridProductsType.offers:
         return StreamBuilder(
-          stream: Firestore.instance.collection('ProductOffer').where('deleted', isEqualTo: false).getDocuments().asStream(),
+          stream: Firestore.instance
+              .collection('ProductOffer')
+              .where('deleted', isEqualTo: false)
+              .getDocuments()
+              .asStream(),
           builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
             List<DocumentSnapshot> documents;
             try {

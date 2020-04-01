@@ -118,7 +118,7 @@ class _TicketsViewerState extends State<TicketsViewer> {
                                         function: () async {
                                           try {
                                             await launch(
-                                                'mailto:${snapshot.data.data['email']}?subject=بخصوص الشكوى عن ${getEmailSubject(getType(data['type']), data['ref'])}');
+                                                'mailto:${snapshot.data.data['email']}');
                                           } catch (e) {
                                             PagePush(
                                                 context,

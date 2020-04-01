@@ -118,22 +118,13 @@ class _TicketsViewerState extends State<TicketsViewer> {
                                         function: () async {
                                          
                                           try {
-                                           final Uri params = Uri(
-                                            scheme: 'mailto',
-                                            path: snapshot.data.data['email'],
-                                            query:
-                                                'subject=بخصوص الشكوى عن ${getEmailSubject(getType(data['type']), data['ref'])}', //add subject and body here
-                                          );
-                                          var url = params.toString();
-                                          if (await canLaunch(url)) {
-                                            await launch(url);
-                                          } else {
-                                            
-                                            throw 'Could not launch $url';
-                                          }
+
+                                           await launch('mailto:${snapshot.data.data['email']}?subject=بخصوص الشكوى عن ${getEmailSubject(getType(data['type']), data['ref'])}');
+
                                           } catch (e) {
                                             PagePush(
                                                 context,
+
                                                 Scaffold(
                                                   appBar: AppBar(
                                                     backgroundColor: Colors.yellow,

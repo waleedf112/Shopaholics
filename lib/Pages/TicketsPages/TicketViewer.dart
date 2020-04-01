@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:mdi/mdi.dart';
+import 'package:shopaholics/Functions/PagePush.dart';
 import 'package:shopaholics/Widgets/Button.dart';
 import 'package:shopaholics/Widgets/SecondaryView.dart';
 import 'package:shopaholics/Widgets/TextWidget.dart';
@@ -118,7 +119,21 @@ class _TicketsViewerState extends State<TicketsViewer> {
                                           try {
                                             launch(
                                                 "mailto:${snapshot.data.data['email']}?subject=بخصوص الشكوى عن ${getEmailSubject(getType(data['type']), data['ref'])}");
-                                          } catch (e) {}
+                                          } catch (e) {
+                                            PagePush(
+                                                context,
+                                                Scaffold(
+                                                  appBar: AppBar(
+                                                    backgroundColor: Colors.yellow,
+                                                    elevation: 0,
+                                                  ),
+                                                  body: ListView(
+                                                    children: <Widget>[
+                                                      ErrorWidget(e),
+                                                    ],
+                                                  ),
+                                                ));
+                                          }
                                         }),
                                     OutlinedButton(
                                         child: Padding(

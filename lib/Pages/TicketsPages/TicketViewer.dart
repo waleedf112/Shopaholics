@@ -23,8 +23,6 @@ class _TicketsViewerState extends State<TicketsViewer> {
     if (value == 'TicketType.productComplaint') return 'المنتج ';
   }
 
-  String getEmailSubject(String type, String ref) => '${type}رقم ${ref.split('/')[1]} ';
-
   @override
   Widget build(BuildContext context) {
     return SecondaryView(
@@ -117,8 +115,7 @@ class _TicketsViewerState extends State<TicketsViewer> {
                                         ),
                                         function: () async {
                                           try {
-                                            await launch(
-                                                'mailto:${snapshot.data.data['email']}');
+                                            await launch('mailto:' + snapshot.data.data['email']);
                                           } catch (e) {
                                             PagePush(
                                                 context,

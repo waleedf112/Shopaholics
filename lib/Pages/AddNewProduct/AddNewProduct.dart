@@ -4,6 +4,7 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shopaholics/Classes/Product.dart';
 import 'package:shopaholics/Functions/isEmailVerified.dart';
+import 'package:shopaholics/Widgets/Categories/CategoriesWidget.dart';
 import 'package:shopaholics/Widgets/CustomDialog.dart';
 import 'package:shopaholics/Widgets/SecondaryView.dart';
 import 'package:shopaholics/Widgets/TextWidget.dart';
@@ -48,6 +49,8 @@ class _AppNewProductState extends State<AppNewProduct> {
 
   @override
   Widget build(BuildContext context) {
+    mainCategoryNotifier.value = null;
+    subCategoriesNotifier.value = null;
     return SecondaryView(
       title: 'اضافة منتج جديد',
       fab: FloatingActionButton(
@@ -172,6 +175,7 @@ class _AppNewProductState extends State<AppNewProduct> {
                       ),
                     ),
                   ),
+                  CategoriesWidget(),
                   Divider(),
                   Padding(
                     padding: const EdgeInsets.only(right: 8),

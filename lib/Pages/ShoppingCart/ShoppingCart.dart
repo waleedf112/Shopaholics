@@ -46,7 +46,7 @@ class _ShoppingCartState extends State<ShoppingCart> {
   @override
   Widget build(BuildContext context) {
     return SecondaryView(
-      title: 'العربة',
+      title: textTranslation(ar: 'العربة', en: ''),
       function: () => setState(() {}),
       child: SafeArea(
         child: Column(
@@ -94,14 +94,14 @@ class _ShoppingCartState extends State<ShoppingCart> {
                                             confirmDismiss: (a) {
                                               CustomDialog(
                                                   context: context,
-                                                  title: 'حذف المنتج',
+                                                  title: textTranslation(ar: 'حذف المنتج', en: ''),
                                                   content: Text(
-                                                    'هل انت متأكد انك تريد حذف هذا المنتج من العربة؟',
+                                                    textTranslation(ar: 'هل انت متأكد انك تريد حذف هذا المنتج من العربة؟', en: ''),
                                                     textAlign: TextAlign.center,
                                                   ),
                                                   firstButtonColor: Colors.red,
-                                                  firstButtonText: 'حذف المنتج',
-                                                  secondButtonText: 'الغاء',
+                                                  firstButtonText: textTranslation(ar: 'حذف المنتج', en: ''),
+                                                  secondButtonText: textTranslation(ar: 'الغاء', en: ''),
                                                   secondButtonColor: Colors.black54,
                                                   firstButtonFunction: () {
                                                     quantity = 0;
@@ -135,7 +135,7 @@ class _ShoppingCartState extends State<ShoppingCart> {
                                                           ),
                                                         ),
                                                         Text(
-                                                          'حذف',
+                                                          textTranslation(ar: 'حذف', en: ''),
                                                           style: TextStyle(color: Colors.white, fontSize: 23),
                                                         )
                                                       ],
@@ -153,7 +153,7 @@ class _ShoppingCartState extends State<ShoppingCart> {
                                                           ),
                                                         ),
                                                         Text(
-                                                          'حذف',
+                                                          textTranslation(ar: 'حذف', en: ''),
                                                           style: TextStyle(color: Colors.white, fontSize: 23),
                                                         )
                                                       ],
@@ -184,7 +184,7 @@ class _ShoppingCartState extends State<ShoppingCart> {
                                                               TextWidget('#' + product.reference,
                                                                   style: TextStyle(color: Colors.grey, fontSize: 11)),
                                                               SizedBox(height: 3),
-                                                              TextWidget('${product.productPrice} ريال',
+                                                              TextWidget('${product.productPrice} ${textTranslation(ar:'ريال',en:'')}',
                                                                   style: TextStyle(color: Colors.red[700])),
                                                             ],
                                                           ),
@@ -247,8 +247,8 @@ class _ShoppingCartState extends State<ShoppingCart> {
                                           child: Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: <Widget>[
-                                              _infoRow(title: 'السلع', value: widget.productsPrice),
-                                              _infoRow(title: 'التوصيل', value: widget.delivery),
+                                              _infoRow(title: textTranslation(ar: 'السلع', en: ''), value: widget.productsPrice),
+                                              _infoRow(title: textTranslation(ar: 'التوصيل', en: ''), value: widget.delivery),
                                             ],
                                           ),
                                         ),
@@ -257,7 +257,7 @@ class _ShoppingCartState extends State<ShoppingCart> {
                                             mainAxisAlignment: MainAxisAlignment.center,
                                             children: <Widget>[
                                               _infoRow(
-                                                  title: 'المجموع',
+                                                  title: textTranslation(ar: 'المجموع', en: ''),
                                                   value: widget.productsPrice + widget.delivery,
                                                   isBold: true),
                                             ],
@@ -267,22 +267,22 @@ class _ShoppingCartState extends State<ShoppingCart> {
                                     ),
                                   ),
                                   SimpleButton(
-                                    'تأكيد الشراء',
+                                    textTranslation(ar: 'تأكيد الشراء', en: ''),
                                     function: () async {
                                       if (currentUser.location == null) {
                                         CustomDialog(
                                             context: context,
-                                            title: 'تحديد العنوان',
+                                            title: textTranslation(ar: 'تحديد العنوان', en: ''),
                                             content: Text(
-                                              'يجب عليك تحديد موقع التوصيل قبل الطلب' +
+                                              textTranslation(ar: 'يجب عليك تحديد موقع التوصيل قبل الطلب', en: '') +
                                                   '\n' +
-                                                  'هل تريد تحديد موقعك الآن؟',
+                                                  textTranslation(ar: 'هل تريد تحديد موقعك الآن؟', en: ''),
                                               textAlign: TextAlign.center,
                                             ),
                                             firstButtonColor: Colors.black54,
                                             secondButtonColor: Colors.red,
-                                            firstButtonText: 'تحديد الموقع',
-                                            secondButtonText: 'تراجع',
+                                            firstButtonText: textTranslation(ar: 'تحديد الموقع', en: ''),
+                                            secondButtonText: textTranslation(ar: 'تراجع', en: ''),
                                             firstButtonFunction: () {
                                               Navigator.of(context).pop();
                                               PagePush(context, AddressesPage());
@@ -351,7 +351,7 @@ _infoRow({String title, int value, bool isBold = false}) => Padding(
             Padding(
               padding: const EdgeInsets.only(bottom: 1),
               child: Text(
-                value.toString() + ' ريال',
+                value.toString() + textTranslation(ar: ' ريال', en: ''),
                 style: TextStyle(fontWeight: isBold ? FontWeight.bold : null),
               ),
             ),

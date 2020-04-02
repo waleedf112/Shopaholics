@@ -68,7 +68,7 @@ class MainView extends StatelessWidget {
                               searchText.value = s;
                           },
                           decoration: InputDecoration(
-                            hintText: 'البحث عن منتج',
+                            hintText: textTranslation(ar: 'البحث عن منتج', en: ''),
                             enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.transparent)),
                             disabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.transparent)),
                             focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.transparent)),

@@ -66,7 +66,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                       } else {
                         Scaffold.of(context).showSnackBar(SnackBar(
                           content: Text(
-                            "الرجاء تسجيل دخولك لتتمكن من الاضافة الى المفضلة",
+                            textTranslation(ar: "الرجاء تسجيل دخولك لتتمكن من الاضافة الى المفضلة", en: ''),
                             textDirection: TextDirection.rtl,
                           ),
                         ));
@@ -107,7 +107,7 @@ class _ProductWidgetState extends State<ProductWidget> {
     }
 
     Widget getPrice() {
-      return TextWidget('${widget.item.productPrice} ريال', style: TextStyle(fontWeight: FontWeight.bold));
+      return TextWidget('${widget.item.productPrice} ${textTranslation(ar:'ريال',en:'')}', style: TextStyle(fontWeight: FontWeight.bold));
     }
 
     if (widget.item is ProductRequest) {

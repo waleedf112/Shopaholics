@@ -12,7 +12,7 @@ class SalesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SecondaryView(
-      title: 'المبيعات',
+      title: textTranslation(ar: 'المبيعات', en: ''),
       child: FutureBuilder(
         future: Firestore.instance.collection('Orders').orderBy('dateTime', descending: true).getDocuments(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -118,7 +118,7 @@ class SalesPage extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: <Widget>[
                                 Text(
-                                  'الطلب رقم #${list[index]['orderNumber']}',
+                                  '${textTranslation(ar:'الطلب رقم',en:'')} #${list[index]['orderNumber']}',
                                   style: TextStyle(color: Colors.grey, fontSize: 13),
                                 ),
                                 Text(
@@ -141,7 +141,7 @@ class SalesPage extends StatelessWidget {
                         padding: const EdgeInsets.only(right: 10, top: 8),
                         child: Row(mainAxisAlignment: MainAxisAlignment.end, children: <Widget>[
                           OutlinedButton(
-                              text: 'ارسال رسالة للزبون',
+                              text: textTranslation(ar: 'ارسال رسالة للزبون', en: ''),
                               function: () async {
                                 await sendPrivateMessage(context, list[index]['customerUid']);
                               }),

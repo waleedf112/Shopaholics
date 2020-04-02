@@ -18,9 +18,9 @@ class TicketPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String _getTitle() {
-      if (ticketType == TicketType.orderComplaint) return 'شكوى عن الفاتوره';
-      if (ticketType == TicketType.productComplaint) return 'شكوى عن منتج';
-      if (ticketType == TicketType.requestComplaint) return 'شكوى عن طلب';
+      if (ticketType == TicketType.orderComplaint) return textTranslation(ar: 'شكوى عن الفاتوره', en: '');
+      if (ticketType == TicketType.productComplaint) return textTranslation(ar: 'شكوى عن منتج', en: '');
+      if (ticketType == TicketType.requestComplaint) return textTranslation(ar: 'شكوى عن طلب', en: '');
       return null;
     }
 
@@ -44,12 +44,12 @@ class TicketPage extends StatelessWidget {
                           controller: controller,
                           textDirection: TextDirection.rtl,
                           validator: (String s) {
-                            if (s.trim().isEmpty) return 'النص فارغ';
+                            if (s.trim().isEmpty) return textTranslation(ar: 'النص فارغ', en: '');
                           },
                           maxLines: 10,
                           decoration: InputDecoration(
-                            hintText: 'اكتب نص الشكوى بالتفصيل حتى تتم مساعدتك باسرع وقت!\n' +
-                                'اذا كانت الشكوى بخصوص طلب سابق, الرجاء تقديم شكوى من قائمة "طلباتي" او اكتب رقم طلبك هنا.',
+                            hintText: textTranslation(ar: 'اكتب نص الشكوى بالتفصيل حتى تتم مساعدتك باسرع وقت!\n', en: '') +
+                                textTranslation(ar: 'اذا كانت الشكوى بخصوص طلب سابق, الرجاء تقديم شكوى من قائمة "طلباتي" او اكتب رقم طلبك هنا.', en: ''),
                             filled: true,
                           ),
                         ),
@@ -60,7 +60,7 @@ class TicketPage extends StatelessWidget {
               ),
             ),
             SimpleButton(
-              'تقديم البلاغ',
+              textTranslation(ar: 'تقديم البلاغ', en: ''),
               function: () async {
                 if (formKey.currentState.validate()) {
                   await Firestore.instance.collection('Tickets').add({
@@ -72,9 +72,9 @@ class TicketPage extends StatelessWidget {
                   });
                   CustomDialog(
                     context: context,
-                    title: 'تم',
+                    title: textTranslation(ar: 'تم', en: ''),
                     content: Text(
-                      'تم ارسال الشكوى بنجاح!\nشكراً لك على مساعدتك وستتم معالجه طلبك في اسرع وقت',
+                      textTranslation(ar: 'تم ارسال الشكوى بنجاح!\nشكراً لك على مساعدتك وستتم معالجه طلبك في اسرع وقت', en: ''),
                       textAlign: TextAlign.center,
                     ),
                     firstButtonText: textTranslation(ar: 'حسناً', en: 'OK'),

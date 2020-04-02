@@ -38,7 +38,7 @@ class _CustomDropDownMenuState extends State<CustomDropDownMenu> {
             child: DropdownButton(
               elevation: 2,
               disabledHint: Text(
-                'لاتوجد اختيارات متوفره',
+                textTranslation(ar: 'لاتوجد اختيارات متوفره', en: ''),
                 style: TextStyle(color: Colors.grey.withOpacity(0.5)),
               ),
               value: widget.value,

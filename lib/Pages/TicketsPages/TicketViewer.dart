@@ -18,15 +18,15 @@ class TicketsViewer extends StatefulWidget {
 
 class _TicketsViewerState extends State<TicketsViewer> {
   String getType(String value) {
-    if (value == 'TicketType.orderComplaint') return 'الفاتوره ';
-    if (value == 'TicketType.requestComplaint') return 'الطلب ';
-    if (value == 'TicketType.productComplaint') return 'المنتج ';
+    if (value == 'TicketType.orderComplaint') return textTranslation(ar: 'الفاتوره ', en: '');
+    if (value == 'TicketType.requestComplaint') return textTranslation(ar: 'الطلب ', en: '');
+    if (value == 'TicketType.productComplaint') return textTranslation(ar: 'المنتج ', en: '');
   }
 
   @override
   Widget build(BuildContext context) {
     return SecondaryView(
-      title: 'البلاغات',
+      title: textTranslation(ar: 'البلاغات', en: ''),
       child: StreamBuilder(
         stream: Firestore.instance.collection('Tickets').where('resolved', isEqualTo: false).getDocuments().asStream(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -82,7 +82,7 @@ class _TicketsViewerState extends State<TicketsViewer> {
                                                 child: Row(
                                                   mainAxisAlignment: MainAxisAlignment.center,
                                                   children: <Widget>[
-                                                    Text('الاتصال بالزبون'),
+                                                    Text(textTranslation(ar: 'الاتصال بالزبون', en: '')),
                                                   ],
                                                 ),
                                               ),
@@ -105,7 +105,7 @@ class _TicketsViewerState extends State<TicketsViewer> {
                                                 child: Row(
                                                   mainAxisAlignment: MainAxisAlignment.center,
                                                   children: <Widget>[
-                                                    Text('ارسل ايميل للزبون'),
+                                                    Text(textTranslation(ar: 'ارسل ايميل للزبون', en: '')),
                                                   ],
                                                 ),
                                               ),
@@ -142,7 +142,7 @@ class _TicketsViewerState extends State<TicketsViewer> {
                                                 child: Row(
                                                   mainAxisAlignment: MainAxisAlignment.center,
                                                   children: <Widget>[
-                                                    Text('اغلاق الشكوى'),
+                                                    Text(textTranslation(ar: 'اغلاق الشكوى', en: '')),
                                                   ],
                                                 ),
                                               ),

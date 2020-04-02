@@ -99,7 +99,7 @@ class _PaymentPageState extends State<PaymentPage> {
                                     horizontal: 20,
                                   ),
                                   child: TextFormField(
-                                    decoration: InputDecoration(hintText: "رقم البطاقة"),
+                                    decoration: InputDecoration(hintText: textTranslation(ar: "رقم البطاقة", en: '')),
                                     maxLength: 19,
                                     controller: cardNumberController,
                                     onChanged: (value) {
@@ -128,7 +128,7 @@ class _PaymentPageState extends State<PaymentPage> {
                                       Expanded(
                                         flex: 2,
                                         child: TextFormField(
-                                          decoration: InputDecoration(hintText: "الشهر"),
+                                          decoration: InputDecoration(hintText: textTranslation(ar: "الشهر", en: '')),
                                           maxLength: 2,
                                           controller: cardyearController,
                                           onChanged: (value) {
@@ -140,7 +140,7 @@ class _PaymentPageState extends State<PaymentPage> {
                                       Expanded(
                                         flex: 2,
                                         child: TextFormField(
-                                          decoration: InputDecoration(hintText: "السنة"),
+                                          decoration: InputDecoration(hintText: textTranslation(ar: "السنة", en: '')),
                                           maxLength: 4,
                                           controller: cardmonthController,
                                           onChanged: (value) {
@@ -156,7 +156,7 @@ class _PaymentPageState extends State<PaymentPage> {
                                     horizontal: 20,
                                   ),
                                   child: TextFormField(
-                                    decoration: InputDecoration(hintText: "اسم حامل البطاقة"),
+                                    decoration: InputDecoration(hintText: textTranslation(ar: "اسم حامل البطاقة", en: '')),
                                     controller: cardHolderNameController,
                                     onChanged: (value) {
                                       setState(() {});

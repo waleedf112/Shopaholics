@@ -12,7 +12,7 @@ NoProductsInCart() => Center(
             color: Colors.grey.withOpacity(0.6),
             size: 100,
           ),
-          TextWidget('لاتوجد أي منتجات في العربة',
+          TextWidget(textTranslation(ar: 'لاتوجد أي منتجات في العربة', en: ''),
               style: TextStyle(
                 color: Colors.grey,
                 fontStyle: FontStyle.italic,

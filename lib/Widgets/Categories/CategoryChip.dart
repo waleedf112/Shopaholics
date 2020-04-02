@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shopaholics/Functions/AppLanguage.dart';
 
 class CategoryChip extends StatelessWidget {
   String value;
@@ -14,7 +15,10 @@ class CategoryChip extends StatelessWidget {
         decoration: BoxDecoration(border: Border.all(), borderRadius: BorderRadius.circular(5)),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8),
-          child: Text(value),
+          child: Padding(
+            padding: currentAppLanguage == AppLanguage.english ? EdgeInsets.all(3.0) : EdgeInsets.all(0),
+            child: Text(value),
+          ),
         ),
       ),
     );

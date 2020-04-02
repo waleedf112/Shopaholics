@@ -69,9 +69,6 @@ class SigningInPage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  //TODO forget password bustton
-                  /* FlatButton(child: Text('نسيت كلمة المرور',style: TextStyle(color: Colors.blueAccent),), onPressed: () {}),
-                  SizedBox(height: 5), */
                   SimpleButton(
                     textTranslation(ar: 'الدخول', en: 'Sign in'),
                     function: () async => await signInUser(context,

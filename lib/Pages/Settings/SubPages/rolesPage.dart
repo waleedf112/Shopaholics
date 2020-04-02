@@ -24,7 +24,7 @@ import '../../../Widgets/loadingDialog.dart';
 ValueNotifier<bool> _accepted = ValueNotifier<bool>(false);
 
 class RolesPage extends StatefulWidget {
-  String role = roleNames[currentUser.getRole()];
+  String role = roleNames()[currentUser.getRole()];
   String location;
   GlobalKey<FormState> formKey = new GlobalKey();
   @override
@@ -81,8 +81,8 @@ class _RolesPageState extends State<RolesPage> {
                             children: <Widget>[
                               TextWidget(
                                 pending
-                                    ? roleNames[requestedRole] + textTranslation(ar: ' (قيد التنفيذ)', en: ' (Pending)')
-                                    : roleNames[currentRole],
+                                    ? roleNames()[requestedRole] + textTranslation(ar: ' (قيد التنفيذ)', en: ' (Pending)')
+                                    : roleNames()[currentRole],
                                 minFontSize: 15,
                                 maxFontSize: 15,
                               ),
@@ -132,7 +132,7 @@ class _RolesPageState extends State<RolesPage> {
                           widget.role = p;
                         });
                       },
-                      children: roleNames,
+                      children: roleNames(),
                     ),
                   ),
                 ],
@@ -159,8 +159,10 @@ class _RolesPageState extends State<RolesPage> {
                           controller1.text = '';
                         });
                       },
-                      //TODO english - arabic
-                      children: ['داخل السعودية', 'خارج السعودية'],
+                      children: [
+                        textTranslation(ar: 'داخل السعودية', en: 'Inside Saudi Arabia'),
+                        textTranslation(ar: 'خارج السعودية', en: 'Outside Saudi Arabia')
+                      ],
                     ),
                   ),
                 ],
@@ -185,7 +187,7 @@ class _RolesPageState extends State<RolesPage> {
                           hintText: widget.location == null
                               ? textTranslation(
                                   ar: 'الرجاء اختيار موقع متجرك من الاعلى', en: 'Please choose a location')
-                              : widget.location == 'داخل السعودية'
+                              : widget.location == textTranslation(ar: 'داخل السعودية', en: 'Inside Saudi Arabia')
                                   ? textTranslation(ar: 'ادخل حسابك في (معروف)', en: 'Maroof account')
                                   : textTranslation(ar: 'ادخل رقم الهوية', en: 'ID Number'),
                         ),
@@ -256,7 +258,7 @@ class _RolesPageState extends State<RolesPage> {
             SimpleButton(
               textTranslation(ar: 'ارسال الطلب', en: 'Send Request'),
               function: () async {
-                int roleIndex = roleNames.indexWhere((test) => test == widget.role);
+                int roleIndex = roleNames().indexWhere((test) => test == widget.role);
                 if (currentUser.role.index != roleIndex && widget.formKey.currentState.validate() && _accepted.value)
                   loadingScreen(
                       context: context,
@@ -284,7 +286,7 @@ class _RolesPageState extends State<RolesPage> {
                               await currentUser
                                   .requestRole(
                                 role: UserRole.values[roleIndex],
-                                inSaudi: widget.location == 'داخل السعودية',
+                                inSaudi: widget.location == textTranslation(ar: 'داخل السعودية', en: 'Inside Saudi Arabia'),
                                 idNumber: controller1.text.trim(),
                                 bankInfo: controller2.text.trim(),
                               )
@@ -296,7 +298,7 @@ class _RolesPageState extends State<RolesPage> {
                                     content: Text(
                                       textTranslation(
                                           ar: 'تم ارسال طلبك, الرجاء الانتظار من 24 ساعه الى 48 ساعه للرد على طلبك',
-                                          en: ''),
+                                          en: 'Your request will be reviewed in the next 24 - 48 hours'),
                                       textAlign: TextAlign.center,
                                     ),
                                     firstButtonText: textTranslation(ar: 'حسناً', en: 'OK'),

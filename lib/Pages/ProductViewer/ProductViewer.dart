@@ -6,6 +6,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_maps_webservice/places.dart';
 import 'package:image_fade/image_fade.dart';
 import 'package:mdi/mdi.dart';
+import 'package:shopaholics/Functions/AppLanguage.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../Classes/Product.dart';
@@ -344,7 +345,7 @@ class _ProductViewerState extends State<ProductViewer> {
                                               final snackBar = SnackBar(
                                                 content: Text(
                                                     textTranslation(
-                                                        ar: 'الرجاء تسجيل الدخول لاضافة المنتجات الى العربة', en: ''),
+                                                        ar: 'الرجاء تسجيل الدخول لاضافة المنتجات الى العربة', en: 'Please sign in to add product into your cart'),
                                                     textAlign: TextAlign.right),
                                                 backgroundColor: Colors.black.withOpacity(0.7),
                                                 elevation: 0,
@@ -510,11 +511,18 @@ class _ProductViewerState extends State<ProductViewer> {
 
   _buildCategoryChips(ProductOffer product) {
     List<String> categories = new List();
-    //TODO arabic - english.
-    categories.add(categories_arabic.keys.elementAt(product.mainCategory));
+    if(currentAppLanguage==AppLanguage.arabic){
+   categories.add(categories_arabic.keys.elementAt(product.mainCategory));
     product.subCategories
         .forEach((i) => categories.add(categories_arabic[categories_arabic.keys.elementAt(product.mainCategory)][i]));
 
+    }else{
+         categories.add(categories_english.keys.elementAt(product.mainCategory));
+    product.subCategories
+        .forEach((i) => categories.add(categories_english[categories_english.keys.elementAt(product.mainCategory)][i]));
+
+    }
+ 
     return Wrap(
       children: List.generate(categories.length, (value) => CategoryChip(categories[value])),
     );

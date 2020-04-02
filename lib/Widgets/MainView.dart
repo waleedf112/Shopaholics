@@ -45,7 +45,6 @@ class MainView extends StatelessWidget {
                           return IconButton(
                             icon: Icon(Icons.search),
                             onPressed: () {
-                              //TODO search
                             },
                           );
                       },

@@ -16,8 +16,6 @@ import '../Functions/Validators.dart';
 class MyAccountPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    //TODO currentUser.saveUserChanges()
-
     TextEditingController currentPasswordController = new TextEditingController(text: kDebugMode ? '12345678' : null);
     TextEditingController passwordController = new TextEditingController(text: kDebugMode ? '1234567899' : null);
     TextEditingController password2Controller = new TextEditingController(text: kDebugMode ? '1234567899' : null);

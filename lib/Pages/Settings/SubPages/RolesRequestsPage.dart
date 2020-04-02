@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:shopaholics/Widgets/TextWidget.dart';
 
 import '../../../Classes/User.dart';
 import '../../../Classes/UserRole.dart';
@@ -68,7 +69,7 @@ class _RolesRequestsPageState extends State<RolesRequestsPage> {
                                           size: 18,
                                         ),
                                         SizedBox(width: 5),
-                                        Text(roleNames[user['role']['currentRole']]),
+                                        Expanded(child: TextWidget(roleNames()[user['role']['currentRole']],minFontSize: 12,maxFontSize: 12)),
                                       ],
                                     ),
                                     Row(
@@ -79,7 +80,7 @@ class _RolesRequestsPageState extends State<RolesRequestsPage> {
                                           size: 18,
                                         ),
                                         SizedBox(width: 5),
-                                        Text(roleNames[user['role']['requestedRole']]),
+                                        Expanded(child: TextWidget(roleNames()[user['role']['requestedRole']],minFontSize: 12,maxFontSize: 12)),
                                       ],
                                     )
                                   ],

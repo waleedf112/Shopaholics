@@ -1,4 +1,5 @@
 import 'package:hive/hive.dart';
+import 'package:shopaholics/Functions/AppLanguage.dart';
 
 part 'UserRole.g.dart';
 
@@ -11,5 +12,7 @@ enum UserRole {
   @HiveField(2)
   customer
 }
-//todo english arabic
-const List<String> roleNames = ['مشرف', 'متسوق شخصي', 'زبون'];
+List<String> roleNames() {
+  if (currentAppLanguage == AppLanguage.arabic) return ['مشرف', 'متسوق شخصي', 'زبون'];
+  return ['Admin', 'Personal Shopper', 'Customer'];
+}

@@ -69,7 +69,9 @@ class _RolesRequestsPageState extends State<RolesRequestsPage> {
                                           size: 18,
                                         ),
                                         SizedBox(width: 5),
-                                        Expanded(child: TextWidget(roleNames()[user['role']['currentRole']],minFontSize: 12,maxFontSize: 12)),
+                                        Expanded(
+                                            child: TextWidget(roleNames()[user['role']['currentRole']],
+                                                minFontSize: 12, maxFontSize: 12)),
                                       ],
                                     ),
                                     Row(
@@ -80,7 +82,9 @@ class _RolesRequestsPageState extends State<RolesRequestsPage> {
                                           size: 18,
                                         ),
                                         SizedBox(width: 5),
-                                        Expanded(child: TextWidget(roleNames()[user['role']['requestedRole']],minFontSize: 12,maxFontSize: 12)),
+                                        Expanded(
+                                            child: TextWidget(roleNames()[user['role']['requestedRole']],
+                                                minFontSize: 12, maxFontSize: 12)),
                                       ],
                                     )
                                   ],

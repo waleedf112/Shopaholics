@@ -345,7 +345,8 @@ class _ProductViewerState extends State<ProductViewer> {
                                               final snackBar = SnackBar(
                                                 content: Text(
                                                     textTranslation(
-                                                        ar: 'الرجاء تسجيل الدخول لاضافة المنتجات الى العربة', en: 'Please sign in to add product into your cart'),
+                                                        ar: 'الرجاء تسجيل الدخول لاضافة المنتجات الى العربة',
+                                                        en: 'Please sign in to add product into your cart'),
                                                     textAlign: TextAlign.right),
                                                 backgroundColor: Colors.black.withOpacity(0.7),
                                                 elevation: 0,
@@ -511,18 +512,16 @@ class _ProductViewerState extends State<ProductViewer> {
 
   _buildCategoryChips(ProductOffer product) {
     List<String> categories = new List();
-    if(currentAppLanguage==AppLanguage.arabic){
-   categories.add(categories_arabic.keys.elementAt(product.mainCategory));
-    product.subCategories
-        .forEach((i) => categories.add(categories_arabic[categories_arabic.keys.elementAt(product.mainCategory)][i]));
-
-    }else{
-         categories.add(categories_english.keys.elementAt(product.mainCategory));
-    product.subCategories
-        .forEach((i) => categories.add(categories_english[categories_english.keys.elementAt(product.mainCategory)][i]));
-
+    if (currentAppLanguage == AppLanguage.arabic) {
+      categories.add(categories_arabic.keys.elementAt(product.mainCategory));
+      product.subCategories
+          .forEach((i) => categories.add(categories_arabic[categories_arabic.keys.elementAt(product.mainCategory)][i]));
+    } else {
+      categories.add(categories_english.keys.elementAt(product.mainCategory));
+      product.subCategories.forEach(
+          (i) => categories.add(categories_english[categories_english.keys.elementAt(product.mainCategory)][i]));
     }
- 
+
     return Wrap(
       children: List.generate(categories.length, (value) => CategoryChip(categories[value])),
     );

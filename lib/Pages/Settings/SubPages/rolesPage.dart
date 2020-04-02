@@ -81,7 +81,8 @@ class _RolesPageState extends State<RolesPage> {
                             children: <Widget>[
                               TextWidget(
                                 pending
-                                    ? roleNames()[requestedRole] + textTranslation(ar: ' (قيد التنفيذ)', en: ' (Pending)')
+                                    ? roleNames()[requestedRole] +
+                                        textTranslation(ar: ' (قيد التنفيذ)', en: ' (Pending)')
                                     : roleNames()[currentRole],
                                 minFontSize: 15,
                                 maxFontSize: 15,
@@ -286,7 +287,8 @@ class _RolesPageState extends State<RolesPage> {
                               await currentUser
                                   .requestRole(
                                 role: UserRole.values[roleIndex],
-                                inSaudi: widget.location == textTranslation(ar: 'داخل السعودية', en: 'Inside Saudi Arabia'),
+                                inSaudi:
+                                    widget.location == textTranslation(ar: 'داخل السعودية', en: 'Inside Saudi Arabia'),
                                 idNumber: controller1.text.trim(),
                                 bankInfo: controller2.text.trim(),
                               )

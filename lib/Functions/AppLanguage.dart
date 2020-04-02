@@ -8,6 +8,6 @@ enum AppLanguage {
   @HiveField(1)
   arabic
 }
-
-AppLanguage getCurrentAppLanguage() => Hive.box('currentAppLanguage').get(0);
+AppLanguage currentAppLanguage;
+void getCurrentAppLanguage() => currentAppLanguage = Hive.box('currentAppLanguage').get(0);
 Future<void> setCurrentAppLanguage(AppLanguage language) => Hive.box('currentAppLanguage').put(0, language);

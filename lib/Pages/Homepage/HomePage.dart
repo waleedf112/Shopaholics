@@ -81,11 +81,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    if (isSignedIn()) {
-      currentUser.setToken();
-      print('currentUser.setToken()');
-    }
-
+    if (isSignedIn()) currentUser.setToken();
     return PersistentTabView(
       controller: _controller,
       backgroundColor: Colors.white,

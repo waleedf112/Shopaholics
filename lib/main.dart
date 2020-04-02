@@ -79,8 +79,14 @@ class _LauncherState extends State<Launcher> {
       Hive.init(appDocumentDir.path);
       Hive.registerAdapter(CurrentUserAdapter());
       Hive.registerAdapter(UserRoleAdapter());
+      Hive.registerAdapter(AppLanguageAdapter());
+
       await Hive.openBox('currentUser');
       currentUser = await Hive.box('currentUser').get(0);
+      await Hive.openBox('currentAppLanguage');
+      if (Hive.box('currentAppLanguage').isEmpty) await Hive.box('currentAppLanguage').put(0, AppLanguage.arabic);
+      getCurrentAppLanguage();
+      print(currentAppLanguage);
       try {
         await currentUser.updateData();
         print('====================');
@@ -103,11 +109,7 @@ class _LauncherState extends State<Launcher> {
     _init();
 
     Future.delayed(Duration(seconds: 1)).whenComplete(() async {
-      Hive.registerAdapter(AppLanguageAdapter());
       await Hive.openBox('isFirstLaunch');
-      await Hive.openBox('currentAppLanguage');
-      if (Hive.box('currentAppLanguage').isEmpty) await Hive.box('currentAppLanguage').put(0, AppLanguage.arabic);
-      print(getCurrentAppLanguage());
       if (Hive.box('isFirstLaunch').isEmpty) {
         await Hive.box('isFirstLaunch').put(0, true);
         widget.isFirstLaunch.value = true;

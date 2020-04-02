@@ -71,7 +71,7 @@ class _GridProductsState extends State<GridProducts> {
                             ),
                           ),
                           OutlinedButton(
-                              text: textTranslation(ar: 'عرض الكل', en: ''),
+                              text: textTranslation(ar: 'عرض الكل', en: 'Show All'),
                               function: () {
                                 PagePush(
                                   context,
@@ -159,7 +159,7 @@ class _GridProductsState extends State<GridProducts> {
                             ),
                           ),
                           OutlinedButton(
-                              text: textTranslation(ar: 'عرض الكل', en: ''),
+                              text: textTranslation(ar: 'عرض الكل', en: 'Show All'),
                               function: () {
                                 PagePush(
                                   context,

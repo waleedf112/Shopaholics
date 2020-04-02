@@ -52,7 +52,7 @@ class _AddProductRequestState extends State<AddProductRequest> {
   @override
   Widget build(BuildContext context) {
     return SecondaryView(
-      title: textTranslation(ar: 'اضافة طلب جديد', en: ''),
+      title: textTranslation(ar: 'اضافة طلب جديد', en: 'Add New Request'),
       fab: FloatingActionButton(
         heroTag: 'heroRequest',
         elevation: 0,
@@ -82,8 +82,8 @@ class _AddProductRequestState extends State<AddProductRequest> {
                     Navigator.of(context).pop();
                     CustomDialog(
                         context: context,
-                        title: textTranslation(ar: 'تم اضافة الطلب', en: ''),
-                        content: AutoSizeText(textTranslation(ar: 'تم اضافة طلب المنتج بنجاح!', en: '')),
+                        title: textTranslation(ar: 'تم اضافة الطلب', en: 'Request Added'),
+                        content: AutoSizeText(textTranslation(ar: 'تم اضافة طلب المنتج بنجاح!', en: 'Your request has been added!')),
                         dismissible: false,
                         firstButtonColor: Colors.black45,
                         firstButtonText: textTranslation(ar: 'حسناً', en: 'OK'),
@@ -97,7 +97,7 @@ class _AddProductRequestState extends State<AddProductRequest> {
             CustomDialog(
                 context: context,
                 title: textTranslation(ar: 'خطأ', en: 'Error'),
-                content: AutoSizeText(textTranslation(ar: 'الرجاء اضافة من 3 الى 10 صور للمنتج.', en: '')),
+                content: AutoSizeText(textTranslation(ar: 'الرجاء اضافة من 3 الى 10 صور للمنتج.', en: 'Please add 3 to 10 images of the product')),
                 dismissible: false,
                 firstButtonColor: Colors.black45,
                 firstButtonText: textTranslation(ar: 'حسناً', en: 'OK'),
@@ -125,11 +125,11 @@ class _AddProductRequestState extends State<AddProductRequest> {
                         controller: productNameController,
                         validator: (String value) {
                           if (value.trim().isEmpty) {
-                            return textTranslation(ar: 'اسم المنتج فارغ!', en: '');
+                            return textTranslation(ar: 'اسم المنتج فارغ!', en: 'Product Name is empty');
                           }
                         },
                         decoration: InputDecoration(
-                          labelText: textTranslation(ar: 'اسم المنتج', en: ''),
+                          labelText: textTranslation(ar: 'اسم المنتج', en: 'Product Name'),
                           labelStyle: TextStyle(fontSize: 14),
                           filled: true,
                         ),
@@ -146,7 +146,7 @@ class _AddProductRequestState extends State<AddProductRequest> {
                         controller: productDescController,
                         validator: (String value) => null,
                         decoration: InputDecoration(
-                          labelText: textTranslation(ar: 'الوصف', en: ''),
+                          labelText: textTranslation(ar: 'الوصف', en: 'Description'),
                           labelStyle: TextStyle(fontSize: 14),
                           filled: true,
                         ),
@@ -165,14 +165,14 @@ class _AddProductRequestState extends State<AddProductRequest> {
                         validator: (String value) {
                           try {
                             int x = int.parse(value);
-                            if (x < 1) return textTranslation(ar: 'السعر اقل من ريال واحد', en: '');
-                            if (x > 99999) return textTranslation(ar: 'السعر اعلى من المسموح به', en: '');
+                            if (x < 1) return textTranslation(ar: 'السعر اقل من ريال واحد', en: 'Price is lower than 1 SR');
+                            if (x > 99999) return textTranslation(ar: 'السعر اعلى من المسموح به', en: 'Price is more than the allowed value');
                           } catch (e) {
-                            return textTranslation(ar: 'السعر غير صحيح', en: '');
+                            return textTranslation(ar: 'السعر غير صحيح', en: 'Price is invalid');
                           }
                         },
                         decoration: InputDecoration(
-                          labelText: textTranslation(ar: 'السعر', en: ''),
+                          labelText: textTranslation(ar: 'السعر', en: 'Price'),
                           labelStyle: TextStyle(fontSize: 14),
                           filled: true,
                         ),
@@ -187,7 +187,7 @@ class _AddProductRequestState extends State<AddProductRequest> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          TextWidget(textTranslation(ar: 'الصور', en: ''), minFontSize: 20, maxFontSize: 23),
+                          TextWidget(textTranslation(ar: 'الصور', en: 'Images'), minFontSize: 20, maxFontSize: 23),
                           IconButton(
                             icon: Icon(
                               Icons.add_a_photo,
@@ -246,7 +246,7 @@ class _AddProductRequestState extends State<AddProductRequest> {
                             ),
                           ),
                           Text(
-                            textTranslation(ar: 'الرجاء اضافة صور للمنتج', en: ''),
+                            textTranslation(ar: 'الرجاء اضافة صور للمنتج', en: 'Please add images of the product'),
                             style: TextStyle(color: Colors.grey, fontSize: 21),
                           ),
                         ],

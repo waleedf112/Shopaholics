@@ -101,7 +101,7 @@ class _ConversationState extends State<Conversation> {
                       controller: controller,
                       onSubmitted: (s) => sendMessage(),
                       decoration: InputDecoration(
-                          hintText: textTranslation(ar: 'اكتب رسالتك هنا', en: ''),
+                          hintText: textTranslation(ar: 'اكتب رسالتك هنا', en: 'Write a message'),
                           enabledBorder: UnderlineInputBorder(
                             borderSide: BorderSide(color: Colors.transparent),
                           ),

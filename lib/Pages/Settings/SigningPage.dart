@@ -46,7 +46,7 @@ class SigningInPage extends StatelessWidget {
                         controller: emailController,
                         validator: (String value) => emailValidation(value),
                         decoration: InputDecoration(
-                          labelText: textTranslation(ar: 'البريد الالكتروني', en: ''),
+                          labelText: textTranslation(ar: 'البريد الالكتروني', en: 'Email'),
                           labelStyle: TextStyle(fontSize: 14),
                           filled: true,
                         ),
@@ -62,7 +62,7 @@ class SigningInPage extends StatelessWidget {
                         controller: passwordController,
                         obscureText: true,
                         decoration: InputDecoration(
-                          labelText: textTranslation(ar: 'كلمة المرور', en: ''),
+                          labelText: textTranslation(ar: 'كلمة المرور', en: 'Password'),
                           labelStyle: TextStyle(fontSize: 14),
                           filled: true,
                         ),
@@ -73,7 +73,7 @@ class SigningInPage extends StatelessWidget {
                   /* FlatButton(child: Text('نسيت كلمة المرور',style: TextStyle(color: Colors.blueAccent),), onPressed: () {}),
                   SizedBox(height: 5), */
                   SimpleButton(
-                    textTranslation(ar: 'الدخول', en: ''),
+                    textTranslation(ar: 'الدخول', en: 'Sign in'),
                     function: () async => await signInUser(context,
                         email: emailController, password: passwordController, formKey: formKey),
                   )
@@ -154,7 +154,7 @@ class SigningUpPage extends StatelessWidget {
                         controller: emailController,
                         validator: (String value) => emailValidation(value),
                         decoration: InputDecoration(
-                          labelText: textTranslation(ar: 'البريد الالكتروني', en: ''),
+                          labelText: textTranslation(ar: 'البريد الالكتروني', en: 'Email'),
                           labelStyle: TextStyle(fontSize: 14),
                           filled: true,
                         ),
@@ -171,7 +171,7 @@ class SigningUpPage extends StatelessWidget {
                         validator: (String value) => passwordValidation(value),
                         obscureText: true,
                         decoration: InputDecoration(
-                          labelText: textTranslation(ar: 'كلمة المرور', en: ''),
+                          labelText: textTranslation(ar: 'كلمة المرور', en: 'Password'),
                           labelStyle: TextStyle(fontSize: 14),
                           filled: true,
                         ),
@@ -199,7 +199,7 @@ class SigningUpPage extends StatelessWidget {
                     ),
                   ),
                   SimpleButton(
-                    textTranslation(ar: 'التسجيل', en: ''),
+                    textTranslation(ar: 'التسجيل', en: 'Register'),
                     function: () async => await signUpUser(context,
                         email: emailController,
                         password: passwordController,

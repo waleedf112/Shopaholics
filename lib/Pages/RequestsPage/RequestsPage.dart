@@ -45,7 +45,7 @@ class RequestsPage extends StatelessWidget {
                   query: Firestore.instance
                       .collection('ProductRequests')
                       .where('acceptedTrader', isEqualTo: currentUser.uid),
-                  title: textTranslation(ar: 'العروض المقبولة', en: ''),
+                  title: textTranslation(ar: 'العروض المقبولة', en: 'Accepted offers'),
                   requestType: RequestType.acceptedRequest,
                 ),
               ),
@@ -55,7 +55,7 @@ class RequestsPage extends StatelessWidget {
                     query: Firestore.instance
                         .collection('ProductRequests')
                         .where('pendingTraders', arrayContains: currentUser.uid),
-                    title: textTranslation(ar: 'العروض المقدمة', en: ''),
+                    title: textTranslation(ar: 'العروض المقدمة', en: 'Available Requests'),
                     requestType: RequestType.normal),
               ),
               _buildRequestRow(
@@ -67,7 +67,7 @@ class RequestsPage extends StatelessWidget {
                         .orderBy('Time', descending: true),
                     removeOwnRequests: true,
                     removeOfferdRequests: true,
-                    title: textTranslation(ar: 'اجدد الطلبات', en: ''),
+                    title: textTranslation(ar: 'اجدد الطلبات', en: 'Newest Requests'),
                     requestType: RequestType.normal),
               ),
               FutureBuilder(
@@ -93,19 +93,19 @@ class RequestsPage extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
                                   TextWidget(
-                                    textTranslation(ar: 'طلباتي', en: ''),
+                                    textTranslation(ar: 'طلباتي', en: ' My Requests'),
                                     style: TextStyle(
                                       fontSize: 21,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
                                   OutlinedButton(
-                                      text: textTranslation(ar: 'عرض الكل', en: ''),
+                                      text: textTranslation(ar: 'عرض الكل', en: 'Show All'),
                                       function: () {
                                         PagePush(
                                           context,
                                           SecondaryView(
-                                            title: textTranslation(ar: 'طلباتي', en: ''),
+                                            title: textTranslation(ar: 'طلباتي', en: 'My Requests'),
                                             child: ListProducts(
                                               list: documents,
                                               gridProductsType: GridProductsType.requests,

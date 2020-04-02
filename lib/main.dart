@@ -146,7 +146,7 @@ class _LauncherState extends State<Launcher> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         SimpleButton(
-                          textTranslation(ar: 'الدخول', en: ''),
+                          textTranslation(ar: 'الدخول', en: 'Sign in'),
                           function: () => pushNewScreen(
                             context,
                             screen: SigningInPage(),
@@ -156,7 +156,7 @@ class _LauncherState extends State<Launcher> {
                         ),
                         SizedBox(height: 5),
                         SimpleButton(
-                          textTranslation(ar: 'التسجيل', en: ''),
+                          textTranslation(ar: 'التسجيل', en: 'Register'),
                           function: () async => pushNewScreen(
                             context,
                             screen: SigningUpPage(),
@@ -179,7 +179,7 @@ class _LauncherState extends State<Launcher> {
                             );
                           },
                           child: Text(
-                            textTranslation(ar: 'التسجيل لاحقاً', en: ''),
+                            textTranslation(ar: 'التسجيل لاحقاً', en: 'Register Later'),
                           ),
                         ),
                       ],

@@ -63,7 +63,7 @@ class RequestsRow extends StatelessWidget {
                           ),
                         ),
                         OutlinedButton(
-                            text: textTranslation(ar: 'عرض الكل', en: ''),
+                            text: textTranslation(ar: 'عرض الكل', en: 'Show All'),
                             function: () {
                               PagePush(
                                 context,

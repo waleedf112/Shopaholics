@@ -14,7 +14,7 @@ NoRequestsPage() => Center(
             color: Colors.grey.withOpacity(0.6),
             size: 100,
           ),
-          TextWidget(textTranslation(ar: 'لاتوجد لديك أي طلبات', en: ''),
+          TextWidget(textTranslation(ar: 'لاتوجد لديك أي طلبات', en: 'You don\'t have any requests'),
               style: TextStyle(
                 color: Colors.grey,
                 fontStyle: FontStyle.italic,

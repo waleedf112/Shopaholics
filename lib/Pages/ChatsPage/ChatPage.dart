@@ -16,7 +16,7 @@ ValueNotifier updatedChatPage = new ValueNotifier(DateTime.now().millisecondsSin
 Future<void> sendPrivateMessage(BuildContext context, String otherUser) async {
   if (!isSignedIn()) {
     final snackBar = SnackBar(
-      content: Text(textTranslation(ar: 'الرجاء تسجيل الدخول لإرسال رسالة', en: ''), textAlign: TextAlign.right),
+      content: Text(textTranslation(ar: 'الرجاء تسجيل الدخول لإرسال رسالة', en: 'Please Sign in to send a message'), textAlign: TextAlign.right),
       backgroundColor: Colors.black.withOpacity(0.7),
       elevation: 0,
       duration: Duration(seconds: 2),
@@ -25,7 +25,7 @@ Future<void> sendPrivateMessage(BuildContext context, String otherUser) async {
   } else if (currentUser.uid == otherUser) {
     final snackBar = SnackBar(
       content: Text(
-        textTranslation(ar: 'لايمكنك ارسال رسالة لنفسك!', en: ''),
+        textTranslation(ar: 'لايمكنك ارسال رسالة لنفسك!', en: 'You can\t send a message to yourself'),
         textAlign: TextAlign.right,
         textDirection: TextDirection.rtl,
       ),

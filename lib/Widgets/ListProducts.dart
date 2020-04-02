@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:shopaholics/Functions/Translation.dart';
 
 import '../Classes/Product.dart';
 import '../Classes/User.dart';
@@ -23,8 +24,7 @@ class _ListProductsState extends State<ListProducts> {
     return Padding(
       padding: EdgeInsets.all(5),
       child: Directionality(
-        textDirection: TextDirection.rtl,
-        child: GridView.builder(
+textDirection: layoutTranslation(),        child: GridView.builder(
           physics: BouncingScrollPhysics(),
           itemCount: widget.list.length,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 0.5),

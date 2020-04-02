@@ -80,8 +80,7 @@ class _ProductWidgetState extends State<ProductWidget> {
 
     infoText() {
       return Directionality(
-        textDirection: TextDirection.rtl,
-        child: Container(
+textDirection: layoutTranslation(),        child: Container(
           height: 70,
           child: Padding(
             padding: const EdgeInsets.only(top: 3, right: 7),
@@ -91,7 +90,9 @@ class _ProductWidgetState extends State<ProductWidget> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      TextWidget(formatTime(widget.item.time), style: TextStyle(color: Colors.grey, fontSize: 11)),
+                      Directionality(
+                        textDirection: layoutTranslation(),
+                        child: TextWidget(formatTime(widget.item.time), style: TextStyle(color: Colors.grey, fontSize: 11))),
                       TextWidget(widget.item.productName,
                           style: TextStyle(fontWeight: FontWeight.bold),
                           maxLines: 1,
@@ -116,6 +117,7 @@ class _ProductWidgetState extends State<ProductWidget> {
 
     if (widget.item is ProductRequest) {
       return InkWell(
+        
         onTap: () => PagePush(
             context,
             ProductViewer(
@@ -172,8 +174,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                             );
                           } else if (snapshot.hasData) {
                             return Directionality(
-                              textDirection: TextDirection.rtl,
-                              child: TextWidget(snapshot.data,
+textDirection: layoutTranslation(),                              child: TextWidget(snapshot.data,
                                   minFontSize: 11,
                                   maxFontSize: 14,
                                   style: TextStyle(color: Colors.grey, fontStyle: FontStyle.italic)),
@@ -234,8 +235,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                   padding: const EdgeInsets.only(right: 7),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    textDirection: TextDirection.rtl,
-                    children: <Widget>[
+textDirection: layoutTranslation(),                    children: <Widget>[
                       getPrice(),
                       likeButton(),
                     ],

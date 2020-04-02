@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:shopaholics/Functions/Translation.dart';
 
 const appLangageRTL = true;
 Widget TextWidget(
@@ -19,5 +20,4 @@ Widget TextWidget(
       overflow: overflow,
       style: style,
       textAlign: textAlign,
-      textDirection: appLangageRTL ? TextDirection.rtl : TextDirection.ltr,
-    );
+textDirection: layoutTranslation(),    );

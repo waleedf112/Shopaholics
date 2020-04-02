@@ -55,8 +55,7 @@ class _GridProductsState extends State<GridProducts> {
               hasData: snapshot.hasData,
               loading: documents == null,
               widget: Directionality(
-                textDirection: TextDirection.rtl,
-                child: Column(
+textDirection: layoutTranslation(),                child: Column(
                   children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.all(8.0),

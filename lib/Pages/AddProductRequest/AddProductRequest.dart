@@ -121,8 +121,7 @@ class _AddProductRequestState extends State<AddProductRequest> {
                   Container(
                     height: 90,
                     child: Directionality(
-                      textDirection: TextDirection.rtl,
-                      child: TextFormField(
+textDirection: layoutTranslation(),                      child: TextFormField(
                         textDirection: TextDirection.ltr,
                         controller: productNameController,
                         validator: (String value) {
@@ -141,8 +140,7 @@ class _AddProductRequestState extends State<AddProductRequest> {
                   Container(
                     //height: 90,
                     child: Directionality(
-                      textDirection: TextDirection.rtl,
-                      child: TextFormField(
+textDirection: layoutTranslation(),                      child: TextFormField(
                         textDirection: TextDirection.ltr,
                         maxLines: 5,
                         controller: productDescController,
@@ -159,8 +157,7 @@ class _AddProductRequestState extends State<AddProductRequest> {
                   Container(
                     height: 90,
                     child: Directionality(
-                      textDirection: TextDirection.rtl,
-                      child: TextFormField(
+textDirection: layoutTranslation(),                      child: TextFormField(
                         textDirection: TextDirection.ltr,
                         controller: productPriceController,
                         keyboardType: TextInputType.number,
@@ -188,8 +185,7 @@ class _AddProductRequestState extends State<AddProductRequest> {
                   Padding(
                     padding: const EdgeInsets.only(right: 8),
                     child: Directionality(
-                      textDirection: TextDirection.rtl,
-                      child: Row(
+textDirection: layoutTranslation(),                      child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           TextWidget(textTranslation(ar: 'الصور', en: 'Images'), minFontSize: 20, maxFontSize: 23),
@@ -208,8 +204,7 @@ class _AddProductRequestState extends State<AddProductRequest> {
               ),
             ),
             Directionality(
-              textDirection: TextDirection.rtl,
-              child: Container(
+textDirection: layoutTranslation(),              child: Container(
                 height: 300,
                 child: _image.isNotEmpty
                     ? ListView.builder(

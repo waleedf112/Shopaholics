@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shopaholics/Classes/Product.dart';
+import 'package:shopaholics/Functions/Translation.dart';
 import 'package:shopaholics/Functions/isEmailVerified.dart';
 import 'package:shopaholics/Widgets/CustomDialog.dart';
 import 'package:shopaholics/Widgets/SecondaryView.dart';
@@ -62,11 +63,11 @@ class _EditProductState extends State<EditProduct> {
                     Navigator.of(context).pop();
                     CustomDialog(
                         context: context,
-                        title: 'تم التعديل',
-                        content: AutoSizeText('تم تعديل المنتج بنجاح!'),
+                        title: textTranslation(ar: 'تم التعديل', en: ''),
+                        content: AutoSizeText(textTranslation(ar: 'تم تعديل المنتج بنجاح!', en: '')),
                         dismissible: false,
                         firstButtonColor: Colors.black45,
-                        firstButtonText: 'حسناً',
+                        firstButtonText: textTranslation(ar: 'حسناً', en: 'OK'),
                         firstButtonFunction: () {
                           Navigator.of(context).pop();
                           Navigator.of(context).pop();
@@ -95,11 +96,11 @@ class _EditProductState extends State<EditProduct> {
                         controller: productNameController,
                         validator: (String value) {
                           if (value.trim().isEmpty) {
-                            return 'اسم المنتج فارغ!';
+                            return textTranslation(ar: 'اسم المنتج فارغ!', en: '');
                           }
                         },
                         decoration: InputDecoration(
-                          labelText: 'اسم المنتج',
+                          labelText: textTranslation(ar: 'اسم المنتج', en: ''),
                           labelStyle: TextStyle(fontSize: 14),
                           filled: true,
                         ),
@@ -116,7 +117,7 @@ class _EditProductState extends State<EditProduct> {
                         controller: productDescController,
                         validator: (String value) => null,
                         decoration: InputDecoration(
-                          labelText: 'الوصف',
+                          labelText: textTranslation(ar: 'الوصف', en: ''),
                           labelStyle: TextStyle(fontSize: 14),
                           filled: true,
                         ),
@@ -135,14 +136,14 @@ class _EditProductState extends State<EditProduct> {
                         validator: (String value) {
                           try {
                             int x = int.parse(value);
-                            if (x < 1) return 'السعر اقل من ريال واحد';
-                            if (x > 99999) return 'السعر اعلى من المسموح به';
+                            if (x < 1) return textTranslation(ar: 'السعر اقل من ريال واحد', en: '');
+                            if (x > 99999) return textTranslation(ar: 'السعر اعلى من المسموح به', en: '');
                           } catch (e) {
-                            return 'السعر غير صحيح';
+                            return textTranslation(ar: 'السعر غير صحيح', en: '');
                           }
                         },
                         decoration: InputDecoration(
-                          labelText: 'السعر',
+                          labelText: textTranslation(ar: 'السعر', en: ''),
                           labelStyle: TextStyle(fontSize: 14),
                           filled: true,
                         ),

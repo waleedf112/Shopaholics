@@ -12,7 +12,7 @@ NoFavoriteProducts() => Center(
             color: Colors.grey.withOpacity(0.6),
             size: 100,
           ),
-          TextWidget('لاتوجد أي منتجات في المفضلة',
+          TextWidget(textTranslation(ar: 'لاتوجد أي منتجات في المفضلة', en: ''),
               style: TextStyle(
                 color: Colors.grey,
                 fontStyle: FontStyle.italic,

@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:shopaholics/Classes/User.dart';
+import 'package:shopaholics/Functions/Translation.dart';
 import 'package:shopaholics/Widgets/Button.dart';
 import 'package:shopaholics/Widgets/CustomDialog.dart';
 import 'package:shopaholics/Widgets/SecondaryView.dart';
@@ -44,7 +45,7 @@ class _PaymentPageState extends State<PaymentPage> {
   @override
   Widget build(BuildContext context) {
     return SecondaryView(
-      title: 'وسيلة الدفع',
+      title: textTranslation(ar: 'وسيلة الدفع', en: ''),
       child: SafeArea(
         child: FutureBuilder(
           future: Firestore.instance.collection('Users').document(currentUser.uid).get(),
@@ -79,7 +80,7 @@ class _PaymentPageState extends State<PaymentPage> {
                                   ? 'Card Holder Name'
                                   : cardHolderNameController.text,
                               cvv: cardCVVController.text,
-                              bankName: "بطاقة ائتمانية",
+                              bankName: textTranslation(ar:'بطاقة ائتمانية',en:''),
                               cardType: CardType.visa,
                               showBackSide: showBack,
                               frontBackground: CardBackgrounds.black,
@@ -169,7 +170,7 @@ class _PaymentPageState extends State<PaymentPage> {
                       ],
                     ),
                   ),
-                  SimpleButton('حفظ وسيلة الدفع', function: () {
+                  SimpleButton(textTranslation(ar: 'حفظ وسيلة الدفع', en: ''), function: () {
                     loadingScreen(
                         context: context,
                         function: () async {
@@ -185,13 +186,13 @@ class _PaymentPageState extends State<PaymentPage> {
                             Navigator.of(context).pop();
                             CustomDialog(
                                 context: context,
-                                title: 'تم حفظ البطاقة',
+                                title: textTranslation(ar: 'تم حفظ البطاقة', en: ''),
                                 content: Text(
-                                  'تم حفظ البطاقة بنجاح!',
+                                  textTranslation(ar: 'تم حفظ البطاقة بنجاح!', en: ''),
                                   textDirection: TextDirection.rtl,
                                 ),
                                 firstButtonColor: Colors.black54,
-                                firstButtonText: 'حسناً',
+                                firstButtonText: textTranslation(ar: 'حسناً', en: 'OK'),
                                 firstButtonFunction: () {
                                   Navigator.of(context).pop();
                                   Navigator.of(context).pop();

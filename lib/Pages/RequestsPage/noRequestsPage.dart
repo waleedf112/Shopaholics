@@ -12,7 +12,7 @@ NoRequestsPage() => Center(
             color: Colors.grey.withOpacity(0.6),
             size: 100,
           ),
-          TextWidget('لاتوجد لديك أي طلبات',
+          TextWidget(textTranslation(ar: 'لاتوجد لديك أي طلبات', en: ''),
               style: TextStyle(
                 color: Colors.grey,
                 fontStyle: FontStyle.italic,

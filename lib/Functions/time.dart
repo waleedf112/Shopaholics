@@ -1,3 +1,6 @@
+import 'AppLanguage.dart';
+import 'Translation.dart';
+
 String formatTime(int timestamp) {
   int difference = DateTime.now().millisecondsSinceEpoch - timestamp;
   String result;
@@ -16,48 +19,63 @@ String formatTime(int timestamp) {
     result = countMonths(difference);
   } else
     result = countYears(difference);
-
-  return !result.startsWith("J") ? 'قبل ' + result : result;
+  String tmp = !result.startsWith("J") ? textTranslation(ar: 'قبل ', en: 'ago ') + result : result;
+  if (currentAppLanguage == AppLanguage.english) {
+    List<String> tmp2 = new List();
+    tmp2.add(tmp.split(' ')[1]);
+    tmp2.add(tmp.split(' ')[2]);
+    tmp2.add(tmp.split(' ')[0]);
+    tmp = tmp2.join(' ');
+  }
+  return tmp;
 }
 
 String countSeconds(int difference) {
   int count = (difference / 1000).truncate();
-  return count > 1 ? count.toString() + ' ثواني' : 'الآن';
+  return count > 1
+      ? count.toString() + textTranslation(ar: ' ثواني', en: ' seconds')
+      : textTranslation(ar: 'الآن', en: ' now');
 }
 
 String countMinutes(int difference) {
   int count = (difference / 60000).truncate();
-  return count.toString() + (count > 1 ? ' دقيقة' : ' دقائق');
+  return count.toString() +
+      (count > 1 ? textTranslation(ar: ' دقيقة', en: ' minute') : textTranslation(ar: ' دقائق', en: ' minutes'));
 }
 
 String countHours(int difference) {
   int count = (difference / 3600000).truncate();
-  return count.toString() + (count > 1 ? ' ساعات' : ' ساعه');
+  return count.toString() +
+      (count > 1 ? textTranslation(ar: ' ساعات', en: ' hours') : textTranslation(ar: ' ساعه', en: ' hour'));
 }
 
 String countDays(int difference) {
   int count = (difference / 86400000).truncate();
-  return count.toString() + (count > 1 ? ' ايام' : ' يوم');
+  return count.toString() +
+      (count > 1 ? textTranslation(ar: ' ايام', en: ' days') : textTranslation(ar: ' يوم', en: ' day'));
 }
 
 String countWeeks(int difference) {
   int count = (difference / 604800000).truncate();
   if (count > 3) {
-    return 'شهر';
+    return textTranslation(ar: 'شهر', en: 'month');
   }
-  return count.toString() + (count > 1 ? ' اسابيع' : ' اسبوع');
+  return count.toString() +
+      (count > 1 ? textTranslation(ar: ' اسابيع', en: ' weeks') : textTranslation(ar: ' اسبوع', en: ' week'));
 }
 
 String countMonths(int difference) {
   int count = (difference / 2628003000).round();
   count = count > 0 ? count : 1;
   if (count > 12) {
-    return 'سنه';
+    return textTranslation(ar: 'سنه', en: 'year');
   }
-  return count.toString() + (count > 1 ? ' شهور' : ' شهر');
+  return count.toString() +
+      (count > 1 ? textTranslation(ar: ' شهور', en: ' months') : textTranslation(ar: ' شهر', en: ' month'));
 }
 
 String countYears(int difference) {
   int count = (difference / 31536000000).truncate();
-  return count.toString() + (count > 1 ? ' سنوات' : ' سنه');
+  return count.toString() +
+      (count > 1 ? textTranslation(ar: ' سنوات', en: ' years') : textTranslation(ar: ' سنه', en: ' year'));
 }

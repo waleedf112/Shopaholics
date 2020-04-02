@@ -9,6 +9,7 @@ import 'package:shopaholics/Classes/Product.dart';
 import 'package:shopaholics/Classes/User.dart';
 import 'package:shopaholics/Classes/UserRole.dart';
 import 'package:shopaholics/Functions/PagePush.dart';
+import 'package:shopaholics/Functions/Translation.dart';
 import 'package:shopaholics/Functions/isEmailVerified.dart';
 import 'package:shopaholics/Pages/AddNewProduct/AddNewProduct.dart';
 import 'package:shopaholics/Pages/AddProductRequest/AddProductRequest.dart';
@@ -48,31 +49,31 @@ class _HomePageState extends State<HomePage> {
     return [
       PersistentBottomNavBarItem(
         icon: Icon(Icons.home),
-        title: ("الرئيسية"),
+        title: textTranslation(ar: 'الرئيسية', en: 'Home'),
         activeColor: Colors.black,
         inactiveColor: Colors.grey,
       ),
       PersistentBottomNavBarItem(
         icon: Icon(Icons.add_shopping_cart),
-        title: ("الطلبات"),
+        title: textTranslation(ar: 'الطلبات', en: 'Requests'),
         activeColor: Colors.black,
         inactiveColor: Colors.grey,
       ),
       PersistentBottomNavBarItem(
         icon: Icon(Icons.favorite),
-        title: ("المفضلة"),
+        title: textTranslation(ar: 'المفضلة', en: 'Favorite'),
         activeColor: Colors.black,
         inactiveColor: Colors.grey,
       ),
       PersistentBottomNavBarItem(
         icon: Icon(Mdi.chatOutline),
-        title: ("المحادثات"),
+        title: textTranslation(ar: 'المحادثات', en: 'Chats'),
         activeColor: Colors.black,
         inactiveColor: Colors.grey,
       ),
       PersistentBottomNavBarItem(
         icon: Icon(Icons.settings),
-        title: ("الاعدادات"),
+        title: textTranslation(ar: 'الاعدادات', en: 'Settings'),
         activeColor: Colors.black,
         inactiveColor: Colors.grey,
       ),
@@ -124,16 +125,17 @@ class _HomePageState extends State<HomePage> {
                 children: <Widget>[
                   Expanded(
                     child: ListView(
+                      
                       physics: BouncingScrollPhysics(),
                       shrinkWrap: false,
                       children: <Widget>[
                         GridProducts(
-                          title: 'اجدد المنتجات',
+                          title: textTranslation(ar: 'اجدد المنتجات', en: 'New Products'),
                           type: GridProductsType.offers,
                           sortingProducts: SortingProducts.byTime,
                         ),
                         GridProducts(
-                          title: 'اخر العروض',
+                          title: textTranslation(ar:'اخر العروض',en: 'Latest Offers'),
                           type: GridProductsType.offers,
                           sortingProducts: SortingProducts.byPrice,
                         ),

@@ -9,6 +9,7 @@ import 'package:mdi/mdi.dart';
 import 'package:shopaholics/Classes/Product.dart';
 import 'package:shopaholics/Classes/User.dart';
 import 'package:shopaholics/Functions/PagePush.dart';
+import 'package:shopaholics/Functions/Translation.dart';
 import 'package:shopaholics/Functions/distanceCalculator.dart';
 import 'package:shopaholics/Functions/openMap.dart';
 import 'package:shopaholics/Pages/ChatsPage/ChatPage.dart';
@@ -66,9 +67,9 @@ class _ProductViewerState extends State<ProductViewer> {
             onPressed: () {
               CustomDialog(
                 context: context,
-                title: 'حذف المنتج',
+                title: textTranslation(ar: 'حذف المنتج', en: ''),
                 content: TextWidget(
-                    'هل انت متأكد انك تريد حذف هذا المنتج؟' + '\n' + 'لن يمكنك التراجع عن هذا الاختيار بعد الحذف!'),
+                    textTranslation(ar: 'هل انت متأكد انك تريد حذف هذا المنتج؟', en: '') + '\n' + textTranslation(ar: 'لن يمكنك التراجع عن هذا الاختيار بعد الحذف!', en: '')),
                 firstButtonColor: Colors.red,
                 secondButtonColor: Colors.black54,
                 firstButtonFunction: () {
@@ -88,8 +89,8 @@ class _ProductViewerState extends State<ProductViewer> {
                       });
                 },
                 secondButtonFunction: () => Navigator.of(context).pop(),
-                firstButtonText: 'حذف المنتج',
-                secondButtonText: 'تراجع',
+                firstButtonText: textTranslation(ar: 'حذف المنتج', en: ''),
+                secondButtonText: textTranslation(ar: 'تراجع', en: ''),
               );
             },
           ),
@@ -123,7 +124,7 @@ class _ProductViewerState extends State<ProductViewer> {
                 : () {
                     if (!isSignedIn()) {
                       final snackBar = SnackBar(
-                        content: Text('الرجاء تسجيل الدخول لاضافة المنتجات الى المفضلة', textAlign: TextAlign.right),
+                        content: Text(textTranslation(ar: 'الرجاء تسجيل الدخول لاضافة المنتجات الى المفضلة', en: ''), textAlign: TextAlign.right),
                         backgroundColor: Colors.black.withOpacity(0.7),
                         elevation: 0,
                         duration: Duration(seconds: 2),
@@ -199,7 +200,7 @@ class _ProductViewerState extends State<ProductViewer> {
                             children: <Widget>[
                               TextWidget(widget.product.productName,
                                   maxFontSize: 35, minFontSize: 18, style: TextStyle(fontWeight: FontWeight.bold)),
-                              TextWidget('المنتج ${widget.product.reference.split('/')[1]}#',
+                              TextWidget('${textTranslation(ar:'المنتج',en:'')} ${widget.product.reference.split('/')[1]}#',
                                   maxFontSize: 12, minFontSize: 11, style: TextStyle(color: Colors.grey)),
                               AutoSizeText(
                                 widget.product.productDescription,
@@ -216,8 +217,8 @@ class _ProductViewerState extends State<ProductViewer> {
                       padding: const EdgeInsets.only(top: 12),
                       child: TextWidget(
                           widget.product is ProductOffer
-                              ? '${widget.product.productPrice} ريال'
-                              : '${widget.product.productPrice} ريال كحد اقصى',
+                              ? '${widget.product.productPrice} ${textTranslation(ar:'ريال',en:'')}'
+                              : '${widget.product.productPrice} ${textTranslation(ar:'ريال كحد اقصى',en:'')}',
                           maxFontSize: 25,
                           minFontSize: 21,
                           style: TextStyle(fontWeight: FontWeight.bold)),
@@ -227,7 +228,7 @@ class _ProductViewerState extends State<ProductViewer> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          TextWidget(widget.product is ProductOffer ? 'البائع' : 'الزبون',
+                          TextWidget(widget.product is ProductOffer ? textTranslation(ar: 'البائع', en: '') : textTranslation(ar: 'الزبون', en: ''),
                               maxFontSize: 25, minFontSize: 20, style: TextStyle(fontWeight: FontWeight.bold)),
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 3),
@@ -248,7 +249,7 @@ class _ProductViewerState extends State<ProductViewer> {
                                             builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
                                               if (snapshot.hasError) {
                                                 return TextWidget(
-                                                  'لم يحدد موقع البائع',
+                                                  textTranslation(ar: 'لم يحدد موقع البائع', en: ''),
                                                   minFontSize: 11,
                                                   maxFontSize: 14,
                                                   style: TextStyle(color: Colors.grey, fontStyle: FontStyle.italic),
@@ -257,13 +258,13 @@ class _ProductViewerState extends State<ProductViewer> {
                                                 return Directionality(
                                                   textDirection: TextDirection.rtl,
                                                   child: TextWidget(
-                                                    'يبعد عنك ${snapshot.data}',
+                                                    '${textTranslation(ar:'يبعد عنك',en:'')} ${snapshot.data}',
                                                     minFontSize: 16,
                                                     maxFontSize: 18,
                                                   ),
                                                 );
                                               }
-                                              return TextWidget('يبعد عنك ...', minFontSize: 16, maxFontSize: 18);
+                                              return TextWidget('${textTranslation(ar:'يبعد عنك',en:'')} ...', minFontSize: 16, maxFontSize: 18);
                                             },
                                           ),
                                         Padding(
@@ -283,7 +284,7 @@ class _ProductViewerState extends State<ProductViewer> {
                                     ),
                                   ),
                                   OutlinedButton(
-                                      text: 'ارسال رسالة',
+                                      text: textTranslation(ar: 'ارسال رسالة', en: ''),
                                       function: () async {
                                         await sendPrivateMessage(context, widget.product.userUid);
                                       }),
@@ -308,8 +309,8 @@ class _ProductViewerState extends State<ProductViewer> {
                                                   children: <Widget>[
                                                     Text(
                                                       widget.product is ProductOffer
-                                                          ? 'اضافة الى العربة'
-                                                          : 'تقديم عرض للزبون',
+                                                          ? textTranslation(ar: 'اضافة الى العربة', en: '')
+                                                          : textTranslation(ar: 'تقديم عرض للزبون', en: ''),
                                                     ),
                                                   ],
                                                 )),
@@ -322,7 +323,7 @@ class _ProductViewerState extends State<ProductViewer> {
                                           function: () {
                                             if (!isSignedIn()) {
                                               final snackBar = SnackBar(
-                                                content: Text('الرجاء تسجيل الدخول لاضافة المنتجات الى العربة',
+                                                content: Text(textTranslation(ar: 'الرجاء تسجيل الدخول لاضافة المنتجات الى العربة', en: ''),
                                                     textAlign: TextAlign.right),
                                                 backgroundColor: Colors.black.withOpacity(0.7),
                                                 elevation: 0,
@@ -332,7 +333,7 @@ class _ProductViewerState extends State<ProductViewer> {
                                             } else if (widget.product is ProductOffer) {
                                               widget.product.addToCart();
                                               final snackBar = SnackBar(
-                                                content: Text('تم اضافة المنتج الى العربة', textAlign: TextAlign.right),
+                                                content: Text(textTranslation(ar: 'تم اضافة المنتج الى العربة', en: ''), textAlign: TextAlign.right),
                                                 backgroundColor: Colors.black.withOpacity(0.7),
                                                 elevation: 0,
                                                 duration: Duration(seconds: 2),
@@ -353,8 +354,8 @@ class _ProductViewerState extends State<ProductViewer> {
                                                 mainAxisAlignment: MainAxisAlignment.center,
                                                 children: <Widget>[
                                                   Text(widget.product is ProductOffer
-                                                      ? 'تبليغ عن منتج مخالف'
-                                                      : 'تبليغ عن طلب مخالف'),
+                                                      ? textTranslation(ar: 'تبليغ عن منتج مخالف', en: '')
+                                                      : textTranslation(ar: 'تبليغ عن طلب مخالف', en: '')),
                                                 ],
                                               )),
                                               Icon(Icons.priority_high),
@@ -388,7 +389,7 @@ class _ProductViewerState extends State<ProductViewer> {
                                                     child: Row(
                                                   mainAxisAlignment: MainAxisAlignment.center,
                                                   children: <Widget>[
-                                                    Text('الاتصال بالزبون'),
+                                                    Text(textTranslation(ar: 'الاتصال بالزبون', en: '')),
                                                   ],
                                                 )),
                                                 Icon(Mdi.phoneOutline),
@@ -421,7 +422,7 @@ class _ProductViewerState extends State<ProductViewer> {
                                                     child: Row(
                                                   mainAxisAlignment: MainAxisAlignment.center,
                                                   children: <Widget>[
-                                                    Text('عنوان الزبون'),
+                                                    Text(textTranslation(ar: 'عنوان الزبون', en: '')),
                                                   ],
                                                 )),
                                                 Icon(Mdi.mapMarkerRadiusOutline),

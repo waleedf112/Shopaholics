@@ -5,18 +5,20 @@ import 'package:flutter/material.dart';
 import 'package:shopaholics/Classes/User.dart';
 import 'package:shopaholics/Widgets/CustomDialog.dart';
 
+import 'Translation.dart';
+
 Future<bool> isEmailVerified(context, [bool pop = true]) async {
   bool isVerified = (await currentUser.isEmailVerified());
   if (!isVerified && !kDebugMode) {
     if (pop) Navigator.of(context).pop();
     return CustomDialog(
       context: context,
-      title: 'خطأ',
+      title: textTranslation(ar: 'خطأ', en: 'Error'),
       content: Text(
-        'لم يتم تفعيل بريدك الالكتروني!' + '\n' + 'تم ارسال رساله جديدة لتأكيد صحة بريدك.',
+        textTranslation(ar:'لم يتم تفعيل بريدك الالكتروني!' + '\n' + 'تم ارسال رساله جديدة لتأكيد صحة بريدك.',en:'You haven\'t activated your email address.\nWe have sent you a new activation link.'),
         textAlign: TextAlign.center,
       ),
-      firstButtonText: 'حسناً',
+      firstButtonText: textTranslation(ar: 'حسناً', en: 'OK'),
       firstButtonColor: Colors.black54,
       firstButtonFunction: () {
         Navigator.of(context).pop(false);

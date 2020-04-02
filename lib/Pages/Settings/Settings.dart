@@ -150,7 +150,7 @@ class SettingsPage extends StatelessWidget {
           children: <Widget>[
             SizedBox(height: 5),
             SimpleButton(
-              'الدخول',
+              textTranslation(ar: 'الدخول', en: ''),
               function: () => pushNewScreen(
                 context,
                 screen: SigningInPage(),
@@ -160,7 +160,7 @@ class SettingsPage extends StatelessWidget {
             ),
             SizedBox(height: 5),
             SimpleButton(
-              'التسجيل',
+              textTranslation(ar: 'التسجيل', en: ''),
               function: () async => pushNewScreen(
                 context,
                 screen: SigningUpPage(),
@@ -184,16 +184,16 @@ class SettingsPage extends StatelessWidget {
         if (isSignedIn())
           settingSection([
             setting(
-                title: 'حسابي',
-                desc: 'لادارة حسابك وتغيير البريد الالكتروني وكلمة المرور',
+                title: textTranslation(ar: 'حسابي', en: ''),
+                desc: textTranslation(ar: 'لادارة حسابك وتغيير البريد الالكتروني وكلمة المرور', en: ''),
                 icon: Icons.lock,
                 onPressed: () {
                   FocusScope.of(context).unfocus();
                   PagePush(context, MyAccountPage());
                 }),
             setting(
-                title: 'تسجيل خروج',
-                desc: 'لتسجيل الخروج من حسابك',
+                title: textTranslation(ar: 'تسجيل خروج', en: ''),
+                desc: textTranslation(ar: 'لتسجيل الخروج من حسابك', en: ''),
                 icon: Icons.subdirectory_arrow_right,
                 onPressed: () async {
                   FocusScope.of(context).unfocus();
@@ -205,8 +205,8 @@ class SettingsPage extends StatelessWidget {
                   );
                 }),
             setting(
-              title: 'اللغة',
-              desc: 'تغيير لغة عرض البرنامج',
+              title: textTranslation(ar: 'اللغة', en: ''),
+              desc: textTranslation(ar: 'تغيير لغة عرض البرنامج', en: ''),
               icon: Icons.language,
               onPressed: () => PagePush(context, LanguagesPage()),
             ),
@@ -216,39 +216,39 @@ class SettingsPage extends StatelessWidget {
           settingSection([
             if (currentUser.role != UserRole.customer)
               setting(
-                title: 'منتجاتي',
-                desc: 'عرض جميع منتجاتك وادارتها',
+                title: textTranslation(ar: 'منتجاتي', en: ''),
+                desc: textTranslation(ar: 'عرض جميع منتجاتك وادارتها', en: ''),
                 icon: Mdi.packageVariantClosed,
                 onPressed: () => PagePush(context, MyProductsPage()),
               ),
             if (currentUser.role != UserRole.customer)
               setting(
-                title: 'المبيعات',
-                desc: 'لعرض المبيعات وتحديث حاله كل شحنة',
+                title: textTranslation(ar: 'المبيعات', en: ''),
+                desc: textTranslation(ar: 'لعرض المبيعات وتحديث حاله كل شحنة', en: ''),
                 icon: Icons.monetization_on,
                 onPressed: () => PagePush(context, SalesPage()),
               ),
             setting(
-              title: 'طلباتي',
-              desc: 'لعرض طلباتك الحاليه والسابقة',
+              title: textTranslation(ar: 'طلباتي', en: ''),
+              desc: textTranslation(ar: 'لعرض طلباتك الحاليه والسابقة', en: ''),
               icon: Icons.shopping_basket,
               onPressed: () => PagePush(context, MyOrdersPage()),
             ),
             setting(
-              title: 'عنوان التوصيل',
-              desc: 'تحديد عنوانك لتوصيل الطلبات',
+              title: textTranslation(ar: 'عنوان التوصيل', en: ''),
+              desc: textTranslation(ar: 'تحديد عنوانك لتوصيل الطلبات', en: ''),
               icon: Icons.location_on,
               onPressed: () => PagePush(context, AddressesPage()),
             ),
             setting(
-              title: 'وسيلة الدفع',
-              desc: 'اضافة او تعديل بيانات وسيلة الدفع',
+              title: textTranslation(ar: 'وسيلة الدفع', en: ''),
+              desc: textTranslation(ar: 'اضافة او تعديل بيانات وسيلة الدفع', en: ''),
               icon: Icons.credit_card,
               onPressed: () => PagePush(context, PaymentPage()),
             ),
             setting(
-              title: 'التسجيل كبائع',
-              desc: 'لتقديم طلب صلاحيه البيع في التطبيق',
+              title: textTranslation(ar: 'التسجيل كبائع', en: ''),
+              desc: textTranslation(ar: 'لتقديم طلب صلاحيه البيع في التطبيق', en: ''),
               icon: Icons.store_mall_directory,
               onPressed: () => PagePush(context, RolesPage()),
             ),
@@ -257,14 +257,14 @@ class SettingsPage extends StatelessWidget {
         if (isSignedIn() && currentUser.role == UserRole.admin)
           settingSection([
             setting(
-              title: 'طلبات المستخدمين',
-              desc: 'عرض طلبات المستخدمين للتسجيل كبائع وغيرها',
+              title: textTranslation(ar: 'طلبات المستخدمين', en: ''),
+              desc: textTranslation(ar: 'عرض طلبات المستخدمين للتسجيل كبائع وغيرها', en: ''),
               icon: Icons.present_to_all,
               onPressed: () => PagePush(context, RolesRequestsPage()),
             ),
             setting(
-              title: 'البلاغات',
-              desc: 'البلاغات عن المنتجات والطلبات والمستخدمين والشكاوى',
+              title: textTranslation(ar: 'البلاغات', en: ''),
+              desc: textTranslation(ar: 'البلاغات عن المنتجات والطلبات والمستخدمين والشكاوى', en: ''),
               icon: Icons.warning,
               onPressed: () => PagePush(context, TicketsViewer()),
             ),

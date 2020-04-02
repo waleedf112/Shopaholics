@@ -15,7 +15,7 @@ class MyProductsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SecondaryView(
-      title: 'منتجاتي',
+      title: textTranslation(ar: 'منتجاتي', en: ''),
       child: ValueListenableBuilder(
         valueListenable: updatedMyProductsPage,
         builder: (_, value, child) => StreamBuilder(

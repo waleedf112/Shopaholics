@@ -15,7 +15,7 @@ class MyOrdersPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SecondaryView(
-      title: 'طلباتي',
+      title: textTranslation(ar: 'طلباتي', en: ''),
       child: FutureBuilder(
         future: Firestore.instance
             .collection('Orders')
@@ -113,7 +113,7 @@ class _Order extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(right: 6),
                         child: Text(
-                          'الطلب رقم #${data['number']}',
+                          '${textTranslation(ar:'الطلب رقم',en:'')} #${data['number']}',
                           style: TextStyle(color: Colors.grey, fontSize: 11),
                         ),
                       ),
@@ -127,7 +127,7 @@ class _Order extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(top: 12, bottom: 12, right: 6),
                         child: Text(
-                          '${data['productsPrice'] + data['delivery']} ريال',
+                          '${data['productsPrice'] + data['delivery']} ${textTranslation(ar:'ريال',en:'')}',
                           style: TextStyle(fontSize: 13),
                         ),
                       ),
@@ -179,7 +179,7 @@ class _Order extends StatelessWidget {
                         children: <Widget>[
                           Padding(
                             padding: const EdgeInsets.only(left: 3),
-                            child: Text('تقديم شكوى'),
+                            child: Text(textTranslation(ar: 'تقديم شكوى', en: '')),
                           ),
                           Icon(Icons.priority_high),
                         ],
@@ -251,7 +251,7 @@ NoOrders() => Center(
             color: Colors.grey.withOpacity(0.6),
             size: 100,
           ),
-          TextWidget('لاتوجد أي طلبات',
+          TextWidget(textTranslation(ar: 'لاتوجد أي طلبات', en: ''),
               style: TextStyle(
                 color: Colors.grey,
                 fontStyle: FontStyle.italic,

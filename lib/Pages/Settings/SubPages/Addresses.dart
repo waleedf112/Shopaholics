@@ -17,7 +17,7 @@ class AddressesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SecondaryView(
-      title: 'عنوان التوصيل',
+      title: textTranslation(ar: 'عنوان التوصيل', en: ''),
       child: PlacePicker(
         apiKey: mapApi,
         initialPosition: currentUser.location == null
@@ -43,16 +43,16 @@ class AddressesPage extends StatelessWidget {
                   child: Directionality(
                     textDirection: TextDirection.rtl,
                     child: SimpleButton(
-                      state == SearchingState.Searching ? 'جاري التحميل ...' : 'تحديد الموقع',
+                      state == SearchingState.Searching ? textTranslation(ar: 'جاري التحميل ...', en: '') : textTranslation(ar: 'تحديد الموقع', en: ''),
                       function: () {
                         CustomDialog(
                           context: context,
-                          title: 'حفظ الموقع',
+                          title: textTranslation(ar: 'حفظ الموقع', en: ''),
                           content: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
                               Text(
-                                'هل انت متأكد انك تريد حفظ الموقع؟\n',
+                                textTranslation(ar: 'هل انت متأكد انك تريد حفظ الموقع؟\n', en: ''),
                                 textAlign: TextAlign.center,
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),
@@ -64,8 +64,8 @@ class AddressesPage extends StatelessWidget {
                             ],
                           ),
                           firstButtonColor: Colors.black54,
-                          firstButtonText: 'حفظ الموقع',
-                          secondButtonText: 'تراجع',
+                          firstButtonText: textTranslation(ar: 'حفظ الموقع', en: ''),
+                          secondButtonText: textTranslation(ar: 'تراجع', en: ''),
                           secondButtonColor: Colors.red,
                           firstButtonFunction: () {
                             Navigator.of(context).pop();

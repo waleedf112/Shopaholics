@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:shopaholics/Classes/TradeOffer.dart';
+import 'package:shopaholics/Functions/Translation.dart';
 import 'package:shopaholics/Pages/RequestsPage/RequestsPage.dart';
 import 'package:shopaholics/Widgets/Button.dart';
 import 'package:shopaholics/Widgets/CustomDialog.dart';
@@ -17,7 +18,7 @@ class MakeOffer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SecondaryView(
-      title: 'تقديم عرض',
+      title: textTranslation(ar: 'تقديم عرض', en: ''),
       child: Form(
         key: formKey,
         child: ListView(
@@ -38,14 +39,14 @@ class MakeOffer extends StatelessWidget {
                         validator: (String value) {
                           try {
                             int x = int.parse(value);
-                            if (x < 1) return 'السعر اقل من ريال واحد';
-                            if (x > 99999) return 'السعر اعلى من المسموح به';
+                            if (x < 1) return textTranslation(ar: 'السعر اقل من ريال واحد', en: '');
+                            if (x > 99999) return textTranslation(ar: 'السعر اعلى من المسموح به', en: '');
                           } catch (e) {
-                            return 'السعر غير صحيح';
+                            return textTranslation(ar: 'السعر غير صحيح', en: '');
                           }
                         },
                         decoration: InputDecoration(
-                          labelText: 'السعر المقترح',
+                          labelText: textTranslation(ar: 'السعر المقترح', en: ''),
                           labelStyle: TextStyle(fontSize: 14),
                           filled: true,
                         ),
@@ -63,7 +64,7 @@ class MakeOffer extends StatelessWidget {
                         controller: otherController,
                         validator: (String value) => null,
                         decoration: InputDecoration(
-                          labelText: 'معلومات اخرى للزبون (اختياري)',
+                          labelText: textTranslation(ar: 'معلومات اخرى للزبون (اختياري)', en: ''),
                           labelStyle: TextStyle(fontSize: 14),
                           filled: true,
                         ),
@@ -76,7 +77,7 @@ class MakeOffer extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.fromLTRB(8, 30, 8, 0),
               child: SimpleButton(
-                'تقديم العرض',
+                textTranslation(ar: 'تقديم العرض', en: ''),
                 function: () {
                   if (formKey.currentState.validate()) {
                     loadingScreen(
@@ -94,12 +95,12 @@ class MakeOffer extends StatelessWidget {
                             Navigator.of(context).pop();
                             CustomDialog(
                                 context: context,
-                                title: hasError ? 'خطأ' : 'تم تقديم العرض',
+                                title: hasError ? textTranslation(ar: 'خطأ', en: 'Error') : textTranslation(ar: 'تم تقديم العرض', en: ''),
                                 content: AutoSizeText(
-                                    hasError ? 'عذراً, فقد تم حجز الطلب مسبقاً' : 'تم تقديم عرضك للزبون بنجاح!'),
+                                    hasError ? textTranslation(ar: 'عذراً, فقد تم حجز الطلب مسبقاً', en: '') : textTranslation(ar: 'تم تقديم عرضك للزبون بنجاح!', en: '')),
                                 dismissible: false,
                                 firstButtonColor: Colors.black45,
-                                firstButtonText: 'حسناً',
+                                firstButtonText: textTranslation(ar: 'حسناً', en: 'OK'),
                                 firstButtonFunction: () {
                                   Navigator.of(context).pop();
                                   Navigator.of(context).pop();

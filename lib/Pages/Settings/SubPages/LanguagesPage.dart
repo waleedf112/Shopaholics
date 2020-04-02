@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:shopaholics/Functions/AppLanguage.dart';
+import 'package:shopaholics/Functions/Translation.dart';
 import 'package:shopaholics/Widgets/AlertMessage.dart';
 import 'package:shopaholics/Widgets/Button.dart';
 import 'package:shopaholics/Widgets/CustomDialog.dart';
@@ -24,13 +25,13 @@ class _LanguagesPageState extends State<LanguagesPage> {
   @override
   Widget build(BuildContext context) {
     return SecondaryView(
-      title: 'لغة البرنامج',
+      title: textTranslation(ar: 'لغة البرنامج', en: ''),
       child: Column(
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: AlertMessage(
-              message: 'سيتم تغيير لغة البرنامج بعد تشغيل البرنامج مرة اخرى!',
+              message: textTranslation(ar: 'سيتم تغيير لغة البرنامج بعد تشغيل البرنامج مرة اخرى!', en: ''),
               color: Colors.black26,
             ),
           ),
@@ -59,18 +60,18 @@ class _LanguagesPageState extends State<LanguagesPage> {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 8),
-            child: SimpleButton('تغيير اللغة', function: () {
+            child: SimpleButton(textTranslation(ar: 'تغيير اللغة', en: ''), function: () {
               setCurrentAppLanguage(widget.languageValue);
               CustomDialog(
                   context: context,
-                  title: 'تم',
+                  title: textTranslation(ar: 'تم', en: ''),
                   content: AutoSizeText(
-                    'تم تغيير اللغة بنجاح!\n' + 'سيتم اجراء التغيير بعد تشغيل البرنامج مرة اخرى.',
+                    textTranslation(ar: 'تم تغيير اللغة بنجاح!\n', en: '') + textTranslation(ar: 'سيتم اجراء التغيير بعد تشغيل البرنامج مرة اخرى.', en: ''),
                     textAlign: TextAlign.center,
                   ),
                   dismissible: false,
                   firstButtonColor: Colors.black45,
-                  firstButtonText: 'حسناً',
+                  firstButtonText: textTranslation(ar: 'حسناً', en: 'OK'),
                   firstButtonFunction: () {
                     Navigator.of(context).pop();
                     Navigator.of(context).pop();

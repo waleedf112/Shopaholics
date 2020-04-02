@@ -11,5 +11,5 @@ enum UserRole {
   @HiveField(2)
   customer
 }
-
+//todo english arabic
 const List<String> roleNames = ['مشرف', 'متسوق شخصي', 'زبون'];

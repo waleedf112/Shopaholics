@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shopaholics/Classes/User.dart';
+import 'package:shopaholics/Functions/Translation.dart';
 import 'package:shopaholics/Functions/isEmailVerified.dart';
 import 'package:shopaholics/Pages/Settings/Functions/Validators.dart';
 import 'package:shopaholics/Widgets/AlertMessage.dart';
@@ -24,7 +25,7 @@ class MyAccountPage extends StatelessWidget {
         new TextEditingController(text: currentUser == null ? null : currentUser.phone);
     GlobalKey<FormState> formKey = new GlobalKey();
     return SecondaryView(
-      title: 'حسابي',
+      title: textTranslation(ar: 'حسابي', en: ''),
       child: Padding(
         padding: const EdgeInsets.all(12.0),
         child: Form(
@@ -33,7 +34,7 @@ class MyAccountPage extends StatelessWidget {
             physics: BouncingScrollPhysics(),
             children: <Widget>[
               AlertMessage(
-                message: 'الرجاء كتابة كلمة المرور الحالية قبل تغيير البيانات للتحقق من هويتك وحماية حسابك.',
+                message: textTranslation(ar: 'الرجاء كتابة كلمة المرور الحالية قبل تغيير البيانات للتحقق من هويتك وحماية حسابك.', en: ''),
                 maxLines: 3,
               ),
               SizedBox(height: 12),
@@ -47,7 +48,7 @@ class MyAccountPage extends StatelessWidget {
                     validator: (String value) => passwordValidation(value),
                     obscureText: true,
                     decoration: InputDecoration(
-                      labelText: 'كلمة المرور الحالية',
+                      labelText: textTranslation(ar: 'كلمة المرور الحالية', en: ''),
                       labelStyle: TextStyle(fontSize: 14),
                       filled: true,
                     ),
@@ -64,7 +65,7 @@ class MyAccountPage extends StatelessWidget {
                     keyboardType: TextInputType.numberWithOptions(),
                     validator: (String value) => phoneValidation(value),
                     decoration: InputDecoration(
-                      labelText: 'رقم الجوال',
+                      labelText: textTranslation(ar: 'رقم الجوال', en: ''),
                       labelStyle: TextStyle(fontSize: 14),
                       filled: true,
                     ),
@@ -81,7 +82,7 @@ class MyAccountPage extends StatelessWidget {
                     validator: (String value) => passwordValidation(value, canBeEmpty: true),
                     obscureText: true,
                     decoration: InputDecoration(
-                      labelText: 'كلمة المرور الجديدة',
+                      labelText: textTranslation(ar: 'كلمة المرور الجديدة', en: ''),
                       labelStyle: TextStyle(fontSize: 14),
                       filled: true,
                     ),
@@ -96,11 +97,11 @@ class MyAccountPage extends StatelessWidget {
                     textDirection: TextDirection.rtl,
                     controller: password2Controller,
                     validator: (String value) {
-                      if (password2Controller.text != passwordController.text) return 'كلمات المرور غير متطابقة';
+                      if (password2Controller.text != passwordController.text) return textTranslation(ar: 'كلمات المرور غير متطابقة', en: '');
                     },
                     obscureText: true,
                     decoration: InputDecoration(
-                      labelText: 'أعد كلمة المرور الجديدة',
+                      labelText: textTranslation(ar: 'أعد كلمة المرور الجديدة', en: ''),
                       labelStyle: TextStyle(fontSize: 14),
                       filled: true,
                     ),
@@ -108,7 +109,7 @@ class MyAccountPage extends StatelessWidget {
                 ),
               ),
               SimpleButton(
-                'حفظ البيانات',
+                textTranslation(ar: 'حفظ البيانات', en: ''),
                 function: () async {
                   FocusScope.of(context).unfocus();
                   bool isVerified = (await isEmailVerified(context));
@@ -128,9 +129,9 @@ class MyAccountPage extends StatelessWidget {
                               Navigator.of(context).pop();
                               CustomDialog(
                                   context: context,
-                                  title: 'تم الحفظ',
-                                  content: TextWidget('تم حفظ بياناتك بنجاح'),
-                                  firstButtonText: 'حسناً',
+                                  title: textTranslation(ar: 'تم الحفظ', en: ''),
+                                  content: TextWidget(textTranslation(ar: 'تم حفظ بياناتك بنجاح', en: '')),
+                                  firstButtonText: textTranslation(ar: 'حسناً', en: 'OK'),
                                   firstButtonColor: Colors.black45,
                                   firstButtonFunction: () {
                                     onValue.user.reload();
@@ -142,11 +143,11 @@ class MyAccountPage extends StatelessWidget {
                               Navigator.of(context).pop();
                               CustomDialog(
                                   context: context,
-                                  title: 'خطأ',
+                                  title: textTranslation(ar: 'خطأ', en: 'Error'),
                                   content: TextWidget(onError.code == 'ERROR_TOO_MANY_REQUESTS'
-                                      ? 'تم تخطي عدد المحاولات المسموح بها, الرجاء المحاولة في وقت لاحق!'
-                                      : 'كلمة المرور الحالية خاطئه!'),
-                                  firstButtonText: 'حسناً',
+                                      ? textTranslation(ar: 'تم تخطي عدد المحاولات المسموح بها, الرجاء المحاولة في وقت لاحق!', en: '')
+                                      : textTranslation(ar: 'كلمة المرور الحالية خاطئه!', en: '')),
+                                  firstButtonText: textTranslation(ar: 'حسناً', en: 'OK'),
                                   firstButtonColor: Colors.black45,
                                   firstButtonFunction: () {
                                     Navigator.of(context).pop();

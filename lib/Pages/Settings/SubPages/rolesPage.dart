@@ -9,6 +9,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:shopaholics/Classes/User.dart';
 import 'package:shopaholics/Classes/UserRole.dart';
 import 'package:shopaholics/Functions/PagePush.dart';
+import 'package:shopaholics/Functions/Translation.dart';
 import 'package:shopaholics/Functions/isEmailVerified.dart';
 import 'package:shopaholics/Widgets/AlertMessage.dart';
 import 'package:shopaholics/Widgets/Button.dart';
@@ -46,15 +47,15 @@ class _RolesPageState extends State<RolesPage> {
   @override
   Widget build(BuildContext context) {
     return SecondaryView(
-      title: 'نوع الحساب',
+      title: textTranslation(ar: 'نوع الحساب', en: ''),
       child: Padding(
         padding: const EdgeInsets.all(12.0),
         child: ListView(
           children: <Widget>[
             AlertMessage(
-              message: 'تقديم طلب على تغيير نوع الحساب لايعني الموافقة مباشرةً.' +
+              message: textTranslation(ar: 'تقديم طلب على تغيير نوع الحساب لايعني الموافقة مباشرةً.', en: '') +
                   '\n' +
-                  'سيتم الرد على طلبك من خلال 24 ساعة الى 48 ساعة.',
+                  textTranslation(ar: 'سيتم الرد على طلبك من خلال 24 ساعة الى 48 ساعة.', en: ''),
               centerIcon: true,
               maxLines: 3,
             ),
@@ -65,7 +66,7 @@ class _RolesPageState extends State<RolesPage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  TextWidget('نوع الحساب:', minFontSize: 18, maxFontSize: 18),
+                  TextWidget(textTranslation(ar: 'نوع الحساب:', en: ''), minFontSize: 18, maxFontSize: 18),
                   Directionality(
                     textDirection: TextDirection.rtl,
                     child: FutureBuilder(
@@ -76,7 +77,7 @@ class _RolesPageState extends State<RolesPage> {
                             textDirection: TextDirection.rtl,
                             children: <Widget>[
                               TextWidget(
-                                pending ? roleNames[requestedRole] + ' (قيد التنفيذ)' : roleNames[currentRole],
+                                pending ? roleNames[requestedRole] + textTranslation(ar: ' (قيد التنفيذ)', en: '') : roleNames[currentRole],
                                 minFontSize: 15,
                                 maxFontSize: 15,
                               ),
@@ -114,11 +115,11 @@ class _RolesPageState extends State<RolesPage> {
                 children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.only(left: 80),
-                    child: TextWidget('تغيير نوع الحساب', minFontSize: 18, maxFontSize: 18),
+                    child: TextWidget(textTranslation(ar: 'تغيير نوع الحساب', en: ''), minFontSize: 18, maxFontSize: 18),
                   ),
                   Expanded(
                     child: CustomDropDownMenu(
-                      hint: 'اختر نوع الحساب',
+                      hint: textTranslation(ar: 'اختر نوع الحساب', en: ''),
                       value: widget.role,
                       function: (p) {
                         setState(() {
@@ -139,11 +140,11 @@ class _RolesPageState extends State<RolesPage> {
                 children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.only(left: 80),
-                    child: TextWidget('موقع متجرك', minFontSize: 18, maxFontSize: 18),
+                    child: TextWidget(textTranslation(ar: 'موقع متجرك', en: ''), minFontSize: 18, maxFontSize: 18),
                   ),
                   Expanded(
                     child: CustomDropDownMenu(
-                      hint: 'اختر موقعك',
+                      hint: textTranslation(ar: 'اختر موقعك', en: ''),
                       value: widget.location,
                       function: (p) {
                         setState(() {
@@ -151,6 +152,7 @@ class _RolesPageState extends State<RolesPage> {
                           controller1.text = '';
                         });
                       },
+                      //TODO english - arabic
                       children: ['داخل السعودية', 'خارج السعودية'],
                     ),
                   ),
@@ -169,12 +171,12 @@ class _RolesPageState extends State<RolesPage> {
                       child: TextFormField(
                         enabled: widget.location != null,
                         controller: controller1,
-                        validator: (String value) => value.trim().isEmpty ? 'الحقل فارغ!' : null,
+                        validator: (String value) => value.trim().isEmpty ? textTranslation(ar: 'الحقل فارغ!', en: '') : null,
                         decoration: InputDecoration(
                           filled: true,
                           hintText: widget.location == null
-                              ? 'الرجاء اختيار موقع متجرك من الاعلى'
-                              : widget.location == 'داخل السعودية' ? 'ادخل حسابك في (معروف)' : 'ادخل رقم الهوية',
+                              ? textTranslation(ar: 'الرجاء اختيار موقع متجرك من الاعلى', en: '')
+                              : widget.location == 'داخل السعودية' ? textTranslation(ar: 'ادخل حسابك في (معروف)', en: '') : textTranslation(ar: 'ادخل رقم الهوية', en: ''),
                         ),
                       ),
                     ),
@@ -185,10 +187,10 @@ class _RolesPageState extends State<RolesPage> {
                       textDirection: TextDirection.rtl,
                       child: TextFormField(
                         controller: controller2,
-                        validator: (String value) => value.trim().isEmpty ? 'الحقل فارغ!' : null,
+                        validator: (String value) => value.trim().isEmpty ? textTranslation(ar: 'الحقل فارغ!', en: '') : null,
                         decoration: InputDecoration(
                           filled: true,
-                          hintText: 'ادخل رقم حسابك البنكي',
+                          hintText: textTranslation(ar: 'ادخل رقم حسابك البنكي', en: ''),
                         ),
                       ),
                     ),
@@ -205,7 +207,7 @@ class _RolesPageState extends State<RolesPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       FlatButton(
-                        child: Text('قبول الشروط الاحكام, اضغط هنا لقراءة الشروط'),
+                        child: Text(textTranslation(ar: 'قبول الشروط الاحكام, اضغط هنا لقراءة الشروط', en: '')),
                         onPressed: () => PagePush(
                             context,
                             FutureBuilder(
@@ -214,7 +216,7 @@ class _RolesPageState extends State<RolesPage> {
                                 if (snapshot.hasData)
                                   return PDFViewerScaffold(
                                     appBar: AppBar(
-                                      title: Text("الشروط والاحكام"),
+                                      title: Text(textTranslation(ar: 'الشروط والاحكام', en: '')),
                                       centerTitle: true,
                                     ),
                                     path: snapshot.data.path,
@@ -236,7 +238,7 @@ class _RolesPageState extends State<RolesPage> {
             ),
             SizedBox(height: 30),
             SimpleButton(
-              'ارسال الطلب',
+              textTranslation(ar: 'ارسال الطلب', en: ''),
               function: () async {
                 int roleIndex = roleNames.indexWhere((test) => test == widget.role);
                 if (currentUser.role.index != roleIndex && widget.formKey.currentState.validate() && _accepted.value)
@@ -250,12 +252,12 @@ class _RolesPageState extends State<RolesPage> {
                               Navigator.of(context).pop();
                               CustomDialog(
                                   context: context,
-                                  title: 'خطأ',
+                                  title: textTranslation(ar: 'خطأ', en: 'Error'),
                                   content: Text(
-                                    'يوجد طلب سابق, لايمكنك تقديم طلب حالياُ',
+                                    textTranslation(ar: 'يوجد طلب سابق, لايمكنك تقديم طلب حالياُ', en: ''),
                                     textAlign: TextAlign.center,
                                   ),
-                                  firstButtonText: 'حسناً',
+                                  firstButtonText: textTranslation(ar: 'حسناً', en: 'OK'),
                                   firstButtonColor: Colors.black54,
                                   firstButtonFunction: () {
                                     Navigator.of(context).pop();
@@ -272,12 +274,12 @@ class _RolesPageState extends State<RolesPage> {
                                 Navigator.of(context).pop();
                                 CustomDialog(
                                     context: context,
-                                    title: 'تم ارسال الطلب',
+                                    title: textTranslation(ar: 'تم ارسال الطلب', en: ''),
                                     content: Text(
-                                      'تم ارسال طلبك, الرجاء الانتظار من 24 ساعه الى 48 ساعه للرد على طلبك',
+                                      textTranslation(ar: 'تم ارسال طلبك, الرجاء الانتظار من 24 ساعه الى 48 ساعه للرد على طلبك', en: ''),
                                       textAlign: TextAlign.center,
                                     ),
-                                    firstButtonText: 'حسناً',
+                                    firstButtonText: textTranslation(ar: 'حسناً', en: 'OK'),
                                     firstButtonColor: Colors.black54,
                                     firstButtonFunction: () {
                                       Navigator.of(context).pop();

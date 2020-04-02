@@ -39,7 +39,7 @@ class OfferRow extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               TextWidget('....', minFontSize: 16, maxFontSize: 18),
-                              TextWidget('يبعد عنك ...', minFontSize: 11, maxFontSize: 13),
+                              TextWidget(textTranslation(ar: 'يبعد عنك ...', en: ''), minFontSize: 11, maxFontSize: 13),
                               Rating(null),
                             ],
                           ),
@@ -48,7 +48,7 @@ class OfferRow extends StatelessWidget {
                               Padding(
                                 padding: const EdgeInsets.only(top: 8),
                                 child: Text(
-                                  '.... ريال',
+                                  textTranslation(ar: '.... ريال', en: ''),
                                   style: TextStyle(
                                     color: Colors.red,
                                     fontSize: 16,
@@ -57,7 +57,7 @@ class OfferRow extends StatelessWidget {
                                 ),
                               ),
                               OutlinedButton(
-                                child: Text('قبول العرض'),
+                                child: Text(textTranslation(ar: 'قبول العرض', en: '')),
                                 function: () {},
                               ),
                             ],
@@ -103,7 +103,7 @@ class OfferRow extends StatelessWidget {
                           builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
                             if (snapshot.hasError) {
                               return TextWidget(
-                                'لم يحدد موقع البائع',
+                                textTranslation(ar: 'لم يحدد موقع البائع', en: ''),
                                 minFontSize: 11,
                                 maxFontSize: 13,
                                 style: TextStyle(color: Colors.grey, fontStyle: FontStyle.italic),
@@ -112,13 +112,13 @@ class OfferRow extends StatelessWidget {
                               return Directionality(
                                 textDirection: TextDirection.rtl,
                                 child: TextWidget(
-                                  'يبعد عنك ${snapshot.data}',
+                                  '${textTranslation(ar:'يبعد عنك',en:'')} ${snapshot.data}',
                                   minFontSize: 11,
                                   maxFontSize: 13,
                                 ),
                               );
                             }
-                            return TextWidget('يبعد عنك ...', minFontSize: 18, maxFontSize: 20);
+                            return TextWidget(textTranslation(ar: 'يبعد عنك ...', en: ''), minFontSize: 18, maxFontSize: 20);
                           },
                         ),
                         Rating(trader['rating']),
@@ -129,7 +129,7 @@ class OfferRow extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(top: 8),
                           child: Text(
-                            '${trade['price']} ريال',
+                            '${trade['price']} ${textTranslation(ar:'ريال',en:'')}',
                             style: TextStyle(
                               color: Colors.red,
                               fontSize: 16,
@@ -138,23 +138,23 @@ class OfferRow extends StatelessWidget {
                           ),
                         ),
                         OutlinedButton(
-                          child: Text('قبول العرض'),
+                          child: Text(textTranslation(ar: 'قبول العرض', en: '')),
                           function: () {
                             CustomDialog(
                                 context: context,
-                                title: 'قبول العرض',
+                                title: textTranslation(ar: 'قبول العرض', en: ''),
                                 content: Text(
-                                  'هل انت متأكد انك تريد قبول العرض من ' +
+                                  textTranslation(ar: 'هل انت متأكد انك تريد قبول العرض من ', en: '') +
                                       '${trader['displayName']}' +
-                                      ' بسعر ' +
-                                      '${trade['price']} ريال؟' +
+                                      textTranslation(ar: ' بسعر ', en: '') +
+                                      '${trade['price']} ${textTranslation(ar:'ريال؟',en:'')}' +
                                       '\n' +
-                                      'سيتم رفض جميع الطلبات الاخرى!',
+                                      textTranslation(ar: 'سيتم رفض جميع الطلبات الاخرى!', en: ''),
                                   textAlign: TextAlign.center,
                                 ),
                                 firstButtonColor: Colors.green,
-                                firstButtonText: 'قبول العرض',
-                                secondButtonText: 'تراجع',
+                                firstButtonText: textTranslation(ar: 'قبول العرض', en: ''),
+                                secondButtonText: textTranslation(ar: 'تراجع', en: ''),
                                 secondButtonColor: Colors.black54,
                                 secondButtonFunction: () => Navigator.of(context).pop(),
                                 firstButtonFunction: () {

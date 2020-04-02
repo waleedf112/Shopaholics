@@ -16,7 +16,7 @@ class _RolesRequestsPageState extends State<RolesRequestsPage> {
   @override
   Widget build(BuildContext context) {
     return SecondaryView(
-      title: 'طلبات المستخدمين',
+      title: textTranslation(ar: 'طلبات المستخدمين', en: ''),
       child: StreamBuilder(
         stream: Firestore.instance.collection('Users').getDocuments().asStream(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -87,7 +87,7 @@ class _RolesRequestsPageState extends State<RolesRequestsPage> {
                                 child: Column(
                                   children: <Widget>[
                                     OutlinedButton(
-                                        text: 'قبول الطلب',
+                                        text: textTranslation(ar: 'قبول الطلب', en: ''),
                                         function: () {
                                           loadingScreen(
                                               context: context,
@@ -109,7 +109,7 @@ class _RolesRequestsPageState extends State<RolesRequestsPage> {
                                               });
                                         }),
                                     OutlinedButton(
-                                        text: 'رفض الطلب',
+                                        text: textTranslation(ar: 'رفض الطلب', en: ''),
                                         function: () {
                                           loadingScreen(
                                               context: context,
@@ -144,7 +144,7 @@ class _RolesRequestsPageState extends State<RolesRequestsPage> {
                                 if (user['role']['inSaudi'])
                                   Row(
                                     children: <Widget>[
-                                      Text('حساب معروف:'),
+                                      Text(textTranslation(ar: 'حساب معروف:', en: '')),
                                       SizedBox(width: 3),
                                       Text(user['role']['idNumber']),
                                     ],
@@ -152,14 +152,14 @@ class _RolesRequestsPageState extends State<RolesRequestsPage> {
                                 if (!user['role']['inSaudi'])
                                   Row(
                                     children: <Widget>[
-                                      Text('رقم الهوية:'),
+                                      Text(textTranslation(ar: 'رقم الهوية:', en: '')),
                                       SizedBox(width: 3),
                                       Text(user['role']['idNumber']),
                                     ],
                                   ),
                                 Row(
                                   children: <Widget>[
-                                    Text('الرقم البنكي:'),
+                                    Text(textTranslation(ar: 'الرقم البنكي:', en: '')),
                                     SizedBox(width: 3),
                                     Text(user['role']['bankInfo']),
                                   ],

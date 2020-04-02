@@ -17,7 +17,7 @@ NoChatRooms() => Center(
                   color: Colors.grey.withOpacity(0.6),
                   size: 100,
                 ),
-                TextWidget('لاتوجد لديك أي محادثات',
+                TextWidget(textTranslation(ar: 'لاتوجد لديك أي محادثات', en: ''),
                     style: TextStyle(
                       color: Colors.grey,
                       fontStyle: FontStyle.italic,

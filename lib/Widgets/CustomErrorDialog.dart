@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shopaholics/Functions/Translation.dart';
 
 import 'CustomDialog.dart';
 
@@ -9,8 +10,8 @@ CustomErrorDialog(context, {text}) => CustomDialog(
         textAlign: TextAlign.center,
       ),
       dismissible: true,
-      title: 'خطأ',
-      firstButtonText: 'حسناً',
+      title: textTranslation(ar: 'خطأ', en: 'Error'),
+      firstButtonText: textTranslation(ar: 'حسناً', en: 'OK'),
       firstButtonColor: Colors.black45,
       firstButtonFunction: () => Navigator.of(context).pop(),
     );

@@ -14,6 +14,7 @@ import 'Classes/User.dart';
 import 'Classes/UserRole.dart';
 import 'Functions/AppLanguage.dart';
 import 'Functions/PagePush.dart';
+import 'Functions/Translation.dart';
 import 'Pages/Homepage/HomePage.dart';
 import 'Pages/Settings/SigningPage.dart';
 import 'Widgets/Button.dart';
@@ -145,7 +146,7 @@ class _LauncherState extends State<Launcher> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         SimpleButton(
-                          'الدخول',
+                          textTranslation(ar:'الدخول',en:''),
                           function: () => pushNewScreen(
                             context,
                             screen: SigningInPage(),
@@ -155,7 +156,7 @@ class _LauncherState extends State<Launcher> {
                         ),
                         SizedBox(height: 5),
                         SimpleButton(
-                          'التسجيل',
+                          textTranslation(ar:'التسجيل',en:''),
                           function: () async => pushNewScreen(
                             context,
                             screen: SigningUpPage(),
@@ -178,7 +179,7 @@ class _LauncherState extends State<Launcher> {
                             );
                           },
                           child: Text(
-                            'التسجيل لاحقاً',
+                            textTranslation(ar:'التسجيل لاحقاً',en:''),
                           ),
                         ),
                       ],

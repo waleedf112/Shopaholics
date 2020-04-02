@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:shopaholics/Classes/User.dart';
+import 'package:shopaholics/Functions/Translation.dart';
 import 'package:shopaholics/Widgets/Button.dart';
 import 'package:shopaholics/Widgets/CustomDialog.dart';
 import 'package:shopaholics/Widgets/SecondaryView.dart';
@@ -76,7 +77,7 @@ class TicketPage extends StatelessWidget {
                       'تم ارسال الشكوى بنجاح!\nشكراً لك على مساعدتك وستتم معالجه طلبك في اسرع وقت',
                       textAlign: TextAlign.center,
                     ),
-                    firstButtonText: 'حسناً',
+                    firstButtonText: textTranslation(ar: 'حسناً', en: 'OK'),
                     firstButtonColor: Colors.black54,
                     firstButtonFunction: () {
                       Navigator.of(context).pop(false);

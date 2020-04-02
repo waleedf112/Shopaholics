@@ -7,11 +7,11 @@ bool validateEmailSentax(String value) {
 
 String nameValidation(String value) {
   if (value.trim().isEmpty) {
-    return 'الاسم فارغ';
+    return textTranslation(ar: 'الاسم فارغ', en: '');
   } else if (value.length < 3) {
-    return 'الاسم اقل من 3 احرف';
+    return textTranslation(ar: 'الاسم اقل من 3 احرف', en: '');
   } else if (value.length > 10) {
-    return 'الاسم اطول من 10 احرف';
+    return textTranslation(ar: 'الاسم اطول من 10 احرف', en: '');
   }
   return null;
 }
@@ -20,21 +20,21 @@ String phoneValidation(String value) {
   try {
     int.parse(value.trim());
   } catch (e) {
-    return 'رقم الجوال غير صحيح';
+    return textTranslation(ar: 'رقم الجوال غير صحيح', en: '');
   }
   if (value.trim().length != 10) {
-    return 'رقم الجوال غير صحيح';
+    return textTranslation(ar: 'رقم الجوال غير صحيح', en: '');
   } else if (value.trim()[0] != '0' || value.trim()[1] != '5') {
-    return 'رقم الجوال لايبدأ بـ05';
+    return textTranslation(ar: 'رقم الجوال لايبدأ بـ05', en: '');
   }
   return null;
 }
 
 String emailValidation(String value) {
   if (value.trim().isEmpty) {
-    return 'البريد الالكتروني فارغ';
+    return textTranslation(ar: 'البريد الالكتروني فارغ', en: '');
   } else if (!validateEmailSentax(value)) {
-    return 'البريد الالكتروني غير صحيح';
+    return textTranslation(ar: 'البريد الالكتروني غير صحيح', en: '');
   }
   return null;
 }
@@ -42,11 +42,11 @@ String emailValidation(String value) {
 String passwordValidation(String value, {bool canBeEmpty = false}) {
   RegExp regExp = RegExp(r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$');
   if (value.isEmpty && !canBeEmpty) {
-    return 'كلمة المرور فارغة';
+    return textTranslation(ar: 'كلمة المرور فارغة', en: '');
   } else if (value.length > 0 && value.length < 6) {
-    return 'كلمه المرور اقل من 6 احرف';
+    return textTranslation(ar: 'كلمه المرور اقل من 6 احرف', en: '');
   } else if (!regExp.hasMatch(value)) {
-    return 'كلمه المرور يجب ان تحتوي على حروف وارقام!';
+    return textTranslation(ar: 'كلمه المرور يجب ان تحتوي على حروف وارقام!', en: '');
   }
   return null;
 }

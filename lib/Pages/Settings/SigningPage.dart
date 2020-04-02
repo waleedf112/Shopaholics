@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:persistent_bottom_nav_bar/utils/utils.dart';
 import 'package:shopaholics/Classes/User.dart';
+import 'package:shopaholics/Functions/Translation.dart';
 import 'package:shopaholics/Pages/Settings/Functions/SignUp.dart';
 import 'package:shopaholics/Widgets/Button.dart';
 import 'package:shopaholics/Widgets/CustomDialog.dart';
@@ -45,7 +46,7 @@ class SigningInPage extends StatelessWidget {
                         controller: emailController,
                         validator: (String value) => emailValidation(value),
                         decoration: InputDecoration(
-                          labelText: 'البريد الالكتروني',
+                          labelText: textTranslation(ar: 'البريد الالكتروني', en: ''),
                           labelStyle: TextStyle(fontSize: 14),
                           filled: true,
                         ),
@@ -61,7 +62,7 @@ class SigningInPage extends StatelessWidget {
                         controller: passwordController,
                         obscureText: true,
                         decoration: InputDecoration(
-                          labelText: 'كلمة المرور',
+                          labelText: textTranslation(ar: 'كلمة المرور', en: ''),
                           labelStyle: TextStyle(fontSize: 14),
                           filled: true,
                         ),
@@ -72,7 +73,7 @@ class SigningInPage extends StatelessWidget {
                   /* FlatButton(child: Text('نسيت كلمة المرور',style: TextStyle(color: Colors.blueAccent),), onPressed: () {}),
                   SizedBox(height: 5), */
                   SimpleButton(
-                    'الدخول',
+                    textTranslation(ar: 'الدخول', en: ''),
                     function: () async => await signInUser(context,
                         email: emailController, password: passwordController, formKey: formKey),
                   )
@@ -120,7 +121,7 @@ class SigningUpPage extends StatelessWidget {
                         controller: nameController,
                         validator: (String value) => nameValidation(value),
                         decoration: InputDecoration(
-                          labelText: 'الاسم',
+                          labelText: textTranslation(ar: 'الاسم', en: ''),
                           labelStyle: TextStyle(fontSize: 14),
                           filled: true,
                         ),
@@ -137,7 +138,7 @@ class SigningUpPage extends StatelessWidget {
                         keyboardType: TextInputType.numberWithOptions(),
                         validator: (String value) => phoneValidation(value),
                         decoration: InputDecoration(
-                          labelText: 'رقم الجوال',
+                          labelText: textTranslation(ar: 'رقم الجوال', en: ''),
                           labelStyle: TextStyle(fontSize: 14),
                           filled: true,
                         ),
@@ -153,7 +154,7 @@ class SigningUpPage extends StatelessWidget {
                         controller: emailController,
                         validator: (String value) => emailValidation(value),
                         decoration: InputDecoration(
-                          labelText: 'البريد الالكتروني',
+                          labelText: textTranslation(ar: 'البريد الالكتروني', en: ''),
                           labelStyle: TextStyle(fontSize: 14),
                           filled: true,
                         ),
@@ -170,7 +171,7 @@ class SigningUpPage extends StatelessWidget {
                         validator: (String value) => passwordValidation(value),
                         obscureText: true,
                         decoration: InputDecoration(
-                          labelText: 'كلمة المرور',
+                          labelText: textTranslation(ar: 'كلمة المرور', en: ''),
                           labelStyle: TextStyle(fontSize: 14),
                           filled: true,
                         ),
@@ -185,11 +186,11 @@ class SigningUpPage extends StatelessWidget {
                         textDirection: TextDirection.ltr,
                         controller: password2Controller,
                         validator: (String value) {
-                          if (password2Controller.text != passwordController.text) return 'كلمات المرور غير متطابقة';
+                          if (password2Controller.text != passwordController.text) return textTranslation(ar: 'كلمات المرور غير متطابقة', en: '');
                         },
                         obscureText: true,
                         decoration: InputDecoration(
-                          labelText: 'أعد كلمة المرور',
+                          labelText: textTranslation(ar: 'أعد كلمة المرور', en: ''),
                           labelStyle: TextStyle(fontSize: 14),
                           filled: true,
                         ),
@@ -197,7 +198,7 @@ class SigningUpPage extends StatelessWidget {
                     ),
                   ),
                   SimpleButton(
-                    'التسجيل',
+                    textTranslation(ar: 'التسجيل', en: ''),
                     function: () async => await signUpUser(context,
                         email: emailController,
                         password: passwordController,
@@ -237,8 +238,8 @@ class SigningOutPage extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           dismissible: true,
-          title: 'خطأ',
-          firstButtonText: 'حسناً',
+          title: textTranslation(ar: 'خطأ', en: 'Error'),
+          firstButtonText: textTranslation(ar: 'حسناً', en: 'OK'),
           firstButtonColor: Colors.black45,
           firstButtonFunction: () => Navigator.of(context).pop(),
         );
@@ -248,8 +249,7 @@ class SigningOutPage extends StatelessWidget {
           context,
           screen: Launcher(firstRun: false),
 
-          platformSpecific: true, // OPTIONAL VALUE. False by default, which means the bottom nav bar will persist
-          withNavBar: false, // OPTIONAL VALUE. True by default.
+          platformSpecific: true,  withNavBar: false, 
         );
         Navigator.of(context).pushReplacement(CupertinoPageRoute(builder: (cxt) {
           return Launcher(firstRun: false);

@@ -142,18 +142,21 @@ class _AppNewProductState extends State<AppNewProduct> {
                     height: 90,
                     child: Directionality(
                       textDirection: TextDirection.rtl,
-                      child: TextFormField(
-                        textDirection: TextDirection.ltr,
-                        controller: productNameController,
-                        validator: (String value) {
-                          if (value.trim().isEmpty) {
-                            return textTranslation(ar: 'اسم المنتج فارغ!', en: 'Product name is empty');
-                          }
-                        },
-                        decoration: InputDecoration(
-                          labelText: textTranslation(ar: 'اسم المنتج', en: 'Product Name'),
-                          labelStyle: TextStyle(fontSize: 14),
-                          filled: true,
+                      child: Directionality(
+                        textDirection: layoutTranslation(),
+                        child: TextFormField(
+                          textDirection: layoutTranslation(),
+                          controller: productNameController,
+                          validator: (String value) {
+                            if (value.trim().isEmpty) {
+                              return textTranslation(ar: 'اسم المنتج فارغ!', en: 'Product name is empty');
+                            }
+                          },
+                          decoration: InputDecoration(
+                            labelText: textTranslation(ar: 'اسم المنتج', en: 'Product Name'),
+                            labelStyle: TextStyle(fontSize: 14),
+                            filled: true,
+                          ),
                         ),
                       ),
                     ),
@@ -161,7 +164,7 @@ class _AppNewProductState extends State<AppNewProduct> {
                   Container(
                     //height: 90,
                     child: Directionality(
-                      textDirection: TextDirection.rtl,
+           textDirection: layoutTranslation(),
                       child: TextFormField(
                         textDirection: TextDirection.ltr,
                         maxLines: 5,
@@ -179,7 +182,7 @@ class _AppNewProductState extends State<AppNewProduct> {
                   Container(
                     height: 90,
                     child: Directionality(
-                      textDirection: TextDirection.rtl,
+           textDirection: layoutTranslation(),
                       child: TextFormField(
                         textDirection: TextDirection.ltr,
                         controller: productPriceController,
@@ -209,8 +212,7 @@ class _AppNewProductState extends State<AppNewProduct> {
                   Padding(
                     padding: const EdgeInsets.only(right: 8),
                     child: Directionality(
-                      textDirection: TextDirection.rtl,
-                      child: Row(
+textDirection: layoutTranslation(),                      child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           TextWidget(textTranslation(ar: 'الصور', en: 'Images'), minFontSize: 20, maxFontSize: 23),
@@ -229,8 +231,7 @@ class _AppNewProductState extends State<AppNewProduct> {
               ),
             ),
             Directionality(
-              textDirection: TextDirection.rtl,
-              child: Container(
+textDirection: layoutTranslation(),              child: Container(
                 height: 300,
                 child: _image.isNotEmpty
                     ? ListView.builder(

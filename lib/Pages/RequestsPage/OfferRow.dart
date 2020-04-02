@@ -40,7 +40,8 @@ class OfferRow extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               TextWidget('....', minFontSize: 16, maxFontSize: 18),
-                              TextWidget(textTranslation(ar: 'يبعد عنك ...', en: '...'), minFontSize: 11, maxFontSize: 13),
+                              TextWidget(textTranslation(ar: 'يبعد عنك ...', en: '...'),
+                                  minFontSize: 11, maxFontSize: 13),
                               Rating(null),
                             ],
                           ),
@@ -146,12 +147,15 @@ class OfferRow extends StatelessWidget {
                                 context: context,
                                 title: textTranslation(ar: 'قبول العرض', en: 'Accept Offer'),
                                 content: Text(
-                                  textTranslation(ar: 'هل انت متأكد انك تريد قبول العرض من ', en: 'Are you sure you want to accept the offer from ') +
+                                  textTranslation(
+                                          ar: 'هل انت متأكد انك تريد قبول العرض من ',
+                                          en: 'Are you sure you want to accept the offer from ') +
                                       '${trader['displayName']}' +
                                       textTranslation(ar: ' بسعر ', en: 'with the price of ') +
                                       '${trade['price']} ${textTranslation(ar: 'ريال؟', en: 'SR?')}' +
                                       '\n' +
-                                      textTranslation(ar: 'سيتم رفض جميع الطلبات الاخرى!', en: 'All other offers will be declined'),
+                                      textTranslation(
+                                          ar: 'سيتم رفض جميع الطلبات الاخرى!', en: 'All other offers will be declined'),
                                   textAlign: TextAlign.center,
                                 ),
                                 firstButtonColor: Colors.green,

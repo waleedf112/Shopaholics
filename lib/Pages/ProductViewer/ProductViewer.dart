@@ -68,9 +68,13 @@ class _ProductViewerState extends State<ProductViewer> {
               CustomDialog(
                 context: context,
                 title: textTranslation(ar: 'حذف المنتج', en: 'Delete Product'),
-                content: TextWidget(textTranslation(ar: 'هل انت متأكد انك تريد حذف هذا المنتج؟', en: 'Are you sure that you want to delete this product?') +
+                content: TextWidget(textTranslation(
+                        ar: 'هل انت متأكد انك تريد حذف هذا المنتج؟',
+                        en: 'Are you sure that you want to delete this product?') +
                     '\n' +
-                    textTranslation(ar: 'لن يمكنك التراجع عن هذا الاختيار بعد الحذف!', en: 'You can\'t restore it back once you deleted it!')),
+                    textTranslation(
+                        ar: 'لن يمكنك التراجع عن هذا الاختيار بعد الحذف!',
+                        en: 'You can\'t restore it back once you deleted it!')),
                 firstButtonColor: Colors.red,
                 secondButtonColor: Colors.black54,
                 firstButtonFunction: () {
@@ -125,7 +129,10 @@ class _ProductViewerState extends State<ProductViewer> {
                 : () {
                     if (!isSignedIn()) {
                       final snackBar = SnackBar(
-                        content: Text(textTranslation(ar: 'الرجاء تسجيل الدخول لاضافة المنتجات الى المفضلة', en: 'Please sign in to add products to the favorites'),
+                        content: Text(
+                            textTranslation(
+                                ar: 'الرجاء تسجيل الدخول لاضافة المنتجات الى المفضلة',
+                                en: 'Please sign in to add products to the favorites'),
                             textAlign: TextAlign.right),
                         backgroundColor: Colors.black.withOpacity(0.7),
                         elevation: 0,
@@ -321,7 +328,8 @@ class _ProductViewerState extends State<ProductViewer> {
                                                     Text(
                                                       widget.product is ProductOffer
                                                           ? textTranslation(ar: 'اضافة الى العربة', en: 'Add to Cart')
-                                                          : textTranslation(ar: 'تقديم عرض للزبون', en: 'Maker an Offer'),
+                                                          : textTranslation(
+                                                              ar: 'تقديم عرض للزبون', en: 'Maker an Offer'),
                                                     ),
                                                   ],
                                                 )),
@@ -346,7 +354,9 @@ class _ProductViewerState extends State<ProductViewer> {
                                             } else if (widget.product is ProductOffer) {
                                               widget.product.addToCart();
                                               final snackBar = SnackBar(
-                                                content: Text(textTranslation(ar: 'تم اضافة المنتج الى العربة', en: 'Added to Cart'),
+                                                content: Text(
+                                                    textTranslation(
+                                                        ar: 'تم اضافة المنتج الى العربة', en: 'Added to Cart'),
                                                     textAlign: TextAlign.right),
                                                 backgroundColor: Colors.black.withOpacity(0.7),
                                                 elevation: 0,
@@ -368,8 +378,10 @@ class _ProductViewerState extends State<ProductViewer> {
                                                 mainAxisAlignment: MainAxisAlignment.center,
                                                 children: <Widget>[
                                                   Text(widget.product is ProductOffer
-                                                      ? textTranslation(ar: 'تبليغ عن منتج مخالف', en: 'Report a Violation')
-                                                      : textTranslation(ar: 'تبليغ عن طلب مخالف', en: 'Report a Violation')),
+                                                      ? textTranslation(
+                                                          ar: 'تبليغ عن منتج مخالف', en: 'Report a Violation')
+                                                      : textTranslation(
+                                                          ar: 'تبليغ عن طلب مخالف', en: 'Report a Violation')),
                                                 ],
                                               )),
                                               Icon(Icons.priority_high),
@@ -403,7 +415,8 @@ class _ProductViewerState extends State<ProductViewer> {
                                                     child: Row(
                                                   mainAxisAlignment: MainAxisAlignment.center,
                                                   children: <Widget>[
-                                                    Text(textTranslation(ar: 'الاتصال بالزبون', en: 'Call the Customer')),
+                                                    Text(textTranslation(
+                                                        ar: 'الاتصال بالزبون', en: 'Call the Customer')),
                                                   ],
                                                 )),
                                                 Icon(Mdi.phoneOutline),
@@ -436,7 +449,8 @@ class _ProductViewerState extends State<ProductViewer> {
                                                     child: Row(
                                                   mainAxisAlignment: MainAxisAlignment.center,
                                                   children: <Widget>[
-                                                    Text(textTranslation(ar: 'عنوان الزبون', en: 'Customer\'s Location')),
+                                                    Text(textTranslation(
+                                                        ar: 'عنوان الزبون', en: 'Customer\'s Location')),
                                                   ],
                                                 )),
                                                 Icon(Mdi.mapMarkerRadiusOutline),

@@ -52,9 +52,13 @@ class _RolesPageState extends State<RolesPage> {
         child: ListView(
           children: <Widget>[
             AlertMessage(
-              message: textTranslation(ar: 'تقديم طلب على تغيير نوع الحساب لايعني الموافقة مباشرةً.', en: 'Requesting an upgrade of your account does not mean that it will be accepted') +
+              message: textTranslation(
+                      ar: 'تقديم طلب على تغيير نوع الحساب لايعني الموافقة مباشرةً.',
+                      en: 'Requesting an upgrade of your account does not mean that it will be accepted') +
                   '\n' +
-                  textTranslation(ar: 'سيتم الرد على طلبك من خلال 24 ساعة الى 48 ساعة.', en: 'your request has to be reviewd by admins, expect a response within 24 hours to 48 hours.'),
+                  textTranslation(
+                      ar: 'سيتم الرد على طلبك من خلال 24 ساعة الى 48 ساعة.',
+                      en: 'your request has to be reviewd by admins, expect a response within 24 hours to 48 hours.'),
               centerIcon: true,
               maxLines: 3,
             ),
@@ -116,8 +120,8 @@ class _RolesPageState extends State<RolesPage> {
                 children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.only(left: 80),
-                    child:
-                        TextWidget(textTranslation(ar: 'تغيير نوع الحساب', en: 'Change account type'), minFontSize: 15, maxFontSize: 18),
+                    child: TextWidget(textTranslation(ar: 'تغيير نوع الحساب', en: 'Change account type'),
+                        minFontSize: 15, maxFontSize: 18),
                   ),
                   Expanded(
                     child: CustomDropDownMenu(
@@ -142,7 +146,8 @@ class _RolesPageState extends State<RolesPage> {
                 children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.only(left: 80),
-                    child: TextWidget(textTranslation(ar: 'موقع متجرك', en: 'Your shop location'), minFontSize: 15, maxFontSize: 18),
+                    child: TextWidget(textTranslation(ar: 'موقع متجرك', en: 'Your shop location'),
+                        minFontSize: 15, maxFontSize: 18),
                   ),
                   Expanded(
                     child: CustomDropDownMenu(
@@ -178,7 +183,8 @@ class _RolesPageState extends State<RolesPage> {
                         decoration: InputDecoration(
                           filled: true,
                           hintText: widget.location == null
-                              ? textTranslation(ar: 'الرجاء اختيار موقع متجرك من الاعلى', en: 'Please choose a location')
+                              ? textTranslation(
+                                  ar: 'الرجاء اختيار موقع متجرك من الاعلى', en: 'Please choose a location')
                               : widget.location == 'داخل السعودية'
                                   ? textTranslation(ar: 'ادخل حسابك في (معروف)', en: 'Maroof account')
                                   : textTranslation(ar: 'ادخل رقم الهوية', en: 'ID Number'),
@@ -213,8 +219,10 @@ class _RolesPageState extends State<RolesPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Expanded(
-                                              child: FlatButton(
-                          child: TextWidget(textTranslation(ar: 'قبول الشروط والاحكام, اضغط هنا لقراءة الشروط', en: 'Accept the roles and policies, press here to read them.')),
+                        child: FlatButton(
+                          child: TextWidget(textTranslation(
+                              ar: 'قبول الشروط والاحكام, اضغط هنا لقراءة الشروط',
+                              en: 'Accept the roles and policies, press here to read them.')),
                           onPressed: () => PagePush(
                               context,
                               FutureBuilder(
@@ -262,7 +270,9 @@ class _RolesPageState extends State<RolesPage> {
                                   context: context,
                                   title: textTranslation(ar: 'خطأ', en: 'Error'),
                                   content: Text(
-                                    textTranslation(ar: 'يوجد طلب سابق, لايمكنك تقديم طلب حالياُ', en: 'You can\'t send a new request, you already have one pending!'),
+                                    textTranslation(
+                                        ar: 'يوجد طلب سابق, لايمكنك تقديم طلب حالياُ',
+                                        en: 'You can\'t send a new request, you already have one pending!'),
                                     textAlign: TextAlign.center,
                                   ),
                                   firstButtonText: textTranslation(ar: 'حسناً', en: 'OK'),

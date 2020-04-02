@@ -48,7 +48,8 @@ String passwordValidation(String value, {bool canBeEmpty = false}) {
   } else if (value.length > 0 && value.length < 6) {
     return textTranslation(ar: 'كلمه المرور اقل من 6 احرف', en: 'Password is less than 6 letters');
   } else if (!regExp.hasMatch(value)) {
-    return textTranslation(ar: 'كلمه المرور يجب ان تحتوي على حروف وارقام!', en: 'Password must have letters and numbers');
+    return textTranslation(
+        ar: 'كلمه المرور يجب ان تحتوي على حروف وارقام!', en: 'Password must have letters and numbers');
   }
   return null;
 }

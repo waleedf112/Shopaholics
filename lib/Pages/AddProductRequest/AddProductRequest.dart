@@ -83,7 +83,8 @@ class _AddProductRequestState extends State<AddProductRequest> {
                     CustomDialog(
                         context: context,
                         title: textTranslation(ar: 'تم اضافة الطلب', en: 'Request Added'),
-                        content: AutoSizeText(textTranslation(ar: 'تم اضافة طلب المنتج بنجاح!', en: 'Your request has been added!')),
+                        content: AutoSizeText(
+                            textTranslation(ar: 'تم اضافة طلب المنتج بنجاح!', en: 'Your request has been added!')),
                         dismissible: false,
                         firstButtonColor: Colors.black45,
                         firstButtonText: textTranslation(ar: 'حسناً', en: 'OK'),
@@ -97,7 +98,8 @@ class _AddProductRequestState extends State<AddProductRequest> {
             CustomDialog(
                 context: context,
                 title: textTranslation(ar: 'خطأ', en: 'Error'),
-                content: AutoSizeText(textTranslation(ar: 'الرجاء اضافة من 3 الى 10 صور للمنتج.', en: 'Please add 3 to 10 images of the product')),
+                content: AutoSizeText(textTranslation(
+                    ar: 'الرجاء اضافة من 3 الى 10 صور للمنتج.', en: 'Please add 3 to 10 images of the product')),
                 dismissible: false,
                 firstButtonColor: Colors.black45,
                 firstButtonText: textTranslation(ar: 'حسناً', en: 'OK'),
@@ -165,8 +167,11 @@ class _AddProductRequestState extends State<AddProductRequest> {
                         validator: (String value) {
                           try {
                             int x = int.parse(value);
-                            if (x < 1) return textTranslation(ar: 'السعر اقل من ريال واحد', en: 'Price is lower than 1 SR');
-                            if (x > 99999) return textTranslation(ar: 'السعر اعلى من المسموح به', en: 'Price is more than the allowed value');
+                            if (x < 1)
+                              return textTranslation(ar: 'السعر اقل من ريال واحد', en: 'Price is lower than 1 SR');
+                            if (x > 99999)
+                              return textTranslation(
+                                  ar: 'السعر اعلى من المسموح به', en: 'Price is more than the allowed value');
                           } catch (e) {
                             return textTranslation(ar: 'السعر غير صحيح', en: 'Price is invalid');
                           }

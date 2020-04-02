@@ -39,8 +39,11 @@ class MakeOffer extends StatelessWidget {
                         validator: (String value) {
                           try {
                             int x = int.parse(value);
-                            if (x < 1) return textTranslation(ar: 'السعر اقل من ريال واحد', en: 'Price is lower than 1 SR');
-                            if (x > 99999) return textTranslation(ar: 'السعر اعلى من المسموح به', en: 'Price is more than the allowed value');
+                            if (x < 1)
+                              return textTranslation(ar: 'السعر اقل من ريال واحد', en: 'Price is lower than 1 SR');
+                            if (x > 99999)
+                              return textTranslation(
+                                  ar: 'السعر اعلى من المسموح به', en: 'Price is more than the allowed value');
                           } catch (e) {
                             return textTranslation(ar: 'السعر غير صحيح', en: 'Price is invalid');
                           }
@@ -64,7 +67,8 @@ class MakeOffer extends StatelessWidget {
                         controller: otherController,
                         validator: (String value) => null,
                         decoration: InputDecoration(
-                          labelText: textTranslation(ar: 'معلومات اخرى للزبون (اختياري)', en: 'Other information to the customer'),
+                          labelText: textTranslation(
+                              ar: 'معلومات اخرى للزبون (اختياري)', en: 'Other information to the customer'),
                           labelStyle: TextStyle(fontSize: 14),
                           filled: true,
                         ),
@@ -99,8 +103,11 @@ class MakeOffer extends StatelessWidget {
                                     ? textTranslation(ar: 'خطأ', en: 'Error')
                                     : textTranslation(ar: 'تم تقديم العرض', en: 'Done'),
                                 content: AutoSizeText(hasError
-                                    ? textTranslation(ar: 'عذراً, فقد تم حجز الطلب مسبقاً', en: 'Sorry, the request has been fulfilled')
-                                    : textTranslation(ar: 'تم تقديم عرضك للزبون بنجاح!', en: 'Your offer has been placed!')),
+                                    ? textTranslation(
+                                        ar: 'عذراً, فقد تم حجز الطلب مسبقاً',
+                                        en: 'Sorry, the request has been fulfilled')
+                                    : textTranslation(
+                                        ar: 'تم تقديم عرضك للزبون بنجاح!', en: 'Your offer has been placed!')),
                                 dismissible: false,
                                 firstButtonColor: Colors.black45,
                                 firstButtonText: textTranslation(ar: 'حسناً', en: 'OK'),

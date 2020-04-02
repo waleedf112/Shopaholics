@@ -35,7 +35,8 @@ class MyAccountPage extends StatelessWidget {
             children: <Widget>[
               AlertMessage(
                 message: textTranslation(
-                    ar: 'الرجاء كتابة كلمة المرور الحالية قبل تغيير البيانات للتحقق من هويتك وحماية حسابك.', en: 'Please type your current password before changing any information to verify your identity and secure your account.'),
+                    ar: 'الرجاء كتابة كلمة المرور الحالية قبل تغيير البيانات للتحقق من هويتك وحماية حسابك.',
+                    en: 'Please type your current password before changing any information to verify your identity and secure your account.'),
                 maxLines: 3,
               ),
               SizedBox(height: 12),
@@ -132,7 +133,8 @@ class MyAccountPage extends StatelessWidget {
                               CustomDialog(
                                   context: context,
                                   title: textTranslation(ar: 'تم الحفظ', en: 'Saved'),
-                                  content: TextWidget(textTranslation(ar: 'تم حفظ بياناتك بنجاح', en: 'Your new information has been saved')),
+                                  content: TextWidget(textTranslation(
+                                      ar: 'تم حفظ بياناتك بنجاح', en: 'Your new information has been saved')),
                                   firstButtonText: textTranslation(ar: 'حسناً', en: 'OK'),
                                   firstButtonColor: Colors.black45,
                                   firstButtonFunction: () {
@@ -148,8 +150,10 @@ class MyAccountPage extends StatelessWidget {
                                   title: textTranslation(ar: 'خطأ', en: 'Error'),
                                   content: TextWidget(onError.code == 'ERROR_TOO_MANY_REQUESTS'
                                       ? textTranslation(
-                                          ar: 'تم تخطي عدد المحاولات المسموح بها, الرجاء المحاولة في وقت لاحق!', en: 'Maximum amount of tries has been reached, try again later')
-                                      : textTranslation(ar: 'كلمة المرور الحالية خاطئه!', en: 'Your current passwords is invalid')),
+                                          ar: 'تم تخطي عدد المحاولات المسموح بها, الرجاء المحاولة في وقت لاحق!',
+                                          en: 'Maximum amount of tries has been reached, try again later')
+                                      : textTranslation(
+                                          ar: 'كلمة المرور الحالية خاطئه!', en: 'Your current passwords is invalid')),
                                   firstButtonText: textTranslation(ar: 'حسناً', en: 'OK'),
                                   firstButtonColor: Colors.black45,
                                   firstButtonFunction: () {

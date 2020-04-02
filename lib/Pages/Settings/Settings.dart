@@ -39,7 +39,7 @@ class SettingsPage extends StatelessWidget {
                 color: Colors.black54,
               ),
               Expanded(
-                              child: Padding(
+                child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
@@ -174,7 +174,9 @@ class SettingsPage extends StatelessWidget {
           settingSection([
             setting(
                 title: textTranslation(ar: 'حسابي', en: 'My Account'),
-                desc: textTranslation(ar: 'لادارة حسابك وتغيير البريد الالكتروني وكلمة المرور', en: 'Manage your account and the email address and password'),
+                desc: textTranslation(
+                    ar: 'لادارة حسابك وتغيير البريد الالكتروني وكلمة المرور',
+                    en: 'Manage your account and the email address and password'),
                 icon: Icons.lock,
                 onPressed: () {
                   FocusScope.of(context).unfocus();
@@ -219,7 +221,8 @@ class SettingsPage extends StatelessWidget {
               ),
             setting(
               title: textTranslation(ar: 'طلباتي', en: 'My Orders'),
-              desc: textTranslation(ar: 'لعرض طلباتك الحاليه والسابقة', en: 'Show all of your orders and track each shipment'),
+              desc: textTranslation(
+                  ar: 'لعرض طلباتك الحاليه والسابقة', en: 'Show all of your orders and track each shipment'),
               icon: Icons.shopping_basket,
               onPressed: () => PagePush(context, MyOrdersPage()),
             ),
@@ -237,7 +240,9 @@ class SettingsPage extends StatelessWidget {
             ),
             setting(
               title: textTranslation(ar: 'التسجيل كبائع', en: 'Register as a personal shopper'),
-              desc: textTranslation(ar: 'لتقديم طلب صلاحيه البيع في التطبيق', en: 'Request to upgrade your account to get more privileges to sell products in the app'),
+              desc: textTranslation(
+                  ar: 'لتقديم طلب صلاحيه البيع في التطبيق',
+                  en: 'Request to upgrade your account to get more privileges to sell products in the app'),
               icon: Icons.store_mall_directory,
               onPressed: () => PagePush(context, RolesPage()),
             ),
@@ -247,13 +252,16 @@ class SettingsPage extends StatelessWidget {
           settingSection([
             setting(
               title: textTranslation(ar: 'طلبات المستخدمين', en: 'Upgrade requests'),
-              desc: textTranslation(ar: 'عرض طلبات المستخدمين للتسجيل كبائع وغيرها', en: 'Manage all account upgrade requests'),
+              desc: textTranslation(
+                  ar: 'عرض طلبات المستخدمين للتسجيل كبائع وغيرها', en: 'Manage all account upgrade requests'),
               icon: Icons.present_to_all,
               onPressed: () => PagePush(context, RolesRequestsPage()),
             ),
             setting(
               title: textTranslation(ar: 'البلاغات', en: 'Reports'),
-              desc: textTranslation(ar: 'البلاغات عن المنتجات والطلبات والمستخدمين والشكاوى', en: 'Reports about any product, request, and users violations'),
+              desc: textTranslation(
+                  ar: 'البلاغات عن المنتجات والطلبات والمستخدمين والشكاوى',
+                  en: 'Reports about any product, request, and users violations'),
               icon: Icons.warning,
               onPressed: () => PagePush(context, TicketsViewer()),
             ),

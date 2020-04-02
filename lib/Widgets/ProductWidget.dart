@@ -67,7 +67,9 @@ class _ProductWidgetState extends State<ProductWidget> {
                       } else {
                         Scaffold.of(context).showSnackBar(SnackBar(
                           content: Text(
-                            textTranslation(ar: "الرجاء تسجيل دخولك لتتمكن من الاضافة الى المفضلة", en: 'Please sign in before adding prodects to your favorite'),
+                            textTranslation(
+                                ar: "الرجاء تسجيل دخولك لتتمكن من الاضافة الى المفضلة",
+                                en: 'Please sign in before adding prodects to your favorite'),
                             textDirection: TextDirection.rtl,
                           ),
                         ));

@@ -51,7 +51,9 @@ class AddressesPage extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
                               Text(
-                                textTranslation(ar: 'هل انت متأكد انك تريد حفظ الموقع؟\n', en: 'Are you sure you want to set the location?'),
+                                textTranslation(
+                                    ar: 'هل انت متأكد انك تريد حفظ الموقع؟\n',
+                                    en: 'Are you sure you want to set the location?'),
                                 textAlign: TextAlign.center,
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),

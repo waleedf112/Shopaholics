@@ -19,9 +19,12 @@ class TicketPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String _getTitle() {
-      if (ticketType == TicketType.orderComplaint) return textTranslation(ar: 'شكوى عن الفاتوره', en: 'Complaint about an order');
-      if (ticketType == TicketType.productComplaint) return textTranslation(ar: 'شكوى عن منتج', en: 'Complaint about a product');
-      if (ticketType == TicketType.requestComplaint) return textTranslation(ar: 'شكوى عن طلب', en: 'Complaint about a request');
+      if (ticketType == TicketType.orderComplaint)
+        return textTranslation(ar: 'شكوى عن الفاتوره', en: 'Complaint about an order');
+      if (ticketType == TicketType.productComplaint)
+        return textTranslation(ar: 'شكوى عن منتج', en: 'Complaint about a product');
+      if (ticketType == TicketType.requestComplaint)
+        return textTranslation(ar: 'شكوى عن طلب', en: 'Complaint about a request');
       return null;
     }
 
@@ -50,7 +53,9 @@ class TicketPage extends StatelessWidget {
                           maxLines: 10,
                           decoration: InputDecoration(
                             hintText: textTranslation(
-                                    ar: 'اكتب نص الشكوى بالتفصيل حتى تتم مساعدتك باسرع وقت!\n', en: 'Type your complaint in the most details you could, so we can help you as fast as possible') +
+                                    ar: 'اكتب نص الشكوى بالتفصيل حتى تتم مساعدتك باسرع وقت!\n',
+                                    en:
+                                        'Type your complaint in the most details you could, so we can help you as fast as possible') +
                                 textTranslation(
                                     ar: 'اذا كانت الشكوى بخصوص طلب سابق, الرجاء تقديم شكوى من قائمة "طلباتي" او اكتب رقم طلبك هنا.',
                                     en: 'if you want to complian about your order, please fo to (My Order) page or type your order number here.'),
@@ -79,7 +84,8 @@ class TicketPage extends StatelessWidget {
                     title: textTranslation(ar: 'تم', en: 'Done'),
                     content: Text(
                       textTranslation(
-                          ar: 'تم ارسال الشكوى بنجاح!\nشكراً لك على مساعدتك وستتم معالجه طلبك في اسرع وقت', en: 'Thank you, your complaint has been sent and will be resolved as fast as we can.'),
+                          ar: 'تم ارسال الشكوى بنجاح!\nشكراً لك على مساعدتك وستتم معالجه طلبك في اسرع وقت',
+                          en: 'Thank you, your complaint has been sent and will be resolved as fast as we can.'),
                       textAlign: TextAlign.center,
                     ),
                     firstButtonText: textTranslation(ar: 'حسناً', en: 'OK'),

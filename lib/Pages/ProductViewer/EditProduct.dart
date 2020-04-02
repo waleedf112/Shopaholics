@@ -60,7 +60,8 @@ class _EditProductState extends State<EditProduct> {
                     CustomDialog(
                         context: context,
                         title: textTranslation(ar: 'تم التعديل', en: 'Done editing'),
-                        content: AutoSizeText(textTranslation(ar: 'تم تعديل المنتج بنجاح!', en: 'You have edited your product')),
+                        content: AutoSizeText(
+                            textTranslation(ar: 'تم تعديل المنتج بنجاح!', en: 'You have edited your product')),
                         dismissible: false,
                         firstButtonColor: Colors.black45,
                         firstButtonText: textTranslation(ar: 'حسناً', en: 'OK'),
@@ -132,8 +133,11 @@ class _EditProductState extends State<EditProduct> {
                         validator: (String value) {
                           try {
                             int x = int.parse(value);
-                            if (x < 1) return textTranslation(ar: 'السعر اقل من ريال واحد', en: 'Price is lower than 1 SR');
-                            if (x > 99999) return textTranslation(ar: 'السعر اعلى من المسموح به', en: 'Price is more than the allowed value');
+                            if (x < 1)
+                              return textTranslation(ar: 'السعر اقل من ريال واحد', en: 'Price is lower than 1 SR');
+                            if (x > 99999)
+                              return textTranslation(
+                                  ar: 'السعر اعلى من المسموح به', en: 'Price is more than the allowed value');
                           } catch (e) {
                             return textTranslation(ar: 'السعر غير صحيح', en: 'Price is invalid');
                           }

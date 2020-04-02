@@ -98,7 +98,8 @@ class _ShoppingCartState extends State<ShoppingCart> {
                                                   title: textTranslation(ar: 'حذف المنتج', en: 'Remove'),
                                                   content: Text(
                                                     textTranslation(
-                                                        ar: 'هل انت متأكد انك تريد حذف هذا المنتج من العربة؟', en: 'Are you sure you want to remove this item from cart?'),
+                                                        ar: 'هل انت متأكد انك تريد حذف هذا المنتج من العربة؟',
+                                                        en: 'Are you sure you want to remove this item from cart?'),
                                                     textAlign: TextAlign.center,
                                                   ),
                                                   firstButtonColor: Colors.red,
@@ -281,9 +282,12 @@ class _ShoppingCartState extends State<ShoppingCart> {
                                             context: context,
                                             title: textTranslation(ar: 'تحديد العنوان', en: 'Set Location'),
                                             content: Text(
-                                              textTranslation(ar: 'يجب عليك تحديد موقع التوصيل قبل الطلب', en: 'You have to set your location before you place an order') +
+                                              textTranslation(
+                                                      ar: 'يجب عليك تحديد موقع التوصيل قبل الطلب',
+                                                      en: 'You have to set your location before you place an order') +
                                                   '\n' +
-                                                  textTranslation(ar: 'هل تريد تحديد موقعك الآن؟', en: 'set your location now?'),
+                                                  textTranslation(
+                                                      ar: 'هل تريد تحديد موقعك الآن؟', en: 'set your location now?'),
                                               textAlign: TextAlign.center,
                                             ),
                                             firstButtonColor: Colors.black54,

@@ -2,10 +2,11 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:shopaholics/Widgets/Categories/CategoriesText.dart';
 
 import 'User.dart';
 
-List<String> _generateTags(String s1, String s2) {
+List<String> _generateTags(String s1, String s2, [int mainCategory, List subCategories]) {
   String cleanUp(String s) {
     String tmp = s;
     tmp = tmp.replaceAll(',', '');
@@ -16,9 +17,11 @@ List<String> _generateTags(String s1, String s2) {
     tmp = tmp.replaceAll('-', '');
     tmp = tmp.replaceAll('_', '');
     tmp = tmp.replaceAll('/', '');
+    tmp = tmp.replaceAll('&', '');
     return tmp;
   }
 
+  List<String> result = new List();
   String desc = s1;
   String name = s2;
   desc = cleanUp(desc);
@@ -29,7 +32,18 @@ List<String> _generateTags(String s1, String s2) {
   y.removeWhere((test) => test.trim().isEmpty);
   x = x.toSet().toList();
   y = y.toSet().toList();
-  return x + y;
+  result += x;
+  result += y;
+  if (mainCategory != null) {
+    result.add(categories_english.keys.elementAt(mainCategory));
+    result.add(categories_arabic.keys.elementAt(mainCategory));
+    subCategories.forEach((value) {
+      result += categories_english[categories_english.keys.elementAt(mainCategory)].elementAt(value).split(' ');
+      result += categories_arabic[categories_arabic.keys.elementAt(mainCategory)].elementAt(value).split(' ');
+    });
+  }
+
+  return result;
 }
 
 class ProductRequest {
@@ -110,8 +124,17 @@ class ProductOffer {
   String reference;
   List<File> productImages;
   List productImagesURLs = new List();
+  int mainCategory;
+  List subCategories;
 
-  ProductOffer({this.productName, this.productDescription, this.productPrice, this.productImages});
+  ProductOffer({
+    this.productName,
+    this.productDescription,
+    this.productPrice,
+    this.productImages,
+    this.mainCategory,
+    this.subCategories,
+  });
   ProductOffer.retrieveFromDatabase(Map<String, dynamic> data, reference) {
     this.productName = data['productName'];
     this.productDescription = data['productDescription'];
@@ -121,6 +144,8 @@ class ProductOffer {
     this.userUid = data['uid'];
     this.productImagesURLs = data['productImagesURLs'];
     this.reference = reference;
+    this.mainCategory = data['mainCategory'];
+    this.subCategories = data['subCategories'];
   }
 
   pushToDatabase() async {
@@ -153,7 +178,9 @@ class ProductOffer {
       'productDescription': this.productDescription,
       'productPrice': this.productPrice,
       'productImagesURLs': this.productImagesURLs,
-      'tags': _generateTags(this.productName, this.productDescription ?? ''),
+      'tags': _generateTags(this.productName, this.productDescription ?? '', this.mainCategory, this.subCategories),
+      'mainCategory': this.mainCategory,
+      'subCategories': this.subCategories,
     });
   }
 

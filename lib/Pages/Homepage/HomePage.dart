@@ -18,6 +18,7 @@ import 'package:shopaholics/Pages/RequestsPage/RequestsPage.dart';
 import 'package:shopaholics/Pages/Settings/Settings.dart';
 import 'package:shopaholics/Pages/ShoppingCart/ShoppingCart.dart';
 import 'package:shopaholics/Widgets/Button.dart';
+import 'package:shopaholics/Widgets/Categories/CategoriesWidget.dart';
 import 'package:shopaholics/Widgets/GridProducts.dart';
 import 'package:shopaholics/Widgets/ListProducts.dart';
 import 'package:shopaholics/Widgets/MainView.dart';
@@ -107,6 +108,8 @@ class _HomePageState extends State<HomePage> {
                   ? FloatingActionButton(
                       heroTag: 'heroProduct',
                       onPressed: () async {
+                        mainCategoryNotifier.value = null;
+                        subCategoriesNotifier.value = null;
                         PagePush(context, AppNewProduct());
                       },
                       child: Icon(

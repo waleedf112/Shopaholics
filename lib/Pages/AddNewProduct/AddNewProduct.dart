@@ -49,8 +49,6 @@ class _AppNewProductState extends State<AppNewProduct> {
 
   @override
   Widget build(BuildContext context) {
-    mainCategoryNotifier.value = null;
-    subCategoriesNotifier.value = null;
     return SecondaryView(
       title: 'اضافة منتج جديد',
       fab: FloatingActionButton(
@@ -64,12 +62,21 @@ class _AppNewProductState extends State<AppNewProduct> {
         onPressed: () async {
           FocusScope.of(context).unfocus();
           bool isVerified = (await isEmailVerified(context, false));
-          if (formKey.currentState.validate() && isVerified && _image.length >= 3 && _image.length < 10) {
+
+          if (isVerified &&
+              formKey.currentState.validate() &&
+              mainCategoryNotifier.value != null &&
+              subCategoriesNotifier.value != null &&
+              subCategoriesNotifier.value.isNotEmpty &&
+              _image.length >= 3 &&
+              _image.length < 10) {
             ProductOffer _product = new ProductOffer(
               productName: productNameController.text.trim(),
               productDescription: productDescController.text.trim(),
               productPrice: int.parse(productPriceController.text),
               productImages: _image,
+              mainCategory: mainCategoryNotifier.value,
+              subCategories: subCategoriesNotifier.value,
             );
             await loadingScreen(
                 context: context,
@@ -94,6 +101,19 @@ class _AppNewProductState extends State<AppNewProduct> {
                 context: context,
                 title: 'خطأ',
                 content: AutoSizeText('الرجاء اضافة من 3 الى 10 صور للمنتج.'),
+                dismissible: false,
+                firstButtonColor: Colors.black45,
+                firstButtonText: 'حسناً',
+                firstButtonFunction: () {
+                  Navigator.of(context).pop();
+                });
+          } else if (mainCategoryNotifier.value == null ||
+              subCategoriesNotifier.value == null ||
+              subCategoriesNotifier.value.isEmpty) {
+            CustomDialog(
+                context: context,
+                title: 'خطأ',
+                content: AutoSizeText('الرجاء اختيار تصنيف المنتج.'),
                 dismissible: false,
                 firstButtonColor: Colors.black45,
                 firstButtonText: 'حسناً',

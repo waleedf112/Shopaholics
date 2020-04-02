@@ -20,4 +20,5 @@ Widget TextWidget(
       overflow: overflow,
       style: style,
       textAlign: textAlign,
-textDirection: layoutTranslation(),    );
+      textDirection: layoutTranslation(),
+    );

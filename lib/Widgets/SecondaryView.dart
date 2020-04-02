@@ -19,24 +19,23 @@ class SecondaryView extends StatelessWidget {
       child: WillPopScope(
         onWillPop: disableBackButton ? () {} : null,
         child: Scaffold(
-            floatingActionButton: fab,
-            
-            appBar: AppBar(
-              title: Text(title),
-              centerTitle: true,
-              leading: Container(),
-              actions: <Widget>[
-                IconButton(
-        icon: Icon(Icons.arrow_forward_ios),
-        onPressed: () {
-          if (backButtonFunction != null) backButtonFunction();
-          Navigator.of(context).pop();
-        },
-                ),
-              ],
-            ),
-            body: child,
+          floatingActionButton: fab,
+          appBar: AppBar(
+            title: Text(title),
+            centerTitle: true,
+            leading: Container(),
+            actions: <Widget>[
+              IconButton(
+                icon: Icon(Icons.arrow_forward_ios),
+                onPressed: () {
+                  if (backButtonFunction != null) backButtonFunction();
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
           ),
+          body: child,
+        ),
       ),
     );
   }

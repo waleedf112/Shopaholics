@@ -24,7 +24,8 @@ class _ListProductsState extends State<ListProducts> {
     return Padding(
       padding: EdgeInsets.all(5),
       child: Directionality(
-textDirection: layoutTranslation(),        child: GridView.builder(
+        textDirection: layoutTranslation(),
+        child: GridView.builder(
           physics: BouncingScrollPhysics(),
           itemCount: widget.list.length,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 0.5),

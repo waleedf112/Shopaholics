@@ -38,7 +38,9 @@ class _RolesRequestsPageState extends State<RolesRequestsPage> {
                   child: Directionality(
                     textDirection: layoutTranslation(),
                     child: Padding(
-                      padding: currentAppLanguage == AppLanguage.arabic ?  EdgeInsets.fromLTRB(0, 8, 20, 8):EdgeInsets.fromLTRB(20, 8, 0, 8),
+                      padding: currentAppLanguage == AppLanguage.arabic
+                          ? EdgeInsets.fromLTRB(0, 8, 20, 8)
+                          : EdgeInsets.fromLTRB(20, 8, 0, 8),
                       child: Column(
                         children: <Widget>[
                           Row(

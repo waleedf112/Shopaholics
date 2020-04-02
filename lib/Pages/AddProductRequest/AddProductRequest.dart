@@ -121,7 +121,8 @@ class _AddProductRequestState extends State<AddProductRequest> {
                   Container(
                     height: 90,
                     child: Directionality(
-textDirection: layoutTranslation(),                      child: TextFormField(
+                      textDirection: layoutTranslation(),
+                      child: TextFormField(
                         textDirection: TextDirection.ltr,
                         controller: productNameController,
                         validator: (String value) {
@@ -140,7 +141,8 @@ textDirection: layoutTranslation(),                      child: TextFormField(
                   Container(
                     //height: 90,
                     child: Directionality(
-textDirection: layoutTranslation(),                      child: TextFormField(
+                      textDirection: layoutTranslation(),
+                      child: TextFormField(
                         textDirection: TextDirection.ltr,
                         maxLines: 5,
                         controller: productDescController,
@@ -157,7 +159,8 @@ textDirection: layoutTranslation(),                      child: TextFormField(
                   Container(
                     height: 90,
                     child: Directionality(
-textDirection: layoutTranslation(),                      child: TextFormField(
+                      textDirection: layoutTranslation(),
+                      child: TextFormField(
                         textDirection: TextDirection.ltr,
                         controller: productPriceController,
                         keyboardType: TextInputType.number,
@@ -185,7 +188,8 @@ textDirection: layoutTranslation(),                      child: TextFormField(
                   Padding(
                     padding: const EdgeInsets.only(right: 8),
                     child: Directionality(
-textDirection: layoutTranslation(),                      child: Row(
+                      textDirection: layoutTranslation(),
+                      child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           TextWidget(textTranslation(ar: 'الصور', en: 'Images'), minFontSize: 20, maxFontSize: 23),
@@ -204,7 +208,8 @@ textDirection: layoutTranslation(),                      child: Row(
               ),
             ),
             Directionality(
-textDirection: layoutTranslation(),              child: Container(
+              textDirection: layoutTranslation(),
+              child: Container(
                 height: 300,
                 child: _image.isNotEmpty
                     ? ListView.builder(

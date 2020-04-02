@@ -153,7 +153,7 @@ class _RolesPageState extends State<RolesPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Expanded(
-                                      child: Padding(
+                    child: Padding(
                       padding: currentAppLanguage == AppLanguage.arabic ? EdgeInsets.only(left: 80) : EdgeInsets.all(0),
                       child: TextWidget(textTranslation(ar: 'موقع متجرك', en: 'Your shop location'),
                           minFontSize: 15, maxFontSize: 18),

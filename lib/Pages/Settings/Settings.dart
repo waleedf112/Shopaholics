@@ -43,7 +43,8 @@ class SettingsPage extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
-                    crossAxisAlignment: currentAppLanguage == AppLanguage.arabic? CrossAxisAlignment.end:CrossAxisAlignment.start,
+                    crossAxisAlignment:
+                        currentAppLanguage == AppLanguage.arabic ? CrossAxisAlignment.end : CrossAxisAlignment.start,
                     children: <Widget>[
                       TextWidget(title),
                       TextWidget(desc, style: TextStyle(color: Colors.grey, fontSize: 12)),
@@ -97,7 +98,8 @@ class SettingsPage extends StatelessWidget {
                 ),
                 SizedBox(width: 12),
                 Column(
-                  crossAxisAlignment: currentAppLanguage == AppLanguage.arabic?CrossAxisAlignment.end:CrossAxisAlignment.start,
+                  crossAxisAlignment:
+                      currentAppLanguage == AppLanguage.arabic ? CrossAxisAlignment.end : CrossAxisAlignment.start,
                   children: <Widget>[
                     TextWidget(currentUser.displayName, style: TextStyle(fontSize: 18)),
                     TextWidget(currentUser.email, style: TextStyle(fontSize: 12, color: Colors.grey)),

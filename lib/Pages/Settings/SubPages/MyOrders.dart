@@ -196,20 +196,19 @@ class _Order extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Expanded(
-                                          child: Row(
+                      child: Row(
                         children: <Widget>[
                           status,
                           Expanded(
-                                                      child: TextWidget(
-                                getOrderStatus(data['statusMessage']),
-                                style: TextStyle(fontSize: 14),
-                              ),
+                            child: TextWidget(
+                              getOrderStatus(data['statusMessage']),
+                              style: TextStyle(fontSize: 14),
+                            ),
                           ),
                         ],
                       ),
                     ),
                     OutlinedButton(
-                      
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[

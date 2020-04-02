@@ -44,7 +44,9 @@ class _TicketsViewerState extends State<TicketsViewer> {
                   shape: Border(),
                   elevation: 4,
                   child: Padding(
-                    padding: currentAppLanguage == AppLanguage.arabic ? EdgeInsets.fromLTRB(0, 8, 16, 16):EdgeInsets.fromLTRB(16, 8, 0, 16),
+                    padding: currentAppLanguage == AppLanguage.arabic
+                        ? EdgeInsets.fromLTRB(0, 8, 16, 16)
+                        : EdgeInsets.fromLTRB(16, 8, 0, 16),
                     child: Directionality(
                       textDirection: layoutTranslation(),
                       child: Row(
@@ -61,7 +63,7 @@ class _TicketsViewerState extends State<TicketsViewer> {
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.symmetric(horizontal: 4),
-                                  child: TextWidget(data['info'],maxLines: 9),
+                                  child: TextWidget(data['info'], maxLines: 9),
                                 ),
                               ],
                             ),

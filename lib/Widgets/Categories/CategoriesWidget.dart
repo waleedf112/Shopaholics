@@ -19,7 +19,8 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
       height: MediaQuery.of(context).size.height / 5,
       decoration: BoxDecoration(border: Border.all(color: Colors.grey.withOpacity(0.7), width: 0.5)),
       child: Directionality(
-textDirection: layoutTranslation(),        child: ValueListenableBuilder(
+        textDirection: layoutTranslation(),
+        child: ValueListenableBuilder(
           valueListenable: mainCategoryNotifier,
           builder: (BuildContext context, int value, Widget child) {
             return Row(
@@ -34,7 +35,9 @@ textDirection: layoutTranslation(),        child: ValueListenableBuilder(
                         return RadioListTile(
                           value: index,
                           groupValue: mainCategoryNotifier.value,
-                          title: Text(currentAppLanguage== AppLanguage.arabic?categories_arabic.keys.elementAt(index):categories_english.keys.elementAt(index)),
+                          title: Text(currentAppLanguage == AppLanguage.arabic
+                              ? categories_arabic.keys.elementAt(index)
+                              : categories_english.keys.elementAt(index)),
                           onChanged: (_) {
                             mainCategoryNotifier.value = index;
                             subCategoriesNotifier.value = new List();
@@ -56,8 +59,9 @@ textDirection: layoutTranslation(),        child: ValueListenableBuilder(
                           ),
                         );
                       } else {
-                        List<String> values =
-                            currentAppLanguage== AppLanguage.arabic?categories_arabic[categories_arabic.keys.elementAt(mainCategoryNotifier.value)]:categories_english[categories_english.keys.elementAt(mainCategoryNotifier.value)];
+                        List<String> values = currentAppLanguage == AppLanguage.arabic
+                            ? categories_arabic[categories_arabic.keys.elementAt(mainCategoryNotifier.value)]
+                            : categories_english[categories_english.keys.elementAt(mainCategoryNotifier.value)];
                         return Scrollbar(
                           child: ListView.builder(
                             itemCount: values.length,

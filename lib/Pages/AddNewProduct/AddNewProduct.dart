@@ -164,7 +164,7 @@ class _AppNewProductState extends State<AppNewProduct> {
                   Container(
                     //height: 90,
                     child: Directionality(
-           textDirection: layoutTranslation(),
+                      textDirection: layoutTranslation(),
                       child: TextFormField(
                         textDirection: TextDirection.ltr,
                         maxLines: 5,
@@ -182,7 +182,7 @@ class _AppNewProductState extends State<AppNewProduct> {
                   Container(
                     height: 90,
                     child: Directionality(
-           textDirection: layoutTranslation(),
+                      textDirection: layoutTranslation(),
                       child: TextFormField(
                         textDirection: TextDirection.ltr,
                         controller: productPriceController,
@@ -212,7 +212,8 @@ class _AppNewProductState extends State<AppNewProduct> {
                   Padding(
                     padding: const EdgeInsets.only(right: 8),
                     child: Directionality(
-textDirection: layoutTranslation(),                      child: Row(
+                      textDirection: layoutTranslation(),
+                      child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           TextWidget(textTranslation(ar: 'الصور', en: 'Images'), minFontSize: 20, maxFontSize: 23),
@@ -231,7 +232,8 @@ textDirection: layoutTranslation(),                      child: Row(
               ),
             ),
             Directionality(
-textDirection: layoutTranslation(),              child: Container(
+              textDirection: layoutTranslation(),
+              child: Container(
                 height: 300,
                 child: _image.isNotEmpty
                     ? ListView.builder(

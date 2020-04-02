@@ -37,7 +37,7 @@ class TicketPage extends StatelessWidget {
               child: Form(
                 key: formKey,
                 child: Padding(
-                  padding:  EdgeInsets.fromLTRB(8, 20, 8, 0),
+                  padding: EdgeInsets.fromLTRB(8, 20, 8, 0),
                   child: ListView(
                     shrinkWrap: true,
                     physics: BouncingScrollPhysics(),

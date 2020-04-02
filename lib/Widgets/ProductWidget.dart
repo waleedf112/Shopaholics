@@ -80,7 +80,8 @@ class _ProductWidgetState extends State<ProductWidget> {
 
     infoText() {
       return Directionality(
-textDirection: layoutTranslation(),        child: Container(
+        textDirection: layoutTranslation(),
+        child: Container(
           height: 70,
           child: Padding(
             padding: const EdgeInsets.only(top: 3, right: 7),
@@ -91,8 +92,9 @@ textDirection: layoutTranslation(),        child: Container(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Directionality(
-                        textDirection: layoutTranslation(),
-                        child: TextWidget(formatTime(widget.item.time), style: TextStyle(color: Colors.grey, fontSize: 11))),
+                          textDirection: layoutTranslation(),
+                          child: TextWidget(formatTime(widget.item.time),
+                              style: TextStyle(color: Colors.grey, fontSize: 11))),
                       TextWidget(widget.item.productName,
                           style: TextStyle(fontWeight: FontWeight.bold),
                           maxLines: 1,
@@ -117,7 +119,6 @@ textDirection: layoutTranslation(),        child: Container(
 
     if (widget.item is ProductRequest) {
       return InkWell(
-        
         onTap: () => PagePush(
             context,
             ProductViewer(
@@ -174,7 +175,8 @@ textDirection: layoutTranslation(),        child: Container(
                             );
                           } else if (snapshot.hasData) {
                             return Directionality(
-textDirection: layoutTranslation(),                              child: TextWidget(snapshot.data,
+                              textDirection: layoutTranslation(),
+                              child: TextWidget(snapshot.data,
                                   minFontSize: 11,
                                   maxFontSize: 14,
                                   style: TextStyle(color: Colors.grey, fontStyle: FontStyle.italic)),
@@ -235,7 +237,8 @@ textDirection: layoutTranslation(),                              child: TextWidg
                   padding: const EdgeInsets.only(right: 7),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-textDirection: layoutTranslation(),                    children: <Widget>[
+                    textDirection: layoutTranslation(),
+                    children: <Widget>[
                       getPrice(),
                       likeButton(),
                     ],

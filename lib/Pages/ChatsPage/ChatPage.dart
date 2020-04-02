@@ -88,14 +88,12 @@ class _ChatPageState extends State<ChatPage> {
         documents.removeWhere((test) => test.data['latestMessage'] == null);
         return ListView.builder(
           itemCount: documents.length,
-          
           itemBuilder: (BuildContext context, int index) {
             String otherUser = documents[index].data['participantsNames'][0];
             if (currentUser.displayName == otherUser) otherUser = documents[index].data['participantsNames'][1];
             return InkWell(
               onTap: () => PagePush(context, Conversation(documents[index].documentID, otherUser)),
               child: Container(
-                
                 decoration: BoxDecoration(
                   color: Colors.white,
                   border: BorderDirectional(
@@ -105,7 +103,8 @@ class _ChatPageState extends State<ChatPage> {
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Directionality(
-textDirection: layoutTranslation(),                    child: Row(
+                    textDirection: layoutTranslation(),
+                    child: Row(
                       children: <Widget>[
                         Opacity(
                           opacity: 0.3,

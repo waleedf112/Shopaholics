@@ -15,6 +15,7 @@ class PushNotificationsManager {
       _firebaseMessaging.requestNotificationPermissions();
       _firebaseMessaging.configure();
       _initialized = true;
+      subscribeToTopic('main');
     }
   }
 

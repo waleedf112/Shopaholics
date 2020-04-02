@@ -21,6 +21,7 @@ import 'SubPages/MyOrders.dart';
 import 'SubPages/MyProducts.dart';
 import 'SubPages/PaymentPage.dart';
 import 'SubPages/RolesRequestsPage.dart';
+import 'SubPages/SendNotification.dart';
 import 'SubPages/rolesPage.dart';
 import 'SubPages/salesPage.dart';
 
@@ -259,6 +260,13 @@ class SettingsPage extends StatelessWidget {
                   ar: 'عرض طلبات المستخدمين للتسجيل كبائع وغيرها', en: 'Manage all account upgrade requests'),
               icon: Icons.present_to_all,
               onPressed: () => PagePush(context, RolesRequestsPage()),
+            ),
+            setting(
+              title: textTranslation(ar: 'ارسل اشعار', en: 'Send Notification'),
+              desc: textTranslation(
+                  ar: 'ارسل اشعار لجميع مستخدمين البرنامج', en: 'Sending a notification to all users of the app'),
+              icon: Icons.notifications_none,
+              onPressed: () => PagePush(context, SendNotification()),
             ),
             setting(
               title: textTranslation(ar: 'البلاغات', en: 'Reports'),

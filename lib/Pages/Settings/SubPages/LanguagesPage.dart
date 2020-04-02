@@ -26,13 +26,13 @@ class _LanguagesPageState extends State<LanguagesPage> {
   @override
   Widget build(BuildContext context) {
     return SecondaryView(
-      title: textTranslation(ar: 'لغة البرنامج', en: ''),
+      title: textTranslation(ar: 'لغة البرنامج', en: 'App Language'),
       child: Column(
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: AlertMessage(
-              message: textTranslation(ar: 'سيتم تغيير لغة البرنامج بعد تشغيل البرنامج مرة اخرى!', en: ''),
+              message: textTranslation(ar: 'سيتم تغيير لغة البرنامج بعد تشغيل البرنامج مرة اخرى!', en: 'The language will change after the app restarts.'),
               color: Colors.black26,
             ),
           ),
@@ -61,14 +61,14 @@ class _LanguagesPageState extends State<LanguagesPage> {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 8),
-            child: SimpleButton(textTranslation(ar: 'تغيير اللغة', en: ''), function: () {
+            child: SimpleButton(textTranslation(ar: 'تغيير اللغة', en: 'Change Language'), function: () {
               setCurrentAppLanguage(widget.languageValue);
               CustomDialog(
                   context: context,
-                  title: textTranslation(ar: 'تم', en: ''),
+                  title: textTranslation(ar: 'تم', en: 'Done'),
                   content: AutoSizeText(
-                    textTranslation(ar: 'تم تغيير اللغة بنجاح!\n', en: '') +
-                        textTranslation(ar: 'سيتم اجراء التغيير بعد تشغيل البرنامج مرة اخرى.', en: ''),
+                    textTranslation(ar: 'تم تغيير اللغة بنجاح!\n', en: 'App Language saved') +
+                        textTranslation(ar: 'سيتم اجراء التغيير بعد تشغيل البرنامج مرة اخرى.', en: 'The language will change after the app restarts.'),
                     textAlign: TextAlign.center,
                   ),
                   dismissible: false,

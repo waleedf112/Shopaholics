@@ -14,7 +14,7 @@ NoProductsInCart() => Center(
             color: Colors.grey.withOpacity(0.6),
             size: 100,
           ),
-          TextWidget(textTranslation(ar: 'لاتوجد أي منتجات في العربة', en: ''),
+          TextWidget(textTranslation(ar: 'لاتوجد أي منتجات في العربة', en: 'You Have No Prodects in Your Cart'),
               style: TextStyle(
                 color: Colors.grey,
                 fontStyle: FontStyle.italic,

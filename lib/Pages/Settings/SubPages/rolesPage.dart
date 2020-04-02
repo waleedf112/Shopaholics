@@ -46,15 +46,15 @@ class _RolesPageState extends State<RolesPage> {
   @override
   Widget build(BuildContext context) {
     return SecondaryView(
-      title: textTranslation(ar: 'نوع الحساب', en: ''),
+      title: textTranslation(ar: 'نوع الحساب', en: 'Account Type'),
       child: Padding(
         padding: const EdgeInsets.all(12.0),
         child: ListView(
           children: <Widget>[
             AlertMessage(
-              message: textTranslation(ar: 'تقديم طلب على تغيير نوع الحساب لايعني الموافقة مباشرةً.', en: '') +
+              message: textTranslation(ar: 'تقديم طلب على تغيير نوع الحساب لايعني الموافقة مباشرةً.', en: 'Requesting an upgrade of your account does not mean that it will be accepted') +
                   '\n' +
-                  textTranslation(ar: 'سيتم الرد على طلبك من خلال 24 ساعة الى 48 ساعة.', en: ''),
+                  textTranslation(ar: 'سيتم الرد على طلبك من خلال 24 ساعة الى 48 ساعة.', en: 'your request has to be reviewd by admins, expect a response within 24 hours to 48 hours.'),
               centerIcon: true,
               maxLines: 3,
             ),
@@ -65,7 +65,7 @@ class _RolesPageState extends State<RolesPage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  TextWidget(textTranslation(ar: 'نوع الحساب:', en: ''), minFontSize: 18, maxFontSize: 18),
+                  TextWidget(textTranslation(ar: 'نوع الحساب:', en: 'Account type'), minFontSize: 18, maxFontSize: 18),
                   Directionality(
                     textDirection: TextDirection.rtl,
                     child: FutureBuilder(
@@ -77,7 +77,7 @@ class _RolesPageState extends State<RolesPage> {
                             children: <Widget>[
                               TextWidget(
                                 pending
-                                    ? roleNames[requestedRole] + textTranslation(ar: ' (قيد التنفيذ)', en: '')
+                                    ? roleNames[requestedRole] + textTranslation(ar: ' (قيد التنفيذ)', en: ' (Pending)')
                                     : roleNames[currentRole],
                                 minFontSize: 15,
                                 maxFontSize: 15,
@@ -117,11 +117,11 @@ class _RolesPageState extends State<RolesPage> {
                   Padding(
                     padding: const EdgeInsets.only(left: 80),
                     child:
-                        TextWidget(textTranslation(ar: 'تغيير نوع الحساب', en: ''), minFontSize: 18, maxFontSize: 18),
+                        TextWidget(textTranslation(ar: 'تغيير نوع الحساب', en: 'Change account type'), minFontSize: 15, maxFontSize: 18),
                   ),
                   Expanded(
                     child: CustomDropDownMenu(
-                      hint: textTranslation(ar: 'اختر نوع الحساب', en: ''),
+                      hint: textTranslation(ar: 'اختر نوع الحساب', en: 'choose type'),
                       value: widget.role,
                       function: (p) {
                         setState(() {
@@ -142,11 +142,11 @@ class _RolesPageState extends State<RolesPage> {
                 children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.only(left: 80),
-                    child: TextWidget(textTranslation(ar: 'موقع متجرك', en: ''), minFontSize: 18, maxFontSize: 18),
+                    child: TextWidget(textTranslation(ar: 'موقع متجرك', en: 'Your shop location'), minFontSize: 15, maxFontSize: 18),
                   ),
                   Expanded(
                     child: CustomDropDownMenu(
-                      hint: textTranslation(ar: 'اختر موقعك', en: ''),
+                      hint: textTranslation(ar: 'اختر موقعك', en: 'location'),
                       value: widget.location,
                       function: (p) {
                         setState(() {
@@ -174,14 +174,14 @@ class _RolesPageState extends State<RolesPage> {
                         enabled: widget.location != null,
                         controller: controller1,
                         validator: (String value) =>
-                            value.trim().isEmpty ? textTranslation(ar: 'الحقل فارغ!', en: '') : null,
+                            value.trim().isEmpty ? textTranslation(ar: 'الحقل فارغ!', en: 'Empty') : null,
                         decoration: InputDecoration(
                           filled: true,
                           hintText: widget.location == null
-                              ? textTranslation(ar: 'الرجاء اختيار موقع متجرك من الاعلى', en: '')
+                              ? textTranslation(ar: 'الرجاء اختيار موقع متجرك من الاعلى', en: 'Please choose a location')
                               : widget.location == 'داخل السعودية'
-                                  ? textTranslation(ar: 'ادخل حسابك في (معروف)', en: '')
-                                  : textTranslation(ar: 'ادخل رقم الهوية', en: ''),
+                                  ? textTranslation(ar: 'ادخل حسابك في (معروف)', en: 'Maroof account')
+                                  : textTranslation(ar: 'ادخل رقم الهوية', en: 'ID Number'),
                         ),
                       ),
                     ),
@@ -193,10 +193,10 @@ class _RolesPageState extends State<RolesPage> {
                       child: TextFormField(
                         controller: controller2,
                         validator: (String value) =>
-                            value.trim().isEmpty ? textTranslation(ar: 'الحقل فارغ!', en: '') : null,
+                            value.trim().isEmpty ? textTranslation(ar: 'الحقل فارغ!', en: 'empty') : null,
                         decoration: InputDecoration(
                           filled: true,
-                          hintText: textTranslation(ar: 'ادخل رقم حسابك البنكي', en: ''),
+                          hintText: textTranslation(ar: 'ادخل رقم حسابك البنكي', en: 'Bank IBAN Number'),
                         ),
                       ),
                     ),
@@ -212,24 +212,26 @@ class _RolesPageState extends State<RolesPage> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      FlatButton(
-                        child: Text(textTranslation(ar: 'قبول الشروط الاحكام, اضغط هنا لقراءة الشروط', en: '')),
-                        onPressed: () => PagePush(
-                            context,
-                            FutureBuilder(
-                              future: copyAsset(),
-                              builder: (BuildContext context, AsyncSnapshot<File> snapshot) {
-                                if (snapshot.hasData)
-                                  return PDFViewerScaffold(
-                                    appBar: AppBar(
-                                      title: Text(textTranslation(ar: 'الشروط والاحكام', en: '')),
-                                      centerTitle: true,
-                                    ),
-                                    path: snapshot.data.path,
-                                  );
-                                return Container();
-                              },
-                            )),
+                      Expanded(
+                                              child: FlatButton(
+                          child: TextWidget(textTranslation(ar: 'قبول الشروط والاحكام, اضغط هنا لقراءة الشروط', en: 'Accept the roles and policies, press here to read them.')),
+                          onPressed: () => PagePush(
+                              context,
+                              FutureBuilder(
+                                future: copyAsset(),
+                                builder: (BuildContext context, AsyncSnapshot<File> snapshot) {
+                                  if (snapshot.hasData)
+                                    return PDFViewerScaffold(
+                                      appBar: AppBar(
+                                        title: Text(textTranslation(ar: 'الشروط والاحكام', en: 'Policy')),
+                                        centerTitle: true,
+                                      ),
+                                      path: snapshot.data.path,
+                                    );
+                                  return Container();
+                                },
+                              )),
+                        ),
                       ),
                       Checkbox(
                         value: accepted,
@@ -244,7 +246,7 @@ class _RolesPageState extends State<RolesPage> {
             ),
             SizedBox(height: 30),
             SimpleButton(
-              textTranslation(ar: 'ارسال الطلب', en: ''),
+              textTranslation(ar: 'ارسال الطلب', en: 'Send Request'),
               function: () async {
                 int roleIndex = roleNames.indexWhere((test) => test == widget.role);
                 if (currentUser.role.index != roleIndex && widget.formKey.currentState.validate() && _accepted.value)
@@ -260,7 +262,7 @@ class _RolesPageState extends State<RolesPage> {
                                   context: context,
                                   title: textTranslation(ar: 'خطأ', en: 'Error'),
                                   content: Text(
-                                    textTranslation(ar: 'يوجد طلب سابق, لايمكنك تقديم طلب حالياُ', en: ''),
+                                    textTranslation(ar: 'يوجد طلب سابق, لايمكنك تقديم طلب حالياُ', en: 'You can\'t send a new request, you already have one pending!'),
                                     textAlign: TextAlign.center,
                                   ),
                                   firstButtonText: textTranslation(ar: 'حسناً', en: 'OK'),
@@ -280,7 +282,7 @@ class _RolesPageState extends State<RolesPage> {
                                 Navigator.of(context).pop();
                                 CustomDialog(
                                     context: context,
-                                    title: textTranslation(ar: 'تم ارسال الطلب', en: ''),
+                                    title: textTranslation(ar: 'تم ارسال الطلب', en: 'Your request has been sent'),
                                     content: Text(
                                       textTranslation(
                                           ar: 'تم ارسال طلبك, الرجاء الانتظار من 24 ساعه الى 48 ساعه للرد على طلبك',

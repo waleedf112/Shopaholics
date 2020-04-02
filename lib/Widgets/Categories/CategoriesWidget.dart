@@ -51,7 +51,7 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                       if (mainCategoryNotifier.value == null) {
                         return Center(
                           child: Text(
-                            textTranslation(ar: 'اختر قسم رئيسي', en: ''),
+                            textTranslation(ar: 'اختر قسم رئيسي', en: 'Choose a Category'),
                             style: TextStyle(color: Colors.grey, fontSize: 16, fontStyle: FontStyle.italic),
                           ),
                         );

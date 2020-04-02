@@ -14,7 +14,7 @@ class AddressesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SecondaryView(
-      title: textTranslation(ar: 'عنوان التوصيل', en: ''),
+      title: textTranslation(ar: 'عنوان التوصيل', en: 'Location'),
       child: PlacePicker(
         apiKey: mapApi,
         initialPosition: currentUser.location == null
@@ -27,7 +27,7 @@ class AddressesPage extends StatelessWidget {
         hideBackButton: true,
         autocompleteLanguage: "ar",
         region: 'sa',
-        selectInitialPosition: true,
+        selectInitialPosition: false,
         selectedPlaceWidgetBuilder: (_, selectedPlaceT, state, isSearchBarFocused) {
           return isSearchBarFocused
               ? Container()
@@ -41,17 +41,17 @@ class AddressesPage extends StatelessWidget {
                     textDirection: TextDirection.rtl,
                     child: SimpleButton(
                       state == SearchingState.Searching
-                          ? textTranslation(ar: 'جاري التحميل ...', en: '')
-                          : textTranslation(ar: 'تحديد الموقع', en: ''),
+                          ? textTranslation(ar: 'جاري التحميل ...', en: 'Locating ...')
+                          : textTranslation(ar: 'تحديد الموقع', en: 'Set Location'),
                       function: () {
                         CustomDialog(
                           context: context,
-                          title: textTranslation(ar: 'حفظ الموقع', en: ''),
+                          title: textTranslation(ar: 'حفظ الموقع', en: 'Set Location'),
                           content: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
                               Text(
-                                textTranslation(ar: 'هل انت متأكد انك تريد حفظ الموقع؟\n', en: ''),
+                                textTranslation(ar: 'هل انت متأكد انك تريد حفظ الموقع؟\n', en: 'Are you sure you want to set the location?'),
                                 textAlign: TextAlign.center,
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),
@@ -63,8 +63,8 @@ class AddressesPage extends StatelessWidget {
                             ],
                           ),
                           firstButtonColor: Colors.black54,
-                          firstButtonText: textTranslation(ar: 'حفظ الموقع', en: ''),
-                          secondButtonText: textTranslation(ar: 'تراجع', en: ''),
+                          firstButtonText: textTranslation(ar: 'حفظ الموقع', en: 'Set Location'),
+                          secondButtonText: textTranslation(ar: 'تراجع', en: 'Cancel'),
                           secondButtonColor: Colors.red,
                           firstButtonFunction: () {
                             Navigator.of(context).pop();

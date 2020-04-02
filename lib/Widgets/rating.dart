@@ -74,7 +74,7 @@ class _GiveRatingState extends State<GiveRating> {
       if (widget.rating == 0) {
         Scaffold.of(context).showSnackBar(SnackBar(
           content: Text(
-            textTranslation(ar: 'تم تقييم ${widget.displayName} بنجاح!', en: ''),
+            textTranslation(ar: 'تم تقييم ${widget.displayName} بنجاح!', en: 'Rated ${widget.displayName}.'),
             textAlign: TextAlign.right,
             textDirection: TextDirection.rtl,
           ),

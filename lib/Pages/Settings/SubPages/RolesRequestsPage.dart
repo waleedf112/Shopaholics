@@ -18,7 +18,7 @@ class _RolesRequestsPageState extends State<RolesRequestsPage> {
   @override
   Widget build(BuildContext context) {
     return SecondaryView(
-      title: textTranslation(ar: 'طلبات المستخدمين', en: ''),
+      title: textTranslation(ar: 'طلبات المستخدمين', en: 'Upgrade Account Requests'),
       child: StreamBuilder(
         stream: Firestore.instance.collection('Users').getDocuments().asStream(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -89,7 +89,7 @@ class _RolesRequestsPageState extends State<RolesRequestsPage> {
                                 child: Column(
                                   children: <Widget>[
                                     OutlinedButton(
-                                        text: textTranslation(ar: 'قبول الطلب', en: ''),
+                                        text: textTranslation(ar: 'قبول الطلب', en: 'Accept'),
                                         function: () {
                                           loadingScreen(
                                               context: context,
@@ -111,7 +111,7 @@ class _RolesRequestsPageState extends State<RolesRequestsPage> {
                                               });
                                         }),
                                     OutlinedButton(
-                                        text: textTranslation(ar: 'رفض الطلب', en: ''),
+                                        text: textTranslation(ar: 'رفض الطلب', en: 'Reject'),
                                         function: () {
                                           loadingScreen(
                                               context: context,
@@ -146,7 +146,7 @@ class _RolesRequestsPageState extends State<RolesRequestsPage> {
                                 if (user['role']['inSaudi'])
                                   Row(
                                     children: <Widget>[
-                                      Text(textTranslation(ar: 'حساب معروف:', en: '')),
+                                      Text(textTranslation(ar: 'حساب معروف:', en: 'Maroof:')),
                                       SizedBox(width: 3),
                                       Text(user['role']['idNumber']),
                                     ],
@@ -154,14 +154,14 @@ class _RolesRequestsPageState extends State<RolesRequestsPage> {
                                 if (!user['role']['inSaudi'])
                                   Row(
                                     children: <Widget>[
-                                      Text(textTranslation(ar: 'رقم الهوية:', en: '')),
+                                      Text(textTranslation(ar: 'رقم الهوية:', en: 'ID Number:')),
                                       SizedBox(width: 3),
                                       Text(user['role']['idNumber']),
                                     ],
                                   ),
                                 Row(
                                   children: <Widget>[
-                                    Text(textTranslation(ar: 'الرقم البنكي:', en: '')),
+                                    Text(textTranslation(ar: 'الرقم البنكي:', en: 'IBAN:')),
                                     SizedBox(width: 3),
                                     Text(user['role']['bankInfo']),
                                   ],

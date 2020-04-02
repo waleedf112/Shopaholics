@@ -46,7 +46,7 @@ class _PaymentPageState extends State<PaymentPage> {
   @override
   Widget build(BuildContext context) {
     return SecondaryView(
-      title: textTranslation(ar: 'وسيلة الدفع', en: ''),
+      title: textTranslation(ar: 'وسيلة الدفع', en: 'Payment Card'),
       child: SafeArea(
         child: FutureBuilder(
           future: Firestore.instance.collection('Users').document(currentUser.uid).get(),
@@ -81,7 +81,7 @@ class _PaymentPageState extends State<PaymentPage> {
                                   ? 'Card Holder Name'
                                   : cardHolderNameController.text,
                               cvv: cardCVVController.text,
-                              bankName: textTranslation(ar: 'بطاقة ائتمانية', en: ''),
+                              bankName: textTranslation(ar: 'بطاقة ائتمانية', en: 'Credit Card'),
                               cardType: CardType.visa,
                               showBackSide: showBack,
                               frontBackground: CardBackgrounds.black,
@@ -100,7 +100,8 @@ class _PaymentPageState extends State<PaymentPage> {
                                     horizontal: 20,
                                   ),
                                   child: TextFormField(
-                                    decoration: InputDecoration(hintText: textTranslation(ar: "رقم البطاقة", en: '')),
+                                    decoration: InputDecoration(
+                                        hintText: textTranslation(ar: "رقم البطاقة", en: 'Card Number')),
                                     maxLength: 19,
                                     controller: cardNumberController,
                                     onChanged: (value) {
@@ -129,7 +130,8 @@ class _PaymentPageState extends State<PaymentPage> {
                                       Expanded(
                                         flex: 2,
                                         child: TextFormField(
-                                          decoration: InputDecoration(hintText: textTranslation(ar: "الشهر", en: '')),
+                                          decoration:
+                                              InputDecoration(hintText: textTranslation(ar: "الشهر", en: 'Month')),
                                           maxLength: 2,
                                           controller: cardyearController,
                                           onChanged: (value) {
@@ -141,7 +143,8 @@ class _PaymentPageState extends State<PaymentPage> {
                                       Expanded(
                                         flex: 2,
                                         child: TextFormField(
-                                          decoration: InputDecoration(hintText: textTranslation(ar: "السنة", en: '')),
+                                          decoration:
+                                              InputDecoration(hintText: textTranslation(ar: "السنة", en: 'Year')),
                                           maxLength: 4,
                                           controller: cardmonthController,
                                           onChanged: (value) {
@@ -157,8 +160,8 @@ class _PaymentPageState extends State<PaymentPage> {
                                     horizontal: 20,
                                   ),
                                   child: TextFormField(
-                                    decoration:
-                                        InputDecoration(hintText: textTranslation(ar: "اسم حامل البطاقة", en: '')),
+                                    decoration: InputDecoration(
+                                        hintText: textTranslation(ar: "اسم حامل البطاقة", en: 'Card Holder Name')),
                                     controller: cardHolderNameController,
                                     onChanged: (value) {
                                       setState(() {});
@@ -172,7 +175,7 @@ class _PaymentPageState extends State<PaymentPage> {
                       ],
                     ),
                   ),
-                  SimpleButton(textTranslation(ar: 'حفظ وسيلة الدفع', en: ''), function: () {
+                  SimpleButton(textTranslation(ar: 'حفظ وسيلة الدفع', en: 'Save Credit Card'), function: () {
                     loadingScreen(
                         context: context,
                         function: () async {
@@ -188,9 +191,9 @@ class _PaymentPageState extends State<PaymentPage> {
                             Navigator.of(context).pop();
                             CustomDialog(
                                 context: context,
-                                title: textTranslation(ar: 'تم حفظ البطاقة', en: ''),
+                                title: textTranslation(ar: 'تم حفظ البطاقة', en: 'Done'),
                                 content: Text(
-                                  textTranslation(ar: 'تم حفظ البطاقة بنجاح!', en: ''),
+                                  textTranslation(ar: 'تم حفظ البطاقة بنجاح!', en: 'Your Credit card has been saved'),
                                   textDirection: TextDirection.rtl,
                                 ),
                                 firstButtonColor: Colors.black54,

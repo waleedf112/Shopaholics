@@ -121,7 +121,7 @@ class SigningUpPage extends StatelessWidget {
                         controller: nameController,
                         validator: (String value) => nameValidation(value),
                         decoration: InputDecoration(
-                          labelText: textTranslation(ar: 'الاسم', en: ''),
+                          labelText: textTranslation(ar: 'الاسم', en: 'Name'),
                           labelStyle: TextStyle(fontSize: 14),
                           filled: true,
                         ),
@@ -138,7 +138,7 @@ class SigningUpPage extends StatelessWidget {
                         keyboardType: TextInputType.numberWithOptions(),
                         validator: (String value) => phoneValidation(value),
                         decoration: InputDecoration(
-                          labelText: textTranslation(ar: 'رقم الجوال', en: ''),
+                          labelText: textTranslation(ar: 'رقم الجوال', en: 'Phone number'),
                           labelStyle: TextStyle(fontSize: 14),
                           filled: true,
                         ),
@@ -187,11 +187,11 @@ class SigningUpPage extends StatelessWidget {
                         controller: password2Controller,
                         validator: (String value) {
                           if (password2Controller.text != passwordController.text)
-                            return textTranslation(ar: 'كلمات المرور غير متطابقة', en: '');
+                            return textTranslation(ar: 'كلمات المرور غير متطابقة', en: 'Passwords doesn\'t match');
                         },
                         obscureText: true,
                         decoration: InputDecoration(
-                          labelText: textTranslation(ar: 'أعد كلمة المرور', en: ''),
+                          labelText: textTranslation(ar: 'أعد كلمة المرور', en: 'retype the password'),
                           labelStyle: TextStyle(fontSize: 14),
                           filled: true,
                         ),

@@ -17,7 +17,7 @@ class MyOrdersPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SecondaryView(
-      title: textTranslation(ar: 'طلباتي', en: ''),
+      title: textTranslation(ar: 'طلباتي', en: 'My Orders'),
       child: FutureBuilder(
         future: Firestore.instance
             .collection('Orders')
@@ -115,7 +115,7 @@ class _Order extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(right: 6),
                         child: Text(
-                          '${textTranslation(ar: 'الطلب رقم', en: '')} #${data['number']}',
+                          '${textTranslation(ar: 'الطلب رقم', en: 'Order')} #${data['number']}',
                           style: TextStyle(color: Colors.grey, fontSize: 11),
                         ),
                       ),
@@ -129,7 +129,7 @@ class _Order extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(top: 12, bottom: 12, right: 6),
                         child: Text(
-                          '${data['productsPrice'] + data['delivery']} ${textTranslation(ar: 'ريال', en: '')}',
+                          '${data['productsPrice'] + data['delivery']} ${textTranslation(ar: 'ريال', en: 'SR')}',
                           style: TextStyle(fontSize: 13),
                         ),
                       ),
@@ -181,7 +181,7 @@ class _Order extends StatelessWidget {
                         children: <Widget>[
                           Padding(
                             padding: const EdgeInsets.only(left: 3),
-                            child: Text(textTranslation(ar: 'تقديم شكوى', en: '')),
+                            child: Text(textTranslation(ar: 'تقديم شكوى', en: 'Send a Complaint')),
                           ),
                           Icon(Icons.priority_high),
                         ],
@@ -253,7 +253,7 @@ NoOrders() => Center(
             color: Colors.grey.withOpacity(0.6),
             size: 100,
           ),
-          TextWidget(textTranslation(ar: 'لاتوجد أي طلبات', en: ''),
+          TextWidget(textTranslation(ar: 'لاتوجد أي طلبات', en: 'There Are No Orders'),
               style: TextStyle(
                 color: Colors.grey,
                 fontStyle: FontStyle.italic,

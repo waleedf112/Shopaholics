@@ -25,7 +25,7 @@ class MyAccountPage extends StatelessWidget {
         new TextEditingController(text: currentUser == null ? null : currentUser.phone);
     GlobalKey<FormState> formKey = new GlobalKey();
     return SecondaryView(
-      title: textTranslation(ar: 'حسابي', en: ''),
+      title: textTranslation(ar: 'حسابي', en: 'My Account'),
       child: Padding(
         padding: const EdgeInsets.all(12.0),
         child: Form(
@@ -35,7 +35,7 @@ class MyAccountPage extends StatelessWidget {
             children: <Widget>[
               AlertMessage(
                 message: textTranslation(
-                    ar: 'الرجاء كتابة كلمة المرور الحالية قبل تغيير البيانات للتحقق من هويتك وحماية حسابك.', en: ''),
+                    ar: 'الرجاء كتابة كلمة المرور الحالية قبل تغيير البيانات للتحقق من هويتك وحماية حسابك.', en: 'Please type your current password before changing any information to verify your identity and secure your account.'),
                 maxLines: 3,
               ),
               SizedBox(height: 12),
@@ -49,7 +49,7 @@ class MyAccountPage extends StatelessWidget {
                     validator: (String value) => passwordValidation(value),
                     obscureText: true,
                     decoration: InputDecoration(
-                      labelText: textTranslation(ar: 'كلمة المرور الحالية', en: ''),
+                      labelText: textTranslation(ar: 'كلمة المرور الحالية', en: 'Current Password'),
                       labelStyle: TextStyle(fontSize: 14),
                       filled: true,
                     ),
@@ -66,7 +66,7 @@ class MyAccountPage extends StatelessWidget {
                     keyboardType: TextInputType.numberWithOptions(),
                     validator: (String value) => phoneValidation(value),
                     decoration: InputDecoration(
-                      labelText: textTranslation(ar: 'رقم الجوال', en: ''),
+                      labelText: textTranslation(ar: 'رقم الجوال', en: 'Phone Number'),
                       labelStyle: TextStyle(fontSize: 14),
                       filled: true,
                     ),
@@ -83,7 +83,7 @@ class MyAccountPage extends StatelessWidget {
                     validator: (String value) => passwordValidation(value, canBeEmpty: true),
                     obscureText: true,
                     decoration: InputDecoration(
-                      labelText: textTranslation(ar: 'كلمة المرور الجديدة', en: ''),
+                      labelText: textTranslation(ar: 'كلمة المرور الجديدة', en: 'New Password'),
                       labelStyle: TextStyle(fontSize: 14),
                       filled: true,
                     ),
@@ -99,11 +99,11 @@ class MyAccountPage extends StatelessWidget {
                     controller: password2Controller,
                     validator: (String value) {
                       if (password2Controller.text != passwordController.text)
-                        return textTranslation(ar: 'كلمات المرور غير متطابقة', en: '');
+                        return textTranslation(ar: 'كلمات المرور غير متطابقة', en: 'Passwords don\'t match');
                     },
                     obscureText: true,
                     decoration: InputDecoration(
-                      labelText: textTranslation(ar: 'أعد كلمة المرور الجديدة', en: ''),
+                      labelText: textTranslation(ar: 'أعد كلمة المرور الجديدة', en: 'Re-type New Password'),
                       labelStyle: TextStyle(fontSize: 14),
                       filled: true,
                     ),
@@ -111,7 +111,7 @@ class MyAccountPage extends StatelessWidget {
                 ),
               ),
               SimpleButton(
-                textTranslation(ar: 'حفظ البيانات', en: ''),
+                textTranslation(ar: 'حفظ البيانات', en: 'Save Information'),
                 function: () async {
                   FocusScope.of(context).unfocus();
                   bool isVerified = (await isEmailVerified(context));
@@ -131,8 +131,8 @@ class MyAccountPage extends StatelessWidget {
                               Navigator.of(context).pop();
                               CustomDialog(
                                   context: context,
-                                  title: textTranslation(ar: 'تم الحفظ', en: ''),
-                                  content: TextWidget(textTranslation(ar: 'تم حفظ بياناتك بنجاح', en: '')),
+                                  title: textTranslation(ar: 'تم الحفظ', en: 'Saved'),
+                                  content: TextWidget(textTranslation(ar: 'تم حفظ بياناتك بنجاح', en: 'Your new information has been saved')),
                                   firstButtonText: textTranslation(ar: 'حسناً', en: 'OK'),
                                   firstButtonColor: Colors.black45,
                                   firstButtonFunction: () {
@@ -148,8 +148,8 @@ class MyAccountPage extends StatelessWidget {
                                   title: textTranslation(ar: 'خطأ', en: 'Error'),
                                   content: TextWidget(onError.code == 'ERROR_TOO_MANY_REQUESTS'
                                       ? textTranslation(
-                                          ar: 'تم تخطي عدد المحاولات المسموح بها, الرجاء المحاولة في وقت لاحق!', en: '')
-                                      : textTranslation(ar: 'كلمة المرور الحالية خاطئه!', en: '')),
+                                          ar: 'تم تخطي عدد المحاولات المسموح بها, الرجاء المحاولة في وقت لاحق!', en: 'Maximum amount of tries has been reached, try again later')
+                                      : textTranslation(ar: 'كلمة المرور الحالية خاطئه!', en: 'Your current passwords is invalid')),
                                   firstButtonText: textTranslation(ar: 'حسناً', en: 'OK'),
                                   firstButtonColor: Colors.black45,
                                   firstButtonFunction: () {

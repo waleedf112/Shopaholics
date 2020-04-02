@@ -12,6 +12,7 @@ import 'package:persistent_bottom_nav_bar/utils/utils.dart';
 import 'Classes/Notification.dart';
 import 'Classes/User.dart';
 import 'Classes/UserRole.dart';
+import 'Functions/AppLanguage.dart';
 import 'Functions/PagePush.dart';
 import 'Pages/Homepage/HomePage.dart';
 import 'Pages/Settings/SigningPage.dart';
@@ -102,7 +103,11 @@ class _LauncherState extends State<Launcher> {
     _init();
 
     Future.delayed(Duration(seconds: 1)).whenComplete(() async {
+      Hive.registerAdapter(AppLanguageAdapter());
       await Hive.openBox('isFirstLaunch');
+      await Hive.openBox('currentAppLanguage');
+      if (Hive.box('currentAppLanguage').isEmpty) await Hive.box('currentAppLanguage').put(0, AppLanguage.arabic);
+      print(getCurrentAppLanguage());
       if (Hive.box('isFirstLaunch').isEmpty) {
         await Hive.box('isFirstLaunch').put(0, true);
         widget.isFirstLaunch.value = true;

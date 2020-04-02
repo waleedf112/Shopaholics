@@ -27,6 +27,7 @@ import 'Functions/SignUp.dart';
 import 'Functions/SignIn.dart';
 import 'SigningPage.dart';
 import 'SubPages/Addresses.dart';
+import 'SubPages/LanguagesPage.dart';
 import 'SubPages/MyAccount.dart';
 import 'SubPages/MyOrders.dart';
 import 'SubPages/MyProducts.dart';
@@ -182,22 +183,6 @@ class SettingsPage extends StatelessWidget {
         SizedBox(height: 25),
         if (isSignedIn())
           settingSection([
-            if (kDebugMode)
-              setting(
-                  title: 'testing',
-                  desc: '',
-                  icon: Icons.lock,
-                  onPressed: () async {
-                    FocusScope.of(context).unfocus();
-                    PagePush(context, SecondaryView(child: RaisedButton(onPressed: () {
-                      PagePush(
-                          context,
-                          Conversation(
-                            'mCKOtUZ4UMxx3zRltbuN',
-                            '',
-                          ));
-                    })));
-                  }),
             setting(
                 title: 'حسابي',
                 desc: 'لادارة حسابك وتغيير البريد الالكتروني وكلمة المرور',
@@ -219,6 +204,12 @@ class SettingsPage extends StatelessWidget {
                     withNavBar: false,
                   );
                 }),
+            setting(
+              title: 'اللغة',
+              desc: 'تغيير لغة عرض البرنامج',
+              icon: Icons.language,
+              onPressed: () => PagePush(context, LanguagesPage()),
+            ),
           ]),
         if (isSignedIn()) SizedBox(height: 25),
         if (isSignedIn())
@@ -262,24 +253,6 @@ class SettingsPage extends StatelessWidget {
               onPressed: () => PagePush(context, RolesPage()),
             ),
           ]),
-        if (isSignedIn()) SizedBox(height: 25),
-        settingSection([
-          setting(
-            title: 'التنبيهات',
-            desc: 'اعدادات التنبيهات للتخفيضات والعروض وغيرها',
-            icon: Icons.notifications_active,
-          ),
-          setting(
-            title: 'اللغة',
-            desc: 'تغيير لغة عرض البرنامج',
-            icon: Icons.language,
-          ),
-          setting(
-            title: 'اتصل بنا',
-            desc: 'للتواصل مع ادارة التطبيق وللشكاوي والاقتراحات',
-            icon: Icons.message,
-          ),
-        ]),
         SizedBox(height: 25),
         if (isSignedIn() && currentUser.role == UserRole.admin)
           settingSection([
@@ -294,11 +267,6 @@ class SettingsPage extends StatelessWidget {
               desc: 'البلاغات عن المنتجات والطلبات والمستخدمين والشكاوى',
               icon: Icons.warning,
               onPressed: () => PagePush(context, TicketsViewer()),
-            ),
-            setting(
-              title: 'التصانيف والاقسام',
-              desc: 'تعديل واضافة اقسام للمنتجات',
-              icon: Icons.menu,
             ),
           ]),
         SizedBox(height: 25),

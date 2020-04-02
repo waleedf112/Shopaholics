@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:mdi/mdi.dart';
 import 'package:persistent_bottom_nav_bar/utils/utils.dart';
+import 'package:shopaholics/Functions/AppLanguage.dart';
 
 import '../../Classes/User.dart';
 import '../../Classes/UserRole.dart';
@@ -32,7 +33,7 @@ class SettingsPage extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8),
           child: Row(
-            textDirection: TextDirection.rtl,
+            textDirection: layoutTranslation(),
             children: <Widget>[
               Icon(
                 icon,
@@ -42,7 +43,7 @@ class SettingsPage extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
+                    crossAxisAlignment: currentAppLanguage == AppLanguage.arabic? CrossAxisAlignment.end:CrossAxisAlignment.start,
                     children: <Widget>[
                       TextWidget(title),
                       TextWidget(desc, style: TextStyle(color: Colors.grey, fontSize: 12)),
@@ -80,11 +81,11 @@ class SettingsPage extends StatelessWidget {
       return Padding(
         padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
         child: Row(
-          textDirection: TextDirection.rtl,
+          textDirection: layoutTranslation(),
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Row(
-              textDirection: TextDirection.rtl,
+              textDirection: layoutTranslation(),
               children: <Widget>[
                 Opacity(
                   opacity: 0.3,
@@ -96,7 +97,7 @@ class SettingsPage extends StatelessWidget {
                 ),
                 SizedBox(width: 12),
                 Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
+                  crossAxisAlignment: currentAppLanguage == AppLanguage.arabic?CrossAxisAlignment.end:CrossAxisAlignment.start,
                   children: <Widget>[
                     TextWidget(currentUser.displayName, style: TextStyle(fontSize: 18)),
                     TextWidget(currentUser.email, style: TextStyle(fontSize: 12, color: Colors.grey)),

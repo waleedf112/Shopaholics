@@ -70,7 +70,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                             textTranslation(
                                 ar: "الرجاء تسجيل دخولك لتتمكن من الاضافة الى المفضلة",
                                 en: 'Please sign in before adding prodects to your favorite'),
-                            textDirection: TextDirection.rtl,
+                            textDirection: layoutTranslation(),
                           ),
                         ));
                       }

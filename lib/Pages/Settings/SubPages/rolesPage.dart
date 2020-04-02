@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_full_pdf_viewer/flutter_full_pdf_viewer.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:shopaholics/Functions/AppLanguage.dart';
 
 import '../../../Classes/User.dart';
 import '../../../Classes/UserRole.dart';
@@ -64,20 +65,20 @@ class _RolesPageState extends State<RolesPage> {
             ),
             SizedBox(height: 12),
             Directionality(
-              textDirection: TextDirection.rtl,
+              textDirection: layoutTranslation(),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   TextWidget(textTranslation(ar: 'نوع الحساب:', en: 'Account type'), minFontSize: 18, maxFontSize: 18),
                   Directionality(
-                    textDirection: TextDirection.rtl,
+                    textDirection: layoutTranslation(),
                     child: FutureBuilder(
                       future: currentUser.getRequestedRole(),
                       builder: (BuildContext context, AsyncSnapshot snapshot) {
                         Widget _widget({int requestedRole, int currentRole, bool pending}) {
                           return Row(
-                            textDirection: TextDirection.rtl,
+                            textDirection: layoutTranslation(),
                             children: <Widget>[
                               TextWidget(
                                 pending
@@ -114,15 +115,21 @@ class _RolesPageState extends State<RolesPage> {
             ),
             SizedBox(height: 10),
             Directionality(
-              textDirection: TextDirection.rtl,
+              textDirection: layoutTranslation(),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(left: 80),
-                    child: TextWidget(textTranslation(ar: 'تغيير نوع الحساب', en: 'Change account type'),
-                        minFontSize: 15, maxFontSize: 18),
+                  Directionality(
+                    textDirection: layoutTranslation(),
+                    child: Expanded(
+                      child: Padding(
+                        padding:
+                            currentAppLanguage == AppLanguage.arabic ? EdgeInsets.only(left: 80) : EdgeInsets.all(0),
+                        child: TextWidget(textTranslation(ar: 'تغيير نوع الحساب', en: 'Change account type'),
+                            minFontSize: 15, maxFontSize: 18),
+                      ),
+                    ),
                   ),
                   Expanded(
                     child: CustomDropDownMenu(
@@ -140,15 +147,17 @@ class _RolesPageState extends State<RolesPage> {
               ),
             ),
             Directionality(
-              textDirection: TextDirection.rtl,
+              textDirection: layoutTranslation(),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(left: 80),
-                    child: TextWidget(textTranslation(ar: 'موقع متجرك', en: 'Your shop location'),
-                        minFontSize: 15, maxFontSize: 18),
+                  Expanded(
+                                      child: Padding(
+                      padding: currentAppLanguage == AppLanguage.arabic ? EdgeInsets.only(left: 80) : EdgeInsets.all(0),
+                      child: TextWidget(textTranslation(ar: 'موقع متجرك', en: 'Your shop location'),
+                          minFontSize: 15, maxFontSize: 18),
+                    ),
                   ),
                   Expanded(
                     child: CustomDropDownMenu(
@@ -177,7 +186,7 @@ class _RolesPageState extends State<RolesPage> {
                   Container(
                     height: 80,
                     child: Directionality(
-                      textDirection: TextDirection.rtl,
+                      textDirection: layoutTranslation(),
                       child: TextFormField(
                         enabled: widget.location != null,
                         controller: controller1,
@@ -198,7 +207,7 @@ class _RolesPageState extends State<RolesPage> {
                   Container(
                     height: 80,
                     child: Directionality(
-                      textDirection: TextDirection.rtl,
+                      textDirection: layoutTranslation(),
                       child: TextFormField(
                         controller: controller2,
                         validator: (String value) =>
@@ -217,7 +226,7 @@ class _RolesPageState extends State<RolesPage> {
               valueListenable: _accepted,
               builder: (BuildContext context, bool accepted, Widget child) {
                 return Directionality(
-                  textDirection: TextDirection.rtl,
+                  textDirection: layoutTranslation(),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[

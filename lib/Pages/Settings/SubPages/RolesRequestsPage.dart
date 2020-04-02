@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:shopaholics/Functions/AppLanguage.dart';
 import 'package:shopaholics/Widgets/TextWidget.dart';
 
 import '../../../Classes/User.dart';
@@ -35,9 +36,9 @@ class _RolesRequestsPageState extends State<RolesRequestsPage> {
                 return Card(
                   elevation: 5,
                   child: Directionality(
-                    textDirection: TextDirection.rtl,
+                    textDirection: layoutTranslation(),
                     child: Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 8, 20, 8),
+                      padding: currentAppLanguage == AppLanguage.arabic ?  EdgeInsets.fromLTRB(0, 8, 20, 8):EdgeInsets.fromLTRB(20, 8, 0, 8),
                       child: Column(
                         children: <Widget>[
                           Row(

@@ -37,16 +37,16 @@ class TicketPage extends StatelessWidget {
               child: Form(
                 key: formKey,
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(8, 20, 8, 0),
+                  padding:  EdgeInsets.fromLTRB(8, 20, 8, 0),
                   child: ListView(
                     shrinkWrap: true,
                     physics: BouncingScrollPhysics(),
                     children: <Widget>[
                       Directionality(
-                        textDirection: TextDirection.rtl,
+                        textDirection: layoutTranslation(),
                         child: TextFormField(
                           controller: controller,
-                          textDirection: TextDirection.rtl,
+                          textDirection: layoutTranslation(),
                           validator: (String s) {
                             if (s.trim().isEmpty) return textTranslation(ar: 'النص فارغ', en: 'Empty');
                           },

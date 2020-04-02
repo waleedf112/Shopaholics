@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:mdi/mdi.dart';
+import 'package:shopaholics/Functions/AppLanguage.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../Functions/PagePush.dart';
@@ -32,6 +33,7 @@ class _TicketsViewerState extends State<TicketsViewer> {
           if (!snapshot.hasData) return SpinKitRotatingCircle(color: Colors.grey.withOpacity(0.3));
           return ListView.builder(
             itemCount: snapshot.data.documents.length,
+            physics: BouncingScrollPhysics(),
             itemBuilder: (BuildContext context, int index) {
               DocumentSnapshot ticketRef = snapshot.data.documents[index];
               Map data = snapshot.data.documents[index].data;
@@ -42,9 +44,9 @@ class _TicketsViewerState extends State<TicketsViewer> {
                   shape: Border(),
                   elevation: 4,
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 8, 16, 16),
+                    padding: currentAppLanguage == AppLanguage.arabic ? EdgeInsets.fromLTRB(0, 8, 16, 16):EdgeInsets.fromLTRB(16, 8, 0, 16),
                     child: Directionality(
-                      textDirection: TextDirection.rtl,
+                      textDirection: layoutTranslation(),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
@@ -57,7 +59,10 @@ class _TicketsViewerState extends State<TicketsViewer> {
                                   '#${getType(data['type'])}${data['ref'].split('/')[1]}',
                                   style: TextStyle(color: Colors.grey),
                                 ),
-                                TextWidget(data['info']),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 4),
+                                  child: TextWidget(data['info'],maxLines: 9),
+                                ),
                               ],
                             ),
                           ),

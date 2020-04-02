@@ -130,7 +130,7 @@ class _Order extends StatelessWidget {
       shape: Border(),
       elevation: 3,
       child: Directionality(
-        textDirection: TextDirection.rtl,
+        textDirection: layoutTranslation(),
         child: Padding(
           padding: const EdgeInsets.fromLTRB(5, 6, 6, 6),
           child: Column(

@@ -39,7 +39,7 @@ class _LanguagesPageState extends State<LanguagesPage> {
             ),
           ),
           Directionality(
-            textDirection: TextDirection.rtl,
+            textDirection: layoutTranslation(),
             child: Row(
               children: <Widget>[
                 Expanded(

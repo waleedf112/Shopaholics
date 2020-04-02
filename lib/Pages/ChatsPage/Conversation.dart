@@ -93,7 +93,7 @@ class _ConversationState extends State<Conversation> {
           child: Padding(
             padding: const EdgeInsets.only(right: 20),
             child: Directionality(
-              textDirection: TextDirection.rtl,
+              textDirection: layoutTranslation(),
               child: Row(
                 children: <Widget>[
                   Expanded(
@@ -166,7 +166,7 @@ class _SentBubble extends StatelessWidget {
       padding: isLast ? const EdgeInsets.only(bottom: 100) : EdgeInsets.all(0),
       child: Container(
         child: Directionality(
-          textDirection: TextDirection.rtl,
+          textDirection: layoutTranslation(),
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 1),
             child: Row(

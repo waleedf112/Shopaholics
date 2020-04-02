@@ -47,7 +47,7 @@ class RequestsRow extends StatelessWidget {
             hasData: snapshot.hasData,
             loading: documents == null,
             widget: Directionality(
-              textDirection: TextDirection.rtl,
+              textDirection: layoutTranslation(),
               child: Column(
                 children: <Widget>[
                   Padding(

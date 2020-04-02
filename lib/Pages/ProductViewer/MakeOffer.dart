@@ -31,7 +31,7 @@ class MakeOffer extends StatelessWidget {
                   Container(
                     height: 90,
                     child: Directionality(
-                      textDirection: TextDirection.rtl,
+                      textDirection: layoutTranslation(),
                       child: TextFormField(
                         textDirection: TextDirection.ltr,
                         controller: productPriceController,
@@ -60,7 +60,7 @@ class MakeOffer extends StatelessWidget {
                   Container(
                     //height: 90,
                     child: Directionality(
-                      textDirection: TextDirection.rtl,
+                      textDirection: layoutTranslation(),
                       child: TextFormField(
                         textDirection: TextDirection.ltr,
                         maxLines: 5,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shopaholics/Functions/Translation.dart';
 
 import 'CustomButtonGradient.dart';
 
@@ -41,7 +42,7 @@ Future<bool> CustomDialog({
                           ),
                           child: Text(
                             title,
-                            textDirection: TextDirection.rtl,
+                            textDirection: layoutTranslation(),
                             style: TextStyle(fontSize: 23),
                           ),
                         )
@@ -52,7 +53,7 @@ Future<bool> CustomDialog({
                   ),
                   Padding(
                       padding: contentPadding ?? EdgeInsets.fromLTRB(8, 20, 8, 16),
-                      child: Directionality(textDirection: TextDirection.rtl, child: content)),
+                      child: Directionality(textDirection: layoutTranslation(), child: content)),
                   SizedBox(
                     height: contentPadding == null ? 20 : 0,
                   ),

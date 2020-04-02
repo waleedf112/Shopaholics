@@ -33,7 +33,7 @@ class Rating extends StatelessWidget {
     }
     if (rating == null)
       return Directionality(
-        textDirection: TextDirection.rtl,
+        textDirection: layoutTranslation(),
         child: Row(
           children: <Widget>[
             Row(children: stars),
@@ -42,7 +42,7 @@ class Rating extends StatelessWidget {
         ),
       );
     return Directionality(
-      textDirection: TextDirection.rtl,
+      textDirection: layoutTranslation(),
       child: Row(
         children: <Widget>[
           Row(
@@ -76,7 +76,7 @@ class _GiveRatingState extends State<GiveRating> {
           content: Text(
             textTranslation(ar: 'تم تقييم ${widget.displayName} بنجاح!', en: 'Rated ${widget.displayName}.'),
             textAlign: TextAlign.right,
-            textDirection: TextDirection.rtl,
+            textDirection: layoutTranslation(),
           ),
           backgroundColor: Colors.black.withOpacity(0.7),
           elevation: 0,

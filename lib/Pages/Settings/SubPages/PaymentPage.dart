@@ -194,7 +194,7 @@ class _PaymentPageState extends State<PaymentPage> {
                                 title: textTranslation(ar: 'تم حفظ البطاقة', en: 'Done'),
                                 content: Text(
                                   textTranslation(ar: 'تم حفظ البطاقة بنجاح!', en: 'Your Credit card has been saved'),
-                                  textDirection: TextDirection.rtl,
+                                  textDirection: layoutTranslation(),
                                 ),
                                 firstButtonColor: Colors.black54,
                                 firstButtonText: textTranslation(ar: 'حسناً', en: 'OK'),

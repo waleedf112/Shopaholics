@@ -141,7 +141,7 @@ class _AppNewProductState extends State<AppNewProduct> {
                   Container(
                     height: 90,
                     child: Directionality(
-                      textDirection: TextDirection.rtl,
+                      textDirection: layoutTranslation(),
                       child: Directionality(
                         textDirection: layoutTranslation(),
                         child: TextFormField(

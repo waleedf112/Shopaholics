@@ -53,7 +53,7 @@ class _CustomDropDownMenuState extends State<CustomDropDownMenu> {
               hint: AutoSizeText(
                 widget.hint,
                 maxLines: 1,
-                textDirection: TextDirection.rtl,
+                textDirection: layoutTranslation(),
                 style: TextStyle(color: widget.hintColor),
               ),
               items: <DropdownMenuItem<String>>[
@@ -61,7 +61,7 @@ class _CustomDropDownMenuState extends State<CustomDropDownMenu> {
                   DropdownMenuItem(
                     value: child,
                     child: Directionality(
-                      textDirection: TextDirection.rtl,
+                      textDirection: layoutTranslation(),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[

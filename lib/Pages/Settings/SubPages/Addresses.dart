@@ -38,7 +38,7 @@ class AddressesPage extends StatelessWidget {
                   width: 500,
                   borderRadius: BorderRadius.circular(12.0),
                   child: Directionality(
-                    textDirection: TextDirection.rtl,
+                    textDirection: layoutTranslation(),
                     child: SimpleButton(
                       state == SearchingState.Searching
                           ? textTranslation(ar: 'جاري التحميل ...', en: 'Locating ...')

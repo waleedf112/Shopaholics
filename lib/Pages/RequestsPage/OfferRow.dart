@@ -112,7 +112,7 @@ class OfferRow extends StatelessWidget {
                               );
                             } else if (snapshot.hasData) {
                               return Directionality(
-                                textDirection: TextDirection.rtl,
+                                textDirection: layoutTranslation(),
                                 child: TextWidget(
                                   '${textTranslation(ar: 'يبعد عنك', en: 'Away')} ${snapshot.data}',
                                   minFontSize: 11,

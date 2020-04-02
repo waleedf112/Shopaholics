@@ -28,7 +28,7 @@ Future<void> sendPrivateMessage(BuildContext context, String otherUser) async {
       content: Text(
         textTranslation(ar: 'لايمكنك ارسال رسالة لنفسك!', en: 'You can\t send a message to yourself'),
         textAlign: TextAlign.right,
-        textDirection: TextDirection.rtl,
+        textDirection: layoutTranslation(),
       ),
       backgroundColor: Colors.black.withOpacity(0.7),
       elevation: 0,
@@ -126,7 +126,7 @@ textDirection: layoutTranslation(),                    child: Row(
                                   style: TextStyle(fontSize: 16),
                                 ),
                                 Directionality(
-                                  textDirection: TextDirection.rtl,
+                                  textDirection: layoutTranslation(),
                                   child: TextWidget(
                                     documents[index].data['latestMessage'],
                                     maxLines: 1,

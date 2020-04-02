@@ -170,7 +170,7 @@ class _ShoppingCartState extends State<ShoppingCart> {
                                               elevation: 4,
                                               margin: EdgeInsets.symmetric(vertical: 5),
                                               child: Directionality(
-                                                textDirection: TextDirection.rtl,
+                                                textDirection: layoutTranslation(),
                                                 child: Row(
                                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                   children: <Widget>[
@@ -245,7 +245,7 @@ class _ShoppingCartState extends State<ShoppingCart> {
                                   Padding(
                                     padding: const EdgeInsets.symmetric(vertical: 18),
                                     child: Row(
-                                      textDirection: TextDirection.rtl,
+                                      textDirection: layoutTranslation(),
                                       children: <Widget>[
                                         Expanded(
                                           child: Column(
@@ -352,7 +352,7 @@ class _ShoppingCartState extends State<ShoppingCart> {
 _infoRow({String title, int value, bool isBold = false}) => Padding(
       padding: const EdgeInsets.symmetric(horizontal: 25),
       child: Directionality(
-        textDirection: TextDirection.rtl,
+        textDirection: layoutTranslation(),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.start,

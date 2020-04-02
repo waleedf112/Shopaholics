@@ -197,7 +197,7 @@ class _ProductViewerState extends State<ProductViewer> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 12),
               child: Directionality(
-                textDirection: TextDirection.rtl,
+                textDirection: layoutTranslation(),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
@@ -251,7 +251,7 @@ class _ProductViewerState extends State<ProductViewer> {
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 3),
                             child: Directionality(
-                              textDirection: TextDirection.rtl,
+                              textDirection: layoutTranslation(),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
@@ -274,7 +274,7 @@ class _ProductViewerState extends State<ProductViewer> {
                                                 );
                                               } else if (snapshot.hasData) {
                                                 return Directionality(
-                                                  textDirection: TextDirection.rtl,
+                                                  textDirection: layoutTranslation(),
                                                   child: TextWidget(
                                                     '${textTranslation(ar: 'يبعد عنك', en: 'Away')} ${snapshot.data}',
                                                     minFontSize: 16,

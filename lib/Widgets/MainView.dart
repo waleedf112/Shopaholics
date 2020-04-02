@@ -27,7 +27,7 @@ class MainView extends StatelessWidget {
           child: Column(
             children: <Widget>[
               Directionality(
-                textDirection: TextDirection.rtl,
+                textDirection: layoutTranslation(),
                 child: Row(
                   children: <Widget>[
                     ValueListenableBuilder(
@@ -52,7 +52,7 @@ class MainView extends StatelessWidget {
                       child: Form(
                         key: _formKey,
                         child: TextFormField(
-                          textDirection: TextDirection.rtl,
+                          textDirection: layoutTranslation(),
                           controller: searchController,
                           onChanged: (String s) {
                             if (s.trim().isEmpty)

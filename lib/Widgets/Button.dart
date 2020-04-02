@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:shopaholics/Functions/Translation.dart';
 
 enum CardBorders { highest, higher, high, normal, low, none }
 enum CardShadow { highest, high, normal, low, none }
@@ -258,7 +259,7 @@ class CustomButtonPrimary extends StatelessWidget {
                       color: textColor != null ? textColor : Colors.white,
                       fontSize: fontSize,
                     ),
-                    textDirection: TextDirection.rtl,
+                    textDirection: layoutTranslation(),
                     textAlign: textAlign,
                   ),
                 ),

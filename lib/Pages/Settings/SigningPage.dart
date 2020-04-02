@@ -40,7 +40,7 @@ class SigningInPage extends StatelessWidget {
                   Container(
                     height: 90,
                     child: Directionality(
-                      textDirection: TextDirection.rtl,
+                      textDirection: layoutTranslation(),
                       child: TextFormField(
                         textDirection: TextDirection.ltr,
                         controller: emailController,
@@ -56,7 +56,7 @@ class SigningInPage extends StatelessWidget {
                   Container(
                     height: 90,
                     child: Directionality(
-                      textDirection: TextDirection.rtl,
+                      textDirection: layoutTranslation(),
                       child: TextFormField(
                         textDirection: TextDirection.ltr,
                         controller: passwordController,
@@ -112,7 +112,7 @@ class SigningUpPage extends StatelessWidget {
                   Container(
                     height: 90,
                     child: Directionality(
-                      textDirection: TextDirection.rtl,
+                      textDirection: layoutTranslation(),
                       child: TextFormField(
                         textDirection: TextDirection.ltr,
                         controller: nameController,
@@ -128,7 +128,7 @@ class SigningUpPage extends StatelessWidget {
                   Container(
                     height: 90,
                     child: Directionality(
-                      textDirection: TextDirection.rtl,
+                      textDirection: layoutTranslation(),
                       child: TextFormField(
                         textDirection: TextDirection.ltr,
                         controller: phoneController,
@@ -145,7 +145,7 @@ class SigningUpPage extends StatelessWidget {
                   Container(
                     height: 90,
                     child: Directionality(
-                      textDirection: TextDirection.rtl,
+                      textDirection: layoutTranslation(),
                       child: TextFormField(
                         textDirection: TextDirection.ltr,
                         controller: emailController,
@@ -161,7 +161,7 @@ class SigningUpPage extends StatelessWidget {
                   Container(
                     height: 90,
                     child: Directionality(
-                      textDirection: TextDirection.rtl,
+                      textDirection: layoutTranslation(),
                       child: TextFormField(
                         textDirection: TextDirection.ltr,
                         controller: passwordController,
@@ -178,7 +178,7 @@ class SigningUpPage extends StatelessWidget {
                   Container(
                     height: 90,
                     child: Directionality(
-                      textDirection: TextDirection.rtl,
+                      textDirection: layoutTranslation(),
                       child: TextFormField(
                         textDirection: TextDirection.ltr,
                         controller: password2Controller,

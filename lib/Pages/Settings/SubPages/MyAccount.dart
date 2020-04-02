@@ -41,9 +41,9 @@ class MyAccountPage extends StatelessWidget {
               Container(
                 height: 90,
                 child: Directionality(
-                  textDirection: TextDirection.rtl,
+                  textDirection: layoutTranslation(),
                   child: TextFormField(
-                    textDirection: TextDirection.rtl,
+                    textDirection: layoutTranslation(),
                     controller: currentPasswordController,
                     validator: (String value) => passwordValidation(value),
                     obscureText: true,
@@ -58,7 +58,7 @@ class MyAccountPage extends StatelessWidget {
               Container(
                 height: 90,
                 child: Directionality(
-                  textDirection: TextDirection.rtl,
+                  textDirection: layoutTranslation(),
                   child: TextFormField(
                     textDirection: TextDirection.ltr,
                     controller: phoneController,
@@ -75,9 +75,9 @@ class MyAccountPage extends StatelessWidget {
               Container(
                 height: 90,
                 child: Directionality(
-                  textDirection: TextDirection.rtl,
+                  textDirection: layoutTranslation(),
                   child: TextFormField(
-                    textDirection: TextDirection.rtl,
+                    textDirection: layoutTranslation(),
                     controller: passwordController,
                     validator: (String value) => passwordValidation(value, canBeEmpty: true),
                     obscureText: true,
@@ -92,9 +92,9 @@ class MyAccountPage extends StatelessWidget {
               Container(
                 height: 90,
                 child: Directionality(
-                  textDirection: TextDirection.rtl,
+                  textDirection: layoutTranslation(),
                   child: TextFormField(
-                    textDirection: TextDirection.rtl,
+                    textDirection: layoutTranslation(),
                     controller: password2Controller,
                     validator: (String value) {
                       if (password2Controller.text != passwordController.text)

@@ -87,7 +87,7 @@ class _EditProductState extends State<EditProduct> {
                   Container(
                     height: 90,
                     child: Directionality(
-                      textDirection: TextDirection.rtl,
+                      textDirection: layoutTranslation(),
                       child: TextFormField(
                         textDirection: TextDirection.ltr,
                         controller: productNameController,
@@ -107,7 +107,7 @@ class _EditProductState extends State<EditProduct> {
                   Container(
                     //height: 90,
                     child: Directionality(
-                      textDirection: TextDirection.rtl,
+                      textDirection: layoutTranslation(),
                       child: TextFormField(
                         textDirection: TextDirection.ltr,
                         maxLines: 5,
@@ -125,7 +125,7 @@ class _EditProductState extends State<EditProduct> {
                   Container(
                     height: 90,
                     child: Directionality(
-                      textDirection: TextDirection.rtl,
+                      textDirection: layoutTranslation(),
                       child: TextFormField(
                         textDirection: TextDirection.ltr,
                         controller: productPriceController,

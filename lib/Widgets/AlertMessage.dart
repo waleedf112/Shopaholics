@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:shopaholics/Functions/Translation.dart';
 
 class AlertMessage extends StatelessWidget {
   final String message;
@@ -31,7 +32,7 @@ class AlertMessage extends StatelessWidget {
         message,
         maxLines: maxLines,
         maxFontSize: fontSize,
-        textDirection: TextDirection.rtl,
+        textDirection: layoutTranslation(),
         textAlign: textAlign,
         style: TextStyle(fontSize: fontSize, color: color.withOpacity(0.9)),
       ),

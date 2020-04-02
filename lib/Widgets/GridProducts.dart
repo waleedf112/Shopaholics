@@ -142,7 +142,7 @@ textDirection: layoutTranslation(),                child: Column(
               hasData: snapshot.hasData,
               loading: documents == null,
               widget: Directionality(
-                textDirection: TextDirection.rtl,
+                textDirection: layoutTranslation(),
                 child: Column(
                   children: <Widget>[
                     Padding(

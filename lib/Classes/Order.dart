@@ -11,7 +11,6 @@ class Order {
 
   Order(List<Map> products) {
     products.forEach((data) {
-
       this.products.add({
         'sellerUid': data['product']['uid'],
         'sellerDisplayName': data['product']['displayName'],

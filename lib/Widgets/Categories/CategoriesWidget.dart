@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
 import 'CategoriesText.dart';
-  ValueNotifier<int> mainCategoryNotifier = new ValueNotifier<int>(null);
-  ValueNotifier<List<int>> subCategoriesNotifier = new ValueNotifier<List<int>>(null);
-class CategoriesWidget extends StatefulWidget {
 
+ValueNotifier<int> mainCategoryNotifier = new ValueNotifier<int>(null);
+ValueNotifier<List<int>> subCategoriesNotifier = new ValueNotifier<List<int>>(null);
+
+class CategoriesWidget extends StatefulWidget {
   @override
   _CategoriesWidgetState createState() => _CategoriesWidgetState();
 }

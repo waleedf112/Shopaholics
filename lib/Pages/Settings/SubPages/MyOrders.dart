@@ -51,6 +51,35 @@ class MyOrdersPage extends StatelessWidget {
   }
 }
 
+String getOrderStatus(int i) {
+  switch (i) {
+    case 0:
+      return textTranslation(ar: 'تم اضافة الطلب', en: 'Order placed');
+      break;
+    case 1:
+      return textTranslation(ar: 'تم الغاء الطلب', en: 'Order canceled');
+      break;
+    case 2:
+      return textTranslation(ar: 'تم شحن طلبك', en: 'Your order has been shipped');
+      break;
+    case 3:
+      return textTranslation(ar: 'طلبك متأخر عن الموعد المعتاد!', en: 'Your shipment is late');
+      break;
+    case 4:
+      return textTranslation(ar: 'الشحنة في طريقها اليك!', en: 'Your shipment is on the way');
+      break;
+    case 5:
+      return textTranslation(ar: 'تم ارجاع شحنتك', en: 'Your shipment has returned');
+      break;
+    case 6:
+      return textTranslation(ar: 'تم توصيل الطلب', en: 'Delivered');
+      break;
+    default:
+      return '';
+      break;
+  }
+}
+
 class _Order extends StatelessWidget {
   Map data;
   _Order(this.data);
@@ -166,16 +195,21 @@ class _Order extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Row(
-                      children: <Widget>[
-                        status,
-                        Text(
-                          data['statusMessage'],
-                          style: TextStyle(fontSize: 14),
-                        ),
-                      ],
+                    Expanded(
+                                          child: Row(
+                        children: <Widget>[
+                          status,
+                          Expanded(
+                                                      child: TextWidget(
+                                getOrderStatus(data['statusMessage']),
+                                style: TextStyle(fontSize: 14),
+                              ),
+                          ),
+                        ],
+                      ),
                     ),
                     OutlinedButton(
+                      
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
@@ -197,7 +231,7 @@ class _Order extends StatelessWidget {
                   ],
                 ),
               ),
-              if (data['statusMessage'] == 'تم توصيل الطلب' && !data['hasBeenRated'])
+              if (data['statusMessage'] == 99 && !data['hasBeenRated'])
                 ListView.builder(
                   itemCount: data['products'].length,
                   shrinkWrap: true,

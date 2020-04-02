@@ -8,6 +8,7 @@ import '../../../Functions/Translation.dart';
 import '../../../Widgets/Button.dart';
 import '../../../Widgets/SecondaryView.dart';
 import '../../ChatsPage/ChatPage.dart';
+import 'MyOrders.dart';
 
 class SalesPage extends StatelessWidget {
   @override
@@ -149,7 +150,7 @@ class SalesPage extends StatelessWidget {
                           Expanded(child: Container()),
                           status,
                           Text(
-                            list[index]['statusMessage'],
+                            getOrderStatus(list[index]['statusMessage']),
                             style: TextStyle(fontSize: 14),
                           ),
                         ]),

@@ -64,7 +64,7 @@ class Order {
       'dateTime': this.dateTime,
       'uid': currentUser.uid,
       'location': currentUser.location,
-      'statusMessage': 'تم اضافة الطلب',
+      'statusMessage': 0,
       'statusIconIndex': 0,
       'products': this.products,
       'productsPrice': this.productsPrice,

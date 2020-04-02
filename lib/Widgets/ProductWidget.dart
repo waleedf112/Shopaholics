@@ -108,7 +108,8 @@ class _ProductWidgetState extends State<ProductWidget> {
     }
 
     Widget getPrice() {
-      return TextWidget('${widget.item.productPrice} ${textTranslation(ar:'ريال',en:'')}', style: TextStyle(fontWeight: FontWeight.bold));
+      return TextWidget('${widget.item.productPrice} ${textTranslation(ar: 'ريال', en: '')}',
+          style: TextStyle(fontWeight: FontWeight.bold));
     }
 
     if (widget.item is ProductRequest) {

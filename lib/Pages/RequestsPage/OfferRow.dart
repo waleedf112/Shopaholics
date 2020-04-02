@@ -113,13 +113,14 @@ class OfferRow extends StatelessWidget {
                               return Directionality(
                                 textDirection: TextDirection.rtl,
                                 child: TextWidget(
-                                  '${textTranslation(ar:'يبعد عنك',en:'')} ${snapshot.data}',
+                                  '${textTranslation(ar: 'يبعد عنك', en: '')} ${snapshot.data}',
                                   minFontSize: 11,
                                   maxFontSize: 13,
                                 ),
                               );
                             }
-                            return TextWidget(textTranslation(ar: 'يبعد عنك ...', en: ''), minFontSize: 18, maxFontSize: 20);
+                            return TextWidget(textTranslation(ar: 'يبعد عنك ...', en: ''),
+                                minFontSize: 18, maxFontSize: 20);
                           },
                         ),
                         Rating(trader['rating']),
@@ -130,7 +131,7 @@ class OfferRow extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(top: 8),
                           child: Text(
-                            '${trade['price']} ${textTranslation(ar:'ريال',en:'')}',
+                            '${trade['price']} ${textTranslation(ar: 'ريال', en: '')}',
                             style: TextStyle(
                               color: Colors.red,
                               fontSize: 16,
@@ -148,7 +149,7 @@ class OfferRow extends StatelessWidget {
                                   textTranslation(ar: 'هل انت متأكد انك تريد قبول العرض من ', en: '') +
                                       '${trader['displayName']}' +
                                       textTranslation(ar: ' بسعر ', en: '') +
-                                      '${trade['price']} ${textTranslation(ar:'ريال؟',en:'')}' +
+                                      '${trade['price']} ${textTranslation(ar: 'ريال؟', en: '')}' +
                                       '\n' +
                                       textTranslation(ar: 'سيتم رفض جميع الطلبات الاخرى!', en: ''),
                                   textAlign: TextAlign.center,

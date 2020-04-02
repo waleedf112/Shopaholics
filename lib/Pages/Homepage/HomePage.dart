@@ -115,7 +115,6 @@ class _HomePageState extends State<HomePage> {
                 children: <Widget>[
                   Expanded(
                     child: ListView(
-                      
                       physics: BouncingScrollPhysics(),
                       shrinkWrap: false,
                       children: <Widget>[
@@ -125,7 +124,7 @@ class _HomePageState extends State<HomePage> {
                           sortingProducts: SortingProducts.byTime,
                         ),
                         GridProducts(
-                          title: textTranslation(ar:'اخر العروض',en: 'Latest Offers'),
+                          title: textTranslation(ar: 'اخر العروض', en: 'Latest Offers'),
                           type: GridProductsType.offers,
                           sortingProducts: SortingProducts.byPrice,
                         ),

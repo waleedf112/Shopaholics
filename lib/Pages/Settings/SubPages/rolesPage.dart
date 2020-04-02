@@ -76,7 +76,9 @@ class _RolesPageState extends State<RolesPage> {
                             textDirection: TextDirection.rtl,
                             children: <Widget>[
                               TextWidget(
-                                pending ? roleNames[requestedRole] + textTranslation(ar: ' (قيد التنفيذ)', en: '') : roleNames[currentRole],
+                                pending
+                                    ? roleNames[requestedRole] + textTranslation(ar: ' (قيد التنفيذ)', en: '')
+                                    : roleNames[currentRole],
                                 minFontSize: 15,
                                 maxFontSize: 15,
                               ),
@@ -114,7 +116,8 @@ class _RolesPageState extends State<RolesPage> {
                 children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.only(left: 80),
-                    child: TextWidget(textTranslation(ar: 'تغيير نوع الحساب', en: ''), minFontSize: 18, maxFontSize: 18),
+                    child:
+                        TextWidget(textTranslation(ar: 'تغيير نوع الحساب', en: ''), minFontSize: 18, maxFontSize: 18),
                   ),
                   Expanded(
                     child: CustomDropDownMenu(
@@ -170,12 +173,15 @@ class _RolesPageState extends State<RolesPage> {
                       child: TextFormField(
                         enabled: widget.location != null,
                         controller: controller1,
-                        validator: (String value) => value.trim().isEmpty ? textTranslation(ar: 'الحقل فارغ!', en: '') : null,
+                        validator: (String value) =>
+                            value.trim().isEmpty ? textTranslation(ar: 'الحقل فارغ!', en: '') : null,
                         decoration: InputDecoration(
                           filled: true,
                           hintText: widget.location == null
                               ? textTranslation(ar: 'الرجاء اختيار موقع متجرك من الاعلى', en: '')
-                              : widget.location == 'داخل السعودية' ? textTranslation(ar: 'ادخل حسابك في (معروف)', en: '') : textTranslation(ar: 'ادخل رقم الهوية', en: ''),
+                              : widget.location == 'داخل السعودية'
+                                  ? textTranslation(ar: 'ادخل حسابك في (معروف)', en: '')
+                                  : textTranslation(ar: 'ادخل رقم الهوية', en: ''),
                         ),
                       ),
                     ),
@@ -186,7 +192,8 @@ class _RolesPageState extends State<RolesPage> {
                       textDirection: TextDirection.rtl,
                       child: TextFormField(
                         controller: controller2,
-                        validator: (String value) => value.trim().isEmpty ? textTranslation(ar: 'الحقل فارغ!', en: '') : null,
+                        validator: (String value) =>
+                            value.trim().isEmpty ? textTranslation(ar: 'الحقل فارغ!', en: '') : null,
                         decoration: InputDecoration(
                           filled: true,
                           hintText: textTranslation(ar: 'ادخل رقم حسابك البنكي', en: ''),
@@ -275,7 +282,9 @@ class _RolesPageState extends State<RolesPage> {
                                     context: context,
                                     title: textTranslation(ar: 'تم ارسال الطلب', en: ''),
                                     content: Text(
-                                      textTranslation(ar: 'تم ارسال طلبك, الرجاء الانتظار من 24 ساعه الى 48 ساعه للرد على طلبك', en: ''),
+                                      textTranslation(
+                                          ar: 'تم ارسال طلبك, الرجاء الانتظار من 24 ساعه الى 48 ساعه للرد على طلبك',
+                                          en: ''),
                                       textAlign: TextAlign.center,
                                     ),
                                     firstButtonText: textTranslation(ar: 'حسناً', en: 'OK'),

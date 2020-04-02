@@ -95,9 +95,12 @@ class MakeOffer extends StatelessWidget {
                             Navigator.of(context).pop();
                             CustomDialog(
                                 context: context,
-                                title: hasError ? textTranslation(ar: 'خطأ', en: 'Error') : textTranslation(ar: 'تم تقديم العرض', en: ''),
-                                content: AutoSizeText(
-                                    hasError ? textTranslation(ar: 'عذراً, فقد تم حجز الطلب مسبقاً', en: '') : textTranslation(ar: 'تم تقديم عرضك للزبون بنجاح!', en: '')),
+                                title: hasError
+                                    ? textTranslation(ar: 'خطأ', en: 'Error')
+                                    : textTranslation(ar: 'تم تقديم العرض', en: ''),
+                                content: AutoSizeText(hasError
+                                    ? textTranslation(ar: 'عذراً, فقد تم حجز الطلب مسبقاً', en: '')
+                                    : textTranslation(ar: 'تم تقديم عرضك للزبون بنجاح!', en: '')),
                                 dismissible: false,
                                 firstButtonColor: Colors.black45,
                                 firstButtonText: textTranslation(ar: 'حسناً', en: 'OK'),

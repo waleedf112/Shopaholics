@@ -1,4 +1,3 @@
-
 import '../../../Functions/Translation.dart';
 
 bool validateEmailSentax(String value) {

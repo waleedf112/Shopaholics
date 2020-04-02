@@ -119,7 +119,7 @@ class SalesPage extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: <Widget>[
                                 Text(
-                                  '${textTranslation(ar:'الطلب رقم',en:'')} #${list[index]['orderNumber']}',
+                                  '${textTranslation(ar: 'الطلب رقم', en: '')} #${list[index]['orderNumber']}',
                                   style: TextStyle(color: Colors.grey, fontSize: 13),
                                 ),
                                 Text(

@@ -186,7 +186,8 @@ class SigningUpPage extends StatelessWidget {
                         textDirection: TextDirection.ltr,
                         controller: password2Controller,
                         validator: (String value) {
-                          if (password2Controller.text != passwordController.text) return textTranslation(ar: 'كلمات المرور غير متطابقة', en: '');
+                          if (password2Controller.text != passwordController.text)
+                            return textTranslation(ar: 'كلمات المرور غير متطابقة', en: '');
                         },
                         obscureText: true,
                         decoration: InputDecoration(
@@ -248,8 +249,8 @@ class SigningOutPage extends StatelessWidget {
         pushNewScreen(
           context,
           screen: Launcher(firstRun: false),
-
-          platformSpecific: true,  withNavBar: false, 
+          platformSpecific: true,
+          withNavBar: false,
         );
         Navigator.of(context).pushReplacement(CupertinoPageRoute(builder: (cxt) {
           return Launcher(firstRun: false);

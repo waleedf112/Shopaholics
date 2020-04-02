@@ -20,5 +20,5 @@ Future<String> calculateDistance(String uid) async {
   Location sellerLocation;
   sellerLocation = (await getUserLocation(uid));
   DistanceResponse result = (await distanceMatrix.distanceWithLocation([userLocation], [sellerLocation]));
-  return result.results[0].elements[0].distance.text.split(' ')[0] + ' ${textTranslation(ar:'كيلو',en:'Km')}';
+  return result.results[0].elements[0].distance.text.split(' ')[0] + ' ${textTranslation(ar: 'كيلو', en: 'Km')}';
 }

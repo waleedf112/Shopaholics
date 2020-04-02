@@ -168,7 +168,7 @@ class _AppNewProductState extends State<AppNewProduct> {
                         controller: productDescController,
                         validator: (String value) => null,
                         decoration: InputDecoration(
-                          labelText: textTranslation(ar:'الوصف',en: 'Description'),
+                          labelText: textTranslation(ar: 'الوصف', en: 'Description'),
                           labelStyle: TextStyle(fontSize: 14),
                           filled: true,
                         ),
@@ -187,14 +187,17 @@ class _AppNewProductState extends State<AppNewProduct> {
                         validator: (String value) {
                           try {
                             int x = int.parse(value);
-                            if (x < 1) return textTranslation(ar:'السعر اقل من ريال واحد',en: 'Price is less than 1 SR');
-                            if (x > 99999) return textTranslation(ar:'السعر اعلى من المسموح به',en: 'Price is more than the allowed value');
+                            if (x < 1)
+                              return textTranslation(ar: 'السعر اقل من ريال واحد', en: 'Price is less than 1 SR');
+                            if (x > 99999)
+                              return textTranslation(
+                                  ar: 'السعر اعلى من المسموح به', en: 'Price is more than the allowed value');
                           } catch (e) {
-                            return textTranslation(ar:'السعر غير صحيح',en: 'Price is invalid');
+                            return textTranslation(ar: 'السعر غير صحيح', en: 'Price is invalid');
                           }
                         },
                         decoration: InputDecoration(
-                          labelText: textTranslation(ar:'السعر',en: 'Price'),
+                          labelText: textTranslation(ar: 'السعر', en: 'Price'),
                           labelStyle: TextStyle(fontSize: 14),
                           filled: true,
                         ),
@@ -210,7 +213,7 @@ class _AppNewProductState extends State<AppNewProduct> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          TextWidget(textTranslation(ar:'الصور',en: 'Images'), minFontSize: 20, maxFontSize: 23),
+                          TextWidget(textTranslation(ar: 'الصور', en: 'Images'), minFontSize: 20, maxFontSize: 23),
                           IconButton(
                             icon: Icon(
                               Icons.add_a_photo,
@@ -269,7 +272,7 @@ class _AppNewProductState extends State<AppNewProduct> {
                             ),
                           ),
                           Text(
-                            textTranslation(ar:'الرجاء اضافة صور للمنتج',en: 'Please add images of the product'),
+                            textTranslation(ar: 'الرجاء اضافة صور للمنتج', en: 'Please add images of the product'),
                             style: TextStyle(color: Colors.grey, fontSize: 21),
                           ),
                         ],

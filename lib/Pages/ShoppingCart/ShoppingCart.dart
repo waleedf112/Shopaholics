@@ -97,7 +97,8 @@ class _ShoppingCartState extends State<ShoppingCart> {
                                                   context: context,
                                                   title: textTranslation(ar: 'حذف المنتج', en: ''),
                                                   content: Text(
-                                                    textTranslation(ar: 'هل انت متأكد انك تريد حذف هذا المنتج من العربة؟', en: ''),
+                                                    textTranslation(
+                                                        ar: 'هل انت متأكد انك تريد حذف هذا المنتج من العربة؟', en: ''),
                                                     textAlign: TextAlign.center,
                                                   ),
                                                   firstButtonColor: Colors.red,
@@ -185,7 +186,8 @@ class _ShoppingCartState extends State<ShoppingCart> {
                                                               TextWidget('#' + product.reference,
                                                                   style: TextStyle(color: Colors.grey, fontSize: 11)),
                                                               SizedBox(height: 3),
-                                                              TextWidget('${product.productPrice} ${textTranslation(ar:'ريال',en:'')}',
+                                                              TextWidget(
+                                                                  '${product.productPrice} ${textTranslation(ar: 'ريال', en: '')}',
                                                                   style: TextStyle(color: Colors.red[700])),
                                                             ],
                                                           ),
@@ -248,8 +250,12 @@ class _ShoppingCartState extends State<ShoppingCart> {
                                           child: Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: <Widget>[
-                                              _infoRow(title: textTranslation(ar: 'السلع', en: ''), value: widget.productsPrice),
-                                              _infoRow(title: textTranslation(ar: 'التوصيل', en: ''), value: widget.delivery),
+                                              _infoRow(
+                                                  title: textTranslation(ar: 'السلع', en: ''),
+                                                  value: widget.productsPrice),
+                                              _infoRow(
+                                                  title: textTranslation(ar: 'التوصيل', en: ''),
+                                                  value: widget.delivery),
                                             ],
                                           ),
                                         ),

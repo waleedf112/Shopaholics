@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 import '../Functions/Translation.dart';
 
-
 class CustomDropDownMenu extends StatefulWidget {
   final List<String> children;
   final Function function;

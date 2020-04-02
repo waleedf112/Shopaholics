@@ -34,7 +34,8 @@ class MyAccountPage extends StatelessWidget {
             physics: BouncingScrollPhysics(),
             children: <Widget>[
               AlertMessage(
-                message: textTranslation(ar: 'الرجاء كتابة كلمة المرور الحالية قبل تغيير البيانات للتحقق من هويتك وحماية حسابك.', en: ''),
+                message: textTranslation(
+                    ar: 'الرجاء كتابة كلمة المرور الحالية قبل تغيير البيانات للتحقق من هويتك وحماية حسابك.', en: ''),
                 maxLines: 3,
               ),
               SizedBox(height: 12),
@@ -97,7 +98,8 @@ class MyAccountPage extends StatelessWidget {
                     textDirection: TextDirection.rtl,
                     controller: password2Controller,
                     validator: (String value) {
-                      if (password2Controller.text != passwordController.text) return textTranslation(ar: 'كلمات المرور غير متطابقة', en: '');
+                      if (password2Controller.text != passwordController.text)
+                        return textTranslation(ar: 'كلمات المرور غير متطابقة', en: '');
                     },
                     obscureText: true,
                     decoration: InputDecoration(
@@ -145,7 +147,8 @@ class MyAccountPage extends StatelessWidget {
                                   context: context,
                                   title: textTranslation(ar: 'خطأ', en: 'Error'),
                                   content: TextWidget(onError.code == 'ERROR_TOO_MANY_REQUESTS'
-                                      ? textTranslation(ar: 'تم تخطي عدد المحاولات المسموح بها, الرجاء المحاولة في وقت لاحق!', en: '')
+                                      ? textTranslation(
+                                          ar: 'تم تخطي عدد المحاولات المسموح بها, الرجاء المحاولة في وقت لاحق!', en: '')
                                       : textTranslation(ar: 'كلمة المرور الحالية خاطئه!', en: '')),
                                   firstButtonText: textTranslation(ar: 'حسناً', en: 'OK'),
                                   firstButtonColor: Colors.black45,

@@ -115,7 +115,7 @@ class _Order extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(right: 6),
                         child: Text(
-                          '${textTranslation(ar:'الطلب رقم',en:'')} #${data['number']}',
+                          '${textTranslation(ar: 'الطلب رقم', en: '')} #${data['number']}',
                           style: TextStyle(color: Colors.grey, fontSize: 11),
                         ),
                       ),
@@ -129,7 +129,7 @@ class _Order extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(top: 12, bottom: 12, right: 6),
                         child: Text(
-                          '${data['productsPrice'] + data['delivery']} ${textTranslation(ar:'ريال',en:'')}',
+                          '${data['productsPrice'] + data['delivery']} ${textTranslation(ar: 'ريال', en: '')}',
                           style: TextStyle(fontSize: 13),
                         ),
                       ),

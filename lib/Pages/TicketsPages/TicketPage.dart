@@ -49,8 +49,11 @@ class TicketPage extends StatelessWidget {
                           },
                           maxLines: 10,
                           decoration: InputDecoration(
-                            hintText: textTranslation(ar: 'اكتب نص الشكوى بالتفصيل حتى تتم مساعدتك باسرع وقت!\n', en: '') +
-                                textTranslation(ar: 'اذا كانت الشكوى بخصوص طلب سابق, الرجاء تقديم شكوى من قائمة "طلباتي" او اكتب رقم طلبك هنا.', en: ''),
+                            hintText: textTranslation(
+                                    ar: 'اكتب نص الشكوى بالتفصيل حتى تتم مساعدتك باسرع وقت!\n', en: '') +
+                                textTranslation(
+                                    ar: 'اذا كانت الشكوى بخصوص طلب سابق, الرجاء تقديم شكوى من قائمة "طلباتي" او اكتب رقم طلبك هنا.',
+                                    en: ''),
                             filled: true,
                           ),
                         ),
@@ -75,7 +78,8 @@ class TicketPage extends StatelessWidget {
                     context: context,
                     title: textTranslation(ar: 'تم', en: ''),
                     content: Text(
-                      textTranslation(ar: 'تم ارسال الشكوى بنجاح!\nشكراً لك على مساعدتك وستتم معالجه طلبك في اسرع وقت', en: ''),
+                      textTranslation(
+                          ar: 'تم ارسال الشكوى بنجاح!\nشكراً لك على مساعدتك وستتم معالجه طلبك في اسرع وقت', en: ''),
                       textAlign: TextAlign.center,
                     ),
                     firstButtonText: textTranslation(ar: 'حسناً', en: 'OK'),

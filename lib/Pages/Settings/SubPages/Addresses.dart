@@ -40,7 +40,9 @@ class AddressesPage extends StatelessWidget {
                   child: Directionality(
                     textDirection: TextDirection.rtl,
                     child: SimpleButton(
-                      state == SearchingState.Searching ? textTranslation(ar: 'جاري التحميل ...', en: '') : textTranslation(ar: 'تحديد الموقع', en: ''),
+                      state == SearchingState.Searching
+                          ? textTranslation(ar: 'جاري التحميل ...', en: '')
+                          : textTranslation(ar: 'تحديد الموقع', en: ''),
                       function: () {
                         CustomDialog(
                           context: context,

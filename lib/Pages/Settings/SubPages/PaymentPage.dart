@@ -81,7 +81,7 @@ class _PaymentPageState extends State<PaymentPage> {
                                   ? 'Card Holder Name'
                                   : cardHolderNameController.text,
                               cvv: cardCVVController.text,
-                              bankName: textTranslation(ar:'بطاقة ائتمانية',en:''),
+                              bankName: textTranslation(ar: 'بطاقة ائتمانية', en: ''),
                               cardType: CardType.visa,
                               showBackSide: showBack,
                               frontBackground: CardBackgrounds.black,
@@ -157,7 +157,8 @@ class _PaymentPageState extends State<PaymentPage> {
                                     horizontal: 20,
                                   ),
                                   child: TextFormField(
-                                    decoration: InputDecoration(hintText: textTranslation(ar: "اسم حامل البطاقة", en: '')),
+                                    decoration:
+                                        InputDecoration(hintText: textTranslation(ar: "اسم حامل البطاقة", en: '')),
                                     controller: cardHolderNameController,
                                     onChanged: (value) {
                                       setState(() {});

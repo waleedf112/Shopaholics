@@ -67,7 +67,8 @@ class _LanguagesPageState extends State<LanguagesPage> {
                   context: context,
                   title: textTranslation(ar: 'تم', en: ''),
                   content: AutoSizeText(
-                    textTranslation(ar: 'تم تغيير اللغة بنجاح!\n', en: '') + textTranslation(ar: 'سيتم اجراء التغيير بعد تشغيل البرنامج مرة اخرى.', en: ''),
+                    textTranslation(ar: 'تم تغيير اللغة بنجاح!\n', en: '') +
+                        textTranslation(ar: 'سيتم اجراء التغيير بعد تشغيل البرنامج مرة اخرى.', en: ''),
                     textAlign: TextAlign.center,
                   ),
                   dismissible: false,

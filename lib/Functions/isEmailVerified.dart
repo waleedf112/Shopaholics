@@ -13,7 +13,9 @@ Future<bool> isEmailVerified(context, [bool pop = true]) async {
       context: context,
       title: textTranslation(ar: 'خطأ', en: 'Error'),
       content: Text(
-        textTranslation(ar:'لم يتم تفعيل بريدك الالكتروني!' + '\n' + 'تم ارسال رساله جديدة لتأكيد صحة بريدك.',en:'You haven\'t activated your email address.\nWe have sent you a new activation link.'),
+        textTranslation(
+            ar: 'لم يتم تفعيل بريدك الالكتروني!' + '\n' + 'تم ارسال رساله جديدة لتأكيد صحة بريدك.',
+            en: 'You haven\'t activated your email address.\nWe have sent you a new activation link.'),
         textAlign: TextAlign.center,
       ),
       firstButtonText: textTranslation(ar: 'حسناً', en: 'OK'),

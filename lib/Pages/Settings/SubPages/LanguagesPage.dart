@@ -1,11 +1,12 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:shopaholics/Functions/AppLanguage.dart';
-import 'package:shopaholics/Functions/Translation.dart';
-import 'package:shopaholics/Widgets/AlertMessage.dart';
-import 'package:shopaholics/Widgets/Button.dart';
-import 'package:shopaholics/Widgets/CustomDialog.dart';
-import 'package:shopaholics/Widgets/SecondaryView.dart';
+
+import '../../../Functions/AppLanguage.dart';
+import '../../../Functions/Translation.dart';
+import '../../../Widgets/AlertMessage.dart';
+import '../../../Widgets/Button.dart';
+import '../../../Widgets/CustomDialog.dart';
+import '../../../Widgets/SecondaryView.dart';
 
 class LanguagesPage extends StatefulWidget {
   AppLanguage languageValue;

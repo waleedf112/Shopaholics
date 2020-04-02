@@ -1,14 +1,12 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:persistent_bottom_nav_bar/utils/utils.dart';
-import 'package:shopaholics/Classes/Product.dart';
 import 'package:flutter/material.dart';
-import 'package:shopaholics/Classes/User.dart';
-import 'package:shopaholics/Classes/UserRole.dart';
-import 'package:shopaholics/Functions/PagePush.dart';
 
+import '../Classes/Product.dart';
+import '../Classes/User.dart';
+import '../Classes/UserRole.dart';
+import '../Functions/PagePush.dart';
+import '../Functions/Translation.dart';
 import 'Button.dart';
 import 'CustomStreamBuilder.dart';
 import 'ListProducts.dart';

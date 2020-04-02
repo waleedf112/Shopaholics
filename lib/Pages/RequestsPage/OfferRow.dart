@@ -1,16 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:shopaholics/Classes/TradeOffer.dart';
-import 'package:shopaholics/Functions/PagePush.dart';
-import 'package:shopaholics/Functions/distanceCalculator.dart';
-import 'package:shopaholics/Pages/Settings/SubPages/MyOrders.dart';
-import 'package:shopaholics/Widgets/Button.dart';
-import 'package:shopaholics/Widgets/CustomDialog.dart';
-import 'package:shopaholics/Widgets/TextWidget.dart';
-import 'package:shopaholics/Widgets/loadingDialog.dart';
-import 'package:shopaholics/Widgets/rating.dart';
 
+import '../../Classes/TradeOffer.dart';
+import '../../Functions/PagePush.dart';
+import '../../Functions/Translation.dart';
+import '../../Functions/distanceCalculator.dart';
+import '../../Widgets/Button.dart';
+import '../../Widgets/CustomDialog.dart';
+import '../../Widgets/TextWidget.dart';
+import '../../Widgets/loadingDialog.dart';
+import '../../Widgets/rating.dart';
+import '../Settings/SubPages/MyOrders.dart';
 import 'RequestsPage.dart';
 
 class OfferRow extends StatelessWidget {

@@ -1,6 +1,9 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
+import '../Functions/Translation.dart';
+
+
 class CustomDropDownMenu extends StatefulWidget {
   final List<String> children;
   final Function function;

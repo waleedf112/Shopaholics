@@ -1,17 +1,12 @@
-import 'dart:async';
 import 'dart:ui';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:hive/hive.dart';
-import 'package:mdi/mdi.dart';
-import 'package:shopaholics/Classes/User.dart';
-import 'package:shopaholics/Functions/PagePush.dart';
-import 'package:shopaholics/Pages/AddProductRequest/AddProductRequest.dart';
-import 'package:shopaholics/Pages/AddNewProduct/AddNewProduct.dart';
-import 'package:shopaholics/Pages/Settings/Settings.dart';
 import 'package:flutter/material.dart';
-import 'package:shopaholics/Pages/ShoppingCart/ShoppingCart.dart';
-import 'CustomErrorDialog.dart';
+import 'package:mdi/mdi.dart';
+
+import '../Functions/PagePush.dart';
+import '../Functions/Translation.dart';
+import '../Pages/ShoppingCart/ShoppingCart.dart';
 import 'GridProducts.dart';
 import 'ListProducts.dart';
 import 'dismissKeyboard.dart';

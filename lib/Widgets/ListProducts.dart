@@ -1,12 +1,9 @@
-import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:shopaholics/Classes/Product.dart';
-import 'package:shopaholics/Classes/User.dart';
-import 'package:shopaholics/Pages/FavoritePage/noFavoriteProducts.dart';
-import 'package:shopaholics/Pages/RequestsPage/RequestsPage.dart';
 
+import '../Classes/Product.dart';
+import '../Classes/User.dart';
+import '../Pages/RequestsPage/RequestsPage.dart';
 import 'GridProducts.dart';
 import 'ProductWidget.dart';
 

@@ -3,13 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:image_fade/image_fade.dart';
 import 'package:mdi/mdi.dart';
-import 'package:shopaholics/Classes/User.dart';
-import 'package:shopaholics/Functions/PagePush.dart';
-import 'package:shopaholics/Pages/TicketsPages/TicketPage.dart';
-import 'package:shopaholics/Widgets/Button.dart';
-import 'package:shopaholics/Widgets/SecondaryView.dart';
-import 'package:shopaholics/Widgets/TextWidget.dart';
-import 'package:shopaholics/Widgets/rating.dart';
+
+import '../../../Classes/User.dart';
+import '../../../Functions/PagePush.dart';
+import '../../../Functions/Translation.dart';
+import '../../../Widgets/Button.dart';
+import '../../../Widgets/SecondaryView.dart';
+import '../../../Widgets/TextWidget.dart';
+import '../../../Widgets/rating.dart';
+import '../../TicketsPages/TicketPage.dart';
 
 class MyOrdersPage extends StatelessWidget {
   @override

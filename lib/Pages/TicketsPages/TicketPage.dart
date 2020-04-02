@@ -1,10 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:shopaholics/Classes/User.dart';
-import 'package:shopaholics/Functions/Translation.dart';
-import 'package:shopaholics/Widgets/Button.dart';
-import 'package:shopaholics/Widgets/CustomDialog.dart';
-import 'package:shopaholics/Widgets/SecondaryView.dart';
+
+import '../../Classes/User.dart';
+import '../../Functions/Translation.dart';
+import '../../Widgets/Button.dart';
+import '../../Widgets/CustomDialog.dart';
+import '../../Widgets/SecondaryView.dart';
 
 enum TicketType { productComplaint, requestComplaint, orderComplaint }
 

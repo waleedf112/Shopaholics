@@ -1,16 +1,18 @@
+import 'dart:io';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:shopaholics/Classes/Product.dart';
-import 'package:shopaholics/Functions/Translation.dart';
-import 'package:shopaholics/Functions/isEmailVerified.dart';
-import 'package:shopaholics/Widgets/Categories/CategoriesWidget.dart';
-import 'package:shopaholics/Widgets/CustomDialog.dart';
-import 'package:shopaholics/Widgets/SecondaryView.dart';
-import 'package:shopaholics/Widgets/TextWidget.dart';
-import 'package:shopaholics/Widgets/loadingDialog.dart';
-import 'dart:io';
+
+import '../../Classes/Product.dart';
+import '../../Functions/Translation.dart';
+import '../../Functions/isEmailVerified.dart';
+import '../../Widgets/Categories/CategoriesWidget.dart';
+import '../../Widgets/CustomDialog.dart';
+import '../../Widgets/SecondaryView.dart';
+import '../../Widgets/TextWidget.dart';
+import '../../Widgets/loadingDialog.dart';
 
 class AppNewProduct extends StatefulWidget {
   @override

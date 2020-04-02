@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_maps_webservice/distance.dart';
-import 'package:shopaholics/Classes/User.dart';
+
+import '../Classes/User.dart';
 import '../main.dart';
 import 'Translation.dart';
 

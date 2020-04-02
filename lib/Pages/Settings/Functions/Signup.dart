@@ -2,12 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:shopaholics/Classes/User.dart';
-import 'package:shopaholics/Functions/passwordExceptions.dart';
-import 'package:shopaholics/Widgets/CustomDialog.dart';
-import 'package:shopaholics/Widgets/loadingDialog.dart';
-import 'package:shopaholics/Widgets/CustomErrorDialog.dart';
 
+import '../../../Classes/User.dart';
+import '../../../Functions/passwordExceptions.dart';
+import '../../../Widgets/CustomErrorDialog.dart';
+import '../../../Widgets/loadingDialog.dart';
 import '../../../main.dart';
 
 Future<void> signUpUser(context, {formKey, email, password, String name, String phone}) async {

@@ -1,15 +1,15 @@
 import 'dart:async';
 
-import 'package:auto_animated/auto_animated.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:shopaholics/Classes/Chat.dart';
-import 'package:shopaholics/Classes/User.dart';
-import 'package:shopaholics/Widgets/SecondaryView.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+
+import '../../Classes/Chat.dart';
+import '../../Classes/User.dart';
+import '../../Functions/Translation.dart';
+import '../../Widgets/SecondaryView.dart';
 
 ValueNotifier<int> _messagesCount = ValueNotifier<int>(null);
-int _oldMessagesCount = null;
+int _oldMessagesCount /* = null */;
 
 class Conversation extends StatefulWidget {
   final String chatRoom;

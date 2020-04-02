@@ -1,16 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:shopaholics/Classes/Product.dart';
-import 'package:shopaholics/Classes/User.dart';
-import 'package:shopaholics/Functions/PagePush.dart';
-import 'package:shopaholics/Pages/RequestsPage/RequestsPage.dart';
-import 'package:shopaholics/Widgets/Button.dart';
-import 'package:shopaholics/Widgets/CustomStreamBuilder.dart';
-import 'package:shopaholics/Widgets/GridProducts.dart';
-import 'package:shopaholics/Widgets/ListProducts.dart';
-import 'package:shopaholics/Widgets/ProductWidget.dart';
-import 'package:shopaholics/Widgets/SecondaryView.dart';
-import 'package:shopaholics/Widgets/TextWidget.dart';
+
+import '../../Classes/Product.dart';
+import '../../Classes/User.dart';
+import '../../Functions/PagePush.dart';
+import '../../Functions/Translation.dart';
+import '../../Widgets/Button.dart';
+import '../../Widgets/CustomStreamBuilder.dart';
+import '../../Widgets/GridProducts.dart';
+import '../../Widgets/ListProducts.dart';
+import '../../Widgets/ProductWidget.dart';
+import '../../Widgets/SecondaryView.dart';
+import '../../Widgets/TextWidget.dart';
+import 'RequestsPage.dart';
 
 class RequestsRow extends StatelessWidget {
   Query query;

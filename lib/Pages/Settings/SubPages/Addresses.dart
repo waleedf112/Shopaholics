@@ -1,16 +1,13 @@
-import 'dart:async';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:google_maps_place_picker/google_maps_place_picker.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:shopaholics/Classes/User.dart';
+import 'package:google_maps_place_picker/google_maps_place_picker.dart';
 
-import 'package:shopaholics/Widgets/Button.dart';
-import 'package:shopaholics/Widgets/CustomDialog.dart';
-import 'package:shopaholics/Widgets/SecondaryView.dart';
-import 'package:shopaholics/Widgets/loadingDialog.dart';
-
+import '../../../Classes/User.dart';
+import '../../../Functions/Translation.dart';
+import '../../../Widgets/Button.dart';
+import '../../../Widgets/CustomDialog.dart';
+import '../../../Widgets/SecondaryView.dart';
+import '../../../Widgets/loadingDialog.dart';
 import '../../../main.dart';
 
 class AddressesPage extends StatelessWidget {

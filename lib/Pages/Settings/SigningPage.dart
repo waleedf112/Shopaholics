@@ -4,15 +4,15 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:persistent_bottom_nav_bar/utils/utils.dart';
-import 'package:shopaholics/Classes/User.dart';
-import 'package:shopaholics/Functions/Translation.dart';
-import 'package:shopaholics/Pages/Settings/Functions/SignUp.dart';
-import 'package:shopaholics/Widgets/Button.dart';
-import 'package:shopaholics/Widgets/CustomDialog.dart';
-import 'package:shopaholics/Widgets/SecondaryView.dart';
 
+import '../../Classes/User.dart';
+import '../../Functions/Translation.dart';
+import '../../Widgets/Button.dart';
+import '../../Widgets/CustomDialog.dart';
+import '../../Widgets/SecondaryView.dart';
 import '../../main.dart';
 import 'Functions/SignIn.dart';
+import 'Functions/SignUp.dart';
 import 'Functions/Validators.dart';
 
 class SigningInPage extends StatelessWidget {

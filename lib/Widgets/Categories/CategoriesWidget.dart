@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../Functions/Translation.dart';
 import 'CategoriesText.dart';
 
 ValueNotifier<int> mainCategoryNotifier = new ValueNotifier<int>(null);

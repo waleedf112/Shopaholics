@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
 
@@ -6,21 +7,19 @@ import 'package:flutter/services.dart';
 import 'package:flutter_full_pdf_viewer/flutter_full_pdf_viewer.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:shopaholics/Classes/User.dart';
-import 'package:shopaholics/Classes/UserRole.dart';
-import 'package:shopaholics/Functions/PagePush.dart';
-import 'package:shopaholics/Functions/Translation.dart';
-import 'package:shopaholics/Functions/isEmailVerified.dart';
-import 'package:shopaholics/Widgets/AlertMessage.dart';
-import 'package:shopaholics/Widgets/Button.dart';
-import 'package:shopaholics/Widgets/CustomDialog.dart';
-import 'package:shopaholics/Widgets/DropDownMenu.dart';
-import 'package:shopaholics/Widgets/SecondaryView.dart';
-import 'package:shopaholics/Widgets/TextWidget.dart';
-import 'package:shopaholics/Widgets/loadingDialog.dart';
-import 'dart:io';
-import 'dart:convert';
-import 'dart:async';
+
+import '../../../Classes/User.dart';
+import '../../../Classes/UserRole.dart';
+import '../../../Functions/PagePush.dart';
+import '../../../Functions/Translation.dart';
+import '../../../Functions/isEmailVerified.dart';
+import '../../../Widgets/AlertMessage.dart';
+import '../../../Widgets/Button.dart';
+import '../../../Widgets/CustomDialog.dart';
+import '../../../Widgets/DropDownMenu.dart';
+import '../../../Widgets/SecondaryView.dart';
+import '../../../Widgets/TextWidget.dart';
+import '../../../Widgets/loadingDialog.dart';
 
 ValueNotifier<bool> _accepted = ValueNotifier<bool>(false);
 

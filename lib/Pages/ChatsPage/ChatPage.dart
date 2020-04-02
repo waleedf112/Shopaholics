@@ -2,12 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
-import 'package:shopaholics/Classes/User.dart';
-import 'package:shopaholics/Functions/PagePush.dart';
-import 'package:shopaholics/Widgets/SecondaryView.dart';
-import 'package:shopaholics/Widgets/TextWidget.dart';
-import 'package:shopaholics/Widgets/loadingDialog.dart';
 
+import '../../Classes/User.dart';
+import '../../Functions/PagePush.dart';
+import '../../Functions/Translation.dart';
+import '../../Widgets/TextWidget.dart';
+import '../../Widgets/loadingDialog.dart';
 import 'Conversation.dart';
 import 'noChatRooms.dart';
 

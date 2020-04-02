@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mdi/mdi.dart';
-import 'package:shopaholics/Widgets/TextWidget.dart';
+
+import '../../Functions/Translation.dart';
+import '../../Widgets/TextWidget.dart';
 
 NoProductsInCart() => Center(
       child: Column(

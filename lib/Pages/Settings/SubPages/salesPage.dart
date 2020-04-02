@@ -2,11 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:image_fade/image_fade.dart';
-import 'package:shopaholics/Classes/Order.dart';
-import 'package:shopaholics/Classes/User.dart';
-import 'package:shopaholics/Pages/ChatsPage/ChatPage.dart';
-import 'package:shopaholics/Widgets/Button.dart';
-import 'package:shopaholics/Widgets/SecondaryView.dart';
+
+import '../../../Classes/User.dart';
+import '../../../Functions/Translation.dart';
+import '../../../Widgets/Button.dart';
+import '../../../Widgets/SecondaryView.dart';
+import '../../ChatsPage/ChatPage.dart';
 
 class SalesPage extends StatelessWidget {
   @override

@@ -1,4 +1,5 @@
 import 'package:hive/hive.dart';
+
 part 'AppLanguage.g.dart';
 
 @HiveType(typeId: 2)

@@ -2,12 +2,13 @@ import 'package:awesome_card/awesome_card.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:shopaholics/Classes/User.dart';
-import 'package:shopaholics/Functions/Translation.dart';
-import 'package:shopaholics/Widgets/Button.dart';
-import 'package:shopaholics/Widgets/CustomDialog.dart';
-import 'package:shopaholics/Widgets/SecondaryView.dart';
-import 'package:shopaholics/Widgets/loadingDialog.dart';
+
+import '../../../Classes/User.dart';
+import '../../../Functions/Translation.dart';
+import '../../../Widgets/Button.dart';
+import '../../../Widgets/CustomDialog.dart';
+import '../../../Widgets/SecondaryView.dart';
+import '../../../Widgets/loadingDialog.dart';
 
 class PaymentPage extends StatefulWidget {
   bool fetched = false;

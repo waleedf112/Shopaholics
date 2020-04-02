@@ -1,13 +1,13 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:shopaholics/Classes/TradeOffer.dart';
-import 'package:shopaholics/Functions/Translation.dart';
-import 'package:shopaholics/Pages/RequestsPage/RequestsPage.dart';
-import 'package:shopaholics/Widgets/Button.dart';
-import 'package:shopaholics/Widgets/CustomDialog.dart';
-import 'package:shopaholics/Widgets/SecondaryView.dart';
-import 'package:shopaholics/Widgets/TextWidget.dart';
-import 'package:shopaholics/Widgets/loadingDialog.dart';
+
+import '../../Classes/TradeOffer.dart';
+import '../../Functions/Translation.dart';
+import '../../Widgets/Button.dart';
+import '../../Widgets/CustomDialog.dart';
+import '../../Widgets/SecondaryView.dart';
+import '../../Widgets/loadingDialog.dart';
+import '../RequestsPage/RequestsPage.dart';
 
 class MakeOffer extends StatelessWidget {
   String id;

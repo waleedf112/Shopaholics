@@ -1,13 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
-import 'package:shopaholics/Pages/FavoritePage/FavoritePage.dart';
-import 'package:shopaholics/Pages/Homepage/HomePage.dart';
-import 'UserRole.dart';
 import 'package:google_maps_webservice/src/core.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:shopaholics/main.dart';
+import 'package:hive/hive.dart';
+
+import '../Pages/Homepage/HomePage.dart';
+import '../main.dart';
+import 'UserRole.dart';
+
 part 'User.g.dart';
 
 CurrentUser currentUser;

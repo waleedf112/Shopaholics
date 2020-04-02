@@ -1,17 +1,17 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:shopaholics/Classes/User.dart';
-import 'package:shopaholics/Functions/Translation.dart';
-import 'package:shopaholics/Functions/isEmailVerified.dart';
-import 'package:shopaholics/Pages/Settings/Functions/Validators.dart';
-import 'package:shopaholics/Widgets/AlertMessage.dart';
-import 'package:shopaholics/Widgets/Button.dart';
-import 'package:shopaholics/Widgets/CustomDialog.dart';
-import 'package:shopaholics/Widgets/SecondaryView.dart';
-import 'package:shopaholics/Widgets/TextWidget.dart';
-import 'package:shopaholics/Widgets/dismissKeyboard.dart';
-import 'package:shopaholics/Widgets/loadingDialog.dart';
+
+import '../../../Classes/User.dart';
+import '../../../Functions/Translation.dart';
+import '../../../Functions/isEmailVerified.dart';
+import '../../../Widgets/AlertMessage.dart';
+import '../../../Widgets/Button.dart';
+import '../../../Widgets/CustomDialog.dart';
+import '../../../Widgets/SecondaryView.dart';
+import '../../../Widgets/TextWidget.dart';
+import '../../../Widgets/loadingDialog.dart';
+import '../Functions/Validators.dart';
 
 class MyAccountPage extends StatelessWidget {
   @override

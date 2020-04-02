@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../Button.dart';
-
 class CategoryChip extends StatelessWidget {
   String value;
   CategoryChip(this.value);

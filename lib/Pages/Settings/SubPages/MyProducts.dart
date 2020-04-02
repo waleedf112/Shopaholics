@@ -1,13 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:shopaholics/Classes/Product.dart';
-import 'package:shopaholics/Classes/User.dart';
-import 'package:shopaholics/Pages/RequestsPage/RequestsPage.dart';
-import 'package:shopaholics/Widgets/GridProducts.dart';
-import 'package:shopaholics/Widgets/ListProducts.dart';
-import 'package:shopaholics/Widgets/ProductWidget.dart';
-import 'package:shopaholics/Widgets/SecondaryView.dart';
+
+import '../../../Classes/Product.dart';
+import '../../../Classes/User.dart';
+import '../../../Functions/Translation.dart';
+import '../../../Widgets/ProductWidget.dart';
+import '../../../Widgets/SecondaryView.dart';
+import '../../RequestsPage/RequestsPage.dart';
 
 ValueNotifier<int> updatedMyProductsPage = new ValueNotifier<int>(0);
 

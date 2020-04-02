@@ -2,20 +2,21 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:image_fade/image_fade.dart';
-import 'package:shopaholics/Classes/Order.dart';
-import 'package:shopaholics/Classes/Product.dart';
-import 'package:shopaholics/Classes/User.dart';
-import 'package:shopaholics/Functions/PagePush.dart';
-import 'package:shopaholics/Functions/isEmailVerified.dart';
-import 'package:shopaholics/Pages/Settings/SubPages/Addresses.dart';
-import 'package:shopaholics/Pages/Settings/SubPages/MyOrders.dart';
-import 'package:shopaholics/Pages/Settings/SubPages/PaymentPage.dart';
-import 'package:shopaholics/Widgets/Button.dart';
-import 'package:shopaholics/Widgets/CustomDialog.dart';
-import 'package:shopaholics/Widgets/SecondaryView.dart';
-import 'package:shopaholics/Widgets/TextWidget.dart';
-import 'package:shopaholics/Widgets/loadingDialog.dart';
+
+import '../../Classes/Order.dart';
+import '../../Classes/Product.dart';
+import '../../Classes/User.dart';
+import '../../Functions/PagePush.dart';
+import '../../Functions/Translation.dart';
+import '../../Functions/isEmailVerified.dart';
+import '../../Widgets/Button.dart';
+import '../../Widgets/CustomDialog.dart';
+import '../../Widgets/SecondaryView.dart';
+import '../../Widgets/TextWidget.dart';
+import '../../Widgets/loadingDialog.dart';
+import '../Settings/SubPages/Addresses.dart';
+import '../Settings/SubPages/MyOrders.dart';
+import '../Settings/SubPages/PaymentPage.dart';
 import 'noProductsInCart.dart';
 
 class ShoppingCart extends StatefulWidget {

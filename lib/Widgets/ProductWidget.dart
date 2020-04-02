@@ -1,15 +1,16 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:image_fade/image_fade.dart';
 import 'package:mdi/mdi.dart';
-import 'package:shopaholics/Classes/Product.dart';
-import 'package:flutter/material.dart';
-import 'package:shopaholics/Classes/User.dart';
-import 'package:shopaholics/Functions/PagePush.dart';
-import 'package:shopaholics/Functions/distanceCalculator.dart';
-import 'package:shopaholics/Functions/time.dart';
-import 'package:shopaholics/Pages/ProductViewer/ProductViewer.dart';
-import 'package:shopaholics/Pages/RequestsPage/RequestsPage.dart';
 
+import '../Classes/Product.dart';
+import '../Classes/User.dart';
+import '../Functions/PagePush.dart';
+import '../Functions/Translation.dart';
+import '../Functions/distanceCalculator.dart';
+import '../Functions/time.dart';
+import '../Pages/ProductViewer/ProductViewer.dart';
+import '../Pages/RequestsPage/RequestsPage.dart';
 import 'TextWidget.dart';
 
 class ProductWidget extends StatefulWidget {

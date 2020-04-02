@@ -1,10 +1,8 @@
-import 'dart:io';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:shopaholics/Classes/User.dart';
-import 'package:shopaholics/Widgets/CustomDialog.dart';
 
+import '../Classes/User.dart';
+import '../Widgets/CustomDialog.dart';
 import 'Translation.dart';
 
 Future<bool> isEmailVerified(context, [bool pop = true]) async {

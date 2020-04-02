@@ -1,32 +1,22 @@
-import 'package:auto_size_text/auto_size_text.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:mdi/mdi.dart';
 import 'package:persistent_bottom_nav_bar/models/persistent-bottom-nav-bar-styles.widget.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
-import 'package:shopaholics/Classes/Notification.dart';
-import 'package:shopaholics/Classes/Product.dart';
-import 'package:shopaholics/Classes/User.dart';
-import 'package:shopaholics/Classes/UserRole.dart';
-import 'package:shopaholics/Functions/PagePush.dart';
-import 'package:shopaholics/Functions/Translation.dart';
-import 'package:shopaholics/Functions/isEmailVerified.dart';
-import 'package:shopaholics/Pages/AddNewProduct/AddNewProduct.dart';
-import 'package:shopaholics/Pages/AddProductRequest/AddProductRequest.dart';
-import 'package:shopaholics/Pages/ChatsPage/ChatPage.dart';
-import 'package:shopaholics/Pages/FavoritePage/FavoritePage.dart';
-import 'package:shopaholics/Pages/RequestsPage/RequestsPage.dart';
-import 'package:shopaholics/Pages/Settings/Settings.dart';
-import 'package:shopaholics/Pages/ShoppingCart/ShoppingCart.dart';
-import 'package:shopaholics/Widgets/Button.dart';
-import 'package:shopaholics/Widgets/Categories/CategoriesWidget.dart';
-import 'package:shopaholics/Widgets/GridProducts.dart';
-import 'package:shopaholics/Widgets/ListProducts.dart';
-import 'package:shopaholics/Widgets/MainView.dart';
-import 'package:flutter/material.dart';
-import 'package:shopaholics/Widgets/TextWidget.dart';
 
+import '../../Classes/User.dart';
+import '../../Classes/UserRole.dart';
+import '../../Functions/PagePush.dart';
+import '../../Functions/Translation.dart';
+import '../../Widgets/Categories/CategoriesWidget.dart';
+import '../../Widgets/GridProducts.dart';
 import '../../main.dart';
+import '../AddNewProduct/AddNewProduct.dart';
+import '../AddProductRequest/AddProductRequest.dart';
+import '../ChatsPage/ChatPage.dart';
+import '../FavoritePage/FavoritePage.dart';
+import '../RequestsPage/RequestsPage.dart';
+import '../Settings/Settings.dart';
 
 ValueNotifier<int> updatedHomePage = new ValueNotifier<int>(DateTime.now().millisecondsSinceEpoch);
 

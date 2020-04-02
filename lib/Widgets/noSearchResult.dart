@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mdi/mdi.dart';
-import 'package:shopaholics/Widgets/TextWidget.dart';
+
+import '../Functions/Translation.dart';
+import 'TextWidget.dart';
 
 NoSearchResult() => Center(
       child: Column(

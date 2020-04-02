@@ -17,6 +17,8 @@ import 'package:shopaholics/Pages/RequestsPage/RequestsPage.dart';
 import 'package:shopaholics/Pages/Settings/SubPages/MyProducts.dart';
 import 'package:shopaholics/Pages/TicketsPages/TicketPage.dart';
 import 'package:shopaholics/Widgets/Button.dart';
+import 'package:shopaholics/Widgets/Categories/CategoriesText.dart';
+import 'package:shopaholics/Widgets/Categories/CategoryChip.dart';
 import 'package:shopaholics/Widgets/CustomDialog.dart';
 import 'package:shopaholics/Widgets/SecondaryView.dart';
 import 'package:shopaholics/Widgets/TextWidget.dart';
@@ -209,8 +211,9 @@ class _ProductViewerState extends State<ProductViewer> {
                         if (widget.product is ProductOffer) likeButton(),
                       ],
                     ),
+                    if (widget.product is ProductOffer) _buildCategoryChips(widget.product),
                     Padding(
-                      padding: const EdgeInsets.only(top: 3),
+                      padding: const EdgeInsets.only(top: 12),
                       child: TextWidget(
                           widget.product is ProductOffer
                               ? '${widget.product.productPrice} ريال'
@@ -473,6 +476,18 @@ class _ProductViewerState extends State<ProductViewer> {
           ],
         ),
       ),
+    );
+  }
+
+  _buildCategoryChips(ProductOffer product) {
+    List<String> categories = new List();
+    //TODO arabic - english.
+    categories.add(categories_arabic.keys.elementAt(product.mainCategory));
+    product.subCategories
+        .forEach((i) => categories.add(categories_arabic[categories_arabic.keys.elementAt(product.mainCategory)][i]));
+
+    return Wrap(
+      children: List.generate(categories.length, (value) => CategoryChip(categories[value])),
     );
   }
 }

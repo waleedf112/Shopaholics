@@ -230,7 +230,7 @@ class _Order extends StatelessWidget {
                   ],
                 ),
               ),
-              if (data['statusMessage'] == 99 && !data['hasBeenRated'])
+              if (data['statusMessage'] == 6 && !data['hasBeenRated'])
                 ListView.builder(
                   itemCount: data['products'].length,
                   shrinkWrap: true,

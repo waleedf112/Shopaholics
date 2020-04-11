@@ -12,7 +12,7 @@ part 'User.g.dart';
 CurrentUser currentUser;
 
 void userInit() => currentUser = new CurrentUser();
-bool isSignedIn() => currentUser != null;
+bool isSignedIn() => currentUser != null && currentUser.uid != null;
 void userDelete() {
   Hive.box('currentUser').delete(0);
   currentUser = null;

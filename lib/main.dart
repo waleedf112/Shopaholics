@@ -75,6 +75,7 @@ class Launcher extends StatefulWidget {
 
 class _LauncherState extends State<Launcher> {
   _init() async {
+    
     if (widget.firstRun) {
       final appDocumentDir = await path_provider.getApplicationDocumentsDirectory();
       Hive.init(appDocumentDir.path);
@@ -98,11 +99,12 @@ class _LauncherState extends State<Launcher> {
         if (currentUser.role == null) await currentUser.requestRole(role: UserRole.customer, forced: true);
       } catch (e) {}
     }
-
-    if (await FirebaseAuth.instance.currentUser() == null) {
+if (await FirebaseAuth.instance.currentUser() == null) {
       currentUser = null;
+      print('user is null');
       Hive.box('currentUser').delete(0);
     }
+    
   }
 
   @override

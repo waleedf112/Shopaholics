@@ -33,7 +33,7 @@ class _ProductWidgetState extends State<ProductWidget> {
   @override
   Widget build(BuildContext context) {
     Widget likeButton() {
-      if (widget.liked != null && widget.item.userUid == currentUser.uid)
+      if (widget.liked != null && isSignedIn() &&widget.item.userUid == currentUser.uid)
         return IconButton(
           icon: Icon(
             Icons.favorite,

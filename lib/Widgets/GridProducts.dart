@@ -186,6 +186,7 @@ class _GridProductsState extends State<GridProducts> {
                             documents[index].data,
                             documents[index].reference.path,
                           );
+                          print(currentUser);
                           if (!isSignedIn() || currentUser.likedOffers == null || currentUser.likedOffers.isEmpty)
                             return ProductWidget(
                               item: _product,

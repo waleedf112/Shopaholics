@@ -77,6 +77,7 @@ class ProductRequest {
 
   pushToDatabase() async {
     int time = DateTime.now().millisecondsSinceEpoch;
+    
     StorageReference storageReference;
 
     for (int i = 0; i < this.productImages.length; i++) {

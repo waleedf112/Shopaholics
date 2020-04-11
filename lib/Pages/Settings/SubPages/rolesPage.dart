@@ -140,7 +140,11 @@ class _RolesPageState extends State<RolesPage> {
                           widget.role = p;
                         });
                       },
-                      children: roleNames(),
+                      children: [
+                        if (currentUser.role == UserRole.admin) roleNames()[0],
+                        roleNames()[1],
+                        roleNames()[2],
+                      ],
                     ),
                   ),
                 ],

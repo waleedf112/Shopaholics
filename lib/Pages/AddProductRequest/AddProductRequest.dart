@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
@@ -48,7 +49,7 @@ class _AddProductRequestState extends State<AddProductRequest> {
   TextEditingController productNameController = new TextEditingController();
   TextEditingController productDescController = new TextEditingController();
   TextEditingController productPriceController = new TextEditingController();
-
+  ValueNotifier _switch = new ValueNotifier(true);
   @override
   Widget build(BuildContext context) {
     return SecondaryView(
@@ -183,6 +184,48 @@ class _AddProductRequestState extends State<AddProductRequest> {
                         ),
                       ),
                     ),
+                  ),
+                  Row(
+                    textDirection: layoutTranslation(),
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 14),
+                        child: Text(
+                          textTranslation(ar: 'استقبال الطلبات', en: 'Received Offers'),
+                          style: TextStyle(fontSize: 16),
+                        ),
+                      ),
+                      ValueListenableBuilder(
+                        valueListenable: _switch,
+                        builder: (_, value, __) {
+                          return Row(
+                            textDirection: layoutTranslation(),
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 14),
+                                child: Text(
+                                  value
+                                      ? textTranslation(ar: 'الجميع', en: 'All Offers')
+                                      : textTranslation(ar: 'محلياً فقط', en: 'Local Only'),
+                                  style: TextStyle(color: Colors.grey),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                              Container(
+                                height: 30,
+                                child: FittedBox(
+                                  child: CupertinoSwitch(
+                                    value: value,
+                                    onChanged: (b) => _switch.value = b,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                      )
+                    ],
                   ),
                   Divider(),
                   Padding(

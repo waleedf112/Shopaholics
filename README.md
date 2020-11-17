@@ -1,5 +1,5 @@
 # Shopaholics
-This is a simple shopping app that is built using Flutter framework.
+This is a simple shopping app that is built using Flutter framework for the front-end and Firebase for the back-end.
 ### The main features: 
 
 

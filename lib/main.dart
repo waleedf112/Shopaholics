@@ -20,7 +20,7 @@ import 'Pages/Settings/SigningPage.dart';
 import 'Widgets/Button.dart';
 import 'Widgets/MainView.dart';
 
-const mapApi = 'AIzaSyBbG6iid8fXmD36E8eKIMJX9YVTE1gdyMI';
+const mapApi = 'MAP API HERE';
 
 PushNotificationsManager pushNotificationsManager = new PushNotificationsManager();
 

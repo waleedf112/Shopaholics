@@ -1,4 +1,4 @@
-# Shipping App
+# Shopaholics
 This is a simple shopping app that is built using Flutter framework.
 ### The main features: 
 

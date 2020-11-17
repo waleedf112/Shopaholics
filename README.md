@@ -12,7 +12,7 @@ This is a simple shopping app that is built using Flutter framework.
  > - Sellers and customers can send and receive messages in real-time (Chat).
 
 
-## Important Note! ⚠
+## ⚠ Important Note! ⚠
 
 This is a prototype, it was built as a future idea that may need expanding.
 It weren't built as a commercial app, therefore, it doesn't follow the principles of clean, readable, reusable code.

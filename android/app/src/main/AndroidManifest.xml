@@ -8,7 +8,7 @@
 	-->
 	<uses-permission android:name="android.permission.INTERNET"/>
 	<application android:name="io.flutter.app.FlutterApplication" android:label="Shopaholics" android:icon="@mipmap/ic_launcher" android:requestLegacyExternalStorage="true">
-		<meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyBbG6iid8fXmD36E8eKIMJX9YVTE1gdyMI" />
+		<meta-data android:name="com.google.android.geo.API_KEY" android:value="API HERE" />
 		<activity android:name=".MainActivity" android:launchMode="singleTop" android:theme="@style/LaunchTheme" android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode" android:hardwareAccelerated="true" android:windowSoftInputMode="adjustResize">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
